@@ -65,5 +65,5 @@ const server = http.createServer(async (req, res) => {
 
 server.listen(8799, () => {
   console.log(`Opening LinkedIn consent screen… (if the wrong browser opens, paste this URL into the right one)\n${authUrl}`);
-  execFile('open', [authUrl]);
+  if (!process.env.NO_OPEN) execFile('open', [authUrl]);
 });
