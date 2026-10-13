@@ -61,7 +61,7 @@ function loadPosts() {
 // pinned to the commit that contains them.
 function rawUrl(post, file) {
   const repo = env('GITHUB_REPOSITORY');
-  const sha = env('GITHUB_SHA');
+  const sha = process.env.COMMIT_SHA || env('GITHUB_SHA');
   return `https://raw.githubusercontent.com/${repo}/${sha}/posts/${encodeURIComponent(post.slug)}/${encodeURIComponent(file)}`;
 }
 

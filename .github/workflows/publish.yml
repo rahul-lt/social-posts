@@ -24,12 +24,15 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     steps:
+      # Latest branch tip, not the trigger SHA: a queued run must see published.json from the run before it.
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref }}
       - uses: actions/setup-node@v4
         with:
           node-version: 22
       - name: Publish due posts
-        run: node scripts/publish.mjs
+        run: COMMIT_SHA=$(git rev-parse HEAD) node scripts/publish.mjs
         env:
           ONLY_POST: ${{ inputs.only_post }}
           DRY_RUN: ${{ inputs.dry_run && '1' || '' }}

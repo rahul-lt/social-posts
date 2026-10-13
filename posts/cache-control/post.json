@@ -1,0 +1,9 @@
+{
+  "publishAt": "2099-01-01T00:00:00.000Z",
+  "platforms": [
+    "instagram",
+    "linkedin"
+  ],
+  "caption": "no-cache does not mean \"don't cache\".\n\nno-cache, no-store and max-age=60, and what each one really does on the second visit. Save this for your next deploy.\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "cache control"
+}
