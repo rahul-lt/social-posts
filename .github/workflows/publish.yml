@@ -1,0 +1,47 @@
+name: Publish scheduled posts
+
+on:
+  schedule:
+    - cron: '*/15 * * * *'
+  workflow_dispatch:
+    inputs:
+      only_post:
+        description: 'Publish this post slug now, ignoring publishAt'
+        required: false
+      dry_run:
+        description: 'Dry run (no API calls)'
+        type: boolean
+        default: false
+
+concurrency:
+  group: publish
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Publish due posts
+        run: node scripts/publish.mjs
+        env:
+          ONLY_POST: ${{ inputs.only_post }}
+          DRY_RUN: ${{ inputs.dry_run && '1' || '' }}
+          IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
+          IG_USER_ID: ${{ secrets.IG_USER_ID }}
+          LINKEDIN_ACCESS_TOKEN: ${{ secrets.LINKEDIN_ACCESS_TOKEN }}
+          LINKEDIN_AUTHOR_URN: ${{ secrets.LINKEDIN_AUTHOR_URN }}
+      # Runs even when one platform failed so the successful one is never re-posted.
+      - name: Record published posts
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add published.json 2>/dev/null || true
+          git diff --cached --quiet || (git commit -m "chore: record published posts [skip ci]" && git push)
