@@ -43,3 +43,12 @@ Publish immediately: Actions → Publish scheduled posts → Run workflow → `o
 - Both tokens expire 2026-12-12 (see `*_TOKEN_EXPIRES` in `.env.local`). Renew ~Dec 5:
   re-run both auth scripts, then push secrets (README step 4).
 - Never paste secrets via Claude's `!` prompt: it lands in the chat transcript.
+
+## From the first live post (cache-control, 2026-10-13)
+- LinkedIn `multiImage` renders as a GRID in the feed (cover cropped, "+N" tile), not a swipe carousel.
+  A swipeable LinkedIn carousel needs a PDF document post (Documents API) instead.
+- Publish "now" = add the post with a far-future `publishAt` and run the workflow with `only_post`;
+  a past `publishAt` lets the 15-min cron race the manual run.
+- Workflow checks out the branch tip (not the trigger SHA) so a queued run sees the previous run's
+  `published.json` and never double-posts.
+- LinkedIn read-back of posts returns 403 (needs restricted `r_member_social`); verify in the browser.
