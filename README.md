@@ -10,7 +10,9 @@ git add posts && git commit -m "post: react-hooks" && git push
 ```
 
 - Slides are converted to JPEG (`posts/<slug>/01.jpg …`), sorted by filename.
-- Optional `post.json` fields: `instagramCaption`, `linkedinCaption`, `platforms` (default both), `altText`.
+- Optional `post.json` fields: `instagramCaption`, `linkedinCaption`, `platforms` (default both), `altText`,
+  `title` (document name on LinkedIn).
+- Instagram gets the slides as an image carousel; LinkedIn gets them as one PDF document post (swipeable carousel).
 - The `Publish scheduled posts` workflow runs every 15 min and publishes posts whose `publishAt` has passed.
   Results land in `published.json`; a platform already recorded there is never posted again.
 - Publish now: Actions → Publish scheduled posts → Run workflow → `only_post = <slug>` (tick dry run to test).

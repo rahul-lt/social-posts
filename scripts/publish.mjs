@@ -119,32 +119,85 @@ const liHeaders = () => ({
 // Posts API commentary is "little text": these characters must be escaped or the post gets truncated.
 const escapeLittleText = (s) => s.replace(/[\\|{}@[\]()<>#*_~]/g, (c) => `\\${c}`);
 
-async function liUploadImage(file) {
-  const { body } = await http(`${LI_API}/images?action=initializeUpload`, {
+function jpegSize(buf) {
+  for (let i = 2; i < buf.length; ) {
+    const marker = buf[i + 1];
+    if (marker >= 0xc0 && marker <= 0xcf && ![0xc4, 0xc8, 0xcc].includes(marker))
+      return { h: buf.readUInt16BE(i + 5), w: buf.readUInt16BE(i + 7) };
+    i += 2 + buf.readUInt16BE(i + 2);
+  }
+  throw new Error('Not a JPEG');
+}
+
+// LinkedIn only shows a swipeable carousel for document posts, so the slides become a PDF:
+// one full-bleed JPEG per page (2x renders → pages at half the pixel size, in points).
+export function slidesToPdf(files) {
+  const objs = []; // objs[k - 1] = body of PDF object k
+  const pages = [];
+  files.forEach((f, i) => {
+    const jpg = fs.readFileSync(f);
+    const { w, h } = jpegSize(jpg);
+    const n = 3 + i * 3; // image = n, content = n + 1, page = n + 2
+    const draw = `q ${w / 2} 0 0 ${h / 2} 0 0 cm /Im Do Q`;
+    objs[n - 1] = Buffer.concat([
+      Buffer.from(`<< /Type /XObject /Subtype /Image /Width ${w} /Height ${h} /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode /Length ${jpg.length} >>\nstream\n`),
+      jpg,
+      Buffer.from('\nendstream'),
+    ]);
+    objs[n] = Buffer.from(`<< /Length ${draw.length} >>\nstream\n${draw}\nendstream`);
+    objs[n + 1] = Buffer.from(
+      `<< /Type /Page /Parent 2 0 R /MediaBox [0 0 ${w / 2} ${h / 2}] /Resources << /XObject << /Im ${n} 0 R >> >> /Contents ${n + 1} 0 R >>`
+    );
+    pages.push(`${n + 2} 0 R`);
+  });
+  objs[0] = Buffer.from('<< /Type /Catalog /Pages 2 0 R >>');
+  objs[1] = Buffer.from(`<< /Type /Pages /Kids [${pages.join(' ')}] /Count ${pages.length} >>`);
+
+  const parts = [Buffer.from('%PDF-1.4\n%\xE2\xE3\xCF\xD3\n', 'latin1')];
+  let offset = parts[0].length;
+  const offsets = objs.map((body, k) => {
+    const chunk = Buffer.concat([Buffer.from(`${k + 1} 0 obj\n`), body, Buffer.from('\nendobj\n')]);
+    parts.push(chunk);
+    const at = offset;
+    offset += chunk.length;
+    return at;
+  });
+  const xref = offsets.map((o) => `${String(o).padStart(10, '0')} 00000 n \n`).join('');
+  parts.push(
+    Buffer.from(`xref\n0 ${objs.length + 1}\n0000000000 65535 f \n${xref}trailer\n<< /Size ${objs.length + 1} /Root 1 0 R >>\nstartxref\n${offset}\n%%EOF\n`)
+  );
+  return Buffer.concat(parts);
+}
+
+async function liUploadDocument(pdf) {
+  const { body } = await http(`${LI_API}/documents?action=initializeUpload`, {
     method: 'POST',
     headers: liHeaders(),
     body: JSON.stringify({ initializeUploadRequest: { owner: env('LINKEDIN_AUTHOR_URN') } }),
   });
-  const { uploadUrl, image } = body.value;
+  const { uploadUrl, document } = body.value;
   await http(uploadUrl, {
     method: 'PUT',
     headers: { Authorization: `Bearer ${env('LINKEDIN_ACCESS_TOKEN')}` },
-    body: fs.readFileSync(file),
+    body: pdf,
   });
-  return image;
+  // Posting before processing finishes fails, so wait for AVAILABLE.
+  for (let i = 0; i < 24; i++) {
+    const { body: doc } = await http(`${LI_API}/documents/${encodeURIComponent(document)}`, { headers: liHeaders() });
+    if (doc.status === 'AVAILABLE') return document;
+    if (doc.status === 'PROCESSING_FAILED') throw new Error(`LinkedIn could not process ${document}`);
+    await sleep(5000);
+  }
+  throw new Error(`LinkedIn document ${document} not ready after 120s`);
 }
 
 async function publishLinkedIn(post) {
   const caption = post.linkedinCaption ?? post.caption;
-  if (DRY_RUN) return { dryRun: true, slides: post.slides.length };
+  const pdf = slidesToPdf(post.slides.map((f) => path.join(post.dir, f)));
+  if (DRY_RUN) return { dryRun: true, pages: post.slides.length, pdfBytes: pdf.length };
 
-  const ids = [];
-  for (const f of post.slides) ids.push(await liUploadImage(path.join(post.dir, f)));
-  const altText = post.altText || post.slug;
-  const content =
-    ids.length === 1
-      ? { media: { id: ids[0], altText } }
-      : { multiImage: { images: ids.map((id, i) => ({ id, altText: `${altText} – slide ${i + 1}` })) } };
+  const title = post.title || post.altText || post.slug;
+  const content = { media: { id: await liUploadDocument(pdf), title } };
 
   const { res } = await http(`${LI_API}/posts`, {
     method: 'POST',

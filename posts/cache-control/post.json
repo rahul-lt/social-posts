@@ -5,5 +5,6 @@
     "linkedin"
   ],
   "caption": "no-cache does not mean \"don't cache\".\n\nno-cache, no-store and max-age=60, and what each one really does on the second visit. Save this for your next deploy.\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
-  "altText": "cache control"
+  "altText": "cache control",
+  "title": "Cache-Control: no-cache vs no-store vs max-age"
 }

@@ -47,8 +47,18 @@ Publish immediately: Actions → Publish scheduled posts → Run workflow → `o
 ## From the first live post (cache-control, 2026-10-13)
 - LinkedIn `multiImage` renders as a GRID in the feed (cover cropped, "+N" tile), not a swipe carousel.
   A swipeable LinkedIn carousel needs a PDF document post (Documents API) instead.
+  -> Switched: publish.mjs builds a PDF from the slide JPEGs (no deps, 2x JPEG = 1080x1350 pt page),
+  uploads via /rest/documents, waits for AVAILABLE (~5 s), posts `content.media {id, title}`.
+  Works with `w_member_social` for a personal profile.
 - Publish "now" = add the post with a far-future `publishAt` and run the workflow with `only_post`;
   a past `publishAt` lets the 15-min cron race the manual run.
 - Workflow checks out the branch tip (not the trigger SHA) so a queued run sees the previous run's
   `published.json` and never double-posts.
 - LinkedIn read-back of posts returns 403 (needs restricted `r_member_social`); verify in the browser.
+
+## Instagram audio
+- Carousels cannot get Instagram library music via the API (Reels only). Music on carousels has to be
+  added by hand in the app (after posting: not possible either; it must be chosen while posting).
+- Licensed music via API exists only for Reels, through the Instagram Audio API, which requires the
+  Facebook Login flavour of the API (Business/Creator account linked to a Facebook Page). We use
+  Instagram Login, so not available today.

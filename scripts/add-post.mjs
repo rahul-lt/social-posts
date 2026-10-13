@@ -42,6 +42,8 @@ const post = {
   platforms: ['instagram', 'linkedin'],
   caption,
   altText: slug.replace(/-/g, ' '),
+  // Shown as the document name on the LinkedIn PDF carousel; edit in post.json.
+  title: slug.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase()),
 };
 fs.writeFileSync(path.join(outDir, 'post.json'), JSON.stringify(post, null, 2) + '\n');
 console.log(`Added posts/${slug} (${slides.length} slides) → publishes ${post.publishAt}`);
