@@ -62,3 +62,5 @@ Publish immediately: Actions → Publish scheduled posts → Run workflow → `o
 - Licensed music via API exists only for Reels, through the Instagram Audio API, which requires the
   Facebook Login flavour of the API (Business/Creator account linked to a Facebook Page). We use
   Instagram Login, so not available today.
+- Right after a document post, its URL redirects to Notifications ("Document successfully uploaded") for ~10-15 s; reload after that.
+- To republish one platform: move its entry in published.json (e.g. linkedin -> linkedinDeleted), push, run with only_post.
