@@ -6,14 +6,16 @@ Everything we figured out while building this pipeline. Add to it whenever somet
 - Captions stay very short: one hook line + one line of context.
 - Every post ends with the footer in `footer.txt`. `scripts/add-post.mjs` appends it automatically.
 - Max 10 slides per carousel (Instagram API cap, even though the app allows 20).
-- Slides are built with the sticker-carousel skill in `decks/<topic>/` (shared kit in `decks/_kit/`),
-  rendered to `decks/<topic>/out/*.png`, then added with `add-post.mjs`.
+- Slides are built with the `allahabadi-carousel` skill (~/.claude/skills/allahabadi-carousel): Clean editorial D1
+  design + Rahul's content rules. Decks live in `decks/<slug>/deck.html`, rendered to `decks/<slug>/out/*.png`.
+  (`decks/_kit/` is the old sticker kit, only used by the first cache-control deck.)
+- Design rounds for that skill: `decks/_design-options/` (index.html = 5 options, index-v2.html = D variants; D1 chosen).
 - Slide footer handle is `@allahabadi.dev` (the Instagram account we post to).
 
 ## Workflow
 ```bash
-cd decks/<topic> && python3 build.py && python3 ../_kit/render.py   # must print "done. gate clean."
-cd ../.. && node scripts/add-post.mjs <slug> decks/<topic>/out "<ISO time>" decks/<topic>/caption.txt
+cd decks/<slug> && python3 ~/.claude/skills/allahabadi-carousel/kit/render.py   # must print "done. gate clean."
+cd ../.. && node scripts/add-post.mjs <slug> decks/<slug>/out "<ISO time>" decks/<slug>/caption.txt
 git add posts && git commit -m "post: <slug>" && git push            # cron publishes when due
 ```
 Publish immediately: Actions → Publish scheduled posts → Run workflow → `only_post=<slug>`.

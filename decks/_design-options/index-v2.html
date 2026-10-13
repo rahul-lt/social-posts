@@ -1,0 +1,455 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Carousel Design Options</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800&family=JetBrains+Mono:wght@500;700&family=Space+Grotesk:wght@500;600;700&family=Space+Mono:wght@400;700&family=Archivo:wght@500;600;700;800&family=IBM+Plex+Sans:wght@500;600;700&family=IBM+Plex+Mono:wght@500;600;700&family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&display=swap">
+<script src="https://cdn.jsdelivr.net/npm/roughjs@4.6.6/bundled/rough.js"></script>
+<style>
+/* ---------- viewer ---------- */
+:root{--vbg:#e7e4dd;--vink:#1b1b1b}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--vbg:#2a2926;--vink:#f1eee8}}
+:root[data-theme="dark"]{--vbg:#2a2926;--vink:#f1eee8}
+body{margin:0;background:var(--vbg);color:var(--vink);font:500 16px/1.5 Inter,system-ui,sans-serif}
+header.v{padding:28px 16px 8px;max-width:1200px;margin:0 auto}
+header.v h1{margin:0 0 6px;font:800 28px/1.2 Inter}
+header.v p{margin:0 0 6px;max-width:820px}
+nav.v{display:flex;flex-wrap:wrap;gap:8px;padding:8px 16px;max-width:1200px;margin:0 auto}
+nav.v a{color:inherit;border:1.5px solid currentColor;border-radius:99px;padding:4px 12px;text-decoration:none;font-weight:600}
+section.opt{max-width:100%;margin:24px auto 40px}
+.opt-head{max-width:1200px;margin:0 auto;padding:0 16px}
+.opt-head h2{margin:0;font:800 22px/1.3 Inter}
+.opt-head p{margin:4px 0 12px;max-width:900px}
+.row{display:flex;gap:14px;overflow-x:auto;padding:4px 16px 14px;scroll-snap-type:x mandatory}
+.thumb{flex:0 0 auto;width:356px;height:445px;position:relative;cursor:zoom-in;scroll-snap-align:start;box-shadow:0 2px 10px rgba(0,0,0,.18);border-radius:6px;overflow:hidden}
+.thumb .s{transform:scale(.3296);transform-origin:0 0;position:absolute;left:0;top:0}
+.zoom{position:fixed;inset:0;background:rgba(0,0,0,.75);display:none;align-items:center;justify-content:center;z-index:10;cursor:zoom-out}
+.zoom.on{display:flex}
+.zoom .holder{position:relative}
+.zoom .holder .s{transform-origin:0 0;position:absolute;left:0;top:0}
+
+/* ---------- slide base (shared by all options) ---------- */
+.s{width:1080px;height:1350px;position:relative;overflow:hidden;background:var(--paper);color:var(--ink);
+   font-family:var(--fb);padding:56px 64px 40px;display:flex;flex-direction:column;gap:20px;box-sizing:border-box}
+.s::before{content:"";position:absolute;inset:0;background:var(--pattern);pointer-events:none;z-index:0}
+.s::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:3;mix-blend-mode:multiply;opacity:var(--texop);
+   background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='360' height='360'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .45  0 0 0 0 .4  0 0 0 0 .33  0 0 0 .5 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>"),
+   radial-gradient(ellipse at 50% 40%, transparent 55%, rgba(120,100,70,.18) 100%);background-size:360px 360px,100% 100%}
+.s>*{position:relative;z-index:1}
+.kick{font:600 26px/1.2 var(--fm);letter-spacing:.06em;text-transform:uppercase}
+.s h2{font:var(--hw) 64px/1.08 var(--fh);margin:0;letter-spacing:-.02em}
+.s .lead{font:500 33px/1.4 var(--fb);margin:0}
+.s .sm{font:500 29px/1.4 var(--fb);margin:0}
+.fig{flex:1 0 auto;display:flex;align-items:center}
+.fig svg{width:100%;height:auto;display:block;overflow:visible}
+.fig .tb{font-family:var(--fb)} .fig .tm{font-family:var(--fm)}
+.cells{display:grid;grid-template-columns:1fr 1fr;gap:20px 30px}
+.cell b{display:block;font:700 26px/1.2 var(--fm);letter-spacing:.05em;text-transform:uppercase;margin-bottom:6px}
+.cell span{font:500 29px/1.34 var(--fb)}
+.code{font:500 28px/1.5 var(--fm);margin:0;white-space:pre-wrap}
+.pill{font:700 30px/1 var(--fm);display:inline-block;padding:10px 16px;border-radius:999px;white-space:nowrap}
+.foot{margin-top:auto;display:flex;justify-content:space-between;font:600 24px/1 var(--fm)}
+.steps{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:14px;counter-reset:st}
+.steps li{font:500 31px/1.38 var(--fb);padding-left:62px;position:relative;counter-increment:st}
+.steps li::before{content:counter(st);position:absolute;left:0;top:-2px;width:44px;height:44px;border-radius:50%;
+   display:flex;align-items:center;justify-content:center;font:700 26px/1 var(--fm);border:2.5px solid var(--ink)}
+table.pick{border-collapse:collapse;width:100%}
+table.pick th{font:700 26px/1.2 var(--fm);letter-spacing:.05em;text-transform:uppercase;text-align:left;padding:0 10px 12px 0}
+table.pick td{font:500 29px/1.32 var(--fb);padding:18px 14px 18px 0;vertical-align:top;border-top:2px solid var(--rule)}
+table.pick td:nth-child(2){white-space:nowrap}
+.cover-title{font:var(--hw) 112px/1.02 var(--fh);margin:0;letter-spacing:-.03em}
+.cover-title code{font-family:var(--fm);font-weight:700;letter-spacing:-.04em}
+code{font-family:var(--fm)}
+
+/* ---------- Option A: Notebook ---------- */
+.optA{--paper:#f7f3e9;--ink:#1a1a1a;--a1:#ffd84a;--a2:#4cc3f5;--a2soft:#cfeefc;--rule:#1a1a1a33;
+  --fh:"Inter";--fb:"Inter";--fm:"JetBrains Mono";--hw:800;--texop:.55;
+  --pattern:linear-gradient(90deg,transparent 0 98px,#e8796a55 98px 100px,transparent 100px),repeating-linear-gradient(180deg,transparent 0 52px,#7aa6c933 52px 54px)}
+.optA mark{background:linear-gradient(180deg,transparent 52%,var(--a1) 52% 92%,transparent 92%);color:inherit;padding:0 4px}
+.optA .note{border-left:10px solid var(--a1);padding:6px 0 6px 22px;font:600 31px/1.4 var(--fb)}
+.optA .pill{background:var(--a1)} .optA .pill.b{background:var(--a2soft)}
+.optA .code{background:#ffffff80;border:2px solid var(--ink);border-radius:10px;padding:14px 18px}
+
+/* ---------- Option B: Sketchbook dots ---------- */
+.optB{--paper:#f5f1e6;--ink:#161616;--a1:#ffd23f;--a2:#38b6f0;--a2soft:#d3f0fd;--rule:#16161630;
+  --fh:"Space Grotesk";--fb:"Space Grotesk";--fm:"Space Mono";--hw:700;--texop:.6;
+  --pattern:radial-gradient(circle,#16161636 1.8px,transparent 2.3px) 0 0/40px 40px}
+.optB mark{background:none;color:inherit;border-bottom:7px solid var(--a2);padding:0 2px}
+.optB .note{border:2.5px dashed var(--ink);border-radius:16px;padding:14px 20px;font:600 31px/1.4 var(--fb);background:var(--a2soft)}
+.optB .pill{border:2.5px solid var(--ink);background:var(--paper)} .optB .pill.b{background:var(--a2soft)}
+.optB .code{border:2.5px dashed var(--ink);border-radius:12px;padding:14px 18px}
+
+/* ---------- Option C: Index card + sticky notes ---------- */
+.optC{--paper:#f3ecdc;--ink:#1d1b18;--a1:#ffe066;--a2:#5ac8fa;--a2soft:#d6f1fd;--rule:#1d1b1833;
+  --fh:"Archivo";--fb:"Archivo";--fm:"IBM Plex Mono";--hw:800;--texop:.8;
+  --pattern:linear-gradient(180deg,transparent 0 150px,#d9534f40 150px 152px,transparent 152px)}
+.optC mark{background:var(--a1);color:inherit;padding:0 6px;border-radius:3px}
+.optC .note{background:var(--a1);padding:18px 22px;font:600 31px/1.4 var(--fb);transform:rotate(-.8deg);box-shadow:2px 6px 10px #0000002a;align-self:flex-start;max-width:96%}
+.optC .note::before{content:"";position:absolute;top:-16px;left:40%;width:120px;height:30px;background:#5ac8fa99;transform:rotate(-3deg)}
+.optC .pill{background:var(--a1);border-radius:6px} .optC .pill.b{background:var(--a2soft)}
+.optC .code{background:#fffdf6;box-shadow:1px 3px 8px #00000020;padding:14px 18px}
+
+/* ---------- Option D: Clean editorial ---------- */
+.optD{--paper:#faf7f0;--ink:#151515;--a1:#ffd400;--a2:#2fb3ee;--a2soft:#dcf3fd;--rule:#15151526;
+  --fh:"IBM Plex Sans";--fb:"IBM Plex Sans";--fm:"IBM Plex Mono";--hw:700;--texop:.4;--pattern:none}
+.optD mark{background:var(--a2soft);color:inherit;padding:0 5px}
+.optD .note{padding:16px 0;border-top:2px solid var(--ink);border-bottom:2px solid var(--ink);font:600 31px/1.4 var(--fb)}
+.optD .note::first-line{color:inherit}
+.optD .pill{border:2px solid var(--ink);border-radius:8px;padding:8px 14px} .optD .pill.b{background:var(--a2soft)}
+.optD .code{border-left:4px solid var(--a2);padding:6px 0 6px 18px}
+.optD .s h2{letter-spacing:-.01em}
+
+/* ---------- Option E: Marker zine ---------- */
+.optE{--paper:#f2ecdf;--ink:#111;--a1:#ffd000;--a2:#45bdf4;--a2soft:#cdeefd;--rule:#11111140;
+  --fh:"Bricolage Grotesque";--fb:"Bricolage Grotesque";--fm:"JetBrains Mono";--hw:800;--texop:.75;
+  --pattern:linear-gradient(#1111110c 2px,transparent 2px) 0 0/60px 60px,linear-gradient(90deg,#1111110c 2px,transparent 2px) 0 0/60px 60px}
+.optE mark{background:var(--a1);color:inherit;padding:0 6px;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+.optE .note{background:var(--ink);color:var(--paper);padding:18px 24px;border-radius:4px;font:700 31px/1.4 var(--fb)}
+.optE .note mark{color:var(--ink)}
+.optE .pill{background:var(--a1);border:3px solid var(--ink);border-radius:6px} .optE .pill.b{background:var(--a2)}
+.optE .code{border:3px solid var(--ink);padding:14px 18px;background:#ffffff70}
+.optE .s h2{font-size:68px;letter-spacing:-.03em}
+
+/* ---------- round 2: D variants ---------- */
+.optD .s{gap:19px}
+.optD .s h2{font-size:54px;line-height:1.1}
+.optD .s .lead{font-size:35px;line-height:1.4}
+.optD .s .sm{font-size:33px;line-height:1.4}
+.optD .note{font-size:33px}
+.optD .steps li{font-size:34px}
+.optD table.pick td{font-size:31px;padding:13px 14px 13px 0}
+.top{display:flex;justify-content:space-between;align-items:center;gap:20px}
+.top .brand{font:500 22px/1 var(--fm);opacity:.55;white-space:nowrap}
+.optD .kick{padding:10px 16px;border-radius:6px;align-self:flex-start}
+.optD .cells{gap:20px}
+.optD .cell{border:2px solid var(--ink);border-radius:12px;padding:16px 20px;position:relative}
+.optD .cell b{display:inline-block;font:700 26px/1.2 var(--fm);padding:6px 12px;border-radius:6px;margin-bottom:12px}
+.optD .cell span{display:block;font:500 33px/1.36 var(--fb)}
+/* D1: tinted label + tinted chip inside card */
+.v1 .kick{background:var(--a2soft)}
+.v1 .cell b{background:var(--a2soft);border:2px solid var(--ink)}
+/* all variants: card title sits on the top border like a tab */
+.optD .cells{margin-top:14px;row-gap:32px}
+.optD .cell{padding-top:26px}
+.optD .cell b{position:absolute;top:-22px;left:16px;margin:0;border:2px solid var(--ink)}
+/* D1: sky-tint label, sky-tint tab */
+.v1 .kick{background:var(--a2soft)}
+.v1 .cell b{background:var(--a2soft)}
+/* D2: outlined label, paper tab */
+.v2 .kick{border:2px solid var(--ink);background:var(--a2soft)}
+.v2 .cell b{background:var(--paper)}
+/* D3: ink label, sky card with ink tab */
+.v3 .kick{background:var(--ink);color:var(--paper)}
+.v3 .cell{background:var(--a2soft)}
+.v3 .cell b{background:var(--ink);color:var(--paper)}
+</style>
+</head>
+<body>
+<header class="v">
+  <h1>Cache-Control carousel: option D, round 2</h1>
+  <p>Three variants of Clean editorial. Same layout; they differ only in the colors of the section label and the term-card titles. Tap any slide to see it full size.</p>
+  <p>Changes: no footer (brand and page number sit small in the top-right), no section numbers, smaller headings, larger body and card text, full sentences everywhere.</p>
+</header>
+<nav class="v" id="nav"></nav>
+<div id="opts"></div>
+<div class="zoom" id="zoom"><div class="holder" id="holder"></div></div>
+
+<script>
+const OPTIONS = [
+  {id:'D1', cls:'optD v1', name:'D1 · Tinted labels', desc:'Section label on a sky-blue tint. Term cards: thin border, title in a sky-tint tab on the border.', rough:{roughness:.45,bowing:.3,sw:2.2,fill:'solid'}},
+  {id:'D2', cls:'optD v2', name:'D2 · Tab titles', desc:'Section label outlined with a light tint. Term cards: thin border, title in a paper-colored tab on the border.', rough:{roughness:.45,bowing:.3,sw:2.2,fill:'solid'}},
+  {id:'D3', cls:'optD v3', name:'D3 · Ink labels', desc:'Section label in black with white text. Term cards: light sky background, title in a black tab.', rough:{roughness:.45,bowing:.3,sw:2.2,fill:'solid'}},
+]
+const HANDLE = '@allahabadi.dev';
+const TOTAL = 9;
+const hdr = (n, label) => `<div class="top"><span class="kick">${label}</span><span class="brand">allahabadi.dev · ${String(n).padStart(2,'0')}/${String(TOTAL).padStart(2,'0')}</span></div>`;
+
+const SLIDES = [
+ n => `${hdr(n, 'HTTP caching, explained')}
+   <h1 class="cover-title"><code>no-cache</code><br><code>no-store</code><br><code>max-age=60</code></h1>
+   <p class="lead">What each one tells the browser, <mark>what it really saves</mark>, and when you should use it.</p>
+   <div class="fig" data-ill="cover"></div>`,
+
+ n => `${hdr(n, 'The problem')}
+   <h2>Every time you open a web page, your browser downloads the same files again</h2>
+   <p class="lead">A web page is built from many files: the HTML document, CSS, JavaScript, images and API data. Without caching, your browser asks the server for <mark>every one of them on every visit</mark>, even when nothing has changed.</p>
+   <div class="fig" data-ill="problem"></div>
+   <div class="note">This makes pages load slower, uses more of your users' mobile data and puts more load on your server.</div>`,
+
+ n => `${hdr(n, 'Who decides')}
+   <h2>The server tells the browser how to reuse each file</h2>
+   <p class="lead">Every response from the server, whether it is the HTML document, a JavaScript file, an image or an API reply, can include a <mark><code>Cache-Control</code> header</mark>. The browser reads it and decides whether to keep a copy, reuse it, or ask the server first.</p>
+   <div class="fig" data-ill="header"></div>
+   <div class="note">This header is set on the backend: in your server code, in the web server config (nginx, Apache) or on the CDN. Frontend code cannot change it.</div>
+   <pre class="code">// Express: set on the server, for this response
+res.set('Cache-Control', 'max-age=60');</pre>`,
+
+ n => `${hdr(n, 'How "asking first" works')}
+   <h2>How the browser asks the server: has this file changed?</h2>
+   <div class="fig" data-ill="etag"></div>
+   <div class="cells">
+     <div class="cell"><b>ETag</b><span>A fingerprint of the file that the server creates, often a hash of its content. When the file changes, its ETag changes too.</span></div>
+     <div class="cell"><b>If-None-Match</b><span>The browser sends back the ETag it already has. It means: send me the file only if your version is different.</span></div>
+   </div>
+   <div class="note">Asking still takes one trip to the server and back. What you save is <mark>the download itself</mark>, because a 304 response has no body.</div>`,
+
+ n => `${hdr(n, 'Cache-Control: no-cache')}
+   <h2>no-cache: the browser keeps a copy but checks it before every use</h2>
+   <p class="sm">Despite the name, it does <mark>not</mark> mean "do not cache". The browser stores the response and asks the server before every reuse.</p>
+   <div class="fig" data-ill="nocache"></div>
+   <div class="cells">
+     <div class="cell"><b>What you save</b><span>When the file has not changed, it is not downloaded again.</span></div>
+     <div class="cell"><b>What you pay</b><span>Every use still waits for one request to the server.</span></div>
+     <div class="cell"><b>Use it for</b><span>HTML documents, so users get the new version right after you deploy.</span></div>
+     <div class="cell"><b>Avoid it for</b><span>Files that never change, like hashed JS and CSS. The check is wasted.</span></div>
+   </div>`,
+
+ n => `${hdr(n, 'Cache-Control: no-store')}
+   <h2>no-store: no copy is kept anywhere</h2>
+   <p class="sm">Not in the browser, not on a CDN, not on a proxy. <mark>Every visit downloads the full response again.</mark></p>
+   <div class="fig" data-ill="nostore"></div>
+   <div class="cells">
+     <div class="cell"><b>What you save</b><span>No copy of private data is left on the device or on shared servers.</span></div>
+     <div class="cell"><b>What you pay</b><span>The full response is downloaded on every visit, so pages are slower.</span></div>
+     <div class="cell"><b>Use it for</b><span>Pages with private data: bank balances, personal details, one-time codes.</span></div>
+     <div class="cell"><b>Avoid it for</b><span>Public content. It throws away every speed benefit of caching.</span></div>
+   </div>`,
+
+ n => `${hdr(n, 'Cache-Control: max-age=60')}
+   <h2>max-age=60: reuse the copy for 60 seconds without asking</h2>
+   <p class="sm">The page does not reload by itself. 60 only sets <mark>how many seconds the saved copy counts as fresh</mark>.</p>
+   <div class="fig" data-ill="maxage"></div>
+   <div class="cells">
+     <div class="cell"><b>What you save</b><span>For 60 seconds no request is sent, so repeat loads are instant.</span></div>
+     <div class="cell"><b>What you pay</b><span>Users can see data that is up to 60 seconds old.</span></div>
+     <div class="cell"><b>Use it for</b><span>Product lists, avatars and feeds where minute-old data is fine.</span></div>
+     <div class="cell"><b>Avoid it for</b><span>Live prices, stock counts and anything that must be exact.</span></div>
+   </div>`,
+
+ n => `${hdr(n, 'Which one, when')}
+   <h2>Which header to send for which response</h2>
+   <table class="pick">
+     <tr><th>Response</th><th>Send this</th><th>Why</th></tr>
+     <tr><td>The HTML document, <code>index.html</code></td><td><span class="pill">no-cache</span></td><td>Users get the new version right after a deploy, and a cheap 304 when nothing changed.</td></tr>
+     <tr><td>An account page with a bank balance</td><td><span class="pill">no-store</span></td><td>Private data never stays on the device.</td></tr>
+     <tr><td>An API list, <code>GET /api/products</code></td><td><span class="pill">max-age=60</span></td><td>Repeat loads are instant, and a minute-old list is fine.</td></tr>
+     <tr><td>A built file, <code>app.3f9a1c.js</code></td><td><span class="pill b">max-age=31536000,<br>immutable</span></td><td>Its name changes on every build, so the old file can safely be kept for a year.</td></tr>
+   </table>
+   <div class="note">If you are not sure, start with <mark>no-cache</mark> for HTML documents and a long max-age for files with a hash in their name.</div>`,
+
+ n => `${hdr(n, 'See it yourself')}
+   <h2>See the cache headers of any site in Chrome DevTools</h2>
+   <div class="fig" data-ill="devtools"></div>
+   <ol class="steps">
+     <li>Open DevTools, go to the <b>Network</b> tab and reload the page.</li>
+     <li>Click any request, then find <b>cache-control</b> under <b>Response Headers</b>.</li>
+     <li>Status <mark>304</mark> means the browser checked and reused its copy. <mark>(disk cache)</mark> in the Size column means no request was sent at all.</li>
+   </ol>
+   <div class="note">Save this post for your next deploy.</div>`,
+];
+
+/* ---------- doodles (rough.js) ---------- */
+const NS = 'http://www.w3.org/2000/svg';
+function makeDraw(svg, P) {
+  const cs = getComputedStyle(svg);
+  const col = k => cs.getPropertyValue('--' + k).trim();
+  const rc = rough.svg(svg); let seed = 7;
+  const o = (x = {}) => ({roughness: P.roughness, bowing: P.bowing, strokeWidth: x.sw || P.sw, stroke: col(x.stroke || 'ink'),
+    fill: x.fill ? col(x.fill) : undefined, fillStyle: x.fillStyle || P.fill, hachureGap: 8, fillWeight: 2.2, seed: seed++,
+    strokeLineDash: x.dash});
+  const add = el => (svg.appendChild(el), el);
+  const d = {
+    rect: (x, y, w, h, s) => add(rc.rectangle(x, y, w, h, o(s))),
+    line: (x1, y1, x2, y2, s) => add(rc.line(x1, y1, x2, y2, o(s))),
+    circle: (x, y, r, s) => add(rc.circle(x, y, r * 2, o(s))),
+    ellipse: (x, y, w, h, s) => add(rc.ellipse(x, y, w, h, o(s))),
+    path: (p, s) => add(rc.path(p, o(s))),
+    arrow(x1, y1, x2, y2, s = {}) {
+      d.line(x1, y1, x2, y2, s); const a = Math.atan2(y2 - y1, x2 - x1), L = 20;
+      d.line(x2, y2, x2 - L * Math.cos(a - .5), y2 - L * Math.sin(a - .5), s);
+      d.line(x2, y2, x2 - L * Math.cos(a + .5), y2 - L * Math.sin(a + .5), s);
+    },
+    text(x, y, t, s = {}) {
+      const e = document.createElementNS(NS, 'text');
+      e.setAttribute('x', x); e.setAttribute('y', y); e.setAttribute('text-anchor', s.anchor || 'start');
+      e.setAttribute('class', s.mono ? 'tm' : 'tb'); e.setAttribute('font-size', s.size || 30);
+      e.setAttribute('font-weight', s.weight || 600); e.setAttribute('fill', col(s.color || 'ink')); e.textContent = t; return add(e);
+    },
+    browser(x, y, w, h, label) {
+      d.rect(x, y, w, h); d.line(x, y + 42, x + w, y + 42);
+      [0, 1, 2].forEach(i => d.circle(x + 24 + i * 26, y + 21, 7, {sw: 2}));
+      if (label) d.text(x + w / 2, y + h / 2 + 34, label, {anchor: 'middle', weight: 700});
+    },
+    server(x, y, w, label) {
+      [0, 1, 2].forEach(i => { d.rect(x, y + i * 60, w, 48); d.circle(x + 24, y + 24 + i * 60, 6, {fill: 'ink', fillStyle: 'solid', sw: 1}); });
+      if (label) d.text(x + w / 2, y + 3 * 60 + 30, label, {anchor: 'middle', weight: 700});
+    },
+    file(x, y, w, h, s = {}) {
+      d.path(`M${x} ${y} L${x + w - 26} ${y} L${x + w} ${y + 26} L${x + w} ${y + h} L${x} ${y + h} Z`, s);
+      d.line(x + w - 26, y, x + w - 26, y + 26, {sw: 2}); d.line(x + w - 26, y + 26, x + w, y + 26, {sw: 2});
+    },
+    chip(x, y, w, t, s = {}, h = 56) { d.rect(x, y, w, h, s); d.text(x + w / 2, y + h / 2 + 10, t, {anchor: 'middle', mono: true, size: 28, weight: 600}); },
+    cross(x, y, r) { d.line(x - r, y - r, x + r, y + r, {sw: 4}); d.line(x + r, y - r, x - r, y + r, {sw: 4}); },
+    // Sequence diagram: browser lifeline left, server right, messages top to bottom.
+    seq(steps) {
+      const bx = 110, sx = 890; let y = 62;
+      d.chip(bx - 95, 0, 190, 'browser', {fill: 'paper', fillStyle: 'solid'}, 46); d.chip(sx - 90, 0, 180, 'server', {fill: 'paper', fillStyle: 'solid'}, 46);
+      const start = 46;
+      for (const st of steps) {
+        if (st.sep) { d.text(bx + 30, y + 28, st.sep, {mono: true, size: 28, weight: 700}); y += 42; continue; }
+        if (st.box) {
+          const w = st.box.length * 16.8 + 44;
+          d.rect(bx + 26, y + 4, w, 48, {fill: st.fill, fillStyle: 'solid', stroke: 'ink', sw: 2});
+          d.text(bx + 26 + w / 2, y + 38, st.box, {anchor: 'middle', size: 28, weight: 700});
+          if (st.cross) d.cross(bx + 26 + w + 30, y + 28, 16);
+          y += 60; continue;
+        }
+        const ltr = st.m === '>';
+        d.text((bx + sx) / 2, y + 24, st.t, {anchor: 'middle', mono: true, size: 28, weight: st.bold ? 700 : 500});
+        d.arrow(ltr ? bx + 10 : sx - 10, y + 40, ltr ? sx - 10 : bx + 10, y + 40, {stroke: st.c || 'ink', sw: st.c ? 4.5 : 2.6});
+        y += 62;
+      }
+      d.line(bx, start, bx, y, {dash: [10, 10], sw: 2}); d.line(sx, start, sx, y, {dash: [10, 10], sw: 2});
+      svg.setAttribute('viewBox', `0 0 1000 ${y + 6}`);
+    },
+  };
+  return d;
+}
+
+const ILL = {
+  cover(d, svg) {
+    svg.setAttribute('viewBox', '0 0 1000 400');
+    d.browser(20, 90, 330, 260, 'your page');
+    d.server(770, 110, 200, 'server');
+    d.file(470, 150, 130, 170, {fill: 'paper', fillStyle: 'solid'});
+    d.text(535, 250, 'HTML', {anchor: 'middle', mono: true, size: 28, weight: 700});
+    d.rect(395, 40, 290, 64, {fill: 'a1', fillStyle: 'solid', sw: 2});
+    d.text(540, 84, 'Cache-Control', {anchor: 'middle', mono: true, size: 32, weight: 700});
+    d.line(540, 104, 540, 150, {sw: 2});
+    d.arrow(755, 235, 620, 235, {stroke: 'a2', sw: 4.5}); d.arrow(455, 235, 370, 235, {stroke: 'a2', sw: 4.5});
+    d.text(540, 380, 'every response carries a caching rule', {anchor: 'middle', size: 30});
+  },
+  problem(d, svg) {
+    svg.setAttribute('viewBox', '0 0 1000 560');
+    d.browser(0, 0, 250, 190, 'browser'); d.server(780, 0, 200, 'server');
+    d.text(515, 52, 'asks the server for 4 files', {anchor: 'middle'}); d.arrow(270, 70, 760, 70);
+    d.arrow(760, 150, 270, 150, {stroke: 'a2', sw: 4.5}); d.text(515, 200, 'the server sends back 375 KB', {anchor: 'middle', weight: 700});
+    const files = [['index.html', 196], ['app.js', 140], ['logo.png', 170], ['/api/products', 250]];
+    [['Visit 1', 290, null], ['Visit 2', 400, 'a2soft']].forEach(([lbl, y, fill]) => {
+      d.text(0, y + 38, lbl, {weight: 700});
+      let x = 150; files.forEach(([f, w]) => { d.chip(x, y, w, f, fill ? {fill, fillStyle: 'solid', sw: 2} : {sw: 2}); x += w + 22; });
+    });
+    d.text(500, 540, 'A minute later, the same 375 KB is downloaded again', {anchor: 'middle', weight: 700});
+  },
+  header(d, svg) {
+    svg.setAttribute('viewBox', '0 0 1000 330');
+    d.browser(0, 60, 270, 210, 'browser');
+    d.server(790, 60, 190, 'backend');
+    d.file(450, 90, 130, 170, {fill: 'paper', fillStyle: 'solid'});
+    d.text(515, 190, 'body', {anchor: 'middle', mono: true, size: 28});
+    d.rect(300, 0, 470, 62, {fill: 'a1', fillStyle: 'solid', sw: 2});
+    d.text(535, 42, 'Cache-Control: max-age=60', {anchor: 'middle', mono: true, size: 28, weight: 700});
+    d.line(515, 62, 515, 90, {sw: 2});
+    d.arrow(775, 175, 600, 175, {stroke: 'a2', sw: 4.5}); d.arrow(430, 175, 290, 175, {stroke: 'a2', sw: 4.5});
+    d.text(515, 320, 'a response = the file (body) + rules about it (headers)', {anchor: 'middle', size: 29});
+  },
+  etag(d) {
+    d.seq([
+      {sep: 'FIRST VISIT'},
+      {m: '>', t: 'GET /app.js'},
+      {m: '<', t: '200 OK: the file + ETag "a1b2c3"', bold: true},
+      {box: 'browser saves the file and its ETag', fill: 'a1'},
+      {sep: 'NEXT VISIT'},
+      {m: '>', t: 'If-None-Match: "a1b2c3"', bold: true},
+      {m: '<', t: '304 Not Modified, no body', c: 'a2', bold: true},
+      {box: 'browser uses its saved copy', fill: 'a2soft'},
+    ]);
+  },
+  nocache(d) {
+    d.seq([
+      {m: '>', t: 'GET /index.html'},
+      {m: '<', t: '200 OK: the page + ETag'},
+      {box: 'browser saves a copy', fill: 'a1'},
+      {sep: 'EVERY NEXT VISIT'},
+      {m: '>', t: 'If-None-Match: "a1b2c3"'},
+      {m: '<', t: '304 Not Modified, no body', c: 'a2', bold: true},
+      {box: 'browser uses its saved copy', fill: 'a2soft'},
+    ]);
+  },
+  nostore(d) {
+    d.seq([
+      {m: '>', t: 'GET /account'},
+      {m: '<', t: '200 OK: the full page'},
+      {box: 'browser keeps no copy', cross: true},
+      {sep: 'EVERY NEXT VISIT'},
+      {m: '>', t: 'GET /account'},
+      {m: '<', t: '200 OK: the full page, again', c: 'a2', bold: true},
+      {box: 'browser keeps no copy', cross: true},
+    ]);
+  },
+  maxage(d) {
+    d.seq([
+      {m: '>', t: 'GET /api/products (at 0 s)'},
+      {m: '<', t: '200 OK: the data, max-age=60'},
+      {box: 'browser saves a copy, fresh for 60 s', fill: 'a1'},
+      {sep: 'AT 30 s'},
+      {box: 'browser uses its copy, sends no request', fill: 'a2soft'},
+      {sep: 'AT 75 s, THE COPY IS STALE'},
+      {m: '>', t: 'If-None-Match: "a1b2c3"'},
+      {m: '<', t: '304: fresh for another 60 s', c: 'a2', bold: true},
+    ]);
+  },
+  devtools(d, svg) {
+    svg.setAttribute('viewBox', '0 0 1000 340');
+    d.rect(0, 0, 1000, 340, {sw: 2.4}); d.line(0, 60, 1000, 60, {sw: 2});
+    [['Elements', 24], ['Console', 190], ['Network', 350], ['Sources', 530]].forEach(([t, x]) => d.text(x, 42, t, {size: 28}));
+    d.ellipse(412, 33, 170, 54, {stroke: 'a2', sw: 4});
+    d.line(690, 60, 690, 340, {sw: 2});
+    d.text(20, 104, 'Name', {weight: 700, size: 28}); d.text(330, 104, 'Status', {weight: 700, size: 28}); d.text(450, 104, 'Size', {weight: 700, size: 28});
+    d.rect(8, 124, 674, 54, {fill: 'a2soft', fillStyle: 'solid', stroke: 'a2soft', sw: 1});
+    [['index.html', '304', '0.3 kB', 162], ['app.3f9a1c.js', '200', '(disk cache)', 222], ['products', '200', '15 kB', 282]]
+      .forEach(([n, st, sz, y]) => { d.text(20, y, n, {mono: true, size: 28, weight: 500}); d.text(330, y, st, {mono: true, size: 28, weight: 700}); d.text(450, y, sz, {mono: true, size: 28, weight: 500}); });
+    d.text(706, 104, 'Response Headers', {weight: 700, size: 28});
+    d.rect(700, 136, 286, 96, {fill: 'a1', fillStyle: 'solid', sw: 2});
+    d.text(714, 176, 'cache-control:', {mono: true, size: 28, weight: 700}); d.text(714, 216, 'no-cache', {mono: true, size: 28, weight: 500});
+    d.text(714, 280, 'etag: "a1b2c3"', {mono: true, size: 28, weight: 500});
+  },
+};
+
+/* ---------- build page ---------- */
+const optsEl = document.getElementById('opts'), nav = document.getElementById('nav');
+OPTIONS.forEach(op => {
+  nav.insertAdjacentHTML('beforeend', `<a href="#opt${op.id}">${op.name}</a>`);
+  const sec = document.createElement('section'); sec.className = `opt ${op.cls}`; sec.id = `opt${op.id}`;
+  sec.innerHTML = `<div class="opt-head"><h2>${op.name}</h2><p>${op.desc}</p></div><div class="row"></div>`;
+  const row = sec.querySelector('.row');
+  SLIDES.forEach((fn, i) => {
+    const t = document.createElement('div'); t.className = 'thumb';
+    t.innerHTML = `<div class="s" data-name="${String(i + 1).padStart(2, '0')}">${fn(i + 1)}</div>`;
+    row.appendChild(t);
+  });
+  optsEl.appendChild(sec);
+  sec.querySelectorAll('[data-ill]').forEach(fig => {
+    const svg = document.createElementNS(NS, 'svg'); fig.appendChild(svg);
+    ILL[fig.dataset.ill](makeDraw(svg, op.rough), svg);
+  });
+});
+
+const zoom = document.getElementById('zoom'), holder = document.getElementById('holder');
+document.addEventListener('click', e => {
+  const th = e.target.closest('.thumb');
+  if (th) {
+    const k = Math.min((innerWidth - 32) / 1080, (innerHeight - 32) / 1350);
+    const clone = th.querySelector('.s').cloneNode(true); clone.style.transform = `scale(${k})`;
+    holder.className = 'holder ' + th.closest('section.opt').className.replace(/^opt /, '');
+    holder.style.width = 1080 * k + 'px'; holder.style.height = 1350 * k + 'px';
+    holder.replaceChildren(clone); zoom.classList.add('on'); return;
+  }
+  if (e.target.closest('#zoom')) zoom.classList.remove('on');
+});
+document.addEventListener('keydown', e => { if (e.key === 'Escape') zoom.classList.remove('on'); });
+window.__ready = document.fonts.ready.then(() => true);
+</script>
+</body>
+</html>
