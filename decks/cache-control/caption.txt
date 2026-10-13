@@ -1,0 +1,3 @@
+no-cache does not mean "don't cache".
+
+no-cache, no-store and max-age=60, and what each one really does on the second visit. Save this for your next deploy.

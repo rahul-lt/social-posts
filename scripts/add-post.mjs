@@ -1,5 +1,6 @@
 // Usage: node scripts/add-post.mjs <slug> <slides-dir> <publishAt ISO, e.g. 2026-10-20T09:30:00+05:30> <caption.txt>
-// Copies up to 10 slides into posts/<slug>/ as JPEG (Instagram accepts JPEG only) and writes post.json.
+// Copies up to 10 slides into posts/<slug>/ as JPEG (Instagram accepts JPEG only) and writes post.json
+// with footer.txt appended to the caption.
 // Uses macOS `sips` for PNG→JPEG so no npm deps are needed.
 import fs from 'node:fs';
 import path from 'node:path';
@@ -31,10 +32,15 @@ slides.forEach((f, i) => {
   });
 });
 
+// Every post ends with the shared footer (footer.txt); skip if the caption already has it.
+const footer = fs.readFileSync(path.join(root, 'footer.txt'), 'utf8').trim();
+const body = fs.readFileSync(captionFile, 'utf8').trim();
+const caption = body.includes(footer.split('\n')[0]) ? body : `${body}\n\n${footer}`;
+
 const post = {
   publishAt: new Date(publishAt).toISOString(),
   platforms: ['instagram', 'linkedin'],
-  caption: fs.readFileSync(captionFile, 'utf8').trim(),
+  caption,
   altText: slug.replace(/-/g, ' '),
 };
 fs.writeFileSync(path.join(outDir, 'post.json'), JSON.stringify(post, null, 2) + '\n');
