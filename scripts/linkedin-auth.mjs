@@ -1,6 +1,6 @@
 // One-time (every ~60 days) LinkedIn OAuth: node --env-file=.env.local scripts/linkedin-auth.mjs
 // Needs LINKEDIN_CLIENT_ID / LINKEDIN_CLIENT_SECRET in .env.local and
-// http://localhost:8765/callback registered as an Authorized redirect URL on the app.
+// http://localhost:8799/callback registered as an Authorized redirect URL on the app.
 import http from 'node:http';
 import crypto from 'node:crypto';
 import { execFile } from 'node:child_process';
@@ -9,7 +9,7 @@ import { saveEnv } from './lib/env-file.mjs';
 const { LINKEDIN_CLIENT_ID: clientId, LINKEDIN_CLIENT_SECRET: clientSecret } = process.env;
 if (!clientId || !clientSecret) throw new Error('Set LINKEDIN_CLIENT_ID and LINKEDIN_CLIENT_SECRET in .env.local');
 
-const REDIRECT = 'http://localhost:8765/callback';
+const REDIRECT = 'http://localhost:8799/callback';
 const stateParam = crypto.randomUUID();
 const authUrl =
   'https://www.linkedin.com/oauth/v2/authorization?' +
@@ -63,7 +63,7 @@ const server = http.createServer(async (req, res) => {
   }
 });
 
-server.listen(8765, () => {
-  console.log('Opening LinkedIn consent screen…');
+server.listen(8799, () => {
+  console.log(`Opening LinkedIn consent screen… (if the wrong browser opens, paste this URL into the right one)\n${authUrl}`);
   execFile('open', [authUrl]);
 });
