@@ -1,3 +1,6 @@
 .env.local
 .DS_Store
 node_modules/
+decks/*/out/
+decks/*/sheet.png
+decks/*/deck.html

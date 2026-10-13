@@ -29,9 +29,9 @@ def note(t, bad=False): return f'<div class="note{" bad" if bad else ""}">{t}</d
 UNITS = [
   dict(t="no-cache", lead="It does cache. It just asks the server first.",
        myth_api="no-cache = do not cache?", fact_api="Cache-Control: no-cache",
-       myth=lambda: visit("VISIT 1", ("download 20 KB", "bad")) + visit("VISIT 2", ("download 20 KB again", "bad"))
+       myth=lambda: visit("VISIT 1", ("download 20&nbsp;KB", "bad")) + visit("VISIT 2", ("download 20&nbsp;KB again", "bad"))
             + note("No copy kept, so every visit pays in full.", True),
-       fact=lambda: visit("VISIT 1", ("download 20 KB", "good"), ("copy saved", "lime"))
+       fact=lambda: visit("VISIT 1", ("download 20&nbsp;KB", "good"), ("copy saved", "lime"))
             + visit("VISIT 2", ("asks: changed?", "good"), ("304, no body", "lime"))
             + note("Unchanged? The copy is reused."),
        myth_v="Nothing is stored. Ever.", fact_v="Stored, then checked with the server before each reuse.",
@@ -40,11 +40,11 @@ UNITS = [
        use="HTML pages", short="always fresh, cheap 304 check"),
   dict(t="no-store", lead="Nothing is saved. Every visit starts from zero.",
        myth_api="no-store = no-cache?", fact_api="Cache-Control: no-store",
-       myth=lambda: visit("VISIT 1", ("download 20 KB", "bad"), ("copy saved", "bad"))
+       myth=lambda: visit("VISIT 1", ("download 20&nbsp;KB", "bad"), ("copy saved", "bad"))
             + visit("VISIT 2", ("asks: changed?", "bad"), ("304, reuse copy", "bad"))
-            + note("People expect the cheap 304 check here.", True),
-       fact=lambda: visit("VISIT 1", ("download 20 KB", "good"), ("no copy kept", "ghost"))
-            + visit("VISIT 2", ("download 20 KB again", "good"), ("no copy kept", "ghost"))
+            + note("People expect the cheap 304 (not modified) check.", True),
+       fact=lambda: visit("VISIT 1", ("download 20&nbsp;KB", "good"), ("no copy kept", "ghost"))
+            + visit("VISIT 2", ("download 20&nbsp;KB again", "good"), ("no copy kept", "ghost"))
             + note("No saved copy, so nothing to check against."),
        myth_v="It checks first, like no-cache.", fact_v="No copy anywhere. Full download on every visit.",
        api=("no-store",),
@@ -54,9 +54,9 @@ UNITS = [
        myth_api="a 60 second timer?", fact_api="Cache-Control: max-age=60",
        myth=lambda: visit("AT 60 s", ("page reloads itself", "bad")) + visit("AT 120 s", ("page reloads itself", "bad"))
             + note("Nothing reloads by itself. It only sets how long a copy stays fresh.", True),
-       fact=lambda: visit("AT 0 s", ("download 20 KB", "good"), ("copy saved", "lime"))
-            + visit("AT 30 s", ("from cache", "good"), ("0 requests", "lime"))
-            + visit("AT 75 s (stale)", ("asks: changed?", "good"), ("304 or new file", "lime")),
+       fact=lambda: visit("VISIT AT 0 s", ("download 20&nbsp;KB", "good"), ("copy saved", "lime"))
+            + visit("VISIT AT 30 s", ("from cache", "good"), ("0 requests", "lime"))
+            + visit("VISIT AT 75 s (stale)", ("asks: changed?", "good"), ("304, or new 200", "lime")),
        myth_v="The page reloads every 60 seconds.", fact_v="Fresh for 60 s. After that, it checks again.",
        api=("max-age=60",),
        code="// GET /api/products response\nCache-Control: max-age=60\n// 0 to 60 s: served from cache, no request\n// after 60 s: stale, browser checks again",
@@ -85,8 +85,8 @@ def unit(i, u):
 
 COMPARE = [
   ("Keeps a copy?", [("yes", "good"), ("no", "bad"), ("yes", "good")]),
-  ("Visit 2 calls the server?", [("yes, asks first", "lime"), ("yes, full download", "bad"), ("no, for 60 s", "good")]),
-  ("Bytes on visit 2", [("tiny 304", "good"), ("all 20 KB", "bad"), ("nothing", "good")]),
+  ("Visit 2 calls the server?", [("yes, asks first", "good"), ("yes, full download", "bad"), ("no, for 60 s", "good")]),
+  ("Bytes on visit 2", [("304 (not modified)", "good"), ("whole file again", "bad"), ("nothing (first 60 s)", "good")]),
   ("Use it for", [("HTML pages", "grey"), ("private data", "grey"), ("API lists", "grey")]),
 ]
 def compare():
@@ -99,7 +99,7 @@ def compare():
   <div class="cmp">{head}{rows}</div>{foot(p)}</section>'''
 
 RECAP = [("no-cache", "HTML pages: always fresh, cheap check"), ("no-store", "bank balance, one-time codes"),
-         ("max-age=60", "product list that can be 1 min old"), ("max-age=31536000", "hashed files like app.3f9a1c.js, + immutable")]
+         ("max-age=60", "product list that can be 1 min old"), ("max-age=31536000, immutable", "hashed files like app.3f9a1c.js: kept 1 year")]
 def recap():
     rows = "".join(f'<div class="rrow"><b>{i+1:02d}</b><div class="rbody"><div class="rnew" data-box>{esc(n)}</div><div class="rold">{esc(o)}</div></div></div>' for i, (n, o) in enumerate(RECAP))
     return f'''<section class="slide inner recap" data-name="{TOTAL:02d}_recap"><div class="grid"></div>
@@ -112,24 +112,24 @@ COVER_ART = """<svg class="art" viewBox="0 0 660 640" xmlns="http://www.w3.org/2
  <rect x="20" y="20" width="600" height="580" rx="48" fill="#fff" stroke="#111" stroke-width="6"/>
  <rect x="50" y="50" width="540" height="520" rx="30" fill="#111"/>
  <circle cx="92" cy="94" r="13" fill="#ff5c8a"/><circle cx="132" cy="94" r="13" fill="#ffd84d"/><circle cx="172" cy="94" r="13" fill="#d4ff3a"/>
- <text x="210" y="104" font-family="IBM Plex Mono" font-weight="700" font-size="30" fill="#fff">response headers</text>
+ <text x="210" y="104" font-family="IBM Plex Mono" font-weight="700" font-size="34" fill="#fff">response headers</text>
  <line x1="50" y1="135" x2="590" y2="135" stroke="#3a3a3a" stroke-width="4"/>
  <!-- browser -->
  <rect x="74" y="172" width="136" height="104" rx="14" fill="#d4ff3a" stroke="#fff" stroke-width="4"/>
  <rect x="74" y="172" width="136" height="26" rx="10" fill="#111" stroke="#fff" stroke-width="4"/>
  <rect x="92" y="214" width="100" height="14" rx="7" fill="#111"/><rect x="92" y="240" width="64" height="14" rx="7" fill="#111"/>
- <text x="142" y="314" text-anchor="middle" font-family="IBM Plex Mono" font-weight="700" font-size="28" fill="#fff">browser</text>
+ <text x="142" y="314" text-anchor="middle" font-family="IBM Plex Mono" font-weight="700" font-size="34" fill="#fff">browser</text>
  <!-- cache -->
  <rect x="252" y="172" width="136" height="104" rx="14" fill="#ffd84d" stroke="#fff" stroke-width="4"/>
  <line x1="252" y1="224" x2="388" y2="224" stroke="#111" stroke-width="5"/>
  <rect x="300" y="190" width="40" height="18" rx="6" fill="#111"/><rect x="300" y="242" width="40" height="18" rx="6" fill="#111"/>
- <text x="320" y="314" text-anchor="middle" font-family="IBM Plex Mono" font-weight="700" font-size="28" fill="#fff">cache</text>
+ <text x="320" y="314" text-anchor="middle" font-family="IBM Plex Mono" font-weight="700" font-size="34" fill="#fff">cache</text>
  <!-- server -->
  <rect x="430" y="172" width="136" height="30" rx="8" fill="#ff5c8a" stroke="#fff" stroke-width="4"/>
  <rect x="430" y="209" width="136" height="30" rx="8" fill="#ff5c8a" stroke="#fff" stroke-width="4"/>
  <rect x="430" y="246" width="136" height="30" rx="8" fill="#ff5c8a" stroke="#fff" stroke-width="4"/>
  <circle cx="450" cy="187" r="5" fill="#111"/><circle cx="450" cy="224" r="5" fill="#111"/><circle cx="450" cy="261" r="5" fill="#111"/>
- <text x="498" y="314" text-anchor="middle" font-family="IBM Plex Mono" font-weight="700" font-size="28" fill="#fff">server</text>
+ <text x="498" y="314" text-anchor="middle" font-family="IBM Plex Mono" font-weight="700" font-size="34" fill="#fff">server</text>
  <line x1="214" y1="224" x2="240" y2="224" stroke="#fff" stroke-width="5" marker-end="url(#ah)"/>
  <line x1="392" y1="224" x2="418" y2="224" stroke="#fff" stroke-width="5" marker-end="url(#ah)"/>
  <!-- header values -->
@@ -144,7 +144,7 @@ COVER_ART = """<svg class="art" viewBox="0 0 660 640" xmlns="http://www.w3.org/2
  <path d="M584 47 l16 16 l28 -32" fill="none" stroke="#111" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>"""
 COVER_LINES = ["3 CACHE", "CONTROL", "VALUES."]
-COVER_STICKERS = [("no-cache", "var(--pink)"), ("no-store", "#fff"), ("max-age=60", "var(--lime)"), ("304 Not Modified", "var(--yel)")]
+COVER_STICKERS = [("ETag", "var(--pink)"), ("If-None-Match", "#fff"), ("304 Not Modified", "var(--lime)"), ("immutable", "var(--yel)")]
 COVER_MORE = "+ when to use each"
 COVER_CTA = "NO-CACHE DOES NOT MEAN NO CACHE"
 
@@ -166,14 +166,14 @@ EXTRA = """
 .cmp-h{font:700 32px/1.3 "IBM Plex Mono",monospace;text-align:center;background:var(--ink);color:#fff;border-radius:14px;padding:10px 4px}
 .cmp-h:first-child{background:none}
 .cmp-q{font:800 30px/1.2 "Manrope";display:flex;align-items:center}
-.cmp .blk{min-height:150px;border:4px solid var(--ink);font-size:30px}
+.cmp .blk{min-height:170px;border:4px solid var(--ink);font-size:32px}
 .rlist{gap:18px;justify-content:stretch;padding:0 8px 8px 0}
 .rrow{flex:1;display:grid;grid-template-columns:80px 1fr;align-items:center;background:#fff;border:5px solid var(--ink);border-radius:26px;box-shadow:8px 8px 0 var(--ink);padding:16px 22px}
 .rrow:last-child{border-bottom:5px solid var(--ink)}
 .rrow b{font:400 44px/1.3 "Archivo Black"}
 .rbody{display:flex;flex-direction:column;gap:14px;align-items:flex-start}
 .rnew{font-size:34px;padding:12px 24px}
-.rold{font:800 34px/1.2 "Manrope"}
+.rold{font:800 38px/1.2 "Manrope"}
 .cmp{grid-template-columns:330px repeat(3,1fr)}
 """
 
