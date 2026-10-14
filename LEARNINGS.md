@@ -11,6 +11,8 @@ Everything we figured out while building this pipeline. Add to it whenever somet
   (`decks/_kit/` is the old sticker kit, only used by the first cache-control deck.)
 - Design rounds for that skill: `decks/_design-options/` (index.html = 5 options, index-v2.html = D variants; D1 chosen).
 - Slide footer handle is `@allahabadi.dev` (the Instagram account we post to).
+- Short single-card LinkedIn posts ("nuggets", 2/day) live in `nuggets/` with their own `nuggets/LEARNINGS.md`;
+  built with the `tech-nugget` skill. A one-image post publishes to LinkedIn as an image post, not a PDF.
 
 ## Workflow
 ```bash

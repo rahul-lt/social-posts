@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-11-03T02:30:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "An agent's tools (run shell commands, edit files, call APIs) are real actions on your machine or your accounts.\n\nGood habits:\nAllow read-only commands freely. Read anything that deletes, pushes, or sends data.\nRun agents inside the project folder, not your home directory.\nUse git, so every file change can be undone.\nNever paste secrets into the chat.\n\nThis idea is called least privilege: give a tool only the access its task needs.\n\nSource: OWASP, principle of least privilege.\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "Why do AI coding agents keep asking \"Allow this command?\"\n\nBecause an agent that can run\nrm -rf build/\ncan also run\nrm -rf ~/\n\nThe permission prompt is your last review step. Read it.",
+  "title": "Nugget N101"
+}

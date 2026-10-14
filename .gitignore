@@ -4,3 +4,4 @@ node_modules/
 decks/*/out/
 decks/*/sheet.png
 decks/*/deck.html
+nuggets/out/

@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-10-23T14:30:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "A hash is one-way: you can check a password against it, but you can't turn it back into the password.\n\nWhy slow? Fast hashes like MD5 or SHA-256 can be guessed billions of times per second on a GPU. bcrypt and Argon2 are designed to be slow and expensive to guess.\n\nWhy salted? A random value added per user means two people with the password \"123456\" get different hashes.\n\nNever encrypt passwords (encryption can be reversed) and never write your own.\n\nSource: OWASP Password Storage Cheat Sheet.\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "Never store passwords.\n\nStore a slow, salted hash (bcrypt or Argon2).\n\nIf your database leaks, attackers should get gibberish, not your users' passwords.",
+  "title": "Nugget N80"
+}

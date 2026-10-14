@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-10-14T14:30:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "I review a lot of React code where every value is wrapped in useMemo \"for performance\".\n\nFor cheap work like filtering 20 items or joining two strings, the comparison costs about as much as just doing the work again.\n\nHow to decide: measure first. React's docs suggest wrapping a calculation in console.time and memoizing only if it takes a noticeable amount of time (around 1 ms or more).\n\nSource: react.dev, useMemo.\n\nWhere have you seen useMemo overused?\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "useMemo is not free.\n\nOn every render React still compares the dependency array and keeps the old value in memory.\n\nWrap the one slow calculation. Not every variable.",
+  "title": "Nugget N62"
+}

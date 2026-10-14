@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-10-31T02:30:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "Idempotent means doing it twice has the same effect as doing it once.\n\nGET, PUT and DELETE are idempotent by design. POST is not, which is why \"create payment\" needs extra care.\n\nPayment APIs like Stripe support an Idempotency-Key header. The server stores the key with the result and returns the same result for a repeat.\n\nFrontend side: disable the button after the first click too. But never rely only on the frontend, because retries also happen on flaky networks.\n\nSource: MDN (Idempotent) and Stripe API docs (Idempotent requests).\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "User double-clicks \"Pay ₹499\". Two requests reach the server.\n\nDid you charge them twice?\n\nIdempotency keys prevent it: the client sends the same unique key with both requests, and the server processes that key only once.",
+  "title": "Nugget N95"
+}

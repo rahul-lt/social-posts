@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-11-09T14:30:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "The frontend may only show the user's name, but the Network tab shows the entire response to anyone.\n\nReturn exactly what the screen needs:\nres.json({ id: user.id, name: user.name })\n\nMost ORMs and frameworks have a way to select or exclude fields. Use it as a default, not an afterthought.\n\nOWASP listed this as \"Excessive Data Exposure\" in its 2019 API Top 10. The 2023 list folds it into \"Broken Object Property Level Authorization\".\n\nSource: OWASP API Security Top 10.\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "Your API returns res.json(user).\n\nCongratulations. You just sent the password hash, the email and the internal fields to the browser.\n\nPick the fields you return.",
+  "title": "Nugget N114"
+}

@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-10-29T02:30:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "Sticky needs a threshold. Without top (or bottom, left, right) it behaves like position: relative.\n\nSticky also sticks inside its nearest scrolling ancestor. If a parent has overflow: hidden, auto or scroll, the element sticks inside that parent instead of the page. Often it looks like it isn't working at all.\n\nDebug fast: in DevTools, walk up the parents in the Elements panel and look for overflow in the Computed tab.\n\nSource: MDN, position (sticky positioning).\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "position: sticky not sticking? Check two things:\n\n1. Did you set top?\n2. Does any parent have overflow: hidden or auto?\n\n.header {\n  position: sticky;\n  top: 0; /* required */\n}",
+  "title": "Nugget N91"
+}

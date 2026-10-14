@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-11-04T02:30:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "Without type=\"button\", clicking Cancel triggers the form's submit. Your save handler runs and, without e.preventDefault(), the page reloads.\n\nRule: inside a form, every button that should not submit needs type=\"button\".\n\nBonus: because Save is a real submit button, pressing Enter in any input also submits the form. You get that for free.\n\nSource: MDN, <button> (type attribute).\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "Inside a <form>, a <button> is type=\"submit\" by default.\n\nSo your Cancel button submits the form.\n\n<form onSubmit={save}>\n  <button>Save</button>\n  <button type=\"button\">\n    Cancel\n  </button>\n</form>",
+  "title": "Nugget N103"
+}

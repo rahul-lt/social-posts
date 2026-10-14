@@ -1,0 +1,744 @@
+[
+  {
+    "id": "n61",
+    "day": 1,
+    "slot": "am",
+    "pillar": "frontend",
+    "format": "predict-output",
+    "card": {
+      "text": "3 lines. 3 types. Guess all three.",
+      "code": "typeof null\ntypeof NaN\ntypeof []"
+    },
+    "caption": "Comment your guess first. Answer below.\n\n.\n.\n.\n\n\"object\", \"number\", \"object\".\n\ntypeof null is \"object\" because of a bug in the very first version of JavaScript. Fixing it would break old websites, so it stays.\n\nNaN is a special value of the number type. Its name says \"not a number\", its type says number.\n\nArrays are objects. To check for an array, use Array.isArray([]) which returns true.\n\nSource: MDN, typeof operator.\n\nHow many did you get?",
+    "publishAt": "2026-10-14T12:00:00+05:30"
+  },
+  {
+    "id": "n62",
+    "day": 1,
+    "slot": "pm",
+    "pillar": "frontend",
+    "format": "one-liner",
+    "card": {
+      "text": "useMemo is not free.\n\nOn every render React still compares the dependency array and keeps the old value in memory.\n\nWrap the one slow calculation. Not every variable."
+    },
+    "caption": "I review a lot of React code where every value is wrapped in useMemo \"for performance\".\n\nFor cheap work like filtering 20 items or joining two strings, the comparison costs about as much as just doing the work again.\n\nHow to decide: measure first. React's docs suggest wrapping a calculation in console.time and memoizing only if it takes a noticeable amount of time (around 1 ms or more).\n\nSource: react.dev, useMemo.\n\nWhere have you seen useMemo overused?",
+    "publishAt": "2026-10-14T20:00:00+05:30"
+  },
+  {
+    "id": "n63",
+    "day": 2,
+    "slot": "am",
+    "pillar": "backend",
+    "format": "nugget",
+    "card": {
+      "text": "HTTP forgets you after every request.\n\nCookies are how a website remembers you are logged in:",
+      "code": "# server, after login\nSet-Cookie: sid=a1b2; HttpOnly\n\n# browser, every next request\nCookie: sid=a1b2"
+    },
+    "caption": "HTTP is stateless: each request arrives with no memory of the last one.\n\nAfter you log in, the server sends a Set-Cookie header. The browser stores it and automatically attaches it to every later request to that site. The server looks up sid=a1b2 and knows it's you.\n\nHttpOnly means JavaScript on the page cannot read the cookie, so a malicious script can't steal it.\n\nSource: MDN, Using HTTP cookies.\n\nOpen DevTools → Application → Cookies on any site you're logged into and find yours.",
+    "publishAt": "2026-10-15T08:00:00+05:30"
+  },
+  {
+    "id": "n64",
+    "day": 2,
+    "slot": "pm",
+    "pillar": "career",
+    "format": "question",
+    "card": {
+      "text": "First offer. Pick one:\n\nA) ₹6 LPA at a 40-person product startup\nB) ₹9 LPA at a large IT services company\n\nWhich one, and why?"
+    },
+    "caption": "There's no single right answer. It depends on what you want from your first two years: learning speed, stability, brand name, or money for your family right now.\n\nI'm interested in the reasoning more than the letter.\n\nIf you've already made this choice, tell us how it turned out.",
+    "publishAt": "2026-10-15T20:00:00+05:30"
+  },
+  {
+    "id": "n65",
+    "day": 3,
+    "slot": "am",
+    "pillar": "frontend",
+    "format": "compare",
+    "card": {
+      "text": "== converts types before comparing. === doesn't.\n\nThat's why these surprise people:",
+      "code": "0 == ''            // true\n'1' == 1           // true\nnull == undefined  // true\n0 === ''           // false\n'1' === 1          // false"
+    },
+    "caption": "With ==, JavaScript first converts both sides to a common type, then compares. '' becomes 0, '1' becomes 1, and the results look random until you know the rules.\n\n=== compares type and value with no conversion, so what you see is what you get.\n\nRule most teams follow: always use ===. The one common exception is value == null, which matches both null and undefined in one check.\n\nSource: MDN, Equality comparisons and sameness.",
+    "publishAt": "2026-10-16T08:00:00+05:30"
+  },
+  {
+    "id": "n66",
+    "day": 3,
+    "slot": "pm",
+    "pillar": "ai",
+    "format": "take",
+    "card": {
+      "text": "AI probably won't take your job this year.\n\nBut a teammate who ships the same feature in 2 days instead of 5, because they use it well, will get the interesting projects."
+    },
+    "caption": "The real competition isn't you vs the AI. It's you vs other developers who learned to use it properly.\n\nUsing it properly means: giving it the right context, reviewing every change, writing the tests, and knowing when its answer is wrong.\n\nThat's a skill. It takes practice like any other.\n\nWhat's one task where AI genuinely saves you time today?",
+    "publishAt": "2026-10-16T20:00:00+05:30"
+  },
+  {
+    "id": "n67",
+    "day": 4,
+    "slot": "am",
+    "pillar": "frontend",
+    "format": "compare",
+    "card": {
+      "text": "|| replaces every falsy value.\n?? replaces only null and undefined.\n\nThat difference breaks real apps:",
+      "code": "const qty = 0;\n\nqty || 10  // 10  (0 is falsy)\nqty ?? 10  // 0   (0 is kept)"
+    },
+    "caption": "Imagine a cart where the user set quantity to 0. With ||, your default kicks in and they suddenly have 10 items.\n\n|| treats 0, '', false and NaN as \"missing\". Sometimes those are real values.\n\n?? (nullish coalescing) only falls back when the value is null or undefined.\n\nPair it with optional chaining: user?.address?.city ?? 'Unknown'.\n\nSource: MDN, Nullish coalescing operator.\n\nSearch your project for \"|| 0\" and \"|| ''\". Some of them should be ??.",
+    "publishAt": "2026-10-17T08:00:00+05:30"
+  },
+  {
+    "id": "n68",
+    "day": 4,
+    "slot": "pm",
+    "pillar": "frontend",
+    "format": "question",
+    "card": {
+      "text": "What's the worst bug you shipped to production?\n\nWhat broke, how long it took to notice, and what you changed after."
+    },
+    "caption": "Every experienced developer has at least one of these stories. Freshers rarely hear them, so they think seniors never break things.\n\nShare yours. Juniors learn more from these than from any tutorial.\n\nI'll pick a few and write a breakdown of what each one teaches.",
+    "publishAt": "2026-10-17T20:00:00+05:30"
+  },
+  {
+    "id": "n69",
+    "day": 5,
+    "slot": "am",
+    "pillar": "ai",
+    "format": "nugget",
+    "card": {
+      "text": "Temperature controls how random an AI model's answers are.\n\nLow (0 to 0.3): same question, nearly the same answer. Use for code, JSON, extraction.\n\nHigh (0.8+): more varied wording. Use for brainstorming names or ideas."
+    },
+    "caption": "The model picks each next word from a list of likely options. Temperature changes how often it picks the less likely ones.\n\nExample: ask for a product description 3 times at high temperature and you get 3 different versions. Ask a model to return JSON at high temperature and you get more broken JSON.\n\nNot every model or app lets you change it, and some newer models fix it for you. When an API does expose it, start low for anything a program will read.\n\nSource: provider API docs (OpenAI, Anthropic), temperature parameter.",
+    "publishAt": "2026-10-18T08:00:00+05:30"
+  },
+  {
+    "id": "n70",
+    "day": 5,
+    "slot": "pm",
+    "pillar": "frontend",
+    "format": "one-liner",
+    "card": {
+      "text": "Flexbox lays things out in one direction.\nGrid lays things out in two.\n\nNavbar items in a row → flex.\nA gallery of product cards in rows and columns → grid."
+    },
+    "caption": "A quick test: do you care about lining things up across rows AND columns at the same time? Use grid. Only along one line? Use flex.\n\nYou can mix them. A grid for the page layout, flex inside each card for its title and button.\n\nGrid one-liner worth saving:\ngrid-template-columns: repeat(auto-fill, minmax(200px, 1fr));\nThat gives a responsive card gallery with no media queries.\n\nSource: MDN, Relationship of grid layout to other layout methods.",
+    "publishAt": "2026-10-18T20:00:00+05:30"
+  },
+  {
+    "id": "n71",
+    "day": 6,
+    "slot": "am",
+    "pillar": "frontend",
+    "format": "predict-output",
+    "card": {
+      "text": "Two counters from the same function. What prints?",
+      "code": "function counter() {\n  let n = 0;\n  return () => ++n;\n}\nconst a = counter();\nconst b = counter();\na(); a();\nconsole.log(a(), b());"
+    },
+    "caption": "Comment your guess first. Answer below.\n\n.\n.\n.\n\n3 1\n\nEach call to counter() creates a new n. The returned arrow function keeps access to its own n even after counter() has finished. That's a closure.\n\na has been called 3 times in total, so its n is 3. b has its own n and was called once, so 1.\n\nThis is exactly how private state worked before classes, and how React hooks remember values between renders.\n\nSource: MDN, Closures.",
+    "publishAt": "2026-10-19T08:00:00+05:30"
+  },
+  {
+    "id": "n72",
+    "day": 6,
+    "slot": "pm",
+    "pillar": "ai",
+    "format": "question",
+    "card": {
+      "text": "Which way do you learn more?\n\nA) You write the code, AI reviews it.\nB) AI writes the code, you review it."
+    },
+    "caption": "Both are fast. They train very different muscles.\n\nA makes you struggle first and then shows you what you missed.\nB makes you a reviewer early, which is what senior work looks like, but you can skip the struggle that builds intuition.\n\nI have a clear opinion for students vs working devs. Tell me yours first.",
+    "publishAt": "2026-10-19T20:00:00+05:30"
+  },
+  {
+    "id": "n73",
+    "day": 7,
+    "slot": "am",
+    "pillar": "backend",
+    "format": "compare",
+    "card": {
+      "text": "SQL or NoSQL? Look at your data, not the hype.\n\nOrders, payments, users linked to each other → SQL (PostgreSQL, MySQL). Joins and transactions keep them consistent.\n\nEach record has a different shape (product specs, event logs) → a document database like MongoDB."
+    },
+    "caption": "A transaction means: several changes happen together or not at all. Debit one account and credit another, never only one of them. Relational databases are built around this.\n\nDocument databases store each record as JSON-like documents, so a phone and a T-shirt can have completely different fields without schema changes.\n\nMany real products use both. Payments in Postgres, activity logs somewhere else.\n\nIf you're learning backend, start with SQL. It shows up in almost every interview.\n\nSource: PostgreSQL and MongoDB documentation.",
+    "publishAt": "2026-10-20T08:00:00+05:30"
+  },
+  {
+    "id": "n74",
+    "day": 7,
+    "slot": "pm",
+    "pillar": "career",
+    "format": "one-liner",
+    "card": {
+      "text": "2 DSA problems a day for 90 days = 180 problems.\n\n20 problems the night before the placement test = panic.\n\nConsistency beats intensity."
+    },
+    "caption": "180 problems spread over 3 months is enough to see most common patterns: two pointers, sliding window, hashing, BFS/DFS, binary search, basic DP.\n\nThe spacing matters. Your brain needs sleep between practice sessions to actually keep what you learned.\n\nSmall plan: 1 easy + 1 medium every day, same time, and revisit any problem you couldn't solve after 3 days.\n\nWhen does your placement season start?",
+    "publishAt": "2026-10-20T20:00:00+05:30"
+  },
+  {
+    "id": "n75",
+    "day": 8,
+    "slot": "am",
+    "pillar": "frontend",
+    "format": "nugget",
+    "card": {
+      "text": "Inside a regular function callback, this is NOT your object.\n\nAn arrow function uses this from where it was written:",
+      "code": "start() {\n  setInterval(function () {\n    this.sec++; // not timer\n  }, 1000);\n  setInterval(() => {\n    this.sec++; // timer ✓\n  }, 1000);\n}"
+    },
+    "caption": "Both callbacks live inside the start() method of a timer object.\n\nA regular function gets its own this, decided by how it is called. setInterval calls it with this set to the global object (window in browsers). Never your timer.\n\nArrow functions don't have their own this. They use the this of the surrounding code, which is the timer.\n\nThe old fix was const self = this. Arrow functions made it unnecessary.\n\nSource: MDN, Arrow function expressions.",
+    "publishAt": "2026-10-21T08:00:00+05:30"
+  },
+  {
+    "id": "n76",
+    "day": 8,
+    "slot": "pm",
+    "pillar": "frontend",
+    "format": "take",
+    "card": {
+      "text": "A common React slowdown I see in code reviews:\n\none Context holds user, theme AND the search box text.\n\nType one letter → every component using that Context re-renders."
+    },
+    "caption": "Every component that reads a Context re-renders when that Context's value changes. If fast-changing state (like input text) lives next to slow-changing state (user, theme), everything pays for every keystroke.\n\nFixes:\nKeep input state local to the component that owns it.\nSplit contexts: one for user, one for theme.\nMemoize the context value object.\n\nReact DevTools → Profiler → \"Highlight updates\" shows you exactly what re-renders.\n\nSource: react.dev, useContext (optimizing re-renders).",
+    "publishAt": "2026-10-21T20:00:00+05:30"
+  },
+  {
+    "id": "n77",
+    "day": 9,
+    "slot": "am",
+    "pillar": "ai",
+    "format": "nugget",
+    "card": {
+      "text": "An embedding turns text into a list of numbers.\n\nTexts with similar meaning get similar numbers.\n\nSo a search for \"cheap phone\" can find a product called \"budget mobile\", with zero matching words."
+    },
+    "caption": "Normal search matches words. Embedding search (semantic search) matches meaning.\n\nHow it works:\n1. Turn every product description into an embedding once and store it.\n2. Turn the user's query into an embedding.\n3. Find the stored embeddings closest to the query.\n\nThis is step 1 of RAG: it finds the right paragraphs before the AI model writes an answer.\n\nYou can try it with a free embedding model and a few hundred rows. A great weekend project for your resume.\n\nSource: OpenAI and Hugging Face embedding guides.",
+    "publishAt": "2026-10-22T08:00:00+05:30"
+  },
+  {
+    "id": "n78",
+    "day": 9,
+    "slot": "pm",
+    "pillar": "career",
+    "format": "question",
+    "card": {
+      "text": "Students: what's harder for you, DSA or building real projects?\n\nWorking devs: which one helped you more AFTER you got the job?"
+    },
+    "caption": "I hear this debate every week from students I mentor.\n\nI'd love to see the two groups answer side by side. Mention whether you're a student or working, and for how long.",
+    "publishAt": "2026-10-22T20:00:00+05:30"
+  },
+  {
+    "id": "n79",
+    "day": 10,
+    "slot": "am",
+    "pillar": "frontend",
+    "format": "predict-output",
+    "card": {
+      "text": "I copied the object. Why did the original change?",
+      "code": "const a = { user: { age: 20 } };\nconst b = { ...a };\nb.user.age = 30;\nconsole.log(a.user.age);"
+    },
+    "caption": "Comment your guess first. Answer below.\n\n.\n.\n.\n\n30.\n\nSpread makes a shallow copy. b is a new object, but b.user and a.user point to the same inner object. Change one, both see it.\n\nFor a deep copy, use structuredClone(a). It copies nested objects, arrays, Dates and Maps. It cannot copy functions or DOM elements.\n\nIn React this matters a lot: mutating nested state this way is why the screen sometimes doesn't update.\n\nSource: MDN, structuredClone() and Shallow copy.",
+    "publishAt": "2026-10-23T08:00:00+05:30"
+  },
+  {
+    "id": "n80",
+    "day": 10,
+    "slot": "pm",
+    "pillar": "backend",
+    "format": "one-liner",
+    "card": {
+      "text": "Never store passwords.\n\nStore a slow, salted hash (bcrypt or Argon2).\n\nIf your database leaks, attackers should get gibberish, not your users' passwords."
+    },
+    "caption": "A hash is one-way: you can check a password against it, but you can't turn it back into the password.\n\nWhy slow? Fast hashes like MD5 or SHA-256 can be guessed billions of times per second on a GPU. bcrypt and Argon2 are designed to be slow and expensive to guess.\n\nWhy salted? A random value added per user means two people with the password \"123456\" get different hashes.\n\nNever encrypt passwords (encryption can be reversed) and never write your own.\n\nSource: OWASP Password Storage Cheat Sheet.",
+    "publishAt": "2026-10-23T20:00:00+05:30"
+  },
+  {
+    "id": "n81",
+    "day": 11,
+    "slot": "am",
+    "pillar": "frontend",
+    "format": "predict-output",
+    "card": {
+      "text": "Sorting 4 numbers. What could go wrong?",
+      "code": "[10, 9, 1, 100].sort()"
+    },
+    "caption": "Comment your guess first. Answer below.\n\n.\n.\n.\n\n[1, 10, 100, 9]\n\nWithout a compare function, sort() converts every item to a string and sorts alphabetically. \"10\" comes before \"9\" because \"1\" comes before \"9\".\n\nFix: [10, 9, 1, 100].sort((a, b) => a - b) gives [1, 9, 10, 100].\n\nAlso: sort() changes the original array. If you need a sorted copy, use toSorted() in modern browsers.\n\nSource: MDN, Array.prototype.sort().",
+    "publishAt": "2026-10-24T08:00:00+05:30"
+  },
+  {
+    "id": "n82",
+    "day": 11,
+    "slot": "pm",
+    "pillar": "ai",
+    "format": "take",
+    "card": {
+      "text": "Ask AI to EXPLAIN the error before you ask it to FIX the error.\n\n\"Fix this\" solves the bug once.\n\"Explain this\" means you'll recognise it next time without help."
+    },
+    "caption": "Same tool, two different outcomes.\n\nTry this prompt next time: \"Explain what this error means, why my code causes it, and how I could have found it myself. Don't fix it yet.\"\n\nThen fix it yourself. Ask for the fix only if you're still stuck.\n\nIt takes 2 extra minutes. After a month you'll notice you need AI for errors much less often.",
+    "publishAt": "2026-10-24T20:00:00+05:30"
+  },
+  {
+    "id": "n83",
+    "day": 12,
+    "slot": "am",
+    "pillar": "frontend",
+    "format": "predict-output",
+    "card": {
+      "text": "count starts at 0. The user clicks once. What's count after the render?",
+      "code": "function onClick() {\n  setCount(count + 1);\n  setCount(count + 1);\n  setCount(count + 1);\n}"
+    },
+    "caption": "Comment your guess first. Answer below.\n\n.\n.\n.\n\n1, not 3.\n\nInside this click, count is 0 the whole time. All three calls say \"set it to 0 + 1\". React batches them, and the result is 1.\n\nWhen the next value depends on the previous one, pass a function:\nsetCount(c => c + 1)\nReact queues these and runs each with the latest value, so three calls give 3.\n\nSource: react.dev, Queueing a series of state updates.",
+    "publishAt": "2026-10-25T08:00:00+05:30"
+  },
+  {
+    "id": "n84",
+    "day": 12,
+    "slot": "pm",
+    "pillar": "frontend",
+    "format": "question",
+    "card": {
+      "text": "A fresher asks you which framework to learn first in 2026.\n\nReact, Angular or Vue?\n\nOne line, with your reason."
+    },
+    "caption": "Job listings, college projects and company stacks in India all pull in different directions.\n\nI want answers from people who hire or work on these daily. Mention which one you use at work.",
+    "publishAt": "2026-10-25T20:00:00+05:30"
+  },
+  {
+    "id": "n85",
+    "day": 13,
+    "slot": "am",
+    "pillar": "backend",
+    "format": "nugget",
+    "card": {
+      "text": "Hit an API too often and it answers 429 Too Many Requests.\n\nThe response often tells you how long to wait:",
+      "code": "HTTP/1.1 429 Too Many Requests\nRetry-After: 30"
+    },
+    "caption": "APIs limit requests per user or per key (for example, 100 per minute) so one client can't slow down everyone else. This is rate limiting.\n\nWhat your frontend should do:\nRead Retry-After (seconds) and wait that long.\nIf it's missing, retry with exponential backoff: wait 1s, then 2s, then 4s.\nNever retry in a tight loop. That makes the problem worse.\n\nAlso a common cause: a useEffect with a missing dependency array firing the same request on every render.\n\nSource: MDN, 429 Too Many Requests.",
+    "publishAt": "2026-10-26T08:00:00+05:30"
+  },
+  {
+    "id": "n86",
+    "day": 13,
+    "slot": "pm",
+    "pillar": "career",
+    "format": "one-liner",
+    "card": {
+      "text": "Your resume is not a list of technologies.\n\n\"React, Redux, Tailwind\" says nothing.\n\n\"Cut page load from 6s to 2s by lazy-loading images\" says everything."
+    },
+    "caption": "Every fresher's resume has the same skills section. Recruiters skim past it.\n\nWhat stands out is a result: what you changed, how you did it, and a number that shows it worked.\n\nFormat for each project bullet:\nDid X, using Y, which improved Z (with a number).\n\nNo real numbers yet? Measure your own project with Lighthouse before and after a change. Now you have one.\n\nRewrite one bullet today and post it in the comments. I'll give feedback on a few.",
+    "publishAt": "2026-10-26T20:00:00+05:30"
+  },
+  {
+    "id": "n87",
+    "day": 14,
+    "slot": "am",
+    "pillar": "frontend",
+    "format": "compare",
+    "card": {
+      "text": "If it happens because the user clicked, it belongs in the click handler. Not in useEffect.",
+      "code": "// avoid\nuseEffect(() => {\n  if (sent) post(form);\n}, [sent]);\n\n// do\nconst onSubmit = () => {\n  post(form);\n};"
+    },
+    "caption": "The useEffect version is harder to follow and can fire twice or at the wrong time (for example, when the component mounts with sent already true).\n\nReact's own docs: if code runs because of a specific interaction, put it in that event handler. Use effects only to sync with things outside React, like a timer, a WebSocket or a browser API.\n\nQuick test: can you name the user action that causes it? Then it's an event handler.\n\nSource: react.dev, You Might Not Need an Effect.",
+    "publishAt": "2026-10-27T08:00:00+05:30"
+  },
+  {
+    "id": "n88",
+    "day": 14,
+    "slot": "pm",
+    "pillar": "ai",
+    "format": "question",
+    "card": {
+      "text": "Has AI made you a better developer, or just a faster one?\n\nThey're not the same thing."
+    },
+    "caption": "Faster: you ship the same work in less time.\nBetter: you understand more, make fewer mistakes, and can solve problems you couldn't before.\n\nIt's possible to get one without the other.\n\nBe honest in the comments. Which one is it for you?",
+    "publishAt": "2026-10-27T20:00:00+05:30"
+  },
+  {
+    "id": "n89",
+    "day": 15,
+    "slot": "am",
+    "pillar": "ai",
+    "format": "nugget",
+    "card": {
+      "text": "Asked an AI model for JSON? Don't trust the shape. Validate it:",
+      "code": "const Out = z.object({\n  title: z.string(),\n  tags: z.array(z.string()),\n});\nconst json = JSON.parse(reply);\nconst data = Out.parse(json);"
+    },
+    "caption": "Models usually return what you ask for. Usually isn't good enough for code that runs in production.\n\nA missing field or a number where you expected a string will crash your UI somewhere far away from the actual cause.\n\nThis uses Zod, a validation library. Out.parse throws a clear error the moment the shape is wrong, so you can retry the request or show a fallback.\n\nMany AI APIs now also support structured outputs (you pass a JSON schema). Still validate. It's one line.\n\nSource: zod.dev.",
+    "publishAt": "2026-10-28T08:00:00+05:30"
+  },
+  {
+    "id": "n90",
+    "day": 15,
+    "slot": "pm",
+    "pillar": "frontend",
+    "format": "one-liner",
+    "card": {
+      "text": "Your React app cannot keep a secret.\n\nEvery VITE_ or NEXT_PUBLIC_ variable is copied into the JavaScript bundle. Anyone can read it in DevTools.\n\nAPI keys belong on a server."
+    },
+    "caption": "Build tools replace those env variables with their actual values at build time. They end up as plain text inside the .js files your users download.\n\nOpen DevTools → Sources on your deployed app and search for your key. If it's there, it's public.\n\nFix: call the third-party API from your own backend (or a serverless function), keep the key in the server's environment, and let the frontend call your backend.\n\nSource: Vite docs (Env Variables) and Next.js docs (Environment Variables).",
+    "publishAt": "2026-10-28T20:00:00+05:30"
+  },
+  {
+    "id": "n91",
+    "day": 16,
+    "slot": "am",
+    "pillar": "frontend",
+    "format": "nugget",
+    "card": {
+      "text": "position: sticky not sticking? Check two things:\n\n1. Did you set top?\n2. Does any parent have overflow: hidden or auto?",
+      "code": ".header {\n  position: sticky;\n  top: 0; /* required */\n}"
+    },
+    "caption": "Sticky needs a threshold. Without top (or bottom, left, right) it behaves like position: relative.\n\nSticky also sticks inside its nearest scrolling ancestor. If a parent has overflow: hidden, auto or scroll, the element sticks inside that parent instead of the page. Often it looks like it isn't working at all.\n\nDebug fast: in DevTools, walk up the parents in the Elements panel and look for overflow in the Computed tab.\n\nSource: MDN, position (sticky positioning).",
+    "publishAt": "2026-10-29T08:00:00+05:30"
+  },
+  {
+    "id": "n92",
+    "day": 16,
+    "slot": "pm",
+    "pillar": "backend",
+    "format": "take",
+    "card": {
+      "text": "Learn one SQL database properly before you learn five NoSQL ones.\n\nJOINs, indexes and transactions come up in almost every backend interview."
+    },
+    "caption": "Frontend devs moving to backend often jump straight to whatever is trending.\n\nSQL has been around for decades and it isn't going anywhere. Postgres alone will teach you data modelling, query performance (EXPLAIN), and how to keep data consistent.\n\nA good first project: a small expense tracker with users, categories and expenses. Three tables, real JOINs, real indexes.\n\nWhich database did you learn first?",
+    "publishAt": "2026-10-29T20:00:00+05:30"
+  },
+  {
+    "id": "n93",
+    "day": 17,
+    "slot": "am",
+    "pillar": "frontend",
+    "format": "predict-output",
+    "card": {
+      "text": "var and let, both used before they're declared. What happens?",
+      "code": "console.log(a);\nvar a = 5;\n\nconsole.log(b);\nlet b = 5;"
+    },
+    "caption": "Comment your guess first. Answer below.\n\n.\n.\n.\n\nFirst log: undefined.\nSecond log: ReferenceError: Cannot access 'b' before initialization.\n\nBoth declarations are hoisted (registered at the start of the scope). But var is also set to undefined right away, while let and const stay uninitialised until their line runs. The gap is called the temporal dead zone.\n\nThe error is the better behaviour. Silent undefined values hide bugs.\n\nSource: MDN, Hoisting and let.",
+    "publishAt": "2026-10-30T08:00:00+05:30"
+  },
+  {
+    "id": "n94",
+    "day": 17,
+    "slot": "pm",
+    "pillar": "career",
+    "format": "take",
+    "card": {
+      "text": "A fresher taking 2 hours on a bug: normal.\n\nTaking 2 days without asking anyone: the actual problem.\n\nTry for 1-2 hours. Write down what you tried. Then ask."
+    },
+    "caption": "Juniors stay quiet because they don't want to look slow. Seniors would much rather spend 10 minutes unblocking you than find out on day 3.\n\nWriting down what you tried does two things. Often you spot the answer while writing it. If not, your senior can skip the obvious questions and help you faster.\n\nTemplate: \"I'm trying to X. I expected Y, I got Z. I've tried A and B.\"\n\nSave this for your first job.",
+    "publishAt": "2026-10-30T20:00:00+05:30"
+  },
+  {
+    "id": "n95",
+    "day": 18,
+    "slot": "am",
+    "pillar": "backend",
+    "format": "nugget",
+    "card": {
+      "text": "User double-clicks \"Pay ₹499\". Two requests reach the server.\n\nDid you charge them twice?\n\nIdempotency keys prevent it: the client sends the same unique key with both requests, and the server processes that key only once."
+    },
+    "caption": "Idempotent means doing it twice has the same effect as doing it once.\n\nGET, PUT and DELETE are idempotent by design. POST is not, which is why \"create payment\" needs extra care.\n\nPayment APIs like Stripe support an Idempotency-Key header. The server stores the key with the result and returns the same result for a repeat.\n\nFrontend side: disable the button after the first click too. But never rely only on the frontend, because retries also happen on flaky networks.\n\nSource: MDN (Idempotent) and Stripe API docs (Idempotent requests).",
+    "publishAt": "2026-10-31T08:00:00+05:30"
+  },
+  {
+    "id": "n96",
+    "day": 18,
+    "slot": "pm",
+    "pillar": "ai",
+    "format": "one-liner",
+    "card": {
+      "text": "An AI answer that sounds confident is not an AI answer that is correct.\n\nOne follow-up catches a lot of mistakes:\n\n\"What would make this answer wrong?\""
+    },
+    "caption": "Models write in the same confident tone whether they're right or guessing.\n\nAsking for the weak points makes the model look at its own answer again. Often it mentions an edge case, an outdated API, or an assumption about your setup.\n\nOther good follow-ups:\n\"Which part of this are you least sure about?\"\n\"Show me where in the docs this is described.\"\n\nThen verify the important parts yourself.",
+    "publishAt": "2026-10-31T20:00:00+05:30"
+  },
+  {
+    "id": "n97",
+    "day": 19,
+    "slot": "am",
+    "pillar": "frontend",
+    "format": "nugget",
+    "card": {
+      "text": "Google measures your page's user experience with 3 numbers. \"Good\" means:\n\nLCP ≤ 2.5 s: main content visible\nINP ≤ 200 ms: page responds to taps\nCLS ≤ 0.1: layout doesn't jump around"
+    },
+    "caption": "These are the Core Web Vitals.\n\nLCP (Largest Contentful Paint): when the biggest image or text block appears.\nINP (Interaction to Next Paint): the delay between a tap and the screen updating.\nCLS (Cumulative Layout Shift): how much things move while loading.\n\nThe thresholds are measured at the 75th percentile of real visits, so your slowest users count.\n\nCheck any site at pagespeed.web.dev. Try your college website.\n\nSource: web.dev, Web Vitals.",
+    "publishAt": "2026-11-01T08:00:00+05:30"
+  },
+  {
+    "id": "n98",
+    "day": 19,
+    "slot": "pm",
+    "pillar": "frontend",
+    "format": "question",
+    "card": {
+      "text": "A page is slow. What do you open first?\n\nA) Network tab\nB) Performance tab\nC) Lighthouse\n\nAnd why that one?"
+    },
+    "caption": "Each one answers a different question. Picking the right first tool saves a lot of time.\n\nI'll share how I approach it in a follow-up, step by step, with a real slow page.\n\nYour answer first.",
+    "publishAt": "2026-11-01T20:00:00+05:30"
+  },
+  {
+    "id": "n99",
+    "day": 20,
+    "slot": "am",
+    "pillar": "frontend",
+    "format": "compare",
+    "card": {
+      "text": "map returns a new array.\nforEach returns undefined.",
+      "code": "const a = [1, 2, 3];\n\na.map(n => n * 2);\n// [2, 4, 6]\n\na.forEach(n => n * 2);\n// undefined"
+    },
+    "caption": "Use map when you want a new array built from the old one (rendering a list in React, converting prices).\n\nUse forEach when you only want side effects and don't need a result (logging, pushing to analytics).\n\nCommon bug: using map, ignoring its result, and getting an ESLint warning. Or using forEach inside JSX and rendering nothing.\n\nNeither one works with await the way you expect. For async loops, use for...of or Promise.all.\n\nSource: MDN, Array.prototype.map() and forEach().",
+    "publishAt": "2026-11-02T08:00:00+05:30"
+  },
+  {
+    "id": "n100",
+    "day": 20,
+    "slot": "pm",
+    "pillar": "ai",
+    "format": "take",
+    "card": {
+      "text": "My favourite AI prompt for learning anything:\n\n\"Explain this like I'm a 2nd-year B.Tech student. Then ask me one question to check if I understood.\""
+    },
+    "caption": "The first half gets you a simple explanation. The second half is the important part.\n\nWhen you have to answer a question, you find out right away whether you actually understood it or just nodded along.\n\nIf you get it wrong, ask it to explain the part you missed in a different way.\n\nTry it today on a topic you've been avoiding. Event loop? Indexes? Closures?",
+    "publishAt": "2026-11-02T20:00:00+05:30"
+  },
+  {
+    "id": "n101",
+    "day": 21,
+    "slot": "am",
+    "pillar": "ai",
+    "format": "nugget",
+    "card": {
+      "text": "Why do AI coding agents keep asking \"Allow this command?\"\n\nBecause an agent that can run\nrm -rf build/\ncan also run\nrm -rf ~/\n\nThe permission prompt is your last review step. Read it."
+    },
+    "caption": "An agent's tools (run shell commands, edit files, call APIs) are real actions on your machine or your accounts.\n\nGood habits:\nAllow read-only commands freely. Read anything that deletes, pushes, or sends data.\nRun agents inside the project folder, not your home directory.\nUse git, so every file change can be undone.\nNever paste secrets into the chat.\n\nThis idea is called least privilege: give a tool only the access its task needs.\n\nSource: OWASP, principle of least privilege.",
+    "publishAt": "2026-11-03T08:00:00+05:30"
+  },
+  {
+    "id": "n102",
+    "day": 21,
+    "slot": "pm",
+    "pillar": "frontend",
+    "format": "one-liner",
+    "card": {
+      "text": "Unplug your mouse and try to fill your own signup form.\n\nCan you reach every field with Tab? Submit with Enter? See where focus is?\n\nIf not, some of your users can't sign up."
+    },
+    "caption": "Keyboard users include people with motor disabilities, screen reader users and plenty of power users.\n\nThe usual problems:\nClickable divs that Tab skips.\noutline: none with no replacement, so focus is invisible.\nCustom dropdowns that ignore arrow keys.\n\nMost are fixed by using real elements: <button>, <input>, <select>, <form>.\n\nFive-minute test, no tools needed. Try it on your project tonight.\n\nSource: WCAG 2.2, Keyboard (2.1.1) and Focus Visible (2.4.7).",
+    "publishAt": "2026-11-03T20:00:00+05:30"
+  },
+  {
+    "id": "n103",
+    "day": 22,
+    "slot": "am",
+    "pillar": "frontend",
+    "format": "nugget",
+    "card": {
+      "text": "Inside a <form>, a <button> is type=\"submit\" by default.\n\nSo your Cancel button submits the form.",
+      "code": "<form onSubmit={save}>\n  <button>Save</button>\n  <button type=\"button\">\n    Cancel\n  </button>\n</form>"
+    },
+    "caption": "Without type=\"button\", clicking Cancel triggers the form's submit. Your save handler runs and, without e.preventDefault(), the page reloads.\n\nRule: inside a form, every button that should not submit needs type=\"button\".\n\nBonus: because Save is a real submit button, pressing Enter in any input also submits the form. You get that for free.\n\nSource: MDN, <button> (type attribute).",
+    "publishAt": "2026-11-04T08:00:00+05:30"
+  },
+  {
+    "id": "n104",
+    "day": 22,
+    "slot": "pm",
+    "pillar": "backend",
+    "format": "question",
+    "card": {
+      "text": "You're a frontend dev learning backend.\n\nNode.js, Java (Spring), Go or Python?\n\nPick one and give one reason."
+    },
+    "caption": "Node lets you reuse JavaScript. Java dominates big Indian enterprises. Go is popular in infra and startups. Python is everywhere in AI.\n\nAll four get people hired.\n\nTell me which one you picked and whether you'd choose it again.",
+    "publishAt": "2026-11-04T20:00:00+05:30"
+  },
+  {
+    "id": "n105",
+    "day": 23,
+    "slot": "am",
+    "pillar": "backend",
+    "format": "nugget",
+    "card": {
+      "text": "Never commit your .env file.\n\nBots scan public GitHub repos for leaked keys. Once pushed, assume it is stolen.",
+      "code": "# .gitignore\n.env\n.env.local\n\n# commit this instead\n.env.example"
+    },
+    "caption": "A .env file holds secrets: database URLs, API keys, payment keys. Deleting it in the next commit doesn't help: it's still in git history.\n\nSafe setup:\nAdd .env to .gitignore before your first commit.\nCommit .env.example with the variable names and fake values.\nIn production, set real values in your hosting platform's settings.\n\nAlready leaked one? Revoke and regenerate the key first. Cleaning history comes second.\n\nSource: GitHub docs, About secret scanning.",
+    "publishAt": "2026-11-05T08:00:00+05:30"
+  },
+  {
+    "id": "n106",
+    "day": 23,
+    "slot": "pm",
+    "pillar": "career",
+    "format": "take",
+    "card": {
+      "text": "Read your teammates' pull requests at your first job. Even the ones you're not reviewing.\n\nIt's free mentorship from every senior on the team."
+    },
+    "caption": "Every PR shows how someone experienced broke down a problem, named things, handled errors and wrote tests. The review comments show what the team actually cares about.\n\n20 minutes a day of reading merged PRs teaches you the codebase faster than any onboarding doc.\n\nWhen something confuses you, ask in the PR thread. Most seniors are happy to explain.",
+    "publishAt": "2026-11-05T20:00:00+05:30"
+  },
+  {
+    "id": "n107",
+    "day": 24,
+    "slot": "am",
+    "pillar": "frontend",
+    "format": "predict-output",
+    "card": {
+      "text": "A rejected promise, a catch, and two thens. What prints?",
+      "code": "Promise.reject('x')\n  .then(() => console.log(1))\n  .catch(() => console.log(2))\n  .then(() => console.log(3));"
+    },
+    "caption": "Comment your guess first. Answer below.\n\n.\n.\n.\n\n2, then 3.\n\nThe first then is skipped because the promise is rejected. catch handles the error and returns normally, so the chain is back on the success path. The last then runs.\n\nThis is why one catch at the end of a chain is common: it handles an error from any step above it. A then after a catch always runs unless the catch throws again.\n\nSource: MDN, Using promises (Error handling).",
+    "publishAt": "2026-11-06T08:00:00+05:30"
+  },
+  {
+    "id": "n108",
+    "day": 24,
+    "slot": "pm",
+    "pillar": "ai",
+    "format": "one-liner",
+    "card": {
+      "text": "An AI coding tool is only as safe as your tests.\n\nNo tests = no quick way to know if its \"small refactor\" broke checkout."
+    },
+    "caption": "Tests turn \"looks right to me\" into a pass or fail you can check in seconds.\n\nThey also help the AI itself: agents can run the tests, read the failures, and fix their own mistakes before you even look.\n\nStart small: one test per important user flow (login, add to cart, checkout). That alone catches the worst breakages.\n\nDoes your current project have tests?",
+    "publishAt": "2026-11-06T20:00:00+05:30"
+  },
+  {
+    "id": "n109",
+    "day": 25,
+    "slot": "am",
+    "pillar": "frontend",
+    "format": "nugget",
+    "card": {
+      "text": "Why send a 1600px image to a 400px phone screen?\n\nWith srcset, the browser picks the right size:",
+      "code": "<img src=\"shoe-800.jpg\"\n  srcset=\"shoe-400.jpg 400w,\n          shoe-800.jpg 800w,\n          shoe-1600.jpg 1600w\"\n  sizes=\"100vw\" alt=\"Shoe\">"
+    },
+    "caption": "srcset lists the same image at different widths (400w means 400 pixels wide). sizes tells the browser how wide the image will be shown on screen.\n\nThe browser then downloads only the one it needs, taking screen size and pixel density into account. A budget phone on mobile data gets the small file.\n\nsrc stays as the fallback for very old browsers.\n\nFrameworks like Next.js generate this for you with their Image component. Now you know what it's doing.\n\nSource: MDN, Responsive images.",
+    "publishAt": "2026-11-07T08:00:00+05:30"
+  },
+  {
+    "id": "n110",
+    "day": 25,
+    "slot": "pm",
+    "pillar": "frontend",
+    "format": "take",
+    "card": {
+      "text": "Accessibility is not a feature for \"a few users\".\n\nCaptions help on a noisy train.\nHigh contrast helps on a phone in sunlight.\nKeyboard support helps when your trackpad dies."
+    },
+    "caption": "Accessibility work is usually framed as helping people with permanent disabilities. It does, and that alone is reason enough.\n\nBut the same fixes help everyone in temporary situations: an injured arm, a bright screen, a slow connection, a loud room.\n\nAnd in many countries it's a legal requirement for public-facing sites.\n\nWhich one does your current project fail at?\n\nSource: W3C WAI, Introduction to Web Accessibility.",
+    "publishAt": "2026-11-07T20:00:00+05:30"
+  },
+  {
+    "id": "n111",
+    "day": 26,
+    "slot": "am",
+    "pillar": "ai",
+    "format": "compare",
+    "card": {
+      "text": "Want an AI model to work with your company's data? Try these in order:\n\n1. Better prompt + examples\n2. RAG: fetch the right documents into the prompt\n3. Fine-tuning: retrain the model\n\nMost teams never need step 3."
+    },
+    "caption": "Prompting is free and instant. Try it until it clearly isn't enough.\n\nRAG solves \"the model doesn't know our data\". The data stays in your database, so it's always up to date and you can show sources.\n\nFine-tuning changes the model itself. It helps with style, format or a very specific task. It costs money, needs good training data, and doesn't keep up with data that changes daily.\n\nInterview tip: if asked \"how would you build a support bot for our docs\", start with RAG and say why.\n\nSource: OpenAI and Anthropic docs on prompt engineering and fine-tuning.",
+    "publishAt": "2026-11-08T08:00:00+05:30"
+  },
+  {
+    "id": "n112",
+    "day": 26,
+    "slot": "pm",
+    "pillar": "career",
+    "format": "question",
+    "card": {
+      "text": "You can send one message to yourself in 1st year of college.\n\nWhat's the one thing about coding you'd tell yourself?"
+    },
+    "caption": "Students reading this are in that exact position right now.\n\nGive them your best advice: what to start earlier, what to ignore, what to stop worrying about.\n\nI'll compile the best answers into one post.",
+    "publishAt": "2026-11-08T20:00:00+05:30"
+  },
+  {
+    "id": "n113",
+    "day": 27,
+    "slot": "am",
+    "pillar": "frontend",
+    "format": "nugget",
+    "card": {
+      "text": "Ten console.logs to find one bug?\n\nPut debugger; on the line. With DevTools open, the code pauses there and you can inspect every variable.",
+      "code": "function total(cart) {\n  debugger; // pauses here\n  return cart.reduce(\n    (s, i) => s + i.price, 0);\n}"
+    },
+    "caption": "While paused, you can hover any variable to see its value, step to the next line, step into a function, and see the full call stack (who called this function and from where).\n\nEven better than editing code: click a line number in DevTools → Sources to set a breakpoint. Right-click it to make it conditional, like \"only pause when i.price is undefined\".\n\nconsole.log is fine. Breakpoints are faster when you don't know where the bug is.\n\nSource: Chrome DevTools docs, Pause your code with breakpoints.",
+    "publishAt": "2026-11-09T08:00:00+05:30"
+  },
+  {
+    "id": "n114",
+    "day": 27,
+    "slot": "pm",
+    "pillar": "backend",
+    "format": "one-liner",
+    "card": {
+      "text": "Your API returns res.json(user).\n\nCongratulations. You just sent the password hash, the email and the internal fields to the browser.\n\nPick the fields you return."
+    },
+    "caption": "The frontend may only show the user's name, but the Network tab shows the entire response to anyone.\n\nReturn exactly what the screen needs:\nres.json({ id: user.id, name: user.name })\n\nMost ORMs and frameworks have a way to select or exclude fields. Use it as a default, not an afterthought.\n\nOWASP listed this as \"Excessive Data Exposure\" in its 2019 API Top 10. The 2023 list folds it into \"Broken Object Property Level Authorization\".\n\nSource: OWASP API Security Top 10.",
+    "publishAt": "2026-11-09T20:00:00+05:30"
+  },
+  {
+    "id": "n115",
+    "day": 28,
+    "slot": "am",
+    "pillar": "backend",
+    "format": "compare",
+    "card": {
+      "text": "Getting live updates into the browser:\n\nPolling: ask the server every few seconds.\nSSE: server pushes updates over one HTTP connection.\nWebSocket: both sides send anytime.\n\nNotifications → SSE. Chat or games → WebSocket."
+    },
+    "caption": "Polling is simplest and fine for things that change every few minutes. But most requests return \"nothing new\".\n\nServer-Sent Events (SSE): one long-lived connection, the server streams events down. It reconnects automatically. Streaming AI responses token by token often uses this.\n\nWebSockets: a two-way connection. Needed when the client also sends a lot in real time.\n\nStart with the simplest option that meets the need.\n\nSource: MDN, Server-sent events and The WebSocket API.",
+    "publishAt": "2026-11-10T08:00:00+05:30"
+  },
+  {
+    "id": "n116",
+    "day": 28,
+    "slot": "pm",
+    "pillar": "ai",
+    "format": "question",
+    "card": {
+      "text": "Should a fresher write \"Prompt Engineering\" on their resume?\n\nYes, no, or only with a project to prove it?"
+    },
+    "caption": "Recruiters and interviewers especially, I want your view.\n\nIs it a real skill worth listing, a buzzword that hurts more than it helps, or somewhere in between?",
+    "publishAt": "2026-11-10T20:00:00+05:30"
+  },
+  {
+    "id": "n117",
+    "day": 29,
+    "slot": "am",
+    "pillar": "frontend",
+    "format": "predict-output",
+    "card": {
+      "text": "Two different objects as keys. What prints?",
+      "code": "const a = {};\nconst b = { id: 1 };\nconst c = { id: 2 };\na[b] = 'first';\na[c] = 'second';\nconsole.log(a[b]);"
+    },
+    "caption": "Comment your guess first. Answer below.\n\n.\n.\n.\n\n'second'.\n\nObject keys are strings (or symbols). Both b and c get converted to the string \"[object Object]\", so they're the same key. The second assignment overwrites the first.\n\nIf you need objects as keys, use a Map:\nconst m = new Map();\nm.set(b, 'first');\nMap keeps the actual object as the key.\n\nSource: MDN, Map (Objects vs. Maps).",
+    "publishAt": "2026-11-11T08:00:00+05:30"
+  },
+  {
+    "id": "n118",
+    "day": 29,
+    "slot": "pm",
+    "pillar": "frontend",
+    "format": "one-liner",
+    "card": {
+      "text": "Learn DevTools before you learn another framework.\n\nElements: why the layout broke.\nNetwork: what the API actually returned.\nConsole: what threw.\n\nYou'll use it every working day."
+    },
+    "caption": "Frameworks change every few years. The browser's tools have been the core debugging kit for over a decade, and they keep getting better.\n\nThree skills to practise this week:\nEdit CSS live in Elements until it looks right, then copy it back.\nIn Network, inspect a failing request's status code, request body and response.\nUse breakpoints in Sources instead of console.log.\n\nWhich panel do you use the least?",
+    "publishAt": "2026-11-11T20:00:00+05:30"
+  },
+  {
+    "id": "n119",
+    "day": 30,
+    "slot": "am",
+    "pillar": "frontend",
+    "format": "nugget",
+    "card": {
+      "text": "Heavy calculation freezing your UI? Move it to a Web Worker. It runs on a separate thread, so clicks and scrolling stay smooth.",
+      "code": "// main.js\nconst w = new Worker('sum.js');\nw.postMessage(bigArray);\nw.onmessage = (e) =>\n  show(e.data);"
+    },
+    "caption": "JavaScript on the page runs on one main thread, which also handles clicks, typing and painting. A 2-second loop there means 2 seconds of frozen page.\n\nA Worker runs your script in the background. You send it data with postMessage and get the result back in onmessage.\n\nWorkers can't touch the DOM. They're for pure computation: parsing a big file, filtering a large list, image processing.\n\nSource: MDN, Using Web Workers.",
+    "publishAt": "2026-11-12T08:00:00+05:30"
+  },
+  {
+    "id": "n120",
+    "day": 30,
+    "slot": "pm",
+    "pillar": "career",
+    "format": "take",
+    "card": {
+      "text": "Stuck finding a project idea?\n\nFind something broken in your college: the canteen queue, the notice board, the lost-and-found.\n\nBuild the fix. Now you have a project, a story for interviews, and real users."
+    },
+    "caption": "Interviewers hear about the same todo apps and Netflix clones all day.\n\nA project with real users gives you real problems: people using it wrong, slow phones, feature requests, bugs you didn't predict. Those are the stories that stand out in interviews.\n\nIt doesn't need to be big. Ten students using it every day is enough.\n\nWhat would you fix in your college first?",
+    "publishAt": "2026-11-12T20:00:00+05:30"
+  }
+]

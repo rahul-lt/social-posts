@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-10-30T02:30:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "Comment your guess first. Answer below.\n\n.\n.\n.\n\nFirst log: undefined.\nSecond log: ReferenceError: Cannot access 'b' before initialization.\n\nBoth declarations are hoisted (registered at the start of the scope). But var is also set to undefined right away, while let and const stay uninitialised until their line runs. The gap is called the temporal dead zone.\n\nThe error is the better behaviour. Silent undefined values hide bugs.\n\nSource: MDN, Hoisting and let.\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "var and let, both used before they're declared. What happens?\n\nconsole.log(a);\nvar a = 5;\n\nconsole.log(b);\nlet b = 5;",
+  "title": "Nugget N93"
+}

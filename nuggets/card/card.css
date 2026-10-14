@@ -1,0 +1,28 @@
+/* X-style post card. Every size is in cqw of .card-frame, so the same card renders as a
+   1080px-wide PNG (render.py) and as a thumbnail on the review page. 1cqw = 10.8px at export size.
+   Height follows the content (equal padding on all sides), capped at 4:5 by card.js. */
+.card-frame { container-type: inline-size; width: 100%; }
+
+.card {
+  --bg: #ffffff; --ink: #0f1419; --muted: #536471; --code-bg: #f4f6f8; --code-ink: #0f1419; --code-line: #e1e6ea;
+  box-sizing: border-box; width: 100%;
+  display: flex; flex-direction: column; gap: 4cqw;
+  padding: 7cqw; background: var(--bg); color: var(--ink);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+.card.dark { --bg: #000000; --ink: #e7e9ea; --muted: #71767b; --code-bg: #16181c; --code-ink: #e7e9ea; --code-line: #2f3336; }
+
+.card .who { display: flex; align-items: center; gap: 2.6cqw; }
+.card .avatar {
+  width: 10cqw; height: 10cqw; border-radius: 50%; flex: none; object-fit: cover;
+  display: grid; place-items: center; background: #1d9bf0; color: #fff; font-weight: 700; font-size: 3.6cqw;
+}
+.card .name { font-weight: 700; font-size: 3.7cqw; line-height: 1.2; }
+.card .handle { color: var(--muted); font-size: 3.3cqw; line-height: 1.2; }
+
+.card .text { font-size: var(--fs, 5.6cqw); line-height: 1.32; white-space: pre-line; overflow-wrap: anywhere; }
+.card pre {
+  margin: 0; padding: 3cqw 3.4cqw; border-radius: 2cqw; border: 0.2cqw solid var(--code-line);
+  background: var(--code-bg); color: var(--code-ink); white-space: pre-wrap; overflow-wrap: anywhere;
+  font: min(max(calc(var(--fs, 5.6cqw) * 0.85), 3.2cqw), var(--code-max, 99cqw)) / 1.4 ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}

@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-10-31T14:30:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "Models write in the same confident tone whether they're right or guessing.\n\nAsking for the weak points makes the model look at its own answer again. Often it mentions an edge case, an outdated API, or an assumption about your setup.\n\nOther good follow-ups:\n\"Which part of this are you least sure about?\"\n\"Show me where in the docs this is described.\"\n\nThen verify the important parts yourself.\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "An AI answer that sounds confident is not an AI answer that is correct.\n\nOne follow-up catches a lot of mistakes:\n\n\"What would make this answer wrong?\"",
+  "title": "Nugget N96"
+}

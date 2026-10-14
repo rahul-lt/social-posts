@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-10-23T02:30:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "Comment your guess first. Answer below.\n\n.\n.\n.\n\n30.\n\nSpread makes a shallow copy. b is a new object, but b.user and a.user point to the same inner object. Change one, both see it.\n\nFor a deep copy, use structuredClone(a). It copies nested objects, arrays, Dates and Maps. It cannot copy functions or DOM elements.\n\nIn React this matters a lot: mutating nested state this way is why the screen sometimes doesn't update.\n\nSource: MDN, structuredClone() and Shallow copy.\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "I copied the object. Why did the original change?\n\nconst a = { user: { age: 20 } };\nconst b = { ...a };\nb.user.age = 30;\nconsole.log(a.user.age);",
+  "title": "Nugget N79"
+}

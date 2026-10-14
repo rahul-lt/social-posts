@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-10-28T02:30:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "Models usually return what you ask for. Usually isn't good enough for code that runs in production.\n\nA missing field or a number where you expected a string will crash your UI somewhere far away from the actual cause.\n\nThis uses Zod, a validation library. Out.parse throws a clear error the moment the shape is wrong, so you can retry the request or show a fallback.\n\nMany AI APIs now also support structured outputs (you pass a JSON schema). Still validate. It's one line.\n\nSource: zod.dev.\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "Asked an AI model for JSON? Don't trust the shape. Validate it:\n\nconst Out = z.object({\n  title: z.string(),\n  tags: z.array(z.string()),\n});\nconst json = JSON.parse(reply);\nconst data = Out.parse(json);",
+  "title": "Nugget N89"
+}

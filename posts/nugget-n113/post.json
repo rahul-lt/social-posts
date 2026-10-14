@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-11-09T02:30:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "While paused, you can hover any variable to see its value, step to the next line, step into a function, and see the full call stack (who called this function and from where).\n\nEven better than editing code: click a line number in DevTools → Sources to set a breakpoint. Right-click it to make it conditional, like \"only pause when i.price is undefined\".\n\nconsole.log is fine. Breakpoints are faster when you don't know where the bug is.\n\nSource: Chrome DevTools docs, Pause your code with breakpoints.\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "Ten console.logs to find one bug?\n\nPut debugger; on the line. With DevTools open, the code pauses there and you can inspect every variable.\n\nfunction total(cart) {\n  debugger; // pauses here\n  return cart.reduce(\n    (s, i) => s + i.price, 0);\n}",
+  "title": "Nugget N113"
+}

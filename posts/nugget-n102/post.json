@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-11-03T14:30:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "Keyboard users include people with motor disabilities, screen reader users and plenty of power users.\n\nThe usual problems:\nClickable divs that Tab skips.\noutline: none with no replacement, so focus is invisible.\nCustom dropdowns that ignore arrow keys.\n\nMost are fixed by using real elements: <button>, <input>, <select>, <form>.\n\nFive-minute test, no tools needed. Try it on your project tonight.\n\nSource: WCAG 2.2, Keyboard (2.1.1) and Focus Visible (2.4.7).\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "Unplug your mouse and try to fill your own signup form.\n\nCan you reach every field with Tab? Submit with Enter? See where focus is?\n\nIf not, some of your users can't sign up.",
+  "title": "Nugget N102"
+}

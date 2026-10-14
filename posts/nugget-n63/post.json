@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-10-15T02:30:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "HTTP is stateless: each request arrives with no memory of the last one.\n\nAfter you log in, the server sends a Set-Cookie header. The browser stores it and automatically attaches it to every later request to that site. The server looks up sid=a1b2 and knows it's you.\n\nHttpOnly means JavaScript on the page cannot read the cookie, so a malicious script can't steal it.\n\nSource: MDN, Using HTTP cookies.\n\nOpen DevTools → Application → Cookies on any site you're logged into and find yours.\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "HTTP forgets you after every request.\n\nCookies are how a website remembers you are logged in:\n\n# server, after login\nSet-Cookie: sid=a1b2; HttpOnly\n\n# browser, every next request\nCookie: sid=a1b2",
+  "title": "Nugget N63"
+}

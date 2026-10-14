@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-11-05T02:30:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "A .env file holds secrets: database URLs, API keys, payment keys. Deleting it in the next commit doesn't help: it's still in git history.\n\nSafe setup:\nAdd .env to .gitignore before your first commit.\nCommit .env.example with the variable names and fake values.\nIn production, set real values in your hosting platform's settings.\n\nAlready leaked one? Revoke and regenerate the key first. Cleaning history comes second.\n\nSource: GitHub docs, About secret scanning.\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "Never commit your .env file.\n\nBots scan public GitHub repos for leaked keys. Once pushed, assume it is stolen.\n\n# .gitignore\n.env\n.env.local\n\n# commit this instead\n.env.example",
+  "title": "Nugget N105"
+}

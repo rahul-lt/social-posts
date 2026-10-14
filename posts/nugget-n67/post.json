@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-10-17T02:30:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "Imagine a cart where the user set quantity to 0. With ||, your default kicks in and they suddenly have 10 items.\n\n|| treats 0, '', false and NaN as \"missing\". Sometimes those are real values.\n\n?? (nullish coalescing) only falls back when the value is null or undefined.\n\nPair it with optional chaining: user?.address?.city ?? 'Unknown'.\n\nSource: MDN, Nullish coalescing operator.\n\nSearch your project for \"|| 0\" and \"|| ''\". Some of them should be ??.\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "|| replaces every falsy value.\n?? replaces only null and undefined.\n\nThat difference breaks real apps:\n\nconst qty = 0;\n\nqty || 10  // 10  (0 is falsy)\nqty ?? 10  // 0   (0 is kept)",
+  "title": "Nugget N67"
+}

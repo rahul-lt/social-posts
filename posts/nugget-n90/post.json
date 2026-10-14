@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-10-28T14:30:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "Build tools replace those env variables with their actual values at build time. They end up as plain text inside the .js files your users download.\n\nOpen DevTools → Sources on your deployed app and search for your key. If it's there, it's public.\n\nFix: call the third-party API from your own backend (or a serverless function), keep the key in the server's environment, and let the frontend call your backend.\n\nSource: Vite docs (Env Variables) and Next.js docs (Environment Variables).\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "Your React app cannot keep a secret.\n\nEvery VITE_ or NEXT_PUBLIC_ variable is copied into the JavaScript bundle. Anyone can read it in DevTools.\n\nAPI keys belong on a server.",
+  "title": "Nugget N90"
+}

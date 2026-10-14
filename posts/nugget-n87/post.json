@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-10-27T02:30:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "The useEffect version is harder to follow and can fire twice or at the wrong time (for example, when the component mounts with sent already true).\n\nReact's own docs: if code runs because of a specific interaction, put it in that event handler. Use effects only to sync with things outside React, like a timer, a WebSocket or a browser API.\n\nQuick test: can you name the user action that causes it? Then it's an event handler.\n\nSource: react.dev, You Might Not Need an Effect.\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "If it happens because the user clicked, it belongs in the click handler. Not in useEffect.\n\n// avoid\nuseEffect(() => {\n  if (sent) post(form);\n}, [sent]);\n\n// do\nconst onSubmit = () => {\n  post(form);\n};",
+  "title": "Nugget N87"
+}

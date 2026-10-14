@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-10-26T02:30:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "APIs limit requests per user or per key (for example, 100 per minute) so one client can't slow down everyone else. This is rate limiting.\n\nWhat your frontend should do:\nRead Retry-After (seconds) and wait that long.\nIf it's missing, retry with exponential backoff: wait 1s, then 2s, then 4s.\nNever retry in a tight loop. That makes the problem worse.\n\nAlso a common cause: a useEffect with a missing dependency array firing the same request on every render.\n\nSource: MDN, 429 Too Many Requests.\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "Hit an API too often and it answers 429 Too Many Requests.\n\nThe response often tells you how long to wait:\n\nHTTP/1.1 429 Too Many Requests\nRetry-After: 30",
+  "title": "Nugget N85"
+}

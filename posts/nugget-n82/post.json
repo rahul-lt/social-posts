@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-10-24T14:30:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "Same tool, two different outcomes.\n\nTry this prompt next time: \"Explain what this error means, why my code causes it, and how I could have found it myself. Don't fix it yet.\"\n\nThen fix it yourself. Ask for the fix only if you're still stuck.\n\nIt takes 2 extra minutes. After a month you'll notice you need AI for errors much less often.\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "Ask AI to EXPLAIN the error before you ask it to FIX the error.\n\n\"Fix this\" solves the bug once.\n\"Explain this\" means you'll recognise it next time without help.",
+  "title": "Nugget N82"
+}

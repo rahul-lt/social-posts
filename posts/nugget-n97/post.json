@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-11-01T02:30:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "These are the Core Web Vitals.\n\nLCP (Largest Contentful Paint): when the biggest image or text block appears.\nINP (Interaction to Next Paint): the delay between a tap and the screen updating.\nCLS (Cumulative Layout Shift): how much things move while loading.\n\nThe thresholds are measured at the 75th percentile of real visits, so your slowest users count.\n\nCheck any site at pagespeed.web.dev. Try your college website.\n\nSource: web.dev, Web Vitals.\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "Google measures your page's user experience with 3 numbers. \"Good\" means:\n\nLCP ≤ 2.5 s: main content visible\nINP ≤ 200 ms: page responds to taps\nCLS ≤ 0.1: layout doesn't jump around",
+  "title": "Nugget N97"
+}

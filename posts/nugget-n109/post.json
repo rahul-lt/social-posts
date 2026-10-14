@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-11-07T02:30:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "srcset lists the same image at different widths (400w means 400 pixels wide). sizes tells the browser how wide the image will be shown on screen.\n\nThe browser then downloads only the one it needs, taking screen size and pixel density into account. A budget phone on mobile data gets the small file.\n\nsrc stays as the fallback for very old browsers.\n\nFrameworks like Next.js generate this for you with their Image component. Now you know what it's doing.\n\nSource: MDN, Responsive images.\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "Why send a 1600px image to a 400px phone screen?\n\nWith srcset, the browser picks the right size:\n\n<img src=\"shoe-800.jpg\"\n  srcset=\"shoe-400.jpg 400w,\n          shoe-800.jpg 800w,\n          shoe-1600.jpg 1600w\"\n  sizes=\"100vw\" alt=\"Shoe\">",
+  "title": "Nugget N109"
+}

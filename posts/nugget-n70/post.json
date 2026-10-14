@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-10-18T14:30:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "A quick test: do you care about lining things up across rows AND columns at the same time? Use grid. Only along one line? Use flex.\n\nYou can mix them. A grid for the page layout, flex inside each card for its title and button.\n\nGrid one-liner worth saving:\ngrid-template-columns: repeat(auto-fill, minmax(200px, 1fr));\nThat gives a responsive card gallery with no media queries.\n\nSource: MDN, Relationship of grid layout to other layout methods.\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "Flexbox lays things out in one direction.\nGrid lays things out in two.\n\nNavbar items in a row → flex.\nA gallery of product cards in rows and columns → grid.",
+  "title": "Nugget N70"
+}

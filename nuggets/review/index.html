@@ -1,0 +1,195 @@
+<title>Nugget Review Board</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="card/card.css">
+<style>
+/* Layout: one column of review rows (card preview | schedule, caption, verdict), summary bar on top. */
+:root {
+  --paper: #faf7f0; --surface: #ffffff; --ink: #1b1a17; --muted: #6b675d; --line: #e4dfd2;
+  --sky: #2b7bbf; --sky-soft: #e3eef8;
+  --agree: #2e7d4f; --agree-soft: #e2f1e7; --disagree: #a86412; --disagree-soft: #f8ecd9;
+  --discard: #8a3b3b; --discard-soft: #f4e3e3;
+  --sans: "IBM Plex Sans", -apple-system, "Segoe UI", sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --paper: #15140f; --surface: #1e1d18; --ink: #ece8dd; --muted: #a39e90; --line: #34322a;
+  --sky: #6fb3ea; --sky-soft: #1d2f3f;
+  --agree: #6cc790; --agree-soft: #1b3326; --disagree: #e4a85a; --disagree-soft: #3a2c17;
+  --discard: #e08c8c; --discard-soft: #3a2020; color-scheme: dark;
+} }
+:root[data-theme="dark"] {
+  --paper: #15140f; --surface: #1e1d18; --ink: #ece8dd; --muted: #a39e90; --line: #34322a;
+  --sky: #6fb3ea; --sky-soft: #1d2f3f;
+  --agree: #6cc790; --agree-soft: #1b3326; --disagree: #e4a85a; --disagree-soft: #3a2c17;
+  --discard: #e08c8c; --discard-soft: #3a2020; color-scheme: dark;
+}
+body { background: var(--paper); color: var(--ink); font: 15px/1.5 var(--sans); }
+.wrap { max-width: 1040px; margin: 0 auto; padding-inline: 16px; padding-block: 28px 64px; }
+h1 { font-size: 26px; margin: 0; letter-spacing: -0.01em; text-wrap: balance; }
+.sub { color: var(--muted); margin: 6px 0 0; max-width: 68ch; }
+.sub b { color: var(--ink); font-weight: 600; }
+
+.bar {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 2; background: var(--paper);
+  display: flex; flex-wrap: wrap; gap: 10px 18px; align-items: center;
+  padding-block: 14px; margin-top: 18px; border-bottom: 1px solid var(--line);
+}
+.tally { display: flex; gap: 14px; font: 500 13px var(--mono); font-variant-numeric: tabular-nums; }
+.tally span::before { content: ""; display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 6px; background: var(--c); }
+.filters { display: flex; flex-wrap: wrap; gap: 6px; margin-left: auto; }
+.chip {
+  font: 500 13px var(--sans); padding: 5px 11px; border-radius: 999px; cursor: pointer;
+  border: 1px solid var(--line); background: var(--surface); color: var(--ink);
+}
+.chip[aria-pressed="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.status { width: 100%; font-size: 13px; color: var(--muted); }
+
+.list { display: grid; gap: 18px; margin-top: 20px; }
+.row {
+  display: grid; grid-template-columns: minmax(0, 340px) minmax(0, 1fr); gap: 22px;
+  background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 18px;
+  border-left: 4px solid var(--edge, var(--line));
+}
+.row[data-vote="agree"] { --edge: var(--agree); }
+.row[data-vote="disagree"] { --edge: var(--disagree); }
+.row[data-vote="discard"] { --edge: var(--discard); opacity: 0.62; }
+.row .card-frame { border-radius: 6px; overflow: hidden; box-shadow: 0 0 0 1px var(--line); }
+.meta { display: flex; flex-wrap: wrap; gap: 6px 10px; align-items: center; font: 500 12.5px var(--mono); color: var(--muted); }
+.meta .when { color: var(--ink); }
+.tag { padding: 2px 8px; border-radius: 4px; background: var(--sky-soft); color: var(--sky); text-transform: uppercase; letter-spacing: 0.04em; font-size: 11px; }
+.body { display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+.caption {
+  white-space: pre-line; margin: 0; font-size: 14.5px; max-height: 15.5em; overflow: auto;
+  padding-right: 6px; overflow-wrap: anywhere;
+}
+.verdict { display: flex; flex-wrap: wrap; gap: 8px; margin-top: auto; }
+.vote {
+  font: 600 14px var(--sans); padding: 8px 16px; border-radius: 7px; cursor: pointer;
+  border: 1.5px solid var(--c); color: var(--c); background: transparent;
+}
+.vote[aria-pressed="true"] { background: var(--c); color: var(--surface); }
+.vote:disabled { opacity: 0.5; cursor: not-allowed; }
+.agree { --c: var(--agree); } .disagree { --c: var(--disagree); } .discard { --c: var(--discard); }
+textarea {
+  width: 100%; box-sizing: border-box; min-height: 58px; resize: vertical; font: 14px/1.45 var(--sans);
+  padding: 8px 10px; border-radius: 7px; border: 1px solid var(--line); background: var(--paper); color: var(--ink);
+}
+.saved { font: 12px var(--mono); color: var(--muted); min-height: 1.2em; }
+button:focus-visible, textarea:focus-visible { outline: 2px solid var(--sky); outline-offset: 2px; }
+@media (max-width: 720px) { .row { grid-template-columns: minmax(0, 1fr); } .filters { margin-left: 0; } }
+</style>
+
+<div class="wrap">
+  <h1>Nugget review board</h1>
+  <p class="sub">Batch 2: 60 LinkedIn posts for Oct 14 to Nov 12, two a day (8:00 and 20:00 IST), rewritten from your round 1 votes. All 60 are queued and post automatically. <b>Agree</b> keeps a post as it is.
+    <b>Disagree</b> means the topic is right but something is off: say what in the note. <b>Discard</b> drops it.
+    Claude reads every vote and note to write the next batch.</p>
+
+  <div class="bar">
+    <div class="tally" id="tally"></div>
+    <div class="filters" id="filters"></div>
+    <div class="status" id="status">Connecting to saved votes…</div>
+  </div>
+  <div class="list" id="list"></div>
+</div>
+
+<script src="card/card.js"></script>
+<script>
+const VOTES = [['agree', 'Agree'], ['disagree', 'Disagree'], ['discard', 'Discard']];
+const FILTERS = [['all', 'All'], ['pending', 'Pending'], ...VOTES, ['frontend', 'Frontend'], ['ai', 'AI'], ['backend', 'Backend'], ['career', 'Career']];
+const fmt = new Intl.DateTimeFormat('en-IN', { weekday: 'short', day: 'numeric', month: 'short', hour: 'numeric', minute: '2-digit', timeZone: 'Asia/Kolkata' });
+
+let posts = [], votes = {}, db = null, filter = 'all';
+const rows = new Map();
+const $ = (id) => document.getElementById(id);
+
+function h(tag, props = {}, ...kids) {
+  const e = Object.assign(document.createElement(tag), props);
+  e.append(...kids);
+  return e;
+}
+
+function buildRow(p) {
+  const frame = h('div', { className: 'card-frame' });
+  const note = h('textarea', { id: `note-${p.id}`, placeholder: 'What should change? (optional for Agree and Discard)' });
+  const saved = h('div', { className: 'saved' });
+  const buttons = VOTES.map(([v, label]) => h('button', { className: `vote ${v}`, textContent: label, type: 'button', onclick: () => save(p.id, { vote: v }) }));
+  note.addEventListener('change', () => save(p.id, { note: note.value.trim() }));
+  const row = h('article', { className: 'row' },
+    frame,
+    h('div', { className: 'body' },
+      h('div', { className: 'meta' },
+        h('span', { className: 'when', textContent: fmt.format(new Date(p.publishAt)) }),
+        h('span', { className: 'tag', textContent: p.pillar }),
+        h('span', { textContent: p.format }),
+        h('span', { textContent: p.id })),
+      h('p', { className: 'caption', textContent: p.caption }),
+      h('div', { className: 'verdict' }, ...buttons),
+      note, saved));
+  rows.set(p.id, { row, frame, note, saved, buttons, post: p });
+  return row;
+}
+
+function paint() {
+  const counts = { agree: 0, disagree: 0, discard: 0 };
+  for (const { row, note, buttons, post } of rows.values()) {
+    const v = votes[post.id] || {};
+    if (v.vote) counts[v.vote]++;
+    row.dataset.vote = v.vote || '';
+    buttons.forEach((b, i) => { b.setAttribute('aria-pressed', String(VOTES[i][0] === v.vote)); b.disabled = !db; });
+    note.disabled = !db;
+    if (document.activeElement !== note) note.value = v.note || '';
+    row.hidden = !(filter === 'all' || filter === post.pillar || (filter === 'pending' ? !v.vote : v.vote === filter));
+  }
+  const pending = posts.length - counts.agree - counts.disagree - counts.discard;
+  $('tally').replaceChildren(
+    ...[['agree', counts.agree, 'agreed'], ['disagree', counts.disagree, 'to fix'], ['discard', counts.discard, 'dropped'], ['', pending, 'pending']]
+      .map(([k, n, label]) => h('span', { style: `--c: var(--${k || 'line'})`, textContent: `${n} ${label}` })));
+}
+
+async function save(id, patch) {
+  if (!db) return;
+  const r = rows.get(id);
+  const next = { ...(votes[id] || {}), ...patch, at: new Date().toISOString() };
+  if (patch.vote && votes[id]?.vote === patch.vote) delete next.vote; // clicking the active verdict clears it
+  votes[id] = next;
+  paint();
+  r.saved.textContent = 'Saving…';
+  try {
+    await db.collection('votes').doc(id).set(next);
+    r.saved.textContent = 'Saved';
+  } catch (e) {
+    r.saved.textContent = `Not saved (${e.code || e.message}). Check your connection and try again.`;
+  }
+}
+
+function renderFilters() {
+  $('filters').replaceChildren(...FILTERS.map(([k, label]) => h('button', {
+    className: 'chip', type: 'button', textContent: label,
+    ariaPressed: String(k === filter),
+    onclick: () => { filter = k; renderFilters(); paint(); },
+  })));
+}
+
+async function start() {
+  posts = await (await fetch('posts.json')).json();
+  $('list').replaceChildren(...posts.map(buildRow));
+  renderFilters();
+  paint();
+  // Cards size from their frame's width, so render after layout and again on resize.
+  const fit = () => rows.forEach(({ frame, post }) => renderCard(post, frame));
+  requestAnimationFrame(fit);
+  document.fonts?.ready.then(fit);
+  new ResizeObserver(() => requestAnimationFrame(fit)).observe($('list'));
+
+  db = await window.claude?.use?.('db');
+  if (!db) { $('status').textContent = 'Votes can only be saved when this page is opened on claude.ai while signed in. You can still read every post.'; paint(); return; }
+  $('status').textContent = '';
+  db.collection('votes').onSnapshot((snap) => {
+    votes = Object.fromEntries(snap.docs.map((d) => [d.id, d.data()]));
+    paint();
+  }, (e) => { $('status').textContent = `Lost connection to saved votes (${e.code}). Reload the page.`; });
+}
+start();
+</script>

@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-11-11T14:30:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "Frameworks change every few years. The browser's tools have been the core debugging kit for over a decade, and they keep getting better.\n\nThree skills to practise this week:\nEdit CSS live in Elements until it looks right, then copy it back.\nIn Network, inspect a failing request's status code, request body and response.\nUse breakpoints in Sources instead of console.log.\n\nWhich panel do you use the least?\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "Learn DevTools before you learn another framework.\n\nElements: why the layout broke.\nNetwork: what the API actually returned.\nConsole: what threw.\n\nYou'll use it every working day.",
+  "title": "Nugget N118"
+}

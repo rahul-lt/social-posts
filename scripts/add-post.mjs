@@ -1,4 +1,4 @@
-// Usage: node scripts/add-post.mjs <slug> <slides-dir> <publishAt ISO, e.g. 2026-10-20T09:30:00+05:30> <caption.txt>
+// Usage: node scripts/add-post.mjs <slug> <slides-dir> <publishAt ISO, e.g. 2026-10-20T09:30:00+05:30> <caption.txt> [platforms]
 // Copies up to 10 slides into posts/<slug>/ as JPEG (Instagram accepts JPEG only) and writes post.json
 // with footer.txt appended to the caption.
 // Uses macOS `sips` for PNG→JPEG so no npm deps are needed.
@@ -6,9 +6,9 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { execFileSync } from 'node:child_process';
 
-const [slug, srcDir, publishAt, captionFile] = process.argv.slice(2);
+const [slug, srcDir, publishAt, captionFile, platforms = 'instagram,linkedin'] = process.argv.slice(2);
 if (!slug || !srcDir || !publishAt || !captionFile) {
-  console.error('Usage: node scripts/add-post.mjs <slug> <slides-dir> <publishAt> <caption.txt>');
+  console.error('Usage: node scripts/add-post.mjs <slug> <slides-dir> <publishAt> <caption.txt> [instagram,linkedin]');
   process.exit(1);
 }
 if (Number.isNaN(Date.parse(publishAt))) throw new Error(`Bad publishAt: ${publishAt}`);
@@ -39,7 +39,7 @@ const caption = body.includes(footer.split('\n')[0]) ? body : `${body}\n\n${foot
 
 const post = {
   publishAt: new Date(publishAt).toISOString(),
-  platforms: ['instagram', 'linkedin'],
+  platforms: platforms.split(','),
   caption,
   altText: slug.replace(/-/g, ' '),
   // Shown as the document name on the LinkedIn PDF carousel; edit in post.json.

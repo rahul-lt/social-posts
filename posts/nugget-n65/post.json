@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-10-16T02:30:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "With ==, JavaScript first converts both sides to a common type, then compares. '' becomes 0, '1' becomes 1, and the results look random until you know the rules.\n\n=== compares type and value with no conversion, so what you see is what you get.\n\nRule most teams follow: always use ===. The one common exception is value == null, which matches both null and undefined in one check.\n\nSource: MDN, Equality comparisons and sameness.\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "== converts types before comparing. === doesn't.\n\nThat's why these surprise people:\n\n0 == ''            // true\n'1' == 1           // true\nnull == undefined  // true\n0 === ''           // false\n'1' === 1          // false",
+  "title": "Nugget N65"
+}

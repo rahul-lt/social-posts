@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-10-20T02:30:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "A transaction means: several changes happen together or not at all. Debit one account and credit another, never only one of them. Relational databases are built around this.\n\nDocument databases store each record as JSON-like documents, so a phone and a T-shirt can have completely different fields without schema changes.\n\nMany real products use both. Payments in Postgres, activity logs somewhere else.\n\nIf you're learning backend, start with SQL. It shows up in almost every interview.\n\nSource: PostgreSQL and MongoDB documentation.\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "SQL or NoSQL? Look at your data, not the hype.\n\nOrders, payments, users linked to each other → SQL (PostgreSQL, MySQL). Joins and transactions keep them consistent.\n\nEach record has a different shape (product specs, event logs) → a document database like MongoDB.",
+  "title": "Nugget N73"
+}

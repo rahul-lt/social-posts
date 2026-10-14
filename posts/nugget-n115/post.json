@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-11-10T02:30:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "Polling is simplest and fine for things that change every few minutes. But most requests return \"nothing new\".\n\nServer-Sent Events (SSE): one long-lived connection, the server streams events down. It reconnects automatically. Streaming AI responses token by token often uses this.\n\nWebSockets: a two-way connection. Needed when the client also sends a lot in real time.\n\nStart with the simplest option that meets the need.\n\nSource: MDN, Server-sent events and The WebSocket API.\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "Getting live updates into the browser:\n\nPolling: ask the server every few seconds.\nSSE: server pushes updates over one HTTP connection.\nWebSocket: both sides send anytime.\n\nNotifications → SSE. Chat or games → WebSocket.",
+  "title": "Nugget N115"
+}

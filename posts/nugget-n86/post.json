@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-10-26T14:30:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "Every fresher's resume has the same skills section. Recruiters skim past it.\n\nWhat stands out is a result: what you changed, how you did it, and a number that shows it worked.\n\nFormat for each project bullet:\nDid X, using Y, which improved Z (with a number).\n\nNo real numbers yet? Measure your own project with Lighthouse before and after a change. Now you have one.\n\nRewrite one bullet today and post it in the comments. I'll give feedback on a few.\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "Your resume is not a list of technologies.\n\n\"React, Redux, Tailwind\" says nothing.\n\n\"Cut page load from 6s to 2s by lazy-loading images\" says everything.",
+  "title": "Nugget N86"
+}

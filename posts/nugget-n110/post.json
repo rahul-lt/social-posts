@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-11-07T14:30:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "Accessibility work is usually framed as helping people with permanent disabilities. It does, and that alone is reason enough.\n\nBut the same fixes help everyone in temporary situations: an injured arm, a bright screen, a slow connection, a loud room.\n\nAnd in many countries it's a legal requirement for public-facing sites.\n\nWhich one does your current project fail at?\n\nSource: W3C WAI, Introduction to Web Accessibility.\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "Accessibility is not a feature for \"a few users\".\n\nCaptions help on a noisy train.\nHigh contrast helps on a phone in sunlight.\nKeyboard support helps when your trackpad dies.",
+  "title": "Nugget N110"
+}

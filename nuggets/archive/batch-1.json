@@ -1,0 +1,735 @@
+[
+  {
+    "id": "n01",
+    "day": 1,
+    "slot": "am",
+    "pillar": "frontend",
+    "format": "predict-output",
+    "card": {
+      "text": "Predict the output before you scroll.\n\nMost freshers get this wrong in interviews.",
+      "code": "console.log('A');\nsetTimeout(() => console.log('B'), 0);\nPromise.resolve().then(() => console.log('C'));\nconsole.log('D');"
+    },
+    "caption": "Comment your guess first. Answer below.\n\n.\n.\n.\n\nA, D, C, B.\n\nWhy C before B when the timeout is 0 ms?\n\nPromise callbacks go to the microtask queue. setTimeout callbacks go to the task queue. After the current script finishes, the event loop empties ALL microtasks first, then picks the next task.\n\nSo: sync code first (A, D), then microtasks (C), then tasks (B).\n\n0 ms does not mean \"now\". It means \"after everything else in line\".\n\nDid you get it right?",
+    "publishAt": "2026-10-15T09:00:00+05:30"
+  },
+  {
+    "id": "n02",
+    "day": 1,
+    "slot": "pm",
+    "pillar": "ai",
+    "format": "one-liner",
+    "card": {
+      "text": "AI made writing code cheap.\n\nReading code is now the expensive skill."
+    },
+    "caption": "Every AI tool can generate 200 lines in 10 seconds.\n\nSomeone still has to read those 200 lines, find the one wrong assumption, and say no.\n\nIf you are in college right now, practise reading code you did not write. Open a popular repo, pick one file, and explain it to yourself line by line.\n\nThat skill is not going anywhere.",
+    "publishAt": "2026-10-15T19:00:00+05:30"
+  },
+  {
+    "id": "n03",
+    "day": 2,
+    "slot": "am",
+    "pillar": "frontend",
+    "format": "myth",
+    "card": {
+      "text": "Your useEffect is not broken.\n\nIn development, React StrictMode mounts, unmounts and mounts your component again, so the effect runs twice.\n\nIn production it runs once."
+    },
+    "caption": "\"My API is getting called twice\" is one of the most common React questions I get.\n\nReact does this on purpose in development. It runs setup, then cleanup, then setup again, to check that your effect cleans up after itself.\n\nIf the double call breaks your app, the fix is a proper cleanup function (cancel the request, clear the timer, remove the listener). Not removing StrictMode.\n\nSave this for the next time someone asks.",
+    "publishAt": "2026-10-16T09:00:00+05:30"
+  },
+  {
+    "id": "n04",
+    "day": 2,
+    "slot": "pm",
+    "pillar": "career",
+    "format": "one-liner",
+    "card": {
+      "text": "Nobody asks for your CGPA after your first job.\n\nEverybody asks what you built."
+    },
+    "caption": "Grades open the first door. After that, the conversation is always about work.\n\nWhat did you ship? What broke? How did you fix it?\n\nIf you are in 3rd or 4th year, start one project this month that you can talk about for 20 minutes without notes.\n\nWhat are you building right now?",
+    "publishAt": "2026-10-16T19:00:00+05:30"
+  },
+  {
+    "id": "n05",
+    "day": 3,
+    "slot": "am",
+    "pillar": "backend",
+    "format": "compare",
+    "card": {
+      "text": "401 vs 403, the simple version:\n\n401 Unauthorized = \"Who are you?\"\nYou are not logged in, or your token is invalid.\n\n403 Forbidden = \"I know who you are. You can't do this.\"\nLogged in, but no permission."
+    },
+    "caption": "Two status codes that every frontend dev handles and many mix up.\n\nOn the frontend this decides what you show:\n401 → send the user to login (or refresh the token).\n403 → show \"you don't have access\". Logging in again will not help.\n\nYes, the name \"Unauthorized\" for 401 is confusing. It really means unauthenticated. Blame the spec, not yourself.",
+    "publishAt": "2026-10-17T09:00:00+05:30"
+  },
+  {
+    "id": "n06",
+    "day": 3,
+    "slot": "pm",
+    "pillar": "frontend",
+    "format": "one-liner",
+    "card": {
+      "text": "Most React performance problems are not React problems.\n\nThey are \"I rendered 5,000 rows at once\" problems."
+    },
+    "caption": "Before you reach for useMemo, React.memo and useCallback everywhere, check the boring things:\n\nAre you rendering more items than fit on screen?\nAre you fetching the same data on every render?\nIs one giant component re-rendering because of a tiny state change?\n\nFix the amount of work first. Then optimise the work that is left.\n\nWhat was the worst performance bug you found?",
+    "publishAt": "2026-10-17T19:00:00+05:30"
+  },
+  {
+    "id": "n07",
+    "day": 4,
+    "slot": "am",
+    "pillar": "frontend",
+    "format": "nugget",
+    "card": {
+      "text": "loading=\"lazy\" makes images load only when they come near the screen.\n\nBut never put it on your hero image.",
+      "code": "<!-- below the fold -->\n<img src=\"card.jpg\" loading=\"lazy\">\n\n<!-- hero: the first thing users see -->\n<img src=\"hero.jpg\" fetchpriority=\"high\">"
+    },
+    "caption": "Lazy loading is one of the easiest performance wins in HTML. One attribute, no JavaScript.\n\nThe trap: if you lazy-load the biggest image at the top of the page, the browser waits before fetching it. Your Largest Contentful Paint (the time until the main content shows up) gets worse, not better.\n\nRule: lazy for images below the fold, eager (the default) for the hero. fetchpriority=\"high\" tells the browser the hero matters most.",
+    "publishAt": "2026-10-18T09:00:00+05:30"
+  },
+  {
+    "id": "n08",
+    "day": 4,
+    "slot": "pm",
+    "pillar": "ai",
+    "format": "question",
+    "card": {
+      "text": "Be honest.\n\nWhen AI writes a function for you, do you read every line before you commit it?"
+    },
+    "caption": "No judgement. I want real answers.\n\nA) Every line, always\nB) I skim it\nC) If the tests pass, it ships\nD) What tests?\n\nReply with your letter. I'll share what I see from the people I mentor in a follow-up post.",
+    "publishAt": "2026-10-18T19:00:00+05:30"
+  },
+  {
+    "id": "n09",
+    "day": 5,
+    "slot": "am",
+    "pillar": "frontend",
+    "format": "predict-output",
+    "card": {
+      "text": "Classic interview trap. What does this print?",
+      "code": "console.log(['1', '2', '3'].map(parseInt));"
+    },
+    "caption": "Comment your guess first. Answer below.\n\n.\n.\n.\n\nAnswer: [1, NaN, NaN]\n\nmap passes THREE arguments to the callback: (value, index, array).\nparseInt takes two: (string, radix).\n\nSo the calls are:\nparseInt('1', 0) → 1 (radix 0 means \"guess\", so base 10)\nparseInt('2', 1) → NaN (base 1 does not exist)\nparseInt('3', 2) → NaN (3 is not a valid digit in binary)\n\nFix: ['1','2','3'].map(Number) or .map(s => parseInt(s, 10)).\n\nLesson: always check what arguments a callback actually receives.",
+    "publishAt": "2026-10-19T09:00:00+05:30"
+  },
+  {
+    "id": "n10",
+    "day": 5,
+    "slot": "pm",
+    "pillar": "frontend",
+    "format": "one-liner",
+    "card": {
+      "text": "A div with onClick is not a button.\n\nYou can't Tab to it, Enter doesn't press it, and screen readers don't call it a button.\n\nJust use <button>."
+    },
+    "caption": "<button> gives you all of this for free:\n\nFocus with the Tab key\nClick with Enter and Space\nAnnounced as \"button\" by screen readers\nWorks with forms\n\nTo make a div do the same you need role, tabindex, and key handlers. And people still forget one of them.\n\nUse the right HTML element first. Style it however you want after.",
+    "publishAt": "2026-10-19T19:00:00+05:30"
+  },
+  {
+    "id": "n11",
+    "day": 6,
+    "slot": "am",
+    "pillar": "backend",
+    "format": "nugget",
+    "card": {
+      "text": "A database index works like the index at the back of a book.\n\nWithout it, the database reads every row to find yours.\nWith it, it jumps straight to the page.\n\nThe catch: every insert and update must also update the index."
+    },
+    "caption": "Indexes are the first thing to check when a query is slow.\n\nWhat you save: reads on that column go from scanning the whole table to a quick lookup.\nWhat you pay: extra storage, and slower writes, because each index is updated on every insert, update and delete.\n\nSo index the columns you search and filter by often (email, user_id, created_at). Not every column \"just in case\".\n\nNext time a query is slow, run EXPLAIN before rewriting anything.",
+    "publishAt": "2026-10-20T09:00:00+05:30"
+  },
+  {
+    "id": "n12",
+    "day": 6,
+    "slot": "pm",
+    "pillar": "ai",
+    "format": "one-liner",
+    "card": {
+      "text": "Prompt engineering is mostly writing clear requirements.\n\nTurns out that was always the hard part of software."
+    },
+    "caption": "The people who get the best results from AI are not using secret prompt tricks.\n\nThey say what they want, what they don't want, what the input looks like, and what \"done\" means.\n\nThat is the same skill that makes someone good at writing a Jira ticket, a PR description or an email to their manager.\n\nPractise writing clearly. It pays off with humans and with models.",
+    "publishAt": "2026-10-20T19:00:00+05:30"
+  },
+  {
+    "id": "n13",
+    "day": 7,
+    "slot": "am",
+    "pillar": "frontend",
+    "format": "compare",
+    "card": {
+      "text": "Debounce vs throttle:\n\nDebounce: wait until the user STOPS (search box).\nThrottle: run at most once every N ms (scroll, resize).",
+      "code": "function debounce(fn, ms) {\n  let t;\n  return (...args) => {\n    clearTimeout(t);\n    t = setTimeout(() => fn(...args), ms);\n  };\n}"
+    },
+    "caption": "Both limit how often a function runs. They answer different questions.\n\nDebounce: \"Has the user finished?\" Typing \"react hooks\" fires 11 key events. With a 300 ms debounce you call the search API once, after they stop typing.\n\nThrottle: \"Has enough time passed?\" A scroll handler throttled to 100 ms runs at most 10 times a second while the user keeps scrolling.\n\nThe debounce above is a very common machine coding question. Try writing throttle yourself.",
+    "publishAt": "2026-10-21T09:00:00+05:30"
+  },
+  {
+    "id": "n14",
+    "day": 7,
+    "slot": "pm",
+    "pillar": "career",
+    "format": "one-liner",
+    "card": {
+      "text": "Fastest way to learn a new codebase at your first job:\n\nfix one small bug, end to end."
+    },
+    "caption": "Reading docs for two weeks feels productive. It is not.\n\nOne small bug forces you to run the app locally, find the right file, understand one data flow, write a test, raise a PR and get it reviewed.\n\nThat is the whole workflow of the team, learned in one ticket.\n\nAsk your lead for a \"good first issue\" in week one.",
+    "publishAt": "2026-10-21T19:00:00+05:30"
+  },
+  {
+    "id": "n15",
+    "day": 8,
+    "slot": "am",
+    "pillar": "frontend",
+    "format": "nugget",
+    "card": {
+      "text": "Why is my CSS not applying?\n\nUsually specificity. When two rules target the same element, the more specific one wins:\n\ninline style > #id > .class > tag\n\nOnly on a tie does the rule written later win."
+    },
+    "caption": "Example: you write .title { color: blue } but the heading stays black.\n\nSomewhere there is a #header h1 { color: black }. An id beats a class, so it wins, no matter which file loads last.\n\nHow to check in 10 seconds: right click → Inspect → Styles panel. The losing rule is shown with a line through it.\n\nAnd please don't fix it with !important. Fix the selector.",
+    "publishAt": "2026-10-22T09:00:00+05:30"
+  },
+  {
+    "id": "n16",
+    "day": 8,
+    "slot": "pm",
+    "pillar": "frontend",
+    "format": "question",
+    "card": {
+      "text": "Starting a new project today.\n\nTailwind or plain CSS?\n\nPick one and defend it in one line."
+    },
+    "caption": "I've used both in production for years and I have a clear opinion, but I want to hear yours first.\n\nBest one-line argument on each side gets pinned.\n\nRules: no \"it depends\". Pick a side.",
+    "publishAt": "2026-10-22T19:00:00+05:30"
+  },
+  {
+    "id": "n17",
+    "day": 9,
+    "slot": "am",
+    "pillar": "ai",
+    "format": "nugget",
+    "card": {
+      "text": "AI models don't read words. They read tokens.\n\nA token is a chunk of text, roughly 4 characters of English on average.\n\nPricing, speed and context limits are all counted in tokens."
+    },
+    "caption": "Why this matters for you as a developer:\n\nA \"128K context\" model means about 128,000 tokens per request, not 128,000 words.\nCode, Hindi text and emojis usually take more tokens per character than plain English.\nPasting your whole project into a chat costs more and often gives worse answers than pasting the 3 files that matter.\n\nMost AI providers have a free tokenizer page. Paste a paragraph and see how it gets split. It makes this click.",
+    "publishAt": "2026-10-23T09:00:00+05:30"
+  },
+  {
+    "id": "n18",
+    "day": 9,
+    "slot": "pm",
+    "pillar": "frontend",
+    "format": "one-liner",
+    "card": {
+      "text": "rm -rf node_modules is not a debugging strategy.\n\nRead the error first. It usually tells you the file and the line."
+    },
+    "caption": "Error messages look scary because they are long. But the useful part is usually in the first 3 lines:\n\nWhat went wrong (TypeError: Cannot read properties of undefined)\nWhere (the file name and line number)\nWhat it was trying to read ('map')\n\nThat already tells you: something you called .map on is undefined, at that exact line.\n\nReinstalling everything fixes maybe 1 bug in 20. Reading fixes the other 19.",
+    "publishAt": "2026-10-23T19:00:00+05:30"
+  },
+  {
+    "id": "n19",
+    "day": 10,
+    "slot": "am",
+    "pillar": "frontend",
+    "format": "nugget",
+    "card": {
+      "text": "1,000 list items do not need 1,000 click listeners.\n\nPut ONE listener on the parent and check what was clicked. This is event delegation.",
+      "code": "list.addEventListener('click', (e) => {\n  const item = e.target.closest('li');\n  if (!item) return;\n  console.log('clicked', item.dataset.id);\n});"
+    },
+    "caption": "This works because click events bubble up from the clicked element to its parents.\n\nWhat you save: fewer listeners, less memory, and new items added later work automatically.\nWhat to watch: e.target is the exact element clicked (maybe a span inside the li), so use closest() to find the item you care about.\n\nReact does something similar internally: it attaches its event listeners at the root, not on every element.",
+    "publishAt": "2026-10-24T09:00:00+05:30"
+  },
+  {
+    "id": "n20",
+    "day": 10,
+    "slot": "pm",
+    "pillar": "ai",
+    "format": "take",
+    "card": {
+      "text": "Juniors who use AI to skip learning will plateau fast.\n\nJuniors who use AI to ask \"why?\" will grow faster than any batch before them."
+    },
+    "caption": "Same tool, opposite results.\n\nCopy, paste, ship: you finish the task and learn nothing.\n\nCopy, then ask \"why this approach?\", \"what breaks if the input is empty?\", \"show me a simpler version\": you get a patient senior engineer for free, any time of day.\n\nThe tool doesn't decide which one you are. Your questions do.",
+    "publishAt": "2026-10-24T19:00:00+05:30"
+  },
+  {
+    "id": "n21",
+    "day": 11,
+    "slot": "am",
+    "pillar": "backend",
+    "format": "myth",
+    "card": {
+      "text": "CORS is not a server security feature.\n\nThe browser enforces it. The server only sends headers saying who is allowed.\n\nThat's why the same API works in Postman and fails in your React app."
+    },
+    "caption": "When your frontend on localhost:3000 calls an API on another origin, the browser checks the response for Access-Control-Allow-Origin. If your origin is not allowed, the browser blocks your JavaScript from reading the response.\n\nPostman and curl are not browsers, so they don't care.\n\nThe fix is always on the server (or a proxy in dev): send the right CORS headers for your frontend's origin.\n\nAnd no, installing a \"disable CORS\" browser extension is not the fix.",
+    "publishAt": "2026-10-25T09:00:00+05:30"
+  },
+  {
+    "id": "n22",
+    "day": 11,
+    "slot": "pm",
+    "pillar": "frontend",
+    "format": "take",
+    "card": {
+      "text": "You don't need Redux for a todo app.\n\nuseState and lifting state up will take you surprisingly far."
+    },
+    "caption": "Many beginners add a state library on day one because a tutorial did.\n\nA simple order that works:\n1. useState inside the component\n2. Lift it to the nearest common parent when two components need it\n3. Context when many distant components need it\n4. A library (Redux, Zustand) when the state is big, shared and changes in complex ways\n\nAnd server data (API responses) is a separate problem. Tools like TanStack Query handle that better than any global store.\n\nWhere are you on this list right now?",
+    "publishAt": "2026-10-25T19:00:00+05:30"
+  },
+  {
+    "id": "n23",
+    "day": 12,
+    "slot": "am",
+    "pillar": "frontend",
+    "format": "predict-output",
+    "card": {
+      "text": "const means the value can't change. Right?\n\nWhich line throws?",
+      "code": "const user = { name: 'Asha' };\nuser.name = 'Ravi';   // line 2\nuser = { name: 'Neha' }; // line 3"
+    },
+    "caption": "Comment your guess first. Answer below.\n\n.\n.\n.\n\nOnly line 3 throws: TypeError: Assignment to constant variable.\n\nconst locks the variable binding, not the value. user must always point to the same object, but that object's properties can change freely.\n\nWant the object itself to be read-only? Object.freeze(user). Even that is shallow: nested objects inside can still change.\n\nThis question shows up in a lot of JavaScript screening rounds.",
+    "publishAt": "2026-10-26T09:00:00+05:30"
+  },
+  {
+    "id": "n24",
+    "day": 12,
+    "slot": "pm",
+    "pillar": "ai",
+    "format": "question",
+    "card": {
+      "text": "Which AI tool actually stuck in your daily workflow?\n\nNot the one you tried once.\nThe one you open every single day."
+    },
+    "caption": "Every week there's a new \"this changes everything\" tool. Very few of them survive a month of real use.\n\nI'm curious which ones you actually kept: for coding, for learning, for writing, anything.\n\nDrop yours below. I'll put the most common answers into one list and share it.",
+    "publishAt": "2026-10-26T19:00:00+05:30"
+  },
+  {
+    "id": "n25",
+    "day": 13,
+    "slot": "am",
+    "pillar": "ai",
+    "format": "nugget",
+    "card": {
+      "text": "RAG in plain words:\n\n1. Search your documents for the parts related to the question.\n2. Paste those parts into the prompt.\n3. Ask the model to answer using only that.\n\nThe model doesn't \"learn\" your docs. It reads them fresh every time."
+    },
+    "caption": "RAG = Retrieval Augmented Generation. It sounds complex. The idea is very simple.\n\nThis is how most \"chat with your PDF\" and company help-bot products work.\n\nWhy not just paste all the documents? They don't fit in the context window, it costs more, and answers get worse with lots of unrelated text.\n\nThe hard part is not the AI. It is step 1: finding the right 3 paragraphs out of 10,000. That is a search problem, and search is an old, well-studied engineering problem.",
+    "publishAt": "2026-10-27T09:00:00+05:30"
+  },
+  {
+    "id": "n26",
+    "day": 13,
+    "slot": "pm",
+    "pillar": "frontend",
+    "format": "one-liner",
+    "card": {
+      "text": "Lighthouse 100 on your MacBook means very little.\n\nTest on a budget Android phone on 4G. That's where most of your users are."
+    },
+    "caption": "Your laptop has a fast CPU and office Wi-Fi. A large share of Indian users browse on budget Android phones with patchy mobile data.\n\nThe same JavaScript bundle that parses in 200 ms on your machine can take seconds on a cheap phone.\n\nFree way to feel this: Chrome DevTools → Performance → set CPU to 4x slowdown and network to Fast 4G. Then use your own app for 5 minutes.",
+    "publishAt": "2026-10-27T19:00:00+05:30"
+  },
+  {
+    "id": "n27",
+    "day": 14,
+    "slot": "am",
+    "pillar": "frontend",
+    "format": "nugget",
+    "card": {
+      "text": "Using the array index as a React key works until the list changes order.\n\nThen typed input and state stick to the wrong row.",
+      "code": "// risky if the list can reorder\nitems.map((item, i) =>\n  <Row key={i} item={item} />)\n\n// stable: an id from your data\nitems.map((item) =>\n  <Row key={item.id} item={item} />)"
+    },
+    "caption": "React uses the key to decide which component is which between renders.\n\nWith key={index}, if you delete the first item, the second item now has key 0. React thinks it's the same component as before and keeps the old state (like text typed into an input) on the wrong row.\n\nIndex keys are fine for static lists that never reorder. For anything else, use an id from your data.\n\nHave you hit this bug before?",
+    "publishAt": "2026-10-28T09:00:00+05:30"
+  },
+  {
+    "id": "n28",
+    "day": 14,
+    "slot": "pm",
+    "pillar": "career",
+    "format": "take",
+    "card": {
+      "text": "Your GitHub doesn't need 50 repos.\n\nIt needs 2 projects with a README that explains what problem they solve."
+    },
+    "caption": "Recruiters and interviewers spend a couple of minutes on your profile, at most.\n\nIn that time they want to see: what is this, why did you build it, how do I run it, what was hard.\n\nA live link, two screenshots and a \"what I learned\" section beat 48 tutorial clones every time.\n\nPick your best project this weekend and rewrite its README.",
+    "publishAt": "2026-10-28T19:00:00+05:30"
+  },
+  {
+    "id": "n29",
+    "day": 15,
+    "slot": "am",
+    "pillar": "backend",
+    "format": "myth",
+    "card": {
+      "text": "A JWT is encoded, not encrypted.\n\nAnyone holding the token can decode the payload and read it.\n\nThe signature only proves nobody changed it."
+    },
+    "caption": "Paste any JWT into a decoder site and you'll see the user id, role, expiry, everything inside.\n\nSo:\nNever put passwords, card numbers or private data in the payload.\nThe server must verify the signature on every request. That is what stops someone from changing \"role\": \"user\" to \"admin\".\nKeep expiry short, because a stolen token works until it expires.\n\nEncoded = anyone can read it. Signed = nobody can secretly change it. Different things.",
+    "publishAt": "2026-10-29T09:00:00+05:30"
+  },
+  {
+    "id": "n30",
+    "day": 15,
+    "slot": "pm",
+    "pillar": "ai",
+    "format": "take",
+    "card": {
+      "text": "The most useful AI feature in most apps is boring.\n\nAutocomplete. Summarise. Better search.\n\nNot another chatbot."
+    },
+    "caption": "Users don't want to start a conversation to get something done. They want the thing done.\n\nThe best AI features hide inside the existing flow: a smarter search box, a \"summarise this thread\" button, a form that fills itself from an uploaded document.\n\nIf you're building an AI side project for your resume, try this: take an app you already use and add one invisible AI improvement to it.",
+    "publishAt": "2026-10-29T19:00:00+05:30"
+  },
+  {
+    "id": "n31",
+    "day": 16,
+    "slot": "am",
+    "pillar": "frontend",
+    "format": "compare",
+    "card": {
+      "text": "Where to store data in the browser:\n\nlocalStorage: stays until cleared.\nsessionStorage: gone when the tab closes.\nCookies: sent to the server with every request.\n\nNone of them is a safe place for secrets."
+    },
+    "caption": "Quick guide:\n\nTheme preference, last opened tab → localStorage\nMulti-step form draft for this tab only → sessionStorage\nSession or auth token the server must see → an httpOnly cookie, set by the server, which JavaScript cannot read\n\nWhy not tokens in localStorage? Any script running on your page (including an XSS attack) can read localStorage. An httpOnly cookie cannot be read by JavaScript at all.\n\nWhat do you use in your current project?",
+    "publishAt": "2026-10-30T09:00:00+05:30"
+  },
+  {
+    "id": "n32",
+    "day": 16,
+    "slot": "pm",
+    "pillar": "frontend",
+    "format": "question",
+    "card": {
+      "text": "Which JavaScript concept took you the longest to really understand?\n\nFor most people I mentor, it's closures."
+    },
+    "caption": "Closures, this, the event loop, prototypes, promises... everyone has one that refused to click.\n\nTell me yours in the comments.\n\nThe most common answer gets a simple explainer post from me next week.",
+    "publishAt": "2026-10-30T19:00:00+05:30"
+  },
+  {
+    "id": "n33",
+    "day": 17,
+    "slot": "am",
+    "pillar": "frontend",
+    "format": "predict-output",
+    "card": {
+      "text": "Same loop, one word different.\n\nWhat does each print?",
+      "code": "for (var i = 0; i < 3; i++) {\n  setTimeout(() => console.log(i));\n}\n\nfor (let j = 0; j < 3; j++) {\n  setTimeout(() => console.log(j));\n}"
+    },
+    "caption": "Comment your guess first. Answer below.\n\n.\n.\n.\n\nvar prints 3, 3, 3.\nlet prints 0, 1, 2.\n\nvar is function scoped. There is ONE i shared by all three callbacks, and by the time they run, the loop has finished and i is 3.\n\nlet is block scoped. Each loop iteration gets its own j, and each callback closes over its own copy.\n\nThis one question tests scope, closures and the event loop together. That's why interviewers love it.",
+    "publishAt": "2026-10-31T09:00:00+05:30"
+  },
+  {
+    "id": "n34",
+    "day": 17,
+    "slot": "pm",
+    "pillar": "ai",
+    "format": "one-liner",
+    "card": {
+      "text": "An AI agent is a loop:\n\nthink → call a tool → read the result → repeat.\n\nThe magic is in the tools and in knowing when to stop."
+    },
+    "caption": "Agents sound mysterious. Under the hood most coding agents are a fairly simple loop around a model.\n\nThe model decides which tool to call (read file, run tests, search). Your code runs the tool and sends the result back. Repeat until the model says it's done, or until a limit is hit.\n\nWant to understand agents properly? Build a tiny one: a loop, two tools (read file, write file), and a stop condition. A weekend project that teaches more than ten videos.",
+    "publishAt": "2026-10-31T19:00:00+05:30"
+  },
+  {
+    "id": "n35",
+    "day": 18,
+    "slot": "am",
+    "pillar": "ai",
+    "format": "nugget",
+    "card": {
+      "text": "Why do AI models make things up?\n\nThey predict the most likely next words. Nothing inside them checks facts.\n\nA confident wrong answer and a confident right answer feel exactly the same to the model."
+    },
+    "caption": "This is called hallucination, and it's not a bug that will be patched next month. It comes from how these models work.\n\nWhat helps:\nGive it the source (docs, code, error logs) instead of asking from memory.\nAsk it to point to where in the source the answer came from.\nVerify anything that matters: run the code, check the docs, test the API.\n\nUse AI like a smart friend who sometimes bluffs. Useful, but you check the important stuff.",
+    "publishAt": "2026-11-01T09:00:00+05:30"
+  },
+  {
+    "id": "n36",
+    "day": 18,
+    "slot": "pm",
+    "pillar": "frontend",
+    "format": "take",
+    "card": {
+      "text": "Learning React before JavaScript is like learning cover drives before you can hold the bat.\n\nYou'll copy the shot. You won't understand why it works."
+    },
+    "caption": "Most React confusion is actually JavaScript confusion:\n\nWhy is my state stale? → closures\nWhy does this re-render? → reference equality of objects and arrays\nWhy is this undefined? → this, or async timing\n\nTwo solid months of plain JavaScript (arrays, objects, functions, promises, the DOM) will make your first React project feel easy.\n\nWhich order did you learn in?",
+    "publishAt": "2026-11-01T19:00:00+05:30"
+  },
+  {
+    "id": "n37",
+    "day": 19,
+    "slot": "am",
+    "pillar": "frontend",
+    "format": "nugget",
+    "card": {
+      "text": "await inside forEach does not wait.\n\nforEach ignores the promise your callback returns.",
+      "code": "// does NOT wait\nitems.forEach(async (item) => {\n  await save(item);\n});\n\n// one by one\nfor (const item of items) {\n  await save(item);\n}\n\n// all in parallel\nawait Promise.all(items.map(save));"
+    },
+    "caption": "The forEach version starts all the saves and moves on immediately. Code after it runs before anything has saved, and errors become unhandled promise rejections.\n\nPick the loop that matches what you want:\nfor...of with await → in order, one at a time (when order matters or the API has rate limits)\nPromise.all → all at once, finishes when every one is done\n\nSave this. You will write this bug at least once.",
+    "publishAt": "2026-11-02T09:00:00+05:30"
+  },
+  {
+    "id": "n38",
+    "day": 19,
+    "slot": "pm",
+    "pillar": "backend",
+    "format": "one-liner",
+    "card": {
+      "text": "An API that returns 200 OK with { \"error\": \"something failed\" } in the body\n\nis a crime against every frontend developer."
+    },
+    "caption": "Status codes exist so the client knows what happened without reading the body.\n\nfetch() and most HTTP libraries treat 200 as success. When the error hides inside a 200, the frontend has to check every response by hand, and somebody always forgets.\n\nUse 4xx for client mistakes (bad input, not logged in, not found) and 5xx for server failures. Put the details in the body.\n\nFrontend devs, have you had to work with one of these APIs?",
+    "publishAt": "2026-11-02T19:00:00+05:30"
+  },
+  {
+    "id": "n39",
+    "day": 20,
+    "slot": "am",
+    "pillar": "frontend",
+    "format": "compare",
+    "card": {
+      "text": "<script defer> vs <script async>\n\nBoth download without blocking the HTML.\n\ndefer: runs after the HTML is parsed, in order.\nasync: runs as soon as it downloads, in any order."
+    },
+    "caption": "A plain <script> in the head stops HTML parsing until it downloads and runs. That's a blank screen for slow connections.\n\nUse defer for your app code. It keeps the order of your scripts and runs when the page structure is ready.\n\nUse async for independent scripts that don't depend on anything else, like analytics.\n\nModern bundlers mostly handle this for you, but you will be asked about it in interviews.",
+    "publishAt": "2026-11-03T09:00:00+05:30"
+  },
+  {
+    "id": "n40",
+    "day": 20,
+    "slot": "pm",
+    "pillar": "ai",
+    "format": "question",
+    "card": {
+      "text": "Should colleges allow AI in coding exams?\n\nYes, no, or only in some rounds?\n\nOne line on why."
+    },
+    "caption": "Companies are already changing interviews. Some now have one round with AI allowed and one round without.\n\nColleges mostly still test like it's 2015.\n\nI'm genuinely split on this one. Students, teachers, interviewers: what do you think?",
+    "publishAt": "2026-11-03T19:00:00+05:30"
+  },
+  {
+    "id": "n41",
+    "day": 21,
+    "slot": "am",
+    "pillar": "backend",
+    "format": "nugget",
+    "card": {
+      "text": "Never build SQL by gluing user input into a string.\n\nThat's how SQL injection happens. Use parameters.",
+      "code": "// dangerous\ndb.query(\n  \"SELECT * FROM users WHERE email = '\"\n  + email + \"'\");\n\n// safe: the value is sent separately\ndb.query(\n  'SELECT * FROM users WHERE email = $1',\n  [email]);"
+    },
+    "caption": "If someone types ' OR '1'='1 into the email field, the first query becomes \"return every user\". Worse inputs can delete tables.\n\nWith a parameterised query the database treats the input as data only, never as part of the SQL command.\n\nORMs (Prisma, Sequelize, Django ORM) do this for you by default, until you write a raw query. Then it's on you again.\n\nThis is one of the oldest web vulnerabilities and it still shows up in real apps.",
+    "publishAt": "2026-11-04T09:00:00+05:30"
+  },
+  {
+    "id": "n42",
+    "day": 21,
+    "slot": "pm",
+    "pillar": "frontend",
+    "format": "one-liner",
+    "card": {
+      "text": "Every frontend dev has written z-index: 9999 at least once.\n\nThe real fix is understanding stacking contexts."
+    },
+    "caption": "z-index only competes with elements inside the same stacking context.\n\nA parent with transform, opacity below 1, filter or position with its own z-index creates a new context. Children inside it can never rise above something outside it, no matter how big the number.\n\nSo your modal with z-index: 9999 stays behind the header because its parent has transform on it.\n\nFix the structure (or render the modal at the body level with a portal), not the number.",
+    "publishAt": "2026-11-04T19:00:00+05:30"
+  },
+  {
+    "id": "n43",
+    "day": 22,
+    "slot": "am",
+    "pillar": "frontend",
+    "format": "nugget",
+    "card": {
+      "text": "Page content jumps while loading?\n\nGive every image a width and height. The browser then reserves the space before the image arrives.",
+      "code": "<img src=\"shoe.jpg\" alt=\"Red sneakers\"\n     width=\"800\" height=\"600\">\n\n/* still responsive */\nimg { width: 100%; height: auto; }"
+    },
+    "caption": "That jump has a name: Cumulative Layout Shift (CLS), one of Google's Core Web Vitals.\n\nWithout dimensions the browser doesn't know how tall the image will be, so it reserves 0 px, then pushes everything down when the image loads. That's how users click the wrong button.\n\nWith width and height, the browser computes the aspect ratio up front. Your CSS can still make it responsive.\n\nOne of the cheapest fixes in frontend performance.",
+    "publishAt": "2026-11-05T09:00:00+05:30"
+  },
+  {
+    "id": "n44",
+    "day": 22,
+    "slot": "pm",
+    "pillar": "career",
+    "format": "take",
+    "card": {
+      "text": "Interviewers don't expect you to know everything.\n\nThey want to hear how you think when you don't know."
+    },
+    "caption": "\"I haven't used that, but here's how I would figure it out\" is a strong answer.\n\nSilence is a weak one. So is bluffing.\n\nWhen you're stuck: say what you know, say your assumption, try a small example out loud, and ask one clarifying question.\n\nThat is exactly what working with you will look like, and that's what they are trying to judge.",
+    "publishAt": "2026-11-05T19:00:00+05:30"
+  },
+  {
+    "id": "n45",
+    "day": 23,
+    "slot": "am",
+    "pillar": "ai",
+    "format": "nugget",
+    "card": {
+      "text": "The context window is the model's working memory for one request.\n\nEverything has to fit in it: your messages, its replies, files, instructions.\n\nVery long chats drift. Start a fresh chat for a new task."
+    },
+    "caption": "Ever noticed the AI \"forgetting\" what you told it 40 messages ago, or mixing up two problems?\n\nEvery reply is generated from what's in the context right now. In a long chat, old messages may get trimmed or summarised, and lots of unrelated history makes answers worse even when it all fits.\n\nSimple habits:\nOne chat per task.\nPaste only the files that matter.\nRestate the key requirement when you switch topics.",
+    "publishAt": "2026-11-06T09:00:00+05:30"
+  },
+  {
+    "id": "n46",
+    "day": 23,
+    "slot": "pm",
+    "pillar": "frontend",
+    "format": "question",
+    "card": {
+      "text": "Next.js for every project?\n\nOr plain React + Vite until you actually need server rendering?\n\nWhere do you stand?"
+    },
+    "caption": "A lot of freshers start straight with Next.js because job posts mention it.\n\nOthers say learn React with Vite first, so you know what the framework is doing for you.\n\nBoth paths get people hired. Tell me which one you took and whether you'd do it again.",
+    "publishAt": "2026-11-06T19:00:00+05:30"
+  },
+  {
+    "id": "n47",
+    "day": 24,
+    "slot": "am",
+    "pillar": "frontend",
+    "format": "predict-output",
+    "card": {
+      "text": "Your calculator app's first bug:",
+      "code": "console.log(0.1 + 0.2 === 0.3);\nconsole.log(0.1 + 0.2);"
+    },
+    "caption": "Comment your guess first. Answer below.\n\n.\n.\n.\n\nfalse\n0.30000000000000004\n\nJavaScript numbers are binary floating point. 0.1 and 0.2 can't be stored exactly in binary (like 1/3 in decimal), so tiny errors appear.\n\nThis isn't a JavaScript quirk. Python, Java and C behave the same with floats.\n\nFor money: store paise as whole numbers (₹10.50 → 1050) and format only when you display it. For comparisons, check if the difference is smaller than Number.EPSILON.",
+    "publishAt": "2026-11-07T09:00:00+05:30"
+  },
+  {
+    "id": "n48",
+    "day": 24,
+    "slot": "pm",
+    "pillar": "ai",
+    "format": "take",
+    "card": {
+      "text": "Don't ask AI: \"write me a login page.\"\n\nAsk: \"here's my auth API, here are my form components, write the login form using both.\"\n\nContext is the prompt."
+    },
+    "caption": "The first prompt gets you a generic page that doesn't fit your project, with its own styles, its own fake API and its own state library.\n\nThe second gets you something you can actually merge.\n\nBefore asking, paste the 2 or 3 things the model would need to see if it were a new teammate: the API shape, an existing component, your conventions.\n\nBetter input beats better wording.",
+    "publishAt": "2026-11-07T19:00:00+05:30"
+  },
+  {
+    "id": "n49",
+    "day": 25,
+    "slot": "am",
+    "pillar": "backend",
+    "format": "compare",
+    "card": {
+      "text": "REST vs GraphQL in one look:\n\nREST: many URLs, server decides the response shape, HTTP caching works out of the box.\n\nGraphQL: one URL, client asks for exactly the fields it needs."
+    },
+    "caption": "When GraphQL shines: one screen needs data from many resources, or mobile clients need small responses. One request, only the fields you ask for.\n\nWhen REST is simpler: CRUD apps, public APIs, anything that benefits from plain HTTP caching and CDNs.\n\nNeither is \"modern\" or \"old\". Most companies run both.\n\nAs a fresher, get really comfortable with REST first. GraphQL is easy to pick up after that.",
+    "publishAt": "2026-11-08T09:00:00+05:30"
+  },
+  {
+    "id": "n50",
+    "day": 25,
+    "slot": "pm",
+    "pillar": "frontend",
+    "format": "one-liner",
+    "card": {
+      "text": "CSS is not hard.\n\nCSS without understanding the box model is hard."
+    },
+    "caption": "Every element is a box: content, then padding, then border, then margin.\n\nAdd box-sizing: border-box to everything and width includes padding and border. Half of \"why is this 20px too wide\" bugs disappear.\n\nThen learn flexbox and grid properly, once, from the basics. Not by trying random properties until it looks right.\n\nOpen DevTools, select any element and look at the box diagram in the Computed tab. That picture is CSS.",
+    "publishAt": "2026-11-08T19:00:00+05:30"
+  },
+  {
+    "id": "n51",
+    "day": 26,
+    "slot": "am",
+    "pillar": "frontend",
+    "format": "compare",
+    "card": {
+      "text": "Promise.all vs Promise.allSettled\n\nall: fails as soon as ANY promise fails.\nallSettled: waits for ALL of them and tells you which passed and which failed."
+    },
+    "caption": "Dashboard with 4 widgets, each with its own API call.\n\nWith Promise.all, if the weather API fails, you lose all 4 widgets.\n\nWith Promise.allSettled, you get an array like { status: 'fulfilled', value } or { status: 'rejected', reason } for each, so you can show 3 widgets and an error card for the 4th.\n\nUse all when every result is required. Use allSettled when partial results are still useful.",
+    "publishAt": "2026-11-09T09:00:00+05:30"
+  },
+  {
+    "id": "n52",
+    "day": 26,
+    "slot": "pm",
+    "pillar": "ai",
+    "format": "one-liner",
+    "card": {
+      "text": "Vibe coding is great for prototypes.\n\nProduction needs someone who can read the diff."
+    },
+    "caption": "Generating a working demo in an evening is genuinely amazing. Use it.\n\nBut production adds things a demo never sees: real users, bad inputs, security, slow networks, other people changing the same code.\n\nThat's where someone has to understand what was generated and why.\n\nBuild fast. Then learn enough to be that person.",
+    "publishAt": "2026-11-09T19:00:00+05:30"
+  },
+  {
+    "id": "n53",
+    "day": 27,
+    "slot": "am",
+    "pillar": "backend",
+    "format": "nugget",
+    "card": {
+      "text": "Why is Redis so fast?\n\nIt keeps data in memory (RAM), not on disk.\n\nThat's why it's popular for caching, sessions and rate limiting, and usually not your main database."
+    },
+    "caption": "Reading from RAM is far faster than reading from disk, which is why Redis lookups usually take well under a millisecond.\n\nCommon uses:\nCache: store the result of a slow query for 60 seconds.\nSessions: who is logged in.\nRate limits: count requests per user per minute.\n\nRedis can save data to disk too, but most apps still keep their source of truth in a database like PostgreSQL or MongoDB and use Redis to go faster.\n\nWhere have you used it?",
+    "publishAt": "2026-11-10T09:00:00+05:30"
+  },
+  {
+    "id": "n54",
+    "day": 27,
+    "slot": "pm",
+    "pillar": "frontend",
+    "format": "one-liner",
+    "card": {
+      "text": "Your website is not slow because of React.\n\nIt's slow because of the 4 MB hero image."
+    },
+    "caption": "Before blaming the framework, open DevTools → Network, sort by size, and look at the top 5 rows.\n\nUsually you'll find: uncompressed images, a whole icon library for 3 icons, a date library with every locale, or a font with 9 weights.\n\nConvert images to WebP or AVIF, serve the right size for the screen, and import only what you use.\n\nFramework choice comes much later on the list.",
+    "publishAt": "2026-11-10T19:00:00+05:30"
+  },
+  {
+    "id": "n55",
+    "day": 28,
+    "slot": "am",
+    "pillar": "frontend",
+    "format": "nugget",
+    "card": {
+      "text": "Semantic HTML gives you accessibility and SEO for free.",
+      "code": "<!-- tells nobody anything -->\n<div class=\"nav\">...</div>\n<div class=\"main\">...</div>\n\n<!-- tells browsers, screen readers and Google -->\n<nav>...</nav>\n<main>...</main>\n<label for=\"email\">Email</label>\n<input id=\"email\" type=\"email\">"
+    },
+    "caption": "Screen reader users jump between landmarks like <nav> and <main>, and between headings. With only divs, there is nothing to jump to.\n\nA <label> connected to its input means tapping the label focuses the field, and the field gets a name that screen readers read out.\n\ntype=\"email\" gives mobile users the @ keyboard.\n\nNone of this needs extra code. Just the right tag.",
+    "publishAt": "2026-11-11T09:00:00+05:30"
+  },
+  {
+    "id": "n56",
+    "day": 28,
+    "slot": "pm",
+    "pillar": "ai",
+    "format": "question",
+    "card": {
+      "text": "If AI writes most of the code,\n\nwhat should a student spend 4 years of B.Tech actually learning?"
+    },
+    "caption": "My short answer: fundamentals that don't change (data structures, networks, databases, operating systems), plus the skills AI can't do for you: deciding what to build, reading code critically, and explaining your decisions.\n\nBut I want to hear from students and from people hiring them.\n\nWhat would you add or remove?",
+    "publishAt": "2026-11-11T19:00:00+05:30"
+  },
+  {
+    "id": "n57",
+    "day": 29,
+    "slot": "am",
+    "pillar": "ai",
+    "format": "nugget",
+    "card": {
+      "text": "How does an AI model \"use tools\"?\n\nIt can't run anything itself. You describe functions to it, it replies \"call get_weather with city = Delhi\", your code runs it and sends back the result.\n\nMCP is a standard way to plug such tools into AI apps."
+    },
+    "caption": "This is called tool calling (or function calling).\n\n1. You send the model a list of tools: name, description, and the input schema.\n2. The model decides a tool is needed and returns the tool name with arguments.\n3. Your code runs the real function (DB query, API call).\n4. You send the result back, and the model writes the final answer.\n\nMCP (Model Context Protocol) standardises step 1 and 3, so one tool server can work with many AI apps.\n\nThe model never touches your database. Your code does.",
+    "publishAt": "2026-11-12T09:00:00+05:30"
+  },
+  {
+    "id": "n58",
+    "day": 29,
+    "slot": "pm",
+    "pillar": "frontend",
+    "format": "take",
+    "card": {
+      "text": "TypeScript doesn't slow you down.\n\n\"undefined is not a function\" at 2 AM slows you down."
+    },
+    "caption": "Yes, types feel like extra typing for the first two weeks.\n\nThen you rename a prop and the editor shows all 14 places that break, before you run anything. You stop guessing what shape an API response has. Autocomplete starts working everywhere.\n\nStart small: turn on TypeScript in your next project and type your props and API responses. Skip the advanced generics for now.",
+    "publishAt": "2026-11-12T19:00:00+05:30"
+  },
+  {
+    "id": "n59",
+    "day": 30,
+    "slot": "am",
+    "pillar": "frontend",
+    "format": "nugget",
+    "card": {
+      "text": "Showing 10,000 rows?\n\nDon't render 10,000 rows.\n\nRender only the ~20 visible on screen and swap them as the user scrolls. This is called virtualization."
+    },
+    "caption": "Each row is DOM nodes the browser has to create, style and lay out. 10,000 rows with a few elements each is tens of thousands of nodes, and scrolling starts to lag.\n\nVirtualization keeps a tall empty container for the scrollbar and only renders the rows in view (plus a few extra).\n\nLibraries: react-window, TanStack Virtual.\n\nAlso a favourite frontend system design interview question: \"how would you build an infinite feed?\"",
+    "publishAt": "2026-11-13T09:00:00+05:30"
+  },
+  {
+    "id": "n60",
+    "day": 30,
+    "slot": "pm",
+    "pillar": "career",
+    "format": "take",
+    "card": {
+      "text": "Learn in public.\n\nYour first 50 posts will feel awkward.\n\nOne of the next 50 is the one that gets you noticed."
+    },
+    "caption": "Writing about what you learned does three things:\n\nYou understand it better, because explaining exposes the gaps.\nYou build a record of your work that anyone can check.\nThe right people start finding you.\n\nYou don't need to be an expert. \"Here's what confused me today and how I solved it\" is enough.\n\nThis was 60 posts in 30 days for me. Your turn: post one thing you learned this week and tag me.",
+    "publishAt": "2026-11-13T19:00:00+05:30"
+  }
+]

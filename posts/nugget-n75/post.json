@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-10-21T02:30:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "Both callbacks live inside the start() method of a timer object.\n\nA regular function gets its own this, decided by how it is called. setInterval calls it with this set to the global object (window in browsers). Never your timer.\n\nArrow functions don't have their own this. They use the this of the surrounding code, which is the timer.\n\nThe old fix was const self = this. Arrow functions made it unnecessary.\n\nSource: MDN, Arrow function expressions.\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "Inside a regular function callback, this is NOT your object.\n\nAn arrow function uses this from where it was written:\n\nstart() {\n  setInterval(function () {\n    this.sec++; // not timer\n  }, 1000);\n  setInterval(() => {\n    this.sec++; // timer ✓\n  }, 1000);\n}",
+  "title": "Nugget N75"
+}

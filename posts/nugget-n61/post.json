@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-10-14T06:30:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "Comment your guess first. Answer below.\n\n.\n.\n.\n\n\"object\", \"number\", \"object\".\n\ntypeof null is \"object\" because of a bug in the very first version of JavaScript. Fixing it would break old websites, so it stays.\n\nNaN is a special value of the number type. Its name says \"not a number\", its type says number.\n\nArrays are objects. To check for an array, use Array.isArray([]) which returns true.\n\nSource: MDN, typeof operator.\n\nHow many did you get?\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "3 lines. 3 types. Guess all three.\n\ntypeof null\ntypeof NaN\ntypeof []",
+  "title": "Nugget N61"
+}

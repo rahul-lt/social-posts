@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-10-29T14:30:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "Frontend devs moving to backend often jump straight to whatever is trending.\n\nSQL has been around for decades and it isn't going anywhere. Postgres alone will teach you data modelling, query performance (EXPLAIN), and how to keep data consistent.\n\nA good first project: a small expense tracker with users, categories and expenses. Three tables, real JOINs, real indexes.\n\nWhich database did you learn first?\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "Learn one SQL database properly before you learn five NoSQL ones.\n\nJOINs, indexes and transactions come up in almost every backend interview.",
+  "title": "Nugget N92"
+}

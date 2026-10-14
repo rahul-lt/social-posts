@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-10-22T02:30:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "Normal search matches words. Embedding search (semantic search) matches meaning.\n\nHow it works:\n1. Turn every product description into an embedding once and store it.\n2. Turn the user's query into an embedding.\n3. Find the stored embeddings closest to the query.\n\nThis is step 1 of RAG: it finds the right paragraphs before the AI model writes an answer.\n\nYou can try it with a free embedding model and a few hundred rows. A great weekend project for your resume.\n\nSource: OpenAI and Hugging Face embedding guides.\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "An embedding turns text into a list of numbers.\n\nTexts with similar meaning get similar numbers.\n\nSo a search for \"cheap phone\" can find a product called \"budget mobile\", with zero matching words.",
+  "title": "Nugget N77"
+}

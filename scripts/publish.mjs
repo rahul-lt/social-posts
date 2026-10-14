@@ -169,35 +169,42 @@ export function slidesToPdf(files) {
   return Buffer.concat(parts);
 }
 
-async function liUploadDocument(pdf) {
-  const { body } = await http(`${LI_API}/documents?action=initializeUpload`, {
+// resource = 'documents' (PDF carousel) or 'images' (single image); both upload the same way.
+async function liUpload(resource, bytes) {
+  const { body } = await http(`${LI_API}/${resource}?action=initializeUpload`, {
     method: 'POST',
     headers: liHeaders(),
     body: JSON.stringify({ initializeUploadRequest: { owner: env('LINKEDIN_AUTHOR_URN') } }),
   });
-  const { uploadUrl, document } = body.value;
+  const { uploadUrl } = body.value;
+  const urn = body.value.document ?? body.value.image;
   await http(uploadUrl, {
     method: 'PUT',
     headers: { Authorization: `Bearer ${env('LINKEDIN_ACCESS_TOKEN')}` },
-    body: pdf,
+    body: bytes,
   });
   // Posting before processing finishes fails, so wait for AVAILABLE.
   for (let i = 0; i < 24; i++) {
-    const { body: doc } = await http(`${LI_API}/documents/${encodeURIComponent(document)}`, { headers: liHeaders() });
-    if (doc.status === 'AVAILABLE') return document;
-    if (doc.status === 'PROCESSING_FAILED') throw new Error(`LinkedIn could not process ${document}`);
+    const { body: asset } = await http(`${LI_API}/${resource}/${encodeURIComponent(urn)}`, { headers: liHeaders() });
+    if (asset.status === 'AVAILABLE') return urn;
+    if (asset.status === 'PROCESSING_FAILED') throw new Error(`LinkedIn could not process ${urn}`);
     await sleep(5000);
   }
-  throw new Error(`LinkedIn document ${document} not ready after 120s`);
+  throw new Error(`LinkedIn ${urn} not ready after 120s`);
 }
 
 async function publishLinkedIn(post) {
   const caption = post.linkedinCaption ?? post.caption;
-  const pdf = slidesToPdf(post.slides.map((f) => path.join(post.dir, f)));
-  if (DRY_RUN) return { dryRun: true, pages: post.slides.length, pdfBytes: pdf.length };
+  // One slide is a plain image post; more become a swipeable PDF document.
+  const single = post.slides.length === 1;
+  const bytes = single
+    ? fs.readFileSync(path.join(post.dir, post.slides[0]))
+    : slidesToPdf(post.slides.map((f) => path.join(post.dir, f)));
+  if (DRY_RUN) return { dryRun: true, kind: single ? 'image' : 'document', bytes: bytes.length };
 
-  const title = post.title || post.altText || post.slug;
-  const content = { media: { id: await liUploadDocument(pdf), title } };
+  const content = single
+    ? { media: { id: await liUpload('images', bytes), altText: post.altText || post.slug } }
+    : { media: { id: await liUpload('documents', bytes), title: post.title || post.altText || post.slug } };
 
   const { res } = await http(`${LI_API}/posts`, {
     method: 'POST',

@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-11-11T02:30:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "Comment your guess first. Answer below.\n\n.\n.\n.\n\n'second'.\n\nObject keys are strings (or symbols). Both b and c get converted to the string \"[object Object]\", so they're the same key. The second assignment overwrites the first.\n\nIf you need objects as keys, use a Map:\nconst m = new Map();\nm.set(b, 'first');\nMap keeps the actual object as the key.\n\nSource: MDN, Map (Objects vs. Maps).\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "Two different objects as keys. What prints?\n\nconst a = {};\nconst b = { id: 1 };\nconst c = { id: 2 };\na[b] = 'first';\na[c] = 'second';\nconsole.log(a[b]);",
+  "title": "Nugget N117"
+}

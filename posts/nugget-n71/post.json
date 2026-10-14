@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-10-19T02:30:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "Comment your guess first. Answer below.\n\n.\n.\n.\n\n3 1\n\nEach call to counter() creates a new n. The returned arrow function keeps access to its own n even after counter() has finished. That's a closure.\n\na has been called 3 times in total, so its n is 3. b has its own n and was called once, so 1.\n\nThis is exactly how private state worked before classes, and how React hooks remember values between renders.\n\nSource: MDN, Closures.\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "Two counters from the same function. What prints?\n\nfunction counter() {\n  let n = 0;\n  return () => ++n;\n}\nconst a = counter();\nconst b = counter();\na(); a();\nconsole.log(a(), b());",
+  "title": "Nugget N71"
+}

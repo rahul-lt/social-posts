@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-11-12T02:30:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "JavaScript on the page runs on one main thread, which also handles clicks, typing and painting. A 2-second loop there means 2 seconds of frozen page.\n\nA Worker runs your script in the background. You send it data with postMessage and get the result back in onmessage.\n\nWorkers can't touch the DOM. They're for pure computation: parsing a big file, filtering a large list, image processing.\n\nSource: MDN, Using Web Workers.\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "Heavy calculation freezing your UI? Move it to a Web Worker. It runs on a separate thread, so clicks and scrolling stay smooth.\n\n// main.js\nconst w = new Worker('sum.js');\nw.postMessage(bigArray);\nw.onmessage = (e) =>\n  show(e.data);",
+  "title": "Nugget N119"
+}

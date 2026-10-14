@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-10-21T14:30:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "Every component that reads a Context re-renders when that Context's value changes. If fast-changing state (like input text) lives next to slow-changing state (user, theme), everything pays for every keystroke.\n\nFixes:\nKeep input state local to the component that owns it.\nSplit contexts: one for user, one for theme.\nMemoize the context value object.\n\nReact DevTools → Profiler → \"Highlight updates\" shows you exactly what re-renders.\n\nSource: react.dev, useContext (optimizing re-renders).\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "A common React slowdown I see in code reviews:\n\none Context holds user, theme AND the search box text.\n\nType one letter → every component using that Context re-renders.",
+  "title": "Nugget N76"
+}

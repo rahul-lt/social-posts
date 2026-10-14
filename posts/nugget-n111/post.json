@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-11-08T02:30:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "Prompting is free and instant. Try it until it clearly isn't enough.\n\nRAG solves \"the model doesn't know our data\". The data stays in your database, so it's always up to date and you can show sources.\n\nFine-tuning changes the model itself. It helps with style, format or a very specific task. It costs money, needs good training data, and doesn't keep up with data that changes daily.\n\nInterview tip: if asked \"how would you build a support bot for our docs\", start with RAG and say why.\n\nSource: OpenAI and Anthropic docs on prompt engineering and fine-tuning.\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "Want an AI model to work with your company's data? Try these in order:\n\n1. Better prompt + examples\n2. RAG: fetch the right documents into the prompt\n3. Fine-tuning: retrain the model\n\nMost teams never need step 3.",
+  "title": "Nugget N111"
+}

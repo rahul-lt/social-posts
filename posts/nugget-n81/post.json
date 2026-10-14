@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-10-24T02:30:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "Comment your guess first. Answer below.\n\n.\n.\n.\n\n[1, 10, 100, 9]\n\nWithout a compare function, sort() converts every item to a string and sorts alphabetically. \"10\" comes before \"9\" because \"1\" comes before \"9\".\n\nFix: [10, 9, 1, 100].sort((a, b) => a - b) gives [1, 9, 10, 100].\n\nAlso: sort() changes the original array. If you need a sorted copy, use toSorted() in modern browsers.\n\nSource: MDN, Array.prototype.sort().\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "Sorting 4 numbers. What could go wrong?\n\n[10, 9, 1, 100].sort()",
+  "title": "Nugget N81"
+}

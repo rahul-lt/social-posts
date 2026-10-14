@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-11-06T14:30:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "Tests turn \"looks right to me\" into a pass or fail you can check in seconds.\n\nThey also help the AI itself: agents can run the tests, read the failures, and fix their own mistakes before you even look.\n\nStart small: one test per important user flow (login, add to cart, checkout). That alone catches the worst breakages.\n\nDoes your current project have tests?\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "An AI coding tool is only as safe as your tests.\n\nNo tests = no quick way to know if its \"small refactor\" broke checkout.",
+  "title": "Nugget N108"
+}

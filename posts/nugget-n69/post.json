@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-10-18T02:30:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "The model picks each next word from a list of likely options. Temperature changes how often it picks the less likely ones.\n\nExample: ask for a product description 3 times at high temperature and you get 3 different versions. Ask a model to return JSON at high temperature and you get more broken JSON.\n\nNot every model or app lets you change it, and some newer models fix it for you. When an API does expose it, start low for anything a program will read.\n\nSource: provider API docs (OpenAI, Anthropic), temperature parameter.\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "Temperature controls how random an AI model's answers are.\n\nLow (0 to 0.3): same question, nearly the same answer. Use for code, JSON, extraction.\n\nHigh (0.8+): more varied wording. Use for brainstorming names or ideas.",
+  "title": "Nugget N69"
+}

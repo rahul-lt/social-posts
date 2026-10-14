@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-11-02T02:30:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "Use map when you want a new array built from the old one (rendering a list in React, converting prices).\n\nUse forEach when you only want side effects and don't need a result (logging, pushing to analytics).\n\nCommon bug: using map, ignoring its result, and getting an ESLint warning. Or using forEach inside JSX and rendering nothing.\n\nNeither one works with await the way you expect. For async loops, use for...of or Promise.all.\n\nSource: MDN, Array.prototype.map() and forEach().\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "map returns a new array.\nforEach returns undefined.\n\nconst a = [1, 2, 3];\n\na.map(n => n * 2);\n// [2, 4, 6]\n\na.forEach(n => n * 2);\n// undefined",
+  "title": "Nugget N99"
+}

@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-10-25T02:30:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "Comment your guess first. Answer below.\n\n.\n.\n.\n\n1, not 3.\n\nInside this click, count is 0 the whole time. All three calls say \"set it to 0 + 1\". React batches them, and the result is 1.\n\nWhen the next value depends on the previous one, pass a function:\nsetCount(c => c + 1)\nReact queues these and runs each with the latest value, so three calls give 3.\n\nSource: react.dev, Queueing a series of state updates.\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "count starts at 0. The user clicks once. What's count after the render?\n\nfunction onClick() {\n  setCount(count + 1);\n  setCount(count + 1);\n  setCount(count + 1);\n}",
+  "title": "Nugget N83"
+}
