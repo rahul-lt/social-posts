@@ -10,9 +10,13 @@ const SOURCES = eval(js.match(/const SOURCES = (\[[\s\S]*?\n\]);/)[1].replace(/R
 const roster = JSON.parse(fs.readFileSync(new URL("../../sources/roster.json", import.meta.url), "utf8"));
 
 const norm = (u) => { try { const x = new URL(u); return (x.hostname.replace(/^www\./, "") + x.pathname.replace(/\/$/, "") + x.search).toLowerCase(); } catch { return u; } };
+const decksDir = new URL("../../decks/", import.meta.url);
+const drafts = fs.readdirSync(decksDir).filter((d) => fs.existsSync(new URL(`${d}/draft.json`, decksDir)))
+  .map((d) => JSON.parse(fs.readFileSync(new URL(`${d}/draft.json`, decksDir), "utf8")));
 const used = new Set([
   ...roster.posts.flatMap((p) => p.items.flatMap((i) => [i.url, i.hnUrl, ...(i.related || [])])),
   ...roster.manual.map((m) => m.url),
+  ...drafts.flatMap((d) => [d.url, d.hnUrl]),
 ].filter(Boolean).map(norm));
 const get = (u) => fetch(u, { headers: { "user-agent": "tech-digest/0.1" }, redirect: "follow", signal: AbortSignal.timeout(20000) });
 const tag = (x, t) => (x.match(new RegExp(`<${t}[^>]*>([\\s\\S]*?)</${t}>`)) || [])[1]?.replace(/<!\[CDATA\[|\]\]>/g, "").trim() || "";
