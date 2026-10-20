@@ -51,5 +51,5 @@ async function score(c, i) {
 const out = [];
 for (let i = 0; i < cands.length; i += 12) out.push(...await Promise.all(cands.slice(i, i + 12).map((c, j) => score(c, i + j))));
 const eng = (c) => c.hnPoints ?? (c.likes ?? 0) * 3;
-out.sort((a, b) => (b.beginner ?? -1) - (a.beginner ?? -1) || eng(b) - eng(a));
+out.sort((a, b) => (b.beginner ?? -1) - (a.beginner ?? -1) || b.engagement - a.engagement);
 console.log(JSON.stringify(out, null, 1));
