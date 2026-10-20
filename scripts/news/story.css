@@ -1,0 +1,8 @@
+/* Shared frame for LinkedIn-style animated story posts (rendered by scripts/news/gif.py). */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=IBM+Plex+Mono:wght@600&display=swap");
+html, body { margin: 0; }
+body { width: 960px; height: 1200px; background: #fff; overflow: hidden; font-family: Poppins, sans-serif; color: #1d1d2b; }
+h1 { margin: 0; padding: 64px 64px 0; font: 700 64px/1.12 Poppins, sans-serif; letter-spacing: -0.01em; }
+p { margin: 18px 64px 0; font: 600 30px/1.35 Poppins, sans-serif; color: #5b6275; }
+svg#s { position: absolute; left: 0; top: 348px; }
+.o { stroke: #1d1d2b; stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; }

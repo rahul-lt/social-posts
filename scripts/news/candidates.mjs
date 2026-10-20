@@ -9,7 +9,7 @@ const js = html.split("<script>")[1].split("</script>")[0];
 const SOURCES = eval(js.match(/const SOURCES = (\[[\s\S]*?\n\]);/)[1].replace(/REDDIT_EXPIRY/g, '""'));
 const roster = JSON.parse(fs.readFileSync(new URL("../../sources/roster.json", import.meta.url), "utf8"));
 
-const norm = (u) => { try { const x = new URL(u); return (x.hostname.replace(/^www\./, "") + x.pathname.replace(/\/$/, "")).toLowerCase(); } catch { return u; } };
+const norm = (u) => { try { const x = new URL(u); return (x.hostname.replace(/^www\./, "") + x.pathname.replace(/\/$/, "") + x.search).toLowerCase(); } catch { return u; } };
 const used = new Set([
   ...roster.posts.flatMap((p) => p.items.flatMap((i) => [i.url, i.hnUrl, ...(i.related || [])])),
   ...roster.manual.map((m) => m.url),
@@ -26,7 +26,9 @@ function parse(xml) {
 }
 
 const hnSince = Math.floor(since / 1000);
-const hn = await (await get(`https://hn.algolia.com/api/v1/search_by_date?tags=story&numericFilters=created_at_i>${hnSince},points>20&hitsPerPage=1000`)).json();
+const hnQuery = new URLSearchParams({ tags: "story", numericFilters: `created_at_i>${hnSince},points>20`, hitsPerPage: "1000" });
+const hn = await (await get(`https://hn.algolia.com/api/v1/search_by_date?${hnQuery}`)).json();
+if (!hn.hits?.length) throw new Error("Hacker News returned no stories; refusing to rank without it");
 const hnByUrl = new Map(hn.hits.filter((h) => h.url).map((h) => [norm(h.url), h]));
 
 const out = [];

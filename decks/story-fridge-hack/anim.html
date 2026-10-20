@@ -1,35 +1,13 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=IBM+Plex+Mono:wght@600&display=swap">
-<style>
-  :root { --ink: #1d1d2b; --blue: #6f8fd0; --navy: #3d5aa8; --orange: #f28c5a; --teal: #7fd6cb; --mustard: #e8b04a;
-          --coral: #e65a5a; --floor: #c3cde0; --dash: #cfd8ea; --soft: #b9d4f2; }
-  html, body { margin: 0; }
-  body { width: 960px; height: 1200px; background: #fff; overflow: hidden; font-family: Poppins, sans-serif; color: var(--ink); }
-  h1 { margin: 0; padding: 64px 64px 0; font: 700 64px/1.12 Poppins, sans-serif; letter-spacing: -0.01em; }
-  p { margin: 18px 64px 0; font: 600 30px/1.35 Poppins, sans-serif; color: #5b6275; }
-  svg { position: absolute; left: 0; top: 348px; }
-  .o { stroke: var(--ink); stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; }
-</style>
+<link rel="stylesheet" href="../../scripts/news/story.css">
 </head><body>
 <h1>Have you ever imagined your fridge getting hacked?</h1>
 <p>It happened in 400+ supermarkets in France.</p>
 <svg id="s" width="960" height="870" viewBox="0 0 960 870"></svg>
+<script src="../../scripts/news/story.js"></script>
 <script>
-const NS = 'http://www.w3.org/2000/svg', S = document.getElementById('s');
-const el = (tag, attrs, parent = S) => { const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); parent.appendChild(e); return e; };
-const g = (attrs) => el('g', attrs);
-// outlined limb: dark stroke under a lighter one, LinkedIn style
-const limb = (d, fill = '#fff', parent) => { el('path', {d, fill: 'none', stroke: '#1d1d2b', 'stroke-width': 26, 'stroke-linecap': 'round', 'stroke-linejoin': 'round'}, parent); el('path', {d, fill: 'none', stroke: fill, 'stroke-width': 18, 'stroke-linecap': 'round', 'stroke-linejoin': 'round'}, parent); };
-
-// background confetti dashes (seeded)
-let seed = 7; const rnd = () => (seed = (seed * 9301 + 49297) % 233280) / 233280;
-for (let i = 0; i < 150; i++) {
-  const x = rnd() * 960, y = rnd() * 600, a = rnd() * Math.PI, L = 14;
-  el('line', {x1: x, y1: y, x2: x + L * Math.cos(a), y2: y + L * Math.sin(a), stroke: '#cfd8ea', 'stroke-width': 3, 'stroke-linecap': 'round'});
-}
-el('rect', {x: 0, y: 640, width: 960, height: 230, fill: '#c3cde0'});
-el('line', {x1: 0, y1: 640, x2: 960, y2: 640, stroke: '#8f9bb8', 'stroke-width': 3});
+backdrop();
 
 // puddle
 const puddle = el('ellipse', {cx: 470, cy: 652, rx: 150, ry: 26, fill: '#b9d4f2', class: 'o', 'stroke-width': 3});
