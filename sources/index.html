@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tech News Sources</title>
+<style>
+  :root {
+    --bg: #f7f6f2; --panel: #ffffff; --ink: #1d1d1b; --muted: #6b6a64; --line: #e4e2db;
+    --accent: #2f5bd3; --native: #1f7a4d; --native-bg: #e3f3ea; --proxy: #8a5a00; --proxy-bg: #fbf0d9;
+    --none: #8b8b85; --none-bg: #efeee9; --warn: #b3261e; --warn-bg: #fbe5e3;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #141413; --panel: #1d1d1b; --ink: #ecebe6; --muted: #9a9890; --line: #2f2e2b;
+      --accent: #7f9cff; --native: #6fd19c; --native-bg: #173326; --proxy: #f0c46b; --proxy-bg: #3a2e14;
+      --none: #9a9890; --none-bg: #2a2927; --warn: #ff8a80; --warn-bg: #3d1d1b;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #141413; --panel: #1d1d1b; --ink: #ecebe6; --muted: #9a9890; --line: #2f2e2b;
+    --accent: #7f9cff; --native: #6fd19c; --native-bg: #173326; --proxy: #f0c46b; --proxy-bg: #3a2e14;
+    --none: #9a9890; --none-bg: #2a2927; --warn: #ff8a80; --warn-bg: #3d1d1b;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 14px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; }
+  main { max-width: 1280px; margin: 0 auto; padding: 32px 16px 64px; }
+  h1 { font-size: 26px; margin: 0 0 4px; letter-spacing: -0.01em; }
+  h2 { font-size: 16px; margin: 40px 0 12px; }
+  .sub { color: var(--muted); margin: 0 0 24px; }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  code { font: 12px ui-monospace, SFMono-Regular, Menlo, monospace; background: var(--none-bg); padding: 1px 5px; border-radius: 4px; word-break: break-all; }
+  .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin-bottom: 24px; }
+  .stat { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; }
+  .stat b { display: block; font-size: 22px; }
+  .stat span { color: var(--muted); font-size: 12px; }
+  .how { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; margin-bottom: 28px; }
+  .how div { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 14px; }
+  .how p { margin: 6px 0 0; color: var(--muted); }
+  .controls { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 12px; }
+  .chip { border: 1px solid var(--line); background: var(--panel); color: var(--ink); border-radius: 999px; padding: 5px 12px; cursor: pointer; font: inherit; }
+  .chip[aria-pressed="true"] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+  select, input { font: inherit; color: var(--ink); background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 6px 10px; }
+  input { flex: 1 1 200px; }
+  .wrap { overflow-x: auto; background: var(--panel); border: 1px solid var(--line); border-radius: 10px; }
+  table { width: 100%; border-collapse: collapse; min-width: 980px; }
+  th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid var(--line); }
+  th { font-size: 12px; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted); position: sticky; top: 0; background: var(--panel); }
+  tr:last-child td { border-bottom: 0; }
+  tr.group td { background: var(--bg); font-weight: 700; font-size: 15px; padding-top: 16px; }
+  .name { font-weight: 600; }
+  .meta { color: var(--muted); font-size: 12px; }
+  .badge { display: inline-block; border-radius: 6px; padding: 1px 8px; font-size: 12px; font-weight: 600; white-space: nowrap; }
+  .native { color: var(--native); background: var(--native-bg); }
+  .proxy { color: var(--proxy); background: var(--proxy-bg); }
+  .none { color: var(--none); background: var(--none-bg); }
+  .warn { color: var(--warn); background: var(--warn-bg); }
+  .core { color: var(--accent); font-weight: 700; }
+  ul.dropped { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 14px 14px 14px 32px; margin: 0; }
+  ul.dropped li { margin: 4px 0; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Tech News Sources</h1>
+  <p class="sub">Daily inputs for curated posts. Last verified 2026-10-20. Frequency is measured from each feed's last 30 days; engagement numbers are samples from that day.</p>
+
+  <div class="stats" id="stats"></div>
+
+  <div class="how">
+    <div><span class="badge native">Native</span> The source shows its own engagement.
+      <p>Substack: <code>/api/v1/archive?sort=new&amp;limit=50</code> returns <code>reaction_count</code>, <code>comment_count</code>, <code>restacks</code>, <code>audience</code>. HN: points and comments in <code>hnrss.org</code> items. Lobsters: <code>lobste.rs/hottest.json</code> gives <code>score</code>, <code>comment_count</code>. GitHub Trending: "stars today".</p></div>
+    <div><span class="badge proxy">HN proxy</span> No counts on the site, but its posts get shared on Hacker News.
+      <p>Look up the domain or exact article URL: <code>hn.algolia.com/api/v1/search?query=&lt;domain&gt;&amp;restrictSearchableAttributes=url&amp;numericFilters=created_at_i&gt;&lt;unix&gt;</code>. Rank posts by <code>points</code>. The number shown here is how many of its posts reached HN in the last 30 days, and the top score among them.</p></div>
+    <div><span class="badge none">None</span> No public engagement data.
+      <p>Newsletters like TLDR and JS Weekly hide click data. Workaround: run each linked article URL through the HN lookup. Reddit hides scores in RSS, and its JSON API returns 403.</p></div>
+  </div>
+
+  <div class="controls" id="cats"></div>
+  <div class="controls">
+    <select id="eng" aria-label="Engagement">
+      <option value="">Any engagement</option>
+      <option value="native">Native</option>
+      <option value="proxy">HN proxy</option>
+      <option value="none">None</option>
+    </select>
+    <select id="freq" aria-label="Frequency">
+      <option value="">Any frequency</option>
+    </select>
+    <label class="meta"><input type="checkbox" id="coreOnly" style="flex:none"> Core 10 only</label>
+    <input id="q" type="search" placeholder="Search name, topic, notes…">
+  </div>
+
+  <div class="wrap">
+    <table>
+      <thead><tr><th>Source</th><th>Category</th><th>Fetch URL</th><th>Frequency</th><th>Engagement metric</th><th>Notes</th></tr></thead>
+      <tbody id="rows"></tbody>
+    </table>
+  </div>
+
+  <h2>Dropped (don't re-add without re-checking)</h2>
+  <ul class="dropped">
+    <li><b>KubeWeekly (CNCF)</b>: ended May 30, 2025.</li>
+    <li><b>High Scalability</b>: last post May 2024.</li>
+    <li><b>Changelog News</b>: stalled since Apr 29, 2026.</li>
+    <li><b>CSS-Tricks</b>: last article Aug 31, 2026.</li>
+    <li><b>Last Week in AWS</b>: last issue Sep 28, 2026. Re-check, may be a break.</li>
+    <li><b>news.smol.ai</b>: moved to Latent Space.</li>
+    <li><b>Quastor, DevOps Weekly</b>: no verifiable recent issues.</li>
+    <li><b>LinkedIn (direct fetch)</b>: HTTP 999 or 429 blocks, robots.txt <code>Disallow: /</code>, and the User Agreement forbids scraping. Follow people on LinkedIn, fetch their own feeds.</li>
+    <li><b>r/webdev, r/reactjs, r/devops, r/aws, r/node</b>: mostly help threads or too quiet for news.</li>
+  </ul>
+</main>
+
+<script>
+const CATS = ["All-round", "AI", "Frontend", "Backend & system design", "DevOps & cloud"];
+const FREQS = ["Daily", "Weekly", "Monthly"];
+const FREQ_HINT = { Daily: "~5+ posts a week — check every morning", Weekly: "~1–4 posts a week — check on weekends", Monthly: "Under 1 a week — skim monthly" };
+const REDDIT_EXPIRY = "RSS shuts down Nov 13, 2026";
+
+// e: native | proxy | none. ed: how + sample from 2026-10-20.
+const SOURCES = [
+  { n: "Hacker News", u: "https://news.ycombinator.com/", f: "https://hnrss.org/newest?points=100", c: "All-round", p: "Aggregator", fr: "Daily", r: "Continuous", e: "native", ed: "Points + comments in every hnrss item; Algolia API for search.", note: "Also HN Daily (top 10/day): daemonology.net/hn-daily/index.rss", core: true },
+  { n: "TLDR", u: "https://tldr.tech/", f: "https://tldr.tech/api/rss/tech", c: "All-round", p: "Newsletter", fr: "Daily", r: "Every weekday", e: "none", ed: "No public counts. Check linked stories via HN lookup.", note: "Weekdays. ~1.6M readers on this edition.", core: true },
+  { n: "Lobsters", u: "https://lobste.rs/", f: "https://lobste.rs/rss", c: "All-round", p: "Aggregator", fr: "Daily", r: "Continuous", e: "native", ed: "hottest.json → score, comment_count (top today: 339 / 324).", note: "Invite-only posting, more technical than HN." },
+  { n: "Techmeme", u: "https://www.techmeme.com/", f: "https://www.techmeme.com/feed.xml", c: "All-round", p: "Aggregator", fr: "Daily", r: "Continuous", e: "none", ed: "No counts. Cluster size (outlets covering a story) hints at importance — not tested.", note: "Leans industry/business." },
+  { n: "GitHub Trending", u: "https://github.com/trending", f: "https://github.com/trending", c: "All-round", p: "Aggregator", fr: "Daily", r: "Refreshed daily", e: "native", ed: "\"N stars today\" per repo (top today: 3,890). HTML only, no RSS/API.", note: "Raw repo list, no context. Good for AI-tool spotting." },
+  { n: "r/programming", u: "https://www.reddit.com/r/programming/", f: "https://www.reddit.com/r/programming/top/.rss?t=day", c: "All-round", p: "Reddit", fr: "Daily", r: "~15 top posts/day", e: "none", ed: "RSS has no score; JSON API returns 403. Order of top?t=day is the only signal.", note: "6.9M members. High news signal.", exp: REDDIT_EXPIRY },
+
+  { n: "Simon Willison's Weblog", u: "https://simonwillison.net/", f: "https://simonwillison.net/atom/everything/", c: "AI", p: "Blog", fr: "Daily", r: "30 posts in 13 days", e: "proxy", ed: "HN: 30 posts in 30 days, top 652 pts. His weekly email (simonw.substack.com) is Native.", note: "#1 personal blogger on HN 2023–25.", core: true },
+  { n: "Latent Space: AINews", u: "https://www.latent.space/", f: "https://www.latent.space/feed", c: "AI", p: "Substack", fr: "Daily", r: "20 in 14 days (weekdays)", e: "native", ed: "Substack API: ~50–60 likes per issue.", note: "Weekdays. 200K subs. Feed URL may change (relaunch planned).", core: true },
+  { n: "Daily Dose of Data Science", u: "https://blog.dailydoseofds.com/", f: "https://blog.dailydoseofds.com/feed", c: "AI", p: "Substack", fr: "Daily", r: "20 in 26 days", e: "native", ed: "Substack API: low counts (2–7 likes).", note: "All free. Heavily sponsored — filter \"partnering today\"." },
+  { n: "Ben's Bites", u: "https://www.bensbites.com/", f: "https://www.bensbites.com/feed", c: "AI", p: "Substack", fr: "Weekly", r: "10 in 30 days (~2/wk)", e: "native", ed: "Substack API: ~45–55 likes, up to 9 comments.", note: "All free. 172K+ subs." },
+  { n: "AI Newsletter (Elvis Saravia)", u: "https://nlp.elvissaravia.com/", f: "https://nlp.elvissaravia.com/feed", c: "AI", p: "Substack", fr: "Weekly", r: "8 in 30 days (~2/wk)", e: "native", ed: "Substack API: ~20 likes.", note: "Agents + papers. About half paid." },
+  { n: "The Batch (DeepLearning.AI)", u: "https://www.deeplearning.ai/the-batch/", f: "", c: "AI", p: "Newsletter", fr: "Weekly", r: "1/wk (email, not measured)", e: "none", ed: "No public counts.", note: "Email only, no RSS found." },
+  { n: "r/LocalLLaMA (News flair)", u: "https://www.reddit.com/r/LocalLLaMA/", f: "https://www.reddit.com/r/LocalLLaMA/search.rss?q=flair%3ANews&restrict_sr=1&sort=new", c: "AI", p: "Reddit", fr: "Daily", r: "25 posts/day", e: "none", ed: "RSS has no score; JSON 403.", note: "853K members. Model/tool releases.", exp: REDDIT_EXPIRY },
+  { n: "r/ClaudeAI (News flair)", u: "https://www.reddit.com/r/ClaudeAI/", f: "https://www.reddit.com/r/ClaudeAI/search.rss?q=flair%3ANews&restrict_sr=1&sort=new", c: "AI", p: "Reddit", fr: "Daily", r: "25 posts/day", e: "none", ed: "RSS has no score; JSON 403.", note: "Use flair URL only; unfiltered is memes.", exp: REDDIT_EXPIRY },
+
+  { n: "JavaScript Weekly", u: "https://javascriptweekly.com/", f: "https://javascriptweekly.com/rss/", c: "Frontend", p: "Newsletter", fr: "Weekly", r: "4 in 30 days", e: "none", ed: "No public counts; 0 HN hits.", note: "#1 in State of JS 2025. RSS URL from site nav, not fetched.", core: true },
+  { n: "Bytes", u: "https://bytes.dev/", f: "", c: "Frontend", p: "Newsletter", fr: "Weekly", r: "~2/wk (email, not measured)", e: "none", ed: "No public counts.", note: "Email only, no RSS. Best tone model for student posts.", core: true },
+  { n: "Frontend Focus", u: "https://frontendfoc.us/", f: "https://frontendfoc.us/rss/", c: "Frontend", p: "Newsletter", fr: "Weekly", r: "4 in 30 days", e: "none", ed: "No public counts.", note: "CSS/HTML/browsers." },
+  { n: "This Week in React", u: "https://thisweekinreact.com/", f: "https://thisweekinreact.com/newsletter/rss.xml", c: "Frontend", p: "Newsletter", fr: "Weekly", r: "4 in 30 days", e: "none", ed: "No public counts.", note: "Wednesdays. React, Next.js, RN." },
+  { n: "Chrome for Developers blog", u: "https://developer.chrome.com/blog", f: "https://developer.chrome.com/static/blog/feed.xml", c: "Frontend", p: "Official", fr: "Weekly", r: "8 in 30 days", e: "proxy", ed: "HN: 4 posts in 30 days, top 575 pts (JPEG XL).", note: "Primary source for browser features." },
+  { n: "Master.dev Blog", u: "https://blog.master.dev/", f: "", c: "Frontend", p: "Blog", fr: "Weekly", r: "Every 1–3 days (not measured)", e: "none", ed: "No public counts.", note: "Old Frontend Masters blog. Feed URL not verified." },
+  { n: "Addy Osmani's Elevate", u: "https://addyo.substack.com/", f: "https://addyo.substack.com/feed", c: "Frontend", p: "Substack", fr: "Monthly", r: "2 in 30 days", e: "native", ed: "Substack API: 130–170 likes, 16–22 comments — strongest per-post engagement here.", note: "~2 posts/month. 307K on LinkedIn." },
+  { n: "Shruti Kapoor", u: "https://shrutikapoor.substack.com/", f: "https://shrutikapoor.substack.com/feed", c: "Frontend", p: "Substack", fr: "Weekly", r: "3 in 30 days", e: "native", ed: "Substack API: low counts (4–13 likes).", note: "Only active frontend roundup on Substack." },
+  { n: "Vercel", u: "https://vercel.com/blog", f: "https://vercel.com/atom", c: "Frontend", p: "Official", fr: "Daily", r: "~90 changelog items in 30 days", e: "proxy", ed: "HN: 28 posts in 30 days but top only 7 pts — weak.", note: "Next.js / platform releases." },
+  { n: "r/javascript", u: "https://www.reddit.com/r/javascript/", f: "https://www.reddit.com/r/javascript/new/.rss", c: "Frontend", p: "Reddit", fr: "Daily", r: "25 new posts in ~3 days", e: "none", ed: "RSS has no score; JSON 403.", note: "Use new/week feed; day feed is thin.", exp: REDDIT_EXPIRY },
+
+  { n: "ByteByteGo", u: "https://blog.bytebytego.com/", f: "https://blog.bytebytego.com/feed", c: "Backend & system design", p: "Substack", fr: "Daily", r: "20 in 27 days", e: "native", ed: "Substack API: ~90–210 likes, up to 21 comments.", note: "Saturday issue free. 1M+ readers.", core: true },
+  { n: "InfoQ", u: "https://www.infoq.com/", f: "https://feed.infoq.com/", c: "Backend & system design", p: "News site", fr: "Daily", r: "15 in 3 days", e: "proxy", ed: "HN: 7 posts in 30 days, top 5 pts — weak. Site has Like buttons; counts not verified.", note: "Free. Big-tech engineering write-ups.", core: true },
+  { n: "The Pragmatic Engineer", u: "https://newsletter.pragmaticengineer.com/", f: "https://newsletter.pragmaticengineer.com/feed", c: "Backend & system design", p: "Substack", fr: "Weekly", r: "12 in 30 days (~3/wk)", e: "native", ed: "Substack API: ~60–210 likes.", note: "Mostly paid; free half of deep dives." },
+  { n: "System Design Newsletter", u: "https://newsletter.systemdesign.one/", f: "https://newsletter.systemdesign.one/feed", c: "Backend & system design", p: "Substack", fr: "Weekly", r: "15 in 30 days (~3/wk)", e: "native", ed: "Substack API: ~13–46 likes.", note: "Many posts paid/subscriber-only." },
+  { n: "Level Up Coding", u: "https://blog.levelupcoding.com/", f: "https://blog.levelupcoding.com/feed", c: "Backend & system design", p: "Substack", fr: "Weekly", r: "7 in 30 days", e: "native", ed: "Substack API: 4–26 likes.", note: "All free. Kafka, NGINX, OAuth explainers." },
+  { n: "System Design Classroom (Raul Junco)", u: "https://newsletter.systemdesignclassroom.com/", f: "https://newsletter.systemdesignclassroom.com/feed", c: "Backend & system design", p: "Substack", fr: "Monthly", r: "1 in 30 days", e: "native", ed: "Substack API: ~14–18 likes.", note: "Latest Sep 26. Posts daily on LinkedIn (150K) — not fetchable." },
+  { n: "Arpit Bhayani", u: "https://arpitbhayani.me/", f: "https://arpitbhayani.me/rss.xml", c: "Backend & system design", p: "Blog", fr: "Monthly", r: "0 in 30 days (last Aug 21)", e: "none", ed: "No counts; 0 HN hits in 30 days.", note: "Latest blog Aug 21. Daily on LinkedIn (296K) — not fetchable." },
+  { n: "Node Weekly", u: "https://nodeweekly.com/", f: "https://nodeweekly.com/rss/", c: "Backend & system design", p: "Newsletter", fr: "Weekly", r: "3 in 30 days", e: "none", ed: "No public counts.", note: "Node.js releases." },
+
+  { n: "The New Stack (Kubernetes)", u: "https://thenewstack.io/", f: "https://thenewstack.io/kubernetes/feed/", c: "DevOps & cloud", p: "News site", fr: "Weekly", r: "14 in 30 days (~3/wk)", e: "proxy", ed: "HN: 18 posts in 30 days, top 28 pts. Site has a reactions widget with no public counts.", note: "Main feed is mostly AI; use the Kubernetes feed.", core: true },
+  { n: "AWS Weekly Roundup", u: "https://aws.amazon.com/blogs/aws/", f: "https://aws.amazon.com/blogs/aws/feed/", c: "DevOps & cloud", p: "Official", fr: "Weekly", r: "16 in 30 days (roundup + launches)", e: "proxy", ed: "HN: 18 posts in 30 days, top 127 pts (Lambda Web Functions).", note: "Roundup every Monday + launch posts.", core: true },
+  { n: "GitHub Blog", u: "https://github.blog/", f: "https://github.blog/feed/", c: "DevOps & cloud", p: "Official", fr: "Daily", r: "10 in 13 days", e: "proxy", ed: "HN: 31 posts in 30 days, top 96 pts. No counts on the site.", note: "Changelog feed: github.blog/changelog/feed/ (Copilot-heavy)." },
+  { n: "Azure Updates", u: "https://azure.microsoft.com/en-us/updates/", f: "https://www.microsoft.com/releasecommunications/api/v2/azure/rss", c: "DevOps & cloud", p: "Official", fr: "Daily", r: "78 in 30 days", e: "proxy", ed: "HN: 1 post in 30 days — effectively none.", note: "Raw feed; filter for GA / Launched." },
+  { n: "Docker Blog", u: "https://www.docker.com/blog/", f: "https://www.docker.com/blog/feed/", c: "DevOps & cloud", p: "Official", fr: "Weekly", r: "10 in 28 days", e: "proxy", ed: "HN: 5 posts in 30 days, top 32 pts.", note: "Mostly product messaging lately." },
+  { n: "Kubernetes Blog", u: "https://kubernetes.io/blog/", f: "https://kubernetes.io/feed.xml", c: "DevOps & cloud", p: "Official", fr: "Weekly", r: "5 in 30 days", e: "proxy", ed: "HN: 3 posts in 30 days, top 3 pts — effectively none.", note: "Few posts a month." },
+  { n: "DevOps Bulletin", u: "https://www.devopsbulletin.com/", f: "https://www.devopsbulletin.com/feed", c: "DevOps & cloud", p: "Substack", fr: "Weekly", r: "4 in 30 days (Fridays)", e: "native", ed: "Substack API: low counts (1–5 likes).", note: "Fridays. Broad AWS/K8s/Actions digest." },
+  { n: "DevOps'ish", u: "https://devopsish.com/", f: "https://devopsish.substack.com/feed", c: "DevOps & cloud", p: "Substack", fr: "Weekly", r: "3 in 30 days (Sundays)", e: "native", ed: "Substack API: 0–1 likes.", note: "Sundays. 7K+ subs." },
+  { n: "Learn Kubernetes Weekly", u: "https://learnkubernetesweekly.substack.com/", f: "https://learnkubernetesweekly.substack.com/feed", c: "DevOps & cloud", p: "Substack", fr: "Weekly", r: "4 in 30 days", e: "native", ed: "Substack API: 0 likes on recent issues.", note: "Curated K8s links." },
+  { n: "r/AZURE", u: "https://www.reddit.com/r/AZURE/", f: "https://www.reddit.com/r/AZURE/top/.rss?t=day", c: "DevOps & cloud", p: "Reddit", fr: "Daily", r: "~13 top posts/day", e: "none", ed: "RSS has no score; JSON 403.", note: "Mixed news + help threads.", exp: REDDIT_EXPIRY },
+];
+
+const ENG_LABEL = { native: "Native", proxy: "HN proxy", none: "None" };
+const state = { cat: "", eng: "", freq: "", core: false, q: "" };
+const $ = (id) => document.getElementById(id);
+const esc = (s) => s.replace(/[&<>"]/g, (ch) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[ch]));
+
+function render() {
+  const q = state.q.toLowerCase();
+  const rows = SOURCES.filter((s) =>
+    (!state.cat || s.c === state.cat) && (!state.eng || s.e === state.eng) && (!state.freq || s.fr === state.freq) &&
+    (!state.core || s.core) && (!q || [s.n, s.c, s.p, s.note, s.ed].join(" ").toLowerCase().includes(q)));
+  rows.sort((a, b) => FREQS.indexOf(a.fr) - FREQS.indexOf(b.fr));
+  $("rows").innerHTML = rows.map((s, i) => `${i === 0 || rows[i - 1].fr !== s.fr ? `
+    <tr class="group"><td colspan="6">${s.fr} <span class="meta">· ${rows.filter((x) => x.fr === s.fr).length} sources · ${FREQ_HINT[s.fr]}</span></td></tr>` : ""}
+    <tr>
+      <td><a class="name" href="${esc(s.u)}" target="_blank" rel="noopener">${esc(s.n)}</a>${s.core ? ' <span class="core" title="Core 10">★</span>' : ""}<div class="meta">${esc(s.p)}</div></td>
+      <td>${esc(s.c)}</td>
+      <td>${s.f ? `<code>${esc(s.f)}</code>` : '<span class="meta">No feed (email only)</span>'}</td>
+      <td>${esc(s.fr)}<div class="meta">${esc(s.r)}</div></td>
+      <td><span class="badge ${s.e}">${ENG_LABEL[s.e]}</span><div class="meta">${esc(s.ed)}</div></td>
+      <td>${esc(s.note)}${s.exp ? `<div><span class="badge warn">${esc(s.exp)}</span></div>` : ""}</td>
+    </tr>`).join("") || '<tr><td colspan="6" class="meta">No sources match.</td></tr>';
+}
+
+const count = (fn) => SOURCES.filter(fn).length;
+$("stats").innerHTML = [
+  [SOURCES.length, "sources"],
+  [count((s) => s.e === "native"), "native engagement"],
+  [count((s) => s.e === "proxy"), "HN proxy"],
+  ...FREQS.map((f) => [count((s) => s.fr === f), f.toLowerCase()]),
+  [count((s) => s.exp), "expiring (Reddit)"],
+].map(([n, l]) => `<div class="stat"><b>${n}</b><span>${l}</span></div>`).join("");
+
+$("cats").innerHTML = ["", ...CATS].map((c) => `<button class="chip" data-cat="${esc(c)}" aria-pressed="${c === ""}">${c || "All"}</button>`).join("");
+$("cats").addEventListener("click", (e) => {
+  const b = e.target.closest(".chip");
+  if (!b) return;
+  state.cat = b.dataset.cat;
+  $("cats").querySelectorAll(".chip").forEach((x) => x.setAttribute("aria-pressed", x === b));
+  render();
+});
+$("freq").insertAdjacentHTML("beforeend", FREQS.map((f) => `<option>${f}</option>`).join(""));
+$("eng").addEventListener("change", (e) => { state.eng = e.target.value; render(); });
+$("freq").addEventListener("change", (e) => { state.freq = e.target.value; render(); });
+$("coreOnly").addEventListener("change", (e) => { state.core = e.target.checked; render(); });
+$("q").addEventListener("input", (e) => { state.q = e.target.value; render(); });
+render();
+</script>
+</body>
+</html>

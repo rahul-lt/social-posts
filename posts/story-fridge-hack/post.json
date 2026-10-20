@@ -1,0 +1,9 @@
+{
+  "publishAt": "2099-01-01T00:00:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "Have you ever imagined your fridge getting hacked?\n\nIt actually happened. On the night of 11 to 12 October, attackers switched the fridges in more than 400 French supermarkets, including Carrefour and Intermarché, into defrost mode. Some warmed up to 50°C, and stores had to throw their food away.\n\nHow? The web dashboards that control those fridges were open to anyone on the internet, and most of the French ones ran old software with known security holes.\n\nThe lesson for every developer: if you build an admin page, put it behind a login and keep it updated. Even a fridge has a login page now.\n\nFull story: https://ipinfo.io/blog/france-fridges-hack\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "Illustration: a hacker with a laptop switches a supermarket fridge to defrost. The worried fridge sweats as a thermometer climbs to 50°C and a shop worker panics.",
+  "title": "Your fridge got hacked"
+}

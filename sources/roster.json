@@ -1,0 +1,40 @@
+{
+  "timezone": "+05:30",
+  "slots": [
+    "14:00",
+    "15:00",
+    "16:00",
+    "23:00",
+    "00:00",
+    "01:00"
+  ],
+  "from": "2026-10-20",
+  "until": "2026-10-26",
+  "platforms": [
+    "linkedin"
+  ],
+  "manual": [],
+  "posts": [
+    {
+      "slot": "2026-10-21T00:00:00+05:30",
+      "slug": "story-fridge-hack",
+      "note": "Posted manually at ~00:05 (slot 00:00).",
+      "items": [
+        {
+          "category": "Security",
+          "title": "France's supermarket fridges were vulnerable online for months",
+          "url": "https://ipinfo.io/blog/france-fridges-hack",
+          "source": "Hacker News",
+          "hnPoints": 227,
+          "hnUrl": "https://news.ycombinator.com/item?id=50159616",
+          "beginner": 2.02
+        }
+      ]
+    }
+  ],
+  "pick": {
+    "rule": "Jev beginner score >= 2 (0-3 scale), topic != not_dev, then highest HN points / Substack likes, max 2 per topic",
+    "minBeginner": 2
+  },
+  "format": "One story per post: friendly hook, LinkedIn-style animated GIF, short caption, link to full story."
+}

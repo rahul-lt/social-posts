@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>News Post Roster</title>
+<style>
+  :root {
+    --bg: #f7f6f2; --panel: #ffffff; --ink: #1d1d1b; --muted: #6b6a64; --line: #e4e2db; --accent: #2f5bd3;
+    --ok: #1f7a4d; --ok-bg: #e3f3ea; --wait: #8a5a00; --wait-bg: #fbf0d9; --idle: #8b8b85; --idle-bg: #efeee9; --bad: #b3261e; --bad-bg: #fbe5e3;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #141413; --panel: #1d1d1b; --ink: #ecebe6; --muted: #9a9890; --line: #2f2e2b; --accent: #7f9cff;
+      --ok: #6fd19c; --ok-bg: #173326; --wait: #f0c46b; --wait-bg: #3a2e14; --idle: #9a9890; --idle-bg: #2a2927; --bad: #ff8a80; --bad-bg: #3d1d1b;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #141413; --panel: #1d1d1b; --ink: #ecebe6; --muted: #9a9890; --line: #2f2e2b; --accent: #7f9cff;
+    --ok: #6fd19c; --ok-bg: #173326; --wait: #f0c46b; --wait-bg: #3a2e14; --idle: #9a9890; --idle-bg: #2a2927; --bad: #ff8a80; --bad-bg: #3d1d1b;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 14px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; }
+  main { max-width: 1100px; margin: 0 auto; padding: 32px 16px 64px; }
+  h1 { font-size: 26px; margin: 0 0 4px; }
+  .sub { color: var(--muted); margin: 0 0 20px; }
+  a { color: var(--accent); text-decoration: none; overflow-wrap: anywhere; }
+  a:hover { text-decoration: underline; }
+  .tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; }
+  .tab { border: 1px solid var(--line); background: var(--panel); color: var(--ink); border-radius: 999px; padding: 6px 14px; cursor: pointer; font: inherit; }
+  .tab[aria-selected="true"] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+  .panel { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; }
+  .slot { padding: 14px 16px; border-bottom: 1px solid var(--line); }
+  .slot:last-child { border-bottom: 0; }
+  .slot-head { display: flex; flex-wrap: wrap; gap: 8px 12px; align-items: center; }
+  .slot-head b { font-size: 15px; }
+  .badge { border-radius: 6px; padding: 1px 8px; font-size: 12px; font-weight: 600; }
+  .posted { color: var(--ok); background: var(--ok-bg); }
+  .queued { color: var(--wait); background: var(--wait-bg); }
+  .upcoming { color: var(--idle); background: var(--idle-bg); }
+  .missed { color: var(--bad); background: var(--bad-bg); }
+  ol { margin: 8px 0 0; padding-left: 22px; }
+  li { margin: 2px 0; }
+  .meta { color: var(--muted); font-size: 12px; }
+  table { width: 100%; border-collapse: collapse; }
+  th, td { text-align: left; padding: 8px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { font-size: 12px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); }
+  .wrap { overflow-x: auto; }
+  form { display: grid; gap: 8px; padding: 16px; grid-template-columns: 1fr; }
+  input, button { font: inherit; color: var(--ink); background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 8px 10px; }
+  button.primary { background: var(--ink); color: var(--bg); border-color: var(--ink); cursor: pointer; }
+  .row { display: flex; gap: 8px; flex-wrap: wrap; }
+  .row > input { flex: 1 1 220px; }
+  .hint { padding: 0 16px 16px; color: var(--muted); }
+</style>
+</head>
+<body>
+<main>
+  <h1>News Post Roster</h1>
+  <p class="sub">LinkedIn news carousels, daily at 14:00 and 23:55 IST until Mon 26 Oct. Top 5 stories per post; no story is ever repeated. <a href="index.html">Sources dashboard →</a></p>
+
+  <div class="tabs" role="tablist">
+    <button class="tab" role="tab" data-tab="schedule" aria-selected="true">Schedule</button>
+    <button class="tab" role="tab" data-tab="posted" aria-selected="false">Posted links</button>
+    <button class="tab" role="tab" data-tab="add" aria-selected="false">Add link</button>
+  </div>
+
+  <section id="schedule" class="panel"></section>
+  <section id="posted" class="panel wrap" hidden></section>
+  <section id="add" class="panel" hidden>
+    <form id="addForm">
+      <div class="row">
+        <input id="addUrl" type="url" required placeholder="https://… (story to mark as used)">
+        <input id="addNote" placeholder="Note (optional)">
+        <button class="primary">Add</button>
+      </div>
+    </form>
+    <div id="added"></div>
+    <p class="hint">Links added here are saved in this browser only. Click "Copy for roster.json" and paste them to Claude (or into the <code>manual</code> list in <code>sources/roster.json</code>) so the scheduler skips them.</p>
+  </section>
+</main>
+
+<script src="roster.data.js"></script>
+<script>
+const R = window.ROSTER || { slots: [], posts: [], manual: [] };
+const $ = (id) => document.getElementById(id);
+const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const when = (iso) => new Date(iso).toLocaleString("en-IN", { timeZone: "Asia/Kolkata", weekday: "short", day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" });
+const KEY = "roster-manual-links";
+const loadLocal = () => { try { return JSON.parse(localStorage.getItem(KEY)) || []; } catch { return []; } };
+const saveLocal = (v) => { try { localStorage.setItem(KEY, JSON.stringify(v)); } catch {} };
+
+function status(slot, post) {
+  if (post?.linkedin) return ["posted", "Posted"];
+  if (post) return ["queued", "Queued"];
+  return Date.parse(slot) < Date.now() ? ["missed", "Missed"] : ["upcoming", "Upcoming"];
+}
+
+function renderSchedule() {
+  const bySlot = new Map(R.posts.map((p) => [p.slot, p]));
+  $("schedule").innerHTML = R.slots.map((slot) => {
+    const p = bySlot.get(slot), [cls, label] = status(slot, p);
+    return `<div class="slot">
+      <div class="slot-head"><b>${when(slot)}</b><span class="badge ${cls}">${label}</span>
+        ${p ? `<span class="meta">${esc(p.slug)}</span>` : ""}
+        ${p?.linkedin ? `<a href="${esc(p.linkedin)}" target="_blank" rel="noopener">View on LinkedIn</a>` : ""}</div>
+      ${p ? `<ol>${p.items.map((i) => `<li><a href="${esc(i.url)}" target="_blank" rel="noopener">${esc(i.title)}</a> <span class="meta">· ${esc(i.category)}${i.hnPoints ? ` ·  HN pts` : ""}/3` : ""}</span></li>`).join("")}</ol>` : ""}
+      ${p?.note ? `<div class="meta">${esc(p.note)}</div>` : ""}
+    </div>`;
+  }).join("") + `<div class="slot meta">Data generated ${when(R.generatedAt)}.</div>`;
+}
+
+function renderPosted() {
+  const rows = [
+    ...R.posts.flatMap((p) => p.items.map((i) => ({ when: p.slot, url: i.url, title: i.title, cat: i.category, post: p.slug, li: p.linkedin }))),
+    ...R.manual.map((m) => ({ when: m.addedAt, url: m.url, title: m.note || m.url, cat: "Manual", post: "—", li: null })),
+  ].sort((a, b) => Date.parse(b.when) - Date.parse(a.when));
+  $("posted").innerHTML = `<table><thead><tr><th>Slot</th><th>Story</th><th>Category</th><th>Post</th></tr></thead><tbody>${rows.map((r) => `
+    <tr><td>${when(r.when)}</td><td><a href="${esc(r.url)}" target="_blank" rel="noopener">${esc(r.title)}</a></td><td>${esc(r.cat)}</td>
+    <td>${r.li ? `<a href="${esc(r.li)}" target="_blank" rel="noopener">${esc(r.post)}</a>` : esc(r.post)}</td></tr>`).join("")}</tbody></table>`;
+}
+
+function renderAdded() {
+  const local = loadLocal();
+  $("added").innerHTML = local.length ? `<div class="wrap"><table><tbody>${local.map((m, i) => `
+    <tr><td><a href="${esc(m.url)}" target="_blank" rel="noopener">${esc(m.url)}</a><div class="meta">${esc(m.note)}</div></td>
+    <td><button data-del="${i}">Remove</button></td></tr>`).join("")}</tbody></table></div>
+    <div class="hint" style="padding-top:12px"><button id="copy" class="primary">Copy for roster.json</button></div>` : "";
+}
+
+$("addForm").addEventListener("submit", (e) => {
+  e.preventDefault();
+  saveLocal([...loadLocal(), { url: $("addUrl").value.trim(), note: $("addNote").value.trim(), addedAt: new Date().toISOString() }]);
+  e.target.reset();
+  renderAdded();
+});
+$("added").addEventListener("click", (e) => {
+  if (e.target.dataset.del) { const v = loadLocal(); v.splice(+e.target.dataset.del, 1); saveLocal(v); renderAdded(); }
+  if (e.target.id === "copy") navigator.clipboard.writeText(JSON.stringify(loadLocal(), null, 2)).then(() => { e.target.textContent = "Copied"; });
+});
+document.querySelector(".tabs").addEventListener("click", (e) => {
+  const t = e.target.closest(".tab");
+  if (!t) return;
+  document.querySelectorAll(".tab").forEach((b) => b.setAttribute("aria-selected", b === t));
+  ["schedule", "posted", "add"].forEach((id) => { $(id).hidden = id !== t.dataset.tab; });
+});
+
+renderSchedule(); renderPosted(); renderAdded();
+</script>
+</body>
+</html>

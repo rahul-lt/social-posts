@@ -19,13 +19,15 @@ if (fs.existsSync(outDir)) throw new Error(`posts/${slug} already exists`);
 
 const slides = fs
   .readdirSync(srcDir)
-  .filter((f) => /\.(png|jpe?g)$/i.test(f))
+  .filter((f) => /\.(png|jpe?g|gif)$/i.test(f))
   .sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
 if (!slides.length) throw new Error(`No PNG/JPEG slides in ${srcDir}`);
 if (slides.length > 10) throw new Error(`${slides.length} slides — max is 10`);
 
 fs.mkdirSync(outDir, { recursive: true });
 slides.forEach((f, i) => {
+  // GIFs are copied as-is so they stay animated (LinkedIn image posts accept GIF; Instagram does not).
+  if (/\.gif$/i.test(f)) return fs.copyFileSync(path.join(srcDir, f), path.join(outDir, `${String(i + 1).padStart(2, '0')}.gif`));
   const out = path.join(outDir, `${String(i + 1).padStart(2, '0')}.jpg`);
   execFileSync('sips', ['-s', 'format', 'jpeg', '-s', 'formatOptions', '92', path.join(srcDir, f), '--out', out], {
     stdio: 'ignore',

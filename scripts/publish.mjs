@@ -47,7 +47,7 @@ function loadPosts() {
       const meta = JSON.parse(fs.readFileSync(path.join(dir, 'post.json'), 'utf8'));
       const slides = fs
         .readdirSync(dir)
-        .filter((f) => /\.jpe?g$/i.test(f))
+        .filter((f) => /\.(jpe?g|gif)$/i.test(f))
         .sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
       if (!slides.length) throw new Error(`${d.name}: no .jpg slides`);
       if (slides.length > MAX_SLIDES) throw new Error(`${d.name}: ${slides.length} slides, max ${MAX_SLIDES}`);

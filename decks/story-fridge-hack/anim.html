@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=IBM+Plex+Mono:wght@600&display=swap">
+<style>
+  :root { --ink: #1d1d2b; --blue: #6f8fd0; --navy: #3d5aa8; --orange: #f28c5a; --teal: #7fd6cb; --mustard: #e8b04a;
+          --coral: #e65a5a; --floor: #c3cde0; --dash: #cfd8ea; --soft: #b9d4f2; }
+  html, body { margin: 0; }
+  body { width: 960px; height: 1200px; background: #fff; overflow: hidden; font-family: Poppins, sans-serif; color: var(--ink); }
+  h1 { margin: 0; padding: 64px 64px 0; font: 700 64px/1.12 Poppins, sans-serif; letter-spacing: -0.01em; }
+  p { margin: 18px 64px 0; font: 600 30px/1.35 Poppins, sans-serif; color: #5b6275; }
+  svg { position: absolute; left: 0; top: 348px; }
+  .o { stroke: var(--ink); stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; }
+</style>
+</head><body>
+<h1>Have you ever imagined your fridge getting hacked?</h1>
+<p>It happened in 400+ supermarkets in France.</p>
+<svg id="s" width="960" height="870" viewBox="0 0 960 870"></svg>
+<script>
+const NS = 'http://www.w3.org/2000/svg', S = document.getElementById('s');
+const el = (tag, attrs, parent = S) => { const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); parent.appendChild(e); return e; };
+const g = (attrs) => el('g', attrs);
+// outlined limb: dark stroke under a lighter one, LinkedIn style
+const limb = (d, fill = '#fff', parent) => { el('path', {d, fill: 'none', stroke: '#1d1d2b', 'stroke-width': 26, 'stroke-linecap': 'round', 'stroke-linejoin': 'round'}, parent); el('path', {d, fill: 'none', stroke: fill, 'stroke-width': 18, 'stroke-linecap': 'round', 'stroke-linejoin': 'round'}, parent); };
+
+// background confetti dashes (seeded)
+let seed = 7; const rnd = () => (seed = (seed * 9301 + 49297) % 233280) / 233280;
+for (let i = 0; i < 150; i++) {
+  const x = rnd() * 960, y = rnd() * 600, a = rnd() * Math.PI, L = 14;
+  el('line', {x1: x, y1: y, x2: x + L * Math.cos(a), y2: y + L * Math.sin(a), stroke: '#cfd8ea', 'stroke-width': 3, 'stroke-linecap': 'round'});
+}
+el('rect', {x: 0, y: 640, width: 960, height: 230, fill: '#c3cde0'});
+el('line', {x1: 0, y1: 640, x2: 960, y2: 640, stroke: '#8f9bb8', 'stroke-width': 3});
+
+// puddle
+const puddle = el('ellipse', {cx: 470, cy: 652, rx: 150, ry: 26, fill: '#b9d4f2', class: 'o', 'stroke-width': 3});
+
+// wifi waves from laptop to fridge
+const waves = [0, 1, 2].map(k => el('path', {d: `M ${300 + k * 28} ${300 - k * 22} q ${18 + k * 6} ${30 + k * 22} 0 ${60 + k * 44}`, fill: 'none', stroke: '#e8b04a', 'stroke-width': 7, 'stroke-linecap': 'round'}));
+
+// hacker in a hoodie, holding a laptop
+const hacker = g({});
+limb('M 140 470 L 128 628', '#3d5aa8', hacker); limb('M 190 470 L 204 628', '#3d5aa8', hacker);
+el('path', {d: 'M 104 628 h 40 v 14 h -48 z', fill: '#1d1d2b'}, hacker); el('path', {d: 'M 196 628 h 40 v 14 h -48 z', fill: '#1d1d2b'}, hacker);
+el('path', {d: 'M 104 330 Q 165 300 226 330 L 236 480 L 94 480 Z', fill: '#6f8fd0', transform: 'translate(10 8)'}, hacker);
+el('path', {d: 'M 104 330 Q 165 300 226 330 L 236 480 L 94 480 Z', fill: 'none', class: 'o'}, hacker);
+el('circle', {cx: 175, cy: 268, r: 58, fill: '#6f8fd0'}, hacker);
+el('circle', {cx: 165, cy: 262, r: 58, fill: 'none', class: 'o'}, hacker);
+el('circle', {cx: 165, cy: 272, r: 38, fill: '#fff', class: 'o'}, hacker);
+el('path', {d: 'M 150 268 q 6 -5 12 0 M 172 268 q 6 -5 12 0', fill: 'none', class: 'o', 'stroke-width': 3.5}, hacker);
+el('path', {d: 'M 152 288 q 14 8 28 -2', fill: 'none', class: 'o', 'stroke-width': 3.5}, hacker);
+limb('M 112 350 Q 84 400 100 440', '#6f8fd0', hacker); limb('M 222 350 Q 262 400 254 440', '#6f8fd0', hacker);
+el('rect', {x: 92, y: 360, width: 170, height: 112, rx: 8, fill: '#fff', class: 'o'}, hacker);
+const screen = el('rect', {x: 104, y: 372, width: 146, height: 88, rx: 4, fill: '#7fd6cb'}, hacker);
+const screenTxt = el('text', {x: 177, y: 424, 'text-anchor': 'middle', 'font-family': 'IBM Plex Mono', 'font-weight': 600, 'font-size': 22, fill: '#1d1d2b'}, hacker);
+screenTxt.textContent = 'defrost: ON';
+el('path', {d: 'M 80 472 L 274 472 L 262 488 L 92 488 Z', fill: '#fff', class: 'o'}, hacker);
+
+// the worried fridge
+const fridge = g({});
+el('rect', {x: 362, y: 92, width: 230, height: 548, rx: 20, fill: '#7fd6cb'}, fridge);
+el('rect', {x: 348, y: 80, width: 230, height: 548, rx: 20, fill: 'none', class: 'o'}, fridge);
+el('line', {x1: 348, y1: 240, x2: 578, y2: 240, class: 'o'}, fridge);
+el('rect', {x: 540, y: 120, width: 14, height: 80, rx: 7, fill: '#fff', class: 'o'}, fridge);
+el('rect', {x: 540, y: 280, width: 14, height: 120, rx: 7, fill: '#fff', class: 'o'}, fridge);
+el('path', {d: 'M 395 352 l 30 -12 M 500 340 l 30 12', fill: 'none', class: 'o', 'stroke-width': 5}, fridge);
+el('circle', {cx: 418, cy: 378, r: 9, fill: '#1d1d2b'}, fridge); el('circle', {cx: 506, cy: 378, r: 9, fill: '#1d1d2b'}, fridge);
+el('path', {d: 'M 420 450 q 21 -22 42 0 q 21 22 42 0', fill: 'none', class: 'o', 'stroke-width': 5}, fridge);
+const drop = el('path', {d: 'M 0 -18 q -12 18 0 26 q 12 -8 0 -26 z', fill: '#6f8fd0', class: 'o', 'stroke-width': 3}, fridge);
+const heat = [0, 1, 2].map(k => el('path', {d: `M ${410 + k * 50} 60 q -12 -16 0 -32 q 12 -16 0 -32`, fill: 'none', stroke: '#e65a5a', 'stroke-width': 6, 'stroke-linecap': 'round'}));
+
+// thermometer
+el('rect', {x: 636, y: 150, width: 46, height: 380, rx: 23, fill: '#fff', class: 'o'});
+const merc = el('rect', {x: 648, y: 300, width: 22, height: 240, rx: 11, fill: '#e65a5a'});
+el('circle', {cx: 659, cy: 560, r: 40, fill: '#e65a5a', class: 'o'});
+const temp = el('text', {x: 659, y: 126, 'text-anchor': 'middle', 'font-weight': 700, 'font-size': 52, fill: '#e65a5a'});
+
+// shocked shop worker
+const worker = g({});
+limb('M 822 478 L 812 628', '#e8b04a', worker); limb('M 862 478 L 874 628', '#e8b04a', worker);
+el('path', {d: 'M 790 628 h 40 v 14 h -48 z', fill: '#1d1d2b'}, worker); el('path', {d: 'M 866 628 h 40 v 14 h -48 z', fill: '#1d1d2b'}, worker);
+el('path', {d: 'M 786 340 Q 842 318 900 340 L 906 488 L 780 488 Z', fill: '#f28c5a', transform: 'translate(10 8)'}, worker);
+el('path', {d: 'M 786 340 Q 842 318 900 340 L 906 488 L 780 488 Z', fill: '#fff', 'fill-opacity': 0, class: 'o'}, worker);
+el('path', {d: 'M 800 250 q 44 -60 92 -6 q 10 40 -6 70 l -86 0 q -14 -30 0 -64 z', fill: '#e65a5a'}, worker);
+el('circle', {cx: 843, cy: 278, r: 40, fill: '#fff', class: 'o'}, worker);
+el('circle', {cx: 829, cy: 272, r: 5, fill: '#1d1d2b'}, worker); el('circle', {cx: 857, cy: 272, r: 5, fill: '#1d1d2b'}, worker);
+el('ellipse', {cx: 843, cy: 298, rx: 9, ry: 12, fill: '#1d1d2b'}, worker);
+limb('M 790 350 Q 760 320 800 290', '#f28c5a', worker); limb('M 896 350 Q 926 320 886 290', '#f28c5a', worker);
+
+function render(t) {
+  const T = 2 * Math.PI;
+  const level = Math.min(1, t / 0.75);
+  const h = 60 + 300 * level;
+  merc.setAttribute('y', 530 - h); merc.setAttribute('height', h + 10);
+  temp.textContent = `${Math.round(4 + 46 * level)}°C`;
+  fridge.setAttribute('transform', `translate(${(2 + 3 * level) * Math.sin(T * t * 8)} 0)`);
+  const dp = (t * 2) % 1;
+  drop.setAttribute('transform', `translate(394 ${320 + dp * 120})`); drop.setAttribute('opacity', 1 - dp * 0.8);
+  heat.forEach((p, k) => { const ph = (t * 2 + k / 3) % 1; p.setAttribute('transform', `translate(0 ${-ph * 24})`); p.setAttribute('opacity', level * (1 - ph)); });
+  waves.forEach((w, k) => w.setAttribute('opacity', ((t * 3) % 1) > k / 3 ? 1 : 0.15));
+  screen.setAttribute('fill', ((t * 4) % 1) < 0.5 ? '#7fd6cb' : '#e8b04a');
+  worker.setAttribute('transform', `translate(${3 * Math.sin(T * t * 6)} 0)`);
+  puddle.setAttribute('rx', 120 + 140 * level);
+}
+render(0.999);
+</script>
+</body></html>
