@@ -2,6 +2,7 @@
 # Launched by ~/Library/LaunchAgents/com.rahul-lt.social-posts.news.plist.
 # 10:00 -> batch for 14/15/16, 16:30 -> batch for 23/00/01, otherwise freshness check for the next slot.
 cd "$HOME/Documents/GitHub/social-posts" || exit 1
+eval "$(/opt/homebrew/bin/fnm env)"  # node comes from fnm, which only .zshrc sets up
 [[ $(date +%Y%m%d) -gt 20261027 ]] && exit 0  # trial ends after Monday 26 Oct (the 00:00/01:00 slots spill into the 27th)
 git pull -q --rebase --autostash
 
