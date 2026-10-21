@@ -5,7 +5,8 @@ cd "$HOME/Documents/GitHub/social-posts" || exit 1
 [[ $(date +%Y%m%d) -gt 20261027 ]] && exit 0  # trial ends after Monday 26 Oct (the 00:00/01:00 slots spill into the 27th)
 git pull -q --rebase --autostash
 
-hm=$(date +%H%M)
+hm=${NEWS_HM:-$(date +%H%M)}  # NEWS_HM=1600 forces a branch for a manual run
+[[ $hm == 16* ]] && rg -q "$(date +%Y-%m-%d)T23:00" decks/*/draft.json 2>/dev/null && exit 0  # evening batch already built
 case $hm in
   10*) prompt=$(sd -F '{{SLOTS}}' '14:00, 15:00, 16:00' < scripts/news/prompts/batch.md) ;;
   16*) prompt=$(sd -F '{{SLOTS}}' '23:00, 00:00, 01:00' < scripts/news/prompts/batch.md) ;;
