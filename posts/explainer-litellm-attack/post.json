@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-10-22T12:00:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "Can one pip install steal your API keys?\nOn 21 Oct, LiteLLM 1.107.0 shipped a key and password stealer on PyPI for under 2 hours, and in the official Docker images too, even though its GitHub code was clean. Here is how it happened and what to check.\nFull story: https://docs.litellm.ai/blog/security-incident-oct-21-2026\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "explainer litellm attack",
+  "title": "Explainer Litellm Attack"
+}

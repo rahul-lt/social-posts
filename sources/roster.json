@@ -183,7 +183,7 @@
     },
     {
       "slot": "2026-10-22T17:30:00+05:30",
-      "slug": "story-litellm-attack",
+      "slug": "explainer-litellm-attack",
       "items": [
         {
           "category": "Security",

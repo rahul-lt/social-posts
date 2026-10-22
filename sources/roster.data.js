@@ -1,5 +1,5 @@
 window.ROSTER = {
- "generatedAt": "2026-10-22T07:09:22.237Z",
+ "generatedAt": "2026-10-22T07:09:31.695Z",
  "slots": [
   "2026-10-21T14:00:00+05:30",
   "2026-10-21T15:00:00+05:30",
@@ -218,7 +218,7 @@ window.ROSTER = {
   },
   {
    "slot": "2026-10-22T17:30:00+05:30",
-   "slug": "story-litellm-attack",
+   "slug": "explainer-litellm-attack",
    "items": [
     {
      "category": "Security",
