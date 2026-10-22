@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-10-22T09:00:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "Can a share link leak your private AI chat?\n\nMeta's new AI agent Muse lets people share a chat through a web link. Security firm Claroc found that the chat title went inside the web address itself, like loan-application-draft-a4c9e2.cf.metaaiusercontent.com. Public DNS records save addresses like that, so the researchers found 6,800 shared links. \"It took one query,\" they wrote.\n\nAfter opening a few hundred, they found things nobody meant to make public: a small-business loan application, a company revenue review, a staff holiday calendar. Meta has paused the sharing feature while it reviews the report.\n\nThe lesson: a web address is not a secret. Keep private details out of URLs, and never put them in a subdomain, because DNS records are public.\n\nFull story: https://arstechnica.com/security/2026/10/meta-muse-exposes-users-personal-and-business-secrets-when-they-share-conversations/\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "Animated illustration: an address bar types loan-application-draft-a4c9e2.cf.metaaiusercontent.com with the chat title highlighted. The link drops into a board called Public DNS records, where a stranger with a magnifying glass finds it. Text: 6,800 share links found. One search.",
+  "title": "Muse exposes users' personal and business secrets when they "
+}

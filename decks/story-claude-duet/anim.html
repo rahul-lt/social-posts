@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<link rel="stylesheet" href="../../scripts/news/story.css">
+</head><body>
+<h1>What if your AI kept working while you slept?</h1>
+<p>Claude Duet does tasks, then waits for your OK.</p>
+<svg id="s" width="960" height="870" viewBox="0 0 960 870"></svg>
+<script src="../../scripts/news/story.js"></script>
+<script>
+backdrop();
+
+// window: night turns into morning
+offsetShape('rect', {x: 70, y: 50, width: 240, height: 170, rx: 12}, C.navy);
+const sky = el('rect', {x: 70, y: 50, width: 240, height: 170, rx: 12, fill: C.navy});
+el('defs', {}).appendChild(Object.assign(document.createElementNS(NS, 'clipPath'), {id: 'winclip'}));
+el('rect', {x: 70, y: 50, width: 240, height: 170, rx: 12}, document.getElementById('winclip'));
+const skyObjs = g({'clip-path': 'url(#winclip)'});
+const moon = el('circle', {cx: 0, cy: 0, r: 28, fill: '#fff', class: 'o', 'stroke-width': 3}, skyObjs);
+const sun = el('circle', {cx: 0, cy: 0, r: 32, fill: C.mustard, class: 'o', 'stroke-width': 3}, skyObjs);
+el('rect', {x: 70, y: 50, width: 240, height: 170, rx: 12, fill: 'none', class: 'o'});
+el('line', {x1: 190, y1: 50, x2: 190, y2: 220, class: 'o'});
+
+// bed with a sleeping student
+el('rect', {x: 40, y: 560, width: 18, height: 82, fill: INK}); el('rect', {x: 432, y: 560, width: 18, height: 82, fill: INK});
+el('rect', {x: 30, y: 380, width: 30, height: 200, rx: 10, fill: C.orange, class: 'o'});
+el('rect', {x: 40, y: 500, width: 410, height: 70, rx: 12, fill: C.orange, class: 'o'});
+el('rect', {x: 66, y: 440, width: 110, height: 60, rx: 26, fill: '#fff', class: 'o'});
+el('path', {d: 'M 150 420 q 30 -40 64 -6 q 6 16 0 30 l -62 0 q -8 -12 -2 -24 z', fill: C.navy});
+const head = el('circle', {cx: 180, cy: 452, r: 38, fill: '#fff', class: 'o'});
+const eyes = el('path', {d: 'M 162 452 q 6 5 12 0 M 186 452 q 6 5 12 0', fill: 'none', class: 'o', 'stroke-width': 3.5});
+const mouth = el('path', {d: 'M 172 474 h 14', fill: 'none', class: 'o', 'stroke-width': 3.5});
+offsetShape('path', {d: 'M 200 480 Q 210 440 260 450 L 440 450 Q 456 452 450 500 L 200 500 Z'}, C.teal);
+const zs = [0, 1, 2].map(k => el('text', {x: 0, y: 0, 'font-weight': 700, 'font-size': 28 + k * 8, fill: C.navy}));
+zs.forEach(z => z.textContent = 'z');
+
+// the phone doing the work
+offsetShape('rect', {x: 540, y: 30, width: 320, height: 590, rx: 40}, C.blue);
+el('rect', {x: 540, y: 30, width: 320, height: 590, rx: 40, fill: '#fff', class: 'o'});
+el('rect', {x: 660, y: 50, width: 80, height: 14, rx: 7, fill: INK});
+el('text', {x: 572, y: 116, 'font-weight': 700, 'font-size': 30, fill: INK}).textContent = 'Claude Duet';
+el('line', {x1: 540, y1: 136, x2: 860, y2: 136, class: 'o', 'stroke-width': 3});
+const rows = ['Morning brief', 'Set up meeting', 'Build dashboard'].map((label, i) => {
+  const y = 186 + i * 76;
+  el('rect', {x: 566, y: y - 32, width: 270, height: 60, rx: 12, fill: '#f3f6fb', class: 'o', 'stroke-width': 3});
+  const dot = el('circle', {cx: 598, cy: y - 2, r: 16, fill: '#fff', class: 'o', 'stroke-width': 3});
+  const tick = el('path', {d: `M ${590} ${y - 2} l 6 6 l 11 -12`, fill: 'none', class: 'o', 'stroke-width': 4});
+  const txt = el('text', {x: 626, y: y + 7, 'font-weight': 600, 'font-size': 23, fill: INK});
+  txt.textContent = label;
+  return {dot, tick, txt, i};
+});
+const ask = g({});
+el('rect', {x: 566, y: 400, width: 270, height: 180, rx: 14, fill: C.soft, class: 'o', 'stroke-width': 3}, ask);
+el('text', {x: 701, y: 446, 'text-anchor': 'middle', 'font-weight': 700, 'font-size': 24, fill: INK}, ask).textContent = 'Reply drafted.';
+el('text', {x: 701, y: 478, 'text-anchor': 'middle', 'font-weight': 600, 'font-size': 22, fill: '#5b6275'}, ask).textContent = 'Send it?';
+const btn = el('rect', {x: 626, y: 500, width: 150, height: 56, rx: 28, fill: C.teal, class: 'o', 'stroke-width': 3}, ask);
+el('text', {x: 701, y: 537, 'text-anchor': 'middle', 'font-weight': 700, 'font-size': 26, fill: INK}, ask).textContent = 'OK';
+
+const ease = x => x < 0.5 ? 2 * x * x : 1 - (-2 * x + 2) ** 2 / 2;
+const clamp = x => Math.max(0, Math.min(1, x));
+const mix = (a, b, k) => '#' + [1, 3, 5].map(i => Math.round(parseInt(a.substr(i, 2), 16) * (1 - k) + parseInt(b.substr(i, 2), 16) * k).toString(16).padStart(2, '0')).join('');
+function render(t) {
+  const day = ease(clamp((t - 0.55) / 0.3));
+  sky.setAttribute('fill', mix(C.navy, C.soft, day));
+  moon.setAttribute('transform', `translate(${130} ${110 + 140 * day})`);
+  sun.setAttribute('transform', `translate(${250} ${260 - 150 * day})`);
+  rows.forEach(r => {
+    const s = 0.1 + r.i * 0.17, done = t >= s + 0.15;
+    r.dot.setAttribute('fill', done ? C.teal : '#fff');
+    r.tick.setAttribute('opacity', done ? 1 : 0);
+    r.txt.setAttribute('opacity', t >= s ? 1 : 0.25);
+  });
+  ask.setAttribute('opacity', t >= 0.7 ? 1 : 0);
+  const pulse = t >= 0.7 ? 1 + 0.06 * Math.sin(2 * Math.PI * t * 4) : 1;
+  btn.setAttribute('transform', `translate(701 528) scale(${t >= 0.99 ? 1.06 : pulse}) translate(-701 -528)`);
+  const awake = t > 0.88;
+  eyes.setAttribute('d', awake ? 'M 168 448 a 5 5 0 1 0 0.1 0 M 192 448 a 5 5 0 1 0 0.1 0' : 'M 162 452 q 6 5 12 0 M 186 452 q 6 5 12 0');
+  eyes.setAttribute('fill', awake ? INK : 'none');
+  mouth.setAttribute('d', awake ? 'M 170 470 q 10 8 20 0' : 'M 172 474 h 14');
+  zs.forEach((z, k) => {
+    const ph = (t * 2 + k / 3) % 1;
+    z.setAttribute('x', 220 + k * 30 + ph * 20); z.setAttribute('y', 400 - k * 34 - ph * 30);
+    z.setAttribute('opacity', awake ? 0 : 1 - ph * 0.7);
+  });
+}
+render(1);
+</script>
+</body></html>

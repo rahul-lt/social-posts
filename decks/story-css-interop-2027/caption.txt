@@ -1,0 +1,9 @@
+What if every browser finally agreed on CSS?
+
+Interop is a project where the big browser makers work together to fix the same web features. When a feature joins Interop, it often reaches near-100% support across all major browsers within a year. Subgrid joined Interop 2023 and went from 12% of tests passing in January to 91% by the end of the year.
+
+Interop 2027 is being planned right now. Josh Comeau shared his top 10 picks, like CSS functions, corner-shape, scroll-triggered animations and gap decorations. You can also rank your own favourites on the Interop ranking site.
+
+The lesson: before you use a shiny new CSS feature, check which browsers support it. Interop is how "only in Chrome" becomes "works everywhere".
+
+Full story: https://www.joshwcomeau.com/css/interop-2027/

@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-10-22T07:30:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "What if every browser finally agreed on CSS?\n\nInterop is a project where the big browser makers work together to fix the same web features. When a feature joins Interop, it often reaches near-100% support across all major browsers within a year. Subgrid joined Interop 2023 and went from 12% of tests passing in January to 91% by the end of the year.\n\nInterop 2027 is being planned right now. Josh Comeau shared his top 10 picks, like CSS functions, corner-shape, scroll-triggered animations and gap decorations. You can also rank your own favourites on the Interop ranking site.\n\nThe lesson: before you use a shiny new CSS feature, check which browsers support it. Interop is how \"only in Chrome\" becomes \"works everywhere\".\n\nFull story: https://www.joshwcomeau.com/css/interop-2027/\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "Animated illustration: three browser windows labelled Chrome, Firefox and Safari show cards with uneven headers that line up one by one, each window getting a green check. A progress bar for subgrid tests passing in 2023 fills from 12% to 91% while a developer raises an arm in joy. Text: What if every browser finally agreed on CSS?",
+  "title": "The Future of CSS"
+}

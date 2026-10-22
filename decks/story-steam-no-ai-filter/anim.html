@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<link rel="stylesheet" href="../../scripts/news/story.css">
+</head><body>
+<h1>Would you want a "No AI" button on Steam?</h1>
+<p>Gamers say AI-made games flooded Next Fest.</p>
+<svg id="s" width="960" height="870" viewBox="0 0 960 870"></svg>
+<script src="../../scripts/news/story.js"></script>
+<script>
+backdrop();
+
+// monitor with the Next Fest store grid
+el('rect', {x: 494, y: 560, width: 32, height: 70, fill: '#fff', class: 'o'});
+el('path', {d: 'M 440 640 q 70 -30 140 0 z', fill: C.navy, class: 'o'});
+offsetShape('rect', {x: 290, y: 40, width: 440, height: 520, rx: 20}, C.blue);
+el('rect', {x: 290, y: 40, width: 440, height: 520, rx: 20, fill: '#fff', class: 'o'});
+el('rect', {x: 290, y: 40, width: 440, height: 70, rx: 20, fill: C.navy, class: 'o'});
+el('text', {x: 510, y: 87, 'text-anchor': 'middle', 'font-weight': 700, 'font-size': 30, fill: '#fff'}).textContent = 'Next Fest demos';
+const fills = [C.teal, C.orange, C.soft, C.mustard, C.teal, C.coral, C.soft, C.orange, C.mustard];
+const order = [4, 0, 7, 2, 5, 8, 1];  // tiles that turn into AI-made games, in this order
+const tiles = fills.map((fill, i) => {
+  const x = 312 + (i % 3) * 140, y = 130 + Math.floor(i / 3) * 140;
+  el('rect', {x, y, width: 116, height: 116, rx: 12, fill, class: 'o', 'stroke-width': 3});
+  [() => el('circle', {cx: x + 58, cy: y + 58, r: 26, fill: '#fff', class: 'o', 'stroke-width': 3}),
+   () => el('path', {d: `M ${x + 30} ${y + 84} L ${x + 58} ${y + 30} L ${x + 86} ${y + 84} Z`, fill: '#fff', class: 'o', 'stroke-width': 3}),
+   () => el('rect', {x: x + 34, y: y + 34, width: 48, height: 48, rx: 6, fill: '#fff', class: 'o', 'stroke-width': 3})][i % 3]();
+  const ai = g({opacity: 0});
+  el('rect', {x, y, width: 116, height: 116, rx: 12, fill: '#e3e6ee', class: 'o', 'stroke-width': 3}, ai);
+  el('rect', {x: x + 26, y: y + 22, width: 64, height: 50, rx: 12, fill: '#fff', class: 'o', 'stroke-width': 3}, ai);
+  el('circle', {cx: x + 46, cy: y + 46, r: 6, fill: INK}, ai); el('circle', {cx: x + 70, cy: y + 46, r: 6, fill: INK}, ai);
+  el('text', {x: x + 58, y: y + 102, 'text-anchor': 'middle', 'font-weight': 700, 'font-size': 22, fill: C.coral}, ai).textContent = 'AI';
+  return ai;
+});
+
+// vibecoder robot shipping game after game
+const robot = g({});
+limb('M 822 470 L 818 628', '#fff', robot); limb('M 868 470 L 874 628', '#fff', robot);
+el('path', {d: 'M 794 628 h 40 v 14 h -48 z', fill: INK}, robot); el('path', {d: 'M 858 628 h 40 v 14 h -48 z', fill: INK}, robot);
+offsetShape('rect', {x: 784, y: 340, width: 130, height: 140, rx: 24}, C.teal, robot);
+offsetShape('rect', {x: 790, y: 230, width: 118, height: 92, rx: 22}, C.teal, robot);
+el('line', {x1: 849, y1: 230, x2: 849, y2: 196, class: 'o'}, robot);
+const light = el('circle', {cx: 849, cy: 188, r: 11, fill: C.coral, class: 'o', 'stroke-width': 3}, robot);
+[826, 872].forEach(x => el('ellipse', {cx: x, cy: 272, rx: 9, ry: 11, fill: INK}, robot));
+el('path', {d: 'M 832 298 q 17 12 34 0', fill: 'none', class: 'o', 'stroke-width': 3.5}, robot);
+const arm = limb('', C.teal, robot);
+
+// gamer with a protest sign
+const gamer = person(0, {shirt: C.mustard, hair: C.navy});
+const sign = g({});
+el('line', {x1: 170, y1: 190, x2: 170, y2: 450, stroke: INK, 'stroke-width': 10, 'stroke-linecap': 'round'}, sign);
+offsetShape('rect', {x: 22, y: 60, width: 250, height: 140, rx: 12}, C.coral, sign, 8, 8);
+el('rect', {x: 22, y: 60, width: 250, height: 140, rx: 12, fill: '#fff', class: 'o'}, sign);
+['No AI filter,', 'please!'].forEach((s, i) => el('text', {x: 147, y: 120 + i * 44, 'text-anchor': 'middle', 'font-weight': 700, 'font-size': 32, fill: INK}, sign).textContent = s);
+limb('M 64 352 Q 40 420 90 440', C.mustard, gamer.p);
+const holdArm = limb('', C.mustard, gamer.p);
+
+// payoff on the floor
+const pill = g({});
+offsetShape('rect', {x: 100, y: 700, width: 760, height: 96, rx: 48}, C.mustard, pill);
+el('rect', {x: 100, y: 700, width: 760, height: 96, rx: 48, fill: '#fff', class: 'o'}, pill);
+el('text', {x: 480, y: 760, 'text-anchor': 'middle', 'font-weight': 700, 'font-size': 32, fill: INK}, pill).textContent = 'Players want to hide AI-made games.';
+
+const clamp = x => Math.max(0, Math.min(1, x));
+const ease = x => x < 0.5 ? 2 * x * x : 1 - (-2 * x + 2) ** 2 / 2;
+function render(t) {
+  let shown = 0;
+  order.forEach((i, n) => { const on = t >= 0.08 + n * 0.08; tiles[i].setAttribute('opacity', on ? 1 : 0); shown += on; });
+  const hit = order[Math.max(0, shown - 1)], hx = 370 + (hit % 3) * 140, hy = 188 + Math.floor(hit / 3) * 140;
+  const reach = shown < order.length ? Math.sin(Math.PI * ((t * 12.5) % 1)) : 0;
+  arm.forEach(p => p.setAttribute('d', `M 790 380 Q 760 ${420 - 40 * reach} ${740 - 60 * reach} ${hy * reach + 420 * (1 - reach)}`));
+  light.setAttribute('fill', ((t * 4) % 1) < 0.5 ? C.coral : C.mustard);
+  gamer.happy(shown < 3);
+  const up = ease(clamp((t - 0.68) / 0.2));
+  sign.setAttribute('transform', `translate(0 ${260 * (1 - up)})`);
+  sign.setAttribute('opacity', up > 0 ? 1 : 0);
+  pill.setAttribute('opacity', t >= 0.85 ? 1 : 0);
+  holdArm.forEach(p => p.setAttribute('d', `M 164 352 Q 190 ${400 - 30 * up} ${152 + 16 * up} ${430 - 60 * up}`));
+}
+render(1);
+</script>
+</body></html>

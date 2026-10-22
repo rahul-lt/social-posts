@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<link rel="stylesheet" href="../../scripts/news/story.css">
+</head><body>
+<h1>What if every browser finally agreed on CSS?</h1>
+<p>Interop 2027 is picking which features to fix next.</p>
+<svg id="s" width="960" height="870" viewBox="0 0 960 870"></svg>
+<script src="../../scripts/news/story.js"></script>
+<script>
+backdrop();
+
+// three browser windows, each showing three cards whose headers line up once subgrid works
+const BROKEN = [[18, 52, 32], [40, 22, 56], [28, 58, 20]];
+const browsers = ['Chrome', 'Firefox', 'Safari'].map((name, i) => {
+  const x = 270 + i * 220, y = 70;
+  offsetShape('rect', {x, y, width: 200, height: 270, rx: 14}, [C.blue, C.orange, C.teal][i]);
+  el('rect', {x, y, width: 200, height: 270, rx: 14, fill: '#fff', class: 'o'});
+  el('line', {x1: x, y1: y + 40, x2: x + 200, y2: y + 40, class: 'o'});
+  el('text', {x: x + 100, y: y + 28, 'text-anchor': 'middle', 'font-weight': 700, 'font-size': 20, fill: INK}).textContent = name;
+  const cards = [0, 1, 2].map(j => {
+    const cx = x + 14 + j * 60;
+    el('rect', {x: cx, y: y + 58, width: 52, height: 196, rx: 6, fill: '#fff', class: 'o', 'stroke-width': 3});
+    const head = el('rect', {x: cx + 6, y: y + 64, width: 40, height: 20, rx: 4, fill: [C.mustard, C.coral, C.soft][j]});
+    const lines = [0, 1, 2].map(() => el('rect', {x: cx + 6, y: 0, width: 40, height: 9, rx: 4.5, fill: '#dfe5f1'}));
+    return {head, lines, y0: y + 64};
+  });
+  const badge = g({opacity: 0});
+  el('circle', {cx: x + 186, cy: y + 4, r: 22, fill: C.teal, class: 'o', 'stroke-width': 3}, badge);
+  el('path', {d: `M ${x + 175} ${y + 4} l 8 8 l 14 -16`, fill: 'none', class: 'o', 'stroke-width': 5}, badge);
+  return {cards, badge, i};
+});
+
+// progress bar: subgrid tests passing during Interop 2023
+el('text', {x: 270, y: 400, 'font-weight': 700, 'font-size': 26, fill: INK}).textContent = 'Subgrid tests passing (2023)';
+const pct = el('text', {x: 910, y: 404, 'text-anchor': 'end', 'font-weight': 700, 'font-size': 44, fill: C.navy});
+el('rect', {x: 282, y: 430, width: 630, height: 52, rx: 26, fill: C.soft});
+el('rect', {x: 270, y: 420, width: 630, height: 52, rx: 26, fill: '#fff', class: 'o'});
+const bar = el('rect', {x: 276, y: 426, width: 0, height: 40, rx: 20, fill: C.teal});
+const marks = [['Jan', 270], ['Dec', 900]].map(([m, x]) => el('text', {x, y: 512, 'text-anchor': x > 500 ? 'end' : 'start', 'font-weight': 600, 'font-size': 22, fill: '#5b6275'}));
+marks[0].textContent = 'January'; marks[1].textContent = 'December';
+
+// happy developer
+const dev = person(10, {shirt: C.mustard, hair: C.navy});
+limb('M 74 352 Q 50 420 100 440', C.mustard, dev.p);
+const arm = limb('M 164 352 Q 190 400 150 440', C.mustard, dev.p);
+
+const ease = x => x < 0.5 ? 2 * x * x : 1 - (-2 * x + 2) ** 2 / 2;
+const clamp = x => Math.max(0, Math.min(1, x));
+function render(t) {
+  const p = ease(clamp(t / 0.8));
+  const v = 12 + 79 * p;
+  pct.textContent = `${Math.round(v)}%`;
+  bar.setAttribute('width', 618 * v / 100);
+  browsers.forEach(b => {
+    const k = ease(clamp((t - 0.1 - 0.2 * b.i) / 0.4));
+    b.cards.forEach((c, j) => {
+      const h = BROKEN[b.i][j] + (44 - BROKEN[b.i][j]) * k;
+      c.head.setAttribute('height', h);
+      c.lines.forEach((l, n) => l.setAttribute('y', c.y0 + h + 14 + n * 20));
+    });
+    b.badge.setAttribute('opacity', k > 0.98 ? 1 : 0);
+  });
+  const r = ease(clamp((t - 0.7) / 0.3));
+  arm.forEach(a => a.setAttribute('d', `M 164 352 Q ${190 + 20 * r} ${400 - 130 * r} ${150 + 60 * r} ${440 - 230 * r}`));
+  dev.happy(t > 0.75);
+}
+render(1);
+</script>
+</body></html>

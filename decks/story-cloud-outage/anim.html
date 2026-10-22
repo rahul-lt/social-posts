@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<link rel="stylesheet" href="../../scripts/news/story.css">
+</head><body>
+<h1>Can one power problem take down your bank?</h1>
+<p>A Google Cloud outage hit UK banks and apps.</p>
+<svg id="s" width="960" height="870" viewBox="0 0 960 870"></svg>
+<script src="../../scripts/news/story.js"></script>
+<script>
+backdrop();
+
+// links from the data centre to the phone and the apps
+const tiles = ['Bank app', 'Parcels', 'Websites'];
+const tileY = [170, 310, 450];
+el('line', {x1: 330, y1: 452, x2: 160, y2: 452, stroke: '#8f9bb8', 'stroke-width': 4, 'stroke-dasharray': '4 10', 'stroke-linecap': 'round'});
+tileY.forEach(y => el('line', {x1: 610, y1: y + 50, x2: 700, y2: y + 50, stroke: '#8f9bb8', 'stroke-width': 4, 'stroke-dasharray': '4 10', 'stroke-linecap': 'round'}));
+const dots = [[330, 452, 160, 452], ...tileY.map(y => [610, y + 50, 700, y + 50])]
+  .map(([x1, y1, x2, y2]) => ({x1, y1, x2, y2, c: el('circle', {r: 9, fill: C.teal, class: 'o', 'stroke-width': 3})}));
+
+// the data centre with a cloud on top
+offsetShape('rect', {x: 330, y: 150, width: 280, height: 470, rx: 14}, C.soft);
+el('rect', {x: 330, y: 150, width: 280, height: 470, rx: 14, fill: '#fff', class: 'o'});
+el('rect', {x: 350, y: 168, width: 240, height: 44, rx: 8, fill: C.mustard, class: 'o', 'stroke-width': 3});
+el('text', {x: 470, y: 198, 'text-anchor': 'middle', 'font-family': 'IBM Plex Mono', 'font-weight': 600, 'font-size': 22, fill: INK}).textContent = 'europe-west2-b';
+const lights = [];
+[236, 336, 436].forEach(y => {
+  el('rect', {x: 360, y, width: 220, height: 80, rx: 8, fill: C.blue, class: 'o', 'stroke-width': 3});
+  [0, 1, 2, 3].forEach(i => lights.push(el('circle', {cx: 390 + i * 30, cy: y + 40, r: 8, fill: C.teal, class: 'o', 'stroke-width': 2.5})));
+  el('rect', {x: 510, y: y + 32, width: 50, height: 16, rx: 6, fill: '#fff', class: 'o', 'stroke-width': 2.5});
+});
+el('rect', {x: 440, y: 540, width: 60, height: 80, rx: 6, fill: C.soft, class: 'o', 'stroke-width': 3});
+offsetShape('path', {d: 'M 380 140 q -40 0 -40 -34 q 0 -34 40 -34 q 10 -40 60 -40 q 44 0 58 34 q 46 -6 56 34 q 26 6 26 22 q 0 18 -30 18 z'}, C.soft);
+const dim = el('rect', {x: 332, y: 152, width: 276, height: 466, rx: 13, fill: INK, opacity: 0});
+
+// power bolt
+const bolt = g({});
+offsetShape('path', {d: 'M 14 -70 L -34 8 L 2 8 L -14 70 L 38 -14 L 4 -14 Z'}, C.mustard, bolt, 6, 6);
+el('path', {d: 'M 14 -70 L -34 8 L 2 8 L -14 70 L 38 -14 L 4 -14 Z', fill: C.mustard, class: 'o'}, bolt);
+
+// app tiles on the right
+const tileFx = tiles.map((name, i) => {
+  const y = tileY[i];
+  const box = el('rect', {x: 700, y, width: 210, height: 100, rx: 16, fill: [C.teal, C.orange, C.soft][i], class: 'o'});
+  el('text', {x: 805, y: y + 60, 'text-anchor': 'middle', 'font-weight': 700, 'font-size': 28, fill: INK}).textContent = name;
+  const x = g({});
+  el('circle', {cx: 900, cy: y + 6, r: 24, fill: C.coral, class: 'o', 'stroke-width': 3}, x);
+  el('path', {d: `M 890 ${y - 4} l 20 20 M 910 ${y - 4} l -20 20`, stroke: '#fff', 'stroke-width': 5, 'stroke-linecap': 'round'}, x);
+  return {box, x, fill: [C.teal, C.orange, C.soft][i]};
+});
+
+// person trying to pay for parking
+const who = person(0, {shirt: C.orange});
+limb('M 64 352 Q 40 420 90 440', C.orange, who.p); limb('M 164 352 Q 190 400 150 430', C.orange, who.p);
+el('rect', {x: 98, y: 410, width: 56, height: 86, rx: 8, fill: '#fff', class: 'o', 'stroke-width': 3}, who.p);
+const screen = el('rect', {x: 104, y: 418, width: 44, height: 64, rx: 4, fill: C.teal}, who.p);
+const mark = el('text', {x: 126, y: 462, 'text-anchor': 'middle', 'font-weight': 700, 'font-size': 34, fill: INK}, who.p);
+const bubble = g({});
+el('path', {d: 'M 30 80 h 250 a 18 18 0 0 1 18 18 v 74 a 18 18 0 0 1 -18 18 h -110 l -30 30 l 0 -30 h -110 a 18 18 0 0 1 -18 -18 v -74 a 18 18 0 0 1 18 -18 z', fill: '#fff', class: 'o', 'stroke-width': 3}, bubble);
+['Can\'t pay for', 'parking!'].forEach((s, i) => el('text', {x: 155, y: 126 + i * 36, 'text-anchor': 'middle', 'font-weight': 700, 'font-size': 28, fill: INK}, bubble).textContent = s);
+
+// payoff on the floor
+const pill = g({});
+offsetShape('rect', {x: 110, y: 710, width: 740, height: 90, rx: 45}, C.mustard, pill);
+el('rect', {x: 110, y: 710, width: 740, height: 90, rx: 45, fill: '#fff', class: 'o'}, pill);
+el('text', {x: 480, y: 767, 'text-anchor': 'middle', 'font-weight': 700, 'font-size': 32, fill: INK}, pill).textContent = 'One power problem. Many apps down.';
+
+const clamp = x => Math.max(0, Math.min(1, x));
+function render(t) {
+  const off = t >= 0.42, k = clamp((t - 0.42) / 0.2);
+  dots.forEach(({x1, y1, x2, y2, c}, i) => {
+    const f = (t * 3 + i * 0.25) % 1;
+    c.setAttribute('cx', x1 + (x2 - x1) * f); c.setAttribute('cy', y1 + (y2 - y1) * f);
+    c.setAttribute('opacity', off ? 0 : 1);
+  });
+  lights.forEach((l, i) => l.setAttribute('fill', off ? '#8f9bb8' : ((t * 5 + i * 0.3) % 1) < 0.6 ? C.teal : C.mustard));
+  dim.setAttribute('opacity', 0.35 * k);
+  const b = t < 0.34 ? 0 : t < 0.42 ? (t - 0.34) / 0.08 : 1;
+  bolt.setAttribute('transform', `translate(470 ${360 + (off ? 0 : -20)}) scale(${1.5 * b * (off ? 1 + 0.05 * Math.sin(t * 60) : 1.2)})`);
+  tileFx.forEach(({box, x, fill}, i) => {
+    const down = t >= 0.5 + i * 0.08;
+    box.setAttribute('fill', down ? '#dfe5f1' : fill);
+    x.setAttribute('opacity', down ? 1 : 0);
+  });
+  const phoneDown = t >= 0.55;
+  screen.setAttribute('fill', phoneDown ? C.coral : C.teal);
+  mark.textContent = phoneDown ? '!' : '£';
+  who.happy(!phoneDown);
+  bubble.setAttribute('opacity', t >= 0.72 ? 1 : 0);
+  pill.setAttribute('opacity', t >= 0.8 ? 1 : 0);
+}
+render(1);
+</script>
+</body></html>

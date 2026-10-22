@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-10-22T10:00:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "Can one power problem take down your bank?\n\nOn Tuesday morning, Google Cloud had a \"power event\" in one small zone of its London cloud region, europe-west2. Revolut, Lloyds Bank and HSBC confirmed problems, and people also reported trouble with Royal Mail and DPD. More than 1,500 reports about Revolut came in shortly after 08:00 UK time.\n\nOne Revolut user told the BBC she could not even pay for parking at a shopping centre. Google says the problem is fixed and will publish an analysis of what went wrong.\n\nThe lesson: your app runs on someone else's computers. Ask early \"what happens if one zone goes down?\" and spread important services across more than one.\n\nFull story: https://www.bbc.com/news/articles/cxdd8mm6qy4mo\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "Animated illustration: a cartoon data centre labelled europe-west2-b under a cloud is hit by a lightning bolt. Its lights go out, app tiles for a bank app, parcels and websites get red crosses, and a sad person says they can't pay for parking. Text: One power problem. Many apps down.",
+  "title": "Revolut down as users report app not working"
+}

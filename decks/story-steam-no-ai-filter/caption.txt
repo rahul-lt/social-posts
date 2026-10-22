@@ -1,0 +1,9 @@
+Would you want a "No AI" button on Steam?
+
+Steam Next Fest, Valve's festival for indie games and demos, just started. Players say it is packed with games that use AI-made art or were built almost fully with AI. One Reddit user asked for a filter that hides every game with AI content, since Steam already asks developers to disclose it.
+
+Another player said "it's all AI slop and I dont want to participate." For a filter like that to work, Valve would have to add "AI" as a tag.
+
+The lesson: AI makes shipping a project easy, so shipping alone does not stand out anymore. Care and quality are what people notice.
+
+Full story: https://www.ign.com/articles/steam-fans-are-begging-for-a-no-ai-filter-as-steam-next-fest-is-filled-with-slop

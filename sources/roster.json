@@ -45,6 +45,96 @@
           "beginner": 2.3
         }
       ]
+    },
+    {
+      "slot": "2026-10-22T13:00:00+05:30",
+      "slug": "story-css-interop-2027",
+      "items": [
+        {
+          "category": "All-round",
+          "title": "The Future of CSS",
+          "url": "https://www.joshwcomeau.com/css/interop-2027/",
+          "source": "Lobsters",
+          "hnPoints": 603,
+          "hnUrl": "https://news.ycombinator.com/item?id=50175070",
+          "beginner": 2.06
+        }
+      ]
+    },
+    {
+      "slot": "2026-10-22T13:30:00+05:30",
+      "slug": "story-claude-duet",
+      "items": [
+        {
+          "category": "All-round",
+          "title": "Claude Duet",
+          "url": "https://claude.com/product/claude-duet",
+          "source": "Hacker News",
+          "hnPoints": 338,
+          "hnUrl": "https://news.ycombinator.com/item?id=50186037",
+          "beginner": 2.79
+        }
+      ]
+    },
+    {
+      "slot": "2026-10-22T14:00:00+05:30",
+      "slug": "story-smart-tv-spying",
+      "items": [
+        {
+          "category": "All-round",
+          "title": "People sick of being spied on by their smart TV",
+          "url": "https://www.theguardian.com/tv-and-radio/2026/oct/20/smart-tv-television-dumb-wifi-techies-privacy",
+          "source": "Hacker News",
+          "hnPoints": 61,
+          "hnUrl": "https://news.ycombinator.com/item?id=50174799",
+          "beginner": 2.67
+        }
+      ]
+    },
+    {
+      "slot": "2026-10-22T14:30:00+05:30",
+      "slug": "story-muse-share-links",
+      "items": [
+        {
+          "category": "All-round",
+          "title": "Muse exposes users' personal and business secrets when they share conversations",
+          "url": "https://arstechnica.com/security/2026/10/meta-muse-exposes-users-personal-and-business-secrets-when-they-share-conversations/",
+          "source": "Hacker News",
+          "hnPoints": 180,
+          "hnUrl": "https://news.ycombinator.com/item?id=50174687",
+          "beginner": 2.56
+        }
+      ]
+    },
+    {
+      "slot": "2026-10-22T15:00:00+05:30",
+      "slug": "story-steam-no-ai-filter",
+      "items": [
+        {
+          "category": "All-round",
+          "title": "Steam Users Beg for \"No AI\" Filter as Vibecoders Flood Next Fest",
+          "url": "https://www.ign.com/articles/steam-fans-are-begging-for-a-no-ai-filter-as-steam-next-fest-is-filled-with-slop",
+          "source": "Hacker News",
+          "hnPoints": 177,
+          "hnUrl": "https://news.ycombinator.com/item?id=50168190",
+          "beginner": 2.47
+        }
+      ]
+    },
+    {
+      "slot": "2026-10-22T15:30:00+05:30",
+      "slug": "story-cloud-outage",
+      "items": [
+        {
+          "category": "All-round",
+          "title": "Revolut down as users report app not working",
+          "url": "https://www.bbc.com/news/articles/cxdd8mm6qy4mo",
+          "source": "Hacker News",
+          "hnPoints": 94,
+          "hnUrl": "https://news.ycombinator.com/item?id=50163625",
+          "beginner": 2.47
+        }
+      ]
     }
   ],
   "pick": {

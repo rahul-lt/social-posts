@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-10-22T08:00:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "What if your AI kept working while you slept?\n\nAnthropic just launched Claude Duet, a \"proactive agent\" app for iOS and Android, also on the web at claude.ai. Send it a message and it can set up a meeting or build a dashboard, then tell you when it's done. It can also send a morning brief, flag what needs you in your inbox and calendar, and draft replies for you to approve.\n\nThe big idea: it keeps working while you're away, but waits for your OK when it matters. For now it is a research preview with a waitlist, only for Claude Pro and Max subscribers in the US.\n\nThe lesson: if you build with AI agents, let them do the busy work, but keep a human \"OK\" step before anything important happens.\n\nFull story: https://claude.com/product/claude-duet\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "Animated illustration: a student sleeps in bed while night turns to morning in the window. On a big phone, the Claude Duet app ticks off Morning brief, Set up meeting and Build dashboard, then shows Reply drafted. Send it? with an OK button. The student wakes up smiling. Text: What if your AI kept working while you slept?",
+  "title": "Claude Duet"
+}

@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<link rel="stylesheet" href="../../scripts/news/story.css">
+</head><body>
+<h1>Can a share link leak your private AI chat?</h1>
+<p>Meta's Muse put the chat title in the web address.</p>
+<svg id="s" width="960" height="870" viewBox="0 0 960 870"></svg>
+<script src="../../scripts/news/story.js"></script>
+<script>
+backdrop();
+
+// the share link in an address bar
+const TITLE = 'loan-application-draft-a4c9e2', HOST = '.cf.metaaiusercontent.com', CW = 22 * 0.6;
+offsetShape('rect', {x: 40, y: 30, width: 880, height: 84, rx: 42}, C.blue);
+el('rect', {x: 40, y: 30, width: 880, height: 84, rx: 42, fill: '#fff', class: 'o'});
+el('rect', {x: 70, y: 66, width: 26, height: 22, rx: 4, fill: C.mustard, class: 'o', 'stroke-width': 3});
+el('path', {d: 'M 76 66 v -8 a 7 7 0 0 1 14 0 v 8', fill: 'none', class: 'o', 'stroke-width': 3});
+const hl = el('rect', {x: 112, y: 54, height: 38, rx: 6, fill: C.mustard});
+const url = el('text', {x: 116, y: 81, 'font-family': 'IBM Plex Mono', 'font-weight': 600, 'font-size': 22, fill: INK});
+const ttl = el('tspan', {}, url), host = el('tspan', {fill: '#5b6275'}, url);
+
+// path from the address bar into public records
+el('path', {d: 'M 300 116 Q 330 160 360 196', fill: 'none', stroke: '#8f9bb8', 'stroke-width': 4, 'stroke-dasharray': '4 10', 'stroke-linecap': 'round'});
+const packet = el('circle', {r: 10, fill: C.mustard, class: 'o', 'stroke-width': 3});
+
+// public DNS records board
+offsetShape('rect', {x: 290, y: 200, width: 400, height: 410, rx: 16}, C.teal);
+el('rect', {x: 290, y: 200, width: 400, height: 410, rx: 16, fill: '#fff', class: 'o'});
+el('rect', {x: 290, y: 200, width: 400, height: 64, rx: 16, fill: C.teal, class: 'o'});
+el('text', {x: 490, y: 242, 'text-anchor': 'middle', 'font-weight': 700, 'font-size': 26, fill: INK}).textContent = 'Public DNS records';
+const rows = ['home-sale-budget-...', 'q3-revenue-review-...', 'loan-application-...'].map((s, i) => {
+  const r = g({});
+  el('rect', {x: 312, y: 290 + i * 74, width: 356, height: 56, rx: 10, fill: i === 2 ? C.mustard : '#eef2f9', class: 'o', 'stroke-width': 3}, r);
+  el('text', {x: 330, y: 326 + i * 74, 'font-family': 'IBM Plex Mono', 'font-weight': 600, 'font-size': 21, fill: INK}, r).textContent = s;
+  return r;
+});
+[512, 548].forEach((y, i) => el('rect', {x: 316, y, width: [300, 250][i], height: 14, rx: 7, fill: '#dfe5f1'}));
+
+// person sharing a chat from their phone
+const sharer = person(-14, {shirt: C.orange});
+limb('M 64 352 Q 40 420 90 440', C.orange, sharer.p); limb('M 164 352 Q 190 400 150 430', C.orange, sharer.p);
+el('rect', {x: 98, y: 410, width: 56, height: 86, rx: 8, fill: '#fff', class: 'o', 'stroke-width': 3}, sharer.p);
+el('rect', {x: 104, y: 418, width: 44, height: 64, rx: 4, fill: C.soft}, sharer.p);
+el('path', {d: 'M 114 462 l 14 -14 l 0 8 l 10 0 l 0 12 l -10 0 l 0 8 z', fill: C.navy}, sharer.p);
+
+// stranger with a magnifying glass
+const stranger = person(752, {shirt: C.navy, hair: INK, pants: C.blue});
+limb('M 64 352 Q 40 420 90 440', C.navy, stranger.p);
+const lens = g({});
+el('circle', {cx: 0, cy: 0, r: 52, fill: '#fff', 'fill-opacity': 0.25, stroke: INK, 'stroke-width': 8}, lens);
+el('path', {d: 'M 37 37 L 80 80', stroke: INK, 'stroke-width': 16, 'stroke-linecap': 'round'}, lens);
+const arm = limb('', C.navy);
+
+// payoff
+const pill = g({});
+offsetShape('rect', {x: 100, y: 700, width: 760, height: 96, rx: 48}, C.coral, pill);
+el('rect', {x: 100, y: 700, width: 760, height: 96, rx: 48, fill: '#fff', class: 'o'}, pill);
+el('text', {x: 480, y: 760, 'text-anchor': 'middle', 'font-weight': 700, 'font-size': 32, fill: INK}, pill).textContent = '6,800 share links found. One search.';
+
+const clamp = x => Math.max(0, Math.min(1, x));
+const ease = x => x < 0.5 ? 2 * x * x : 1 - (-2 * x + 2) ** 2 / 2;
+function render(t) {
+  const n = Math.round(clamp(t / 0.3) * (TITLE.length + HOST.length));
+  ttl.textContent = TITLE.slice(0, n); host.textContent = HOST.slice(0, Math.max(0, n - TITLE.length));
+  hl.setAttribute('width', Math.min(n, TITLE.length) * CW + 8);
+  const f = clamp((t - 0.3) / 0.12);
+  packet.setAttribute('cx', 300 + 60 * f); packet.setAttribute('cy', 116 + 80 * f - 20 * Math.sin(Math.PI * f));
+  packet.setAttribute('opacity', f > 0 && f < 1 ? 1 : 0);
+  rows.forEach((r, i) => r.setAttribute('opacity', t >= 0.42 + i * 0.07 ? 1 : 0));
+  const k = ease(clamp((t - 0.55) / 0.3)), lx = 750 - 120 * k, ly = 330 + 134 * k, sx = 916 - 50 * k;
+  stranger.p.setAttribute('transform', `translate(${752 - 50 * k} 0)`);
+  lens.setAttribute('transform', `translate(${lx} ${ly})`);
+  arm.forEach(p => p.setAttribute('d', `M ${sx} 352 Q ${sx - 10} ${ly + 110} ${lx + 70} ${ly + 70}`));
+  sharer.happy(t < 0.75);
+  pill.setAttribute('opacity', t >= 0.85 ? 1 : 0);
+}
+render(1);
+</script>
+</body></html>

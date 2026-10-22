@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-10-22T08:30:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "Is your smart TV listening to you?\n\nThe Guardian spoke to people who are fed up with their smart TVs. Software engineer Matthew Schroyer keeps his TV offline on purpose. His house rule: \"don't give things the wifi password.\" Another viewer, Dan, got so annoyed by his TV downloading its third update in three days that he threw a rock through the screen.\n\nIn September, the YouTube channel Gamers Nexus released an investigation saying LG smart TVs record audio even when offline or powered down. LG denied it. One dad, James, then scraped the microphone off his TV remote with a craft knife, and the remote still worked fine.\n\nThe lesson: every connected device is a small computer collecting data. When you build apps, collect only what your users would expect.\n\nFull story: https://www.theguardian.com/tv-and-radio/2026/oct/20/smart-tv-television-dumb-wifi-techies-privacy\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "Animated illustration: a person says Pizza tonight? while a smart TV shows a big ear and a REC light, sending envelopes to an Ads cloud. Then the wifi icon gets a red cross, the TV shows a calm landscape, and the person waves, saying No wifi for you! Text: Is your smart TV listening to you?",
+  "title": "People sick of being spied on by their smart TV"
+}
