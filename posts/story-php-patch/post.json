@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-10-22T11:00:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "Why must every PHP website update today?\n\nOn 21 October the PHP team released PHP 8.5.12, 8.4.27, 8.3.36 and 8.2.35. They fix two critical bugs, CVE-2026-109618 and CVE-2026-109619, each rated 9.2 out of 10. Both can let an attacker run their own code on a server without logging in. In one case, a single crafted request can trigger the attack before the website's own code even starts.\n\nPHP is the engine underneath WordPress, Laravel and many other sites. A bug in your own app hurts one site. A bug in PHP itself reaches every site running that version. That is why the fix is called a patch: a small update to PHP that closes the hole. PHP's advisory says updating is the only complete fix. PHP 8.1 and older no longer get updates from the PHP project.\n\nThe lesson: know which PHP version your server runs (php -v), and update it the day a security release lands, not \"later\".\n\nFull story: https://www.php.net/archive/2026.php#2026-10-21-5\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "Animated illustration with the headline 'Why must every PHP website update today?' and the line 'One bug in PHP reaches every site built on it.' Three website windows, a WordPress blog, a Laravel app and 'Your site', are linked to one box labelled PHP. A red bug crawls onto the PHP box and all three sites show red warning marks. A developer throws a 'patch' bandage onto the bug, a progress bar fills to 'PHP updated, sites safe', and all three sites turn to green ticks. The floor reads 'patch = a small update that fixes a bug' and 'Fixed in 8.5.12 · 8.4.27 · 8.3.36 · 8.2.35'.",
+  "title": "PHP fixes two critical remote code execution bugs (CVE-2026-"
+}

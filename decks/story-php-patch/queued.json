@@ -1,0 +1,12 @@
+{
+  "slot": "2026-10-22T16:30:00+05:30",
+  "category": "Security",
+  "title": "PHP fixes two critical remote code execution bugs (CVE-2026-109618, CVE-2026-109619)",
+  "url": "https://www.php.net/archive/2026.php#2026-10-21-5",
+  "source": "php.net",
+  "hnPoints": null,
+  "hnUrl": null,
+  "engagement": null,
+  "beginner": null,
+  "altText": "Animated illustration with the headline 'Why must every PHP website update today?' and the line 'One bug in PHP reaches every site built on it.' Three website windows, a WordPress blog, a Laravel app and 'Your site', are linked to one box labelled PHP. A red bug crawls onto the PHP box and all three sites show red warning marks. A developer throws a 'patch' bandage onto the bug, a progress bar fills to 'PHP updated, sites safe', and all three sites turn to green ticks. The floor reads 'patch = a small update that fixes a bug' and 'Fixed in 8.5.12 · 8.4.27 · 8.3.36 · 8.2.35'."
+}

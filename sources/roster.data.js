@@ -1,5 +1,5 @@
 window.ROSTER = {
- "generatedAt": "2026-10-22T06:56:59.087Z",
+ "generatedAt": "2026-10-22T06:57:27.409Z",
  "slots": [
   "2026-10-21T14:00:00+05:30",
   "2026-10-21T15:00:00+05:30",
@@ -177,6 +177,22 @@ window.ROSTER = {
      "title": "eMudhra: 8 certificate authority keys were tiny numbers anyone could guess",
      "url": "https://bugzilla.mozilla.org/show_bug.cgi?id=2083449",
      "source": "Mozilla Bugzilla",
+     "hnPoints": null,
+     "hnUrl": null,
+     "beginner": null
+    }
+   ],
+   "linkedin": null
+  },
+  {
+   "slot": "2026-10-22T16:30:00+05:30",
+   "slug": "story-php-patch",
+   "items": [
+    {
+     "category": "Security",
+     "title": "PHP fixes two critical remote code execution bugs (CVE-2026-109618, CVE-2026-109619)",
+     "url": "https://www.php.net/archive/2026.php#2026-10-21-5",
+     "source": "php.net",
      "hnPoints": null,
      "hnUrl": null,
      "beginner": null

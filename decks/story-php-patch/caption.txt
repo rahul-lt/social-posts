@@ -1,0 +1,9 @@
+Why must every PHP website update today?
+
+On 21 October the PHP team released PHP 8.5.12, 8.4.27, 8.3.36 and 8.2.35. They fix two critical bugs, CVE-2026-109618 and CVE-2026-109619, each rated 9.2 out of 10. Both can let an attacker run their own code on a server without logging in. In one case, a single crafted request can trigger the attack before the website's own code even starts.
+
+PHP is the engine underneath WordPress, Laravel and many other sites. A bug in your own app hurts one site. A bug in PHP itself reaches every site running that version. That is why the fix is called a patch: a small update to PHP that closes the hole. PHP's advisory says updating is the only complete fix. PHP 8.1 and older no longer get updates from the PHP project.
+
+The lesson: know which PHP version your server runs (php -v), and update it the day a security release lands, not "later".
+
+Full story: https://www.php.net/archive/2026.php#2026-10-21-5

@@ -152,6 +152,21 @@
       ]
     },
     {
+      "slot": "2026-10-22T16:30:00+05:30",
+      "slug": "story-php-patch",
+      "items": [
+        {
+          "category": "Security",
+          "title": "PHP fixes two critical remote code execution bugs (CVE-2026-109618, CVE-2026-109619)",
+          "url": "https://www.php.net/archive/2026.php#2026-10-21-5",
+          "source": "php.net",
+          "hnPoints": null,
+          "hnUrl": null,
+          "beginner": null
+        }
+      ]
+    },
+    {
       "slot": "2026-10-22T17:00:00+05:30",
       "slug": "story-node-security",
       "items": [

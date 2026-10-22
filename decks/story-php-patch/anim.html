@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<link rel="stylesheet" href="../../scripts/news/story.css">
+</head><body>
+<h1>Why must every PHP website update today?</h1>
+<p>One bug in PHP reaches every site built on it.</p>
+<svg id="s" width="960" height="870" viewBox="0 0 960 870"></svg>
+<script src="../../scripts/news/story.js"></script>
+<script>
+backdrop();
+
+// three websites that all run on PHP
+const sites = [['WordPress blog', 60], ['Laravel app', 360], ['Your site', 660]];
+const pipes = [], badges = [];
+sites.forEach(([name, x], i) => {
+  pipes.push(el('path', {d: `M ${x + 120} 170 L ${400 + i * 80} 300`, fill: 'none', stroke: '#8f9bb8', 'stroke-width': 6, 'stroke-dasharray': '4 14', 'stroke-linecap': 'round'}));
+  offsetShape('rect', {x, y: 20, width: 240, height: 150, rx: 14}, C.soft);
+  el('rect', {x, y: 20, width: 240, height: 150, rx: 14, fill: '#fff', class: 'o'});
+  el('line', {x1: x, y1: 56, x2: x + 240, y2: 56, class: 'o'});
+  [0, 1, 2].forEach(k => el('circle', {cx: x + 22 + k * 20, cy: 38, r: 5, fill: 'none', class: 'o', 'stroke-width': 3}));
+  el('text', {x: x + 20, y: 92, 'font-weight': 700, 'font-size': 22, fill: INK}).textContent = name;
+  [112, 136].forEach((y, k) => el('rect', {x: x + 20, y, width: [150, 110][k], height: 12, rx: 6, fill: '#dfe5f1'}));
+  const b = g({transform: `translate(${x + 206} 132)`});
+  const disc = el('circle', {cx: 0, cy: 0, r: 22, fill: '#dfe5f1', class: 'o', 'stroke-width': 3}, b);
+  const mark = el('path', {d: '', fill: 'none', stroke: INK, 'stroke-width': 5, 'stroke-linecap': 'round', 'stroke-linejoin': 'round'}, b);
+  badges.push({disc, mark});
+});
+
+// the PHP engine every site runs on
+offsetShape('rect', {x: 300, y: 300, width: 360, height: 170, rx: 26}, C.blue);
+el('rect', {x: 300, y: 300, width: 360, height: 170, rx: 26, fill: '#fff', class: 'o'});
+el('text', {x: 480, y: 400, 'text-anchor': 'middle', 'font-weight': 700, 'font-size': 92, fill: C.navy}).textContent = 'PHP';
+el('text', {x: 480, y: 446, 'text-anchor': 'middle', 'font-weight': 600, 'font-size': 20, fill: '#5b6275'}).textContent = "runs the code behind the site";
+
+// update progress bar
+const bar = g({opacity: 0});
+el('rect', {x: 300, y: 500, width: 360, height: 48, rx: 24, fill: '#fff', class: 'o'}, bar);
+const fill = el('rect', {x: 304, y: 504, width: 0, height: 40, rx: 20, fill: C.teal}, bar);
+const barTxt = el('text', {x: 480, y: 533, 'text-anchor': 'middle', 'font-weight': 700, 'font-size': 22, fill: INK}, bar);
+
+// the bug
+const bug = g({});
+[-1, 1].forEach(s => [-14, 0, 14].forEach(dx => el('line', {x1: dx, y1: 0, x2: dx + s * 4, y2: s * 30, class: 'o', 'stroke-width': 4}, bug)));
+el('ellipse', {cx: 0, cy: 0, rx: 30, ry: 22, fill: C.coral, class: 'o'}, bug);
+el('line', {x1: -2, y1: -22, x2: -2, y2: 22, class: 'o', 'stroke-width': 3}, bug);
+el('circle', {cx: 36, cy: 0, r: 13, fill: INK}, bug);
+el('circle', {cx: -14, cy: -8, r: 4, fill: INK}, bug); el('circle', {cx: 12, cy: 9, r: 4, fill: INK}, bug);
+
+// developer with the patch
+const dev = person(720, {shirt: C.teal, hair: INK, pants: C.navy});
+limb('M 778 352 Q 752 420 800 450', C.teal, dev.p);
+const arm = limb('', C.teal);
+const patch = g({});
+el('rect', {x: -62, y: -24, width: 124, height: 48, rx: 22, fill: C.mustard, class: 'o'}, patch);
+el('rect', {x: -24, y: -24, width: 48, height: 48, fill: '#f6d68f', class: 'o', 'stroke-width': 3}, patch);
+el('text', {x: 0, y: 7, 'text-anchor': 'middle', 'font-weight': 700, 'font-size': 18, fill: INK}, patch).textContent = 'patch';
+
+// floor: the explanation and the fixed versions
+el('text', {x: 480, y: 712, 'text-anchor': 'middle', 'font-weight': 600, 'font-size': 28, fill: '#3b4256'}).textContent = 'patch = a small update that fixes a bug';
+const vers = el('text', {x: 480, y: 776, 'text-anchor': 'middle', 'font-family': 'IBM Plex Mono', 'font-weight': 600, 'font-size': 26, fill: INK});
+vers.textContent = 'Fixed in 8.5.12 · 8.4.27 · 8.3.36 · 8.2.35';
+
+const ease = x => (x = Math.max(0, Math.min(1, x)), x < 0.5 ? 2 * x * x : 1 - (-2 * x + 2) ** 2 / 2);
+const lerp = (a, b, k) => a + (b - a) * k;
+function render(t) {
+  // bug crawls across the floor and up onto PHP (t 0 - 0.35)
+  const w = ease(t / 0.22), u = ease((t - 0.22) / 0.13);
+  const bx = lerp(lerp(60, 280, w), 312, u), by = lerp(612, 380, u);
+  bug.setAttribute('transform', `translate(${bx} ${by}) rotate(${lerp(0, -70, u)}) translate(0 ${2 * Math.sin(t * 90)})`);
+  const hit = t >= 0.33, fixed = t >= 0.9;
+  pipes.forEach(p => { p.setAttribute('stroke', fixed ? C.teal : hit ? C.coral : '#8f9bb8'); p.setAttribute('stroke-dashoffset', -t * 180); });
+  badges.forEach(({disc, mark}) => {
+    disc.setAttribute('fill', fixed ? C.teal : hit ? C.coral : '#dfe5f1');
+    mark.setAttribute('d', fixed ? 'M -10 1 L -3 9 L 11 -8' : hit ? 'M 0 -11 L 0 3 M 0 11 L 0 11.5' : '');
+  });
+  // patch flies from the developer's hand onto the bug (t 0.45 - 0.72)
+  const f = ease((t - 0.45) / 0.27);
+  const px = lerp(746, 318, f), py = lerp(410, 392, f) - 120 * Math.sin(Math.PI * f);
+  patch.setAttribute('transform', `translate(${px} ${py}) rotate(${lerp(-12, -30, f)})`);
+  const hx = lerp(746, 700, ease((t - 0.4) / 0.08) * (1 - f)), hy = lerp(410, 390, ease((t - 0.4) / 0.08) * (1 - f));
+  arm.forEach(a => a.setAttribute('d', `M 890 352 Q 900 420 ${f > 0 ? 820 : hx + 40} ${f > 0 ? 440 : hy + 20}`));
+  // PHP update progress (t 0.6 - 0.9)
+  const pr = Math.max(0, Math.min(1, (t - 0.6) / 0.3));
+  bar.setAttribute('opacity', t >= 0.55 ? 1 : 0);
+  fill.setAttribute('width', 352 * pr);
+  barTxt.textContent = fixed ? 'PHP updated, sites safe' : `Updating PHP... ${Math.round(pr * 100)}%`;
+  dev.happy(!hit || fixed);
+}
+render(1);
+</script>
+</body></html>
