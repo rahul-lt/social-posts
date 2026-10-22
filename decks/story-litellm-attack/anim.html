@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<link rel="stylesheet" href="../../scripts/news/story.css">
+</head><body>
+<h1>Can one pip install steal your API keys?</h1>
+<p>A poisoned LiteLLM update did it this week.</p>
+<svg id="s" width="960" height="870" viewBox="0 0 960 870"></svg>
+<script src="../../scripts/news/story.js"></script>
+<script>
+backdrop();
+const mono = {'font-family': 'IBM Plex Mono', 'font-weight': 600, fill: INK};
+
+// terminal window: the one command
+offsetShape('rect', {x: 30, y: 40, width: 330, height: 130, rx: 14}, C.navy);
+el('rect', {x: 30, y: 40, width: 330, height: 130, rx: 14, fill: '#fff', class: 'o'});
+el('line', {x1: 30, y1: 78, x2: 360, y2: 78, class: 'o', 'stroke-width': 3});
+[0, 1, 2].forEach(i => el('circle', {cx: 54 + i * 22, cy: 59, r: 6, fill: 'none', class: 'o', 'stroke-width': 3}));
+const cmd = el('text', {...mono, x: 48, y: 116, 'font-size': 22});
+const done = el('text', {...mono, x: 48, y: 150, 'font-size': 20, fill: '#2f8f6a'});
+
+// developer holding a laptop
+const dev = person(40, {shirt: C.orange, hair: C.mustard});
+limb('M 104 352 Q 70 410 100 446', C.orange); limb('M 204 352 Q 236 410 206 446', C.orange);
+el('rect', {x: 70, y: 380, width: 170, height: 100, rx: 8, fill: '#fff', class: 'o'});
+const scr = el('rect', {x: 82, y: 392, width: 146, height: 76, rx: 4, fill: C.teal});
+el('path', {d: 'M 58 480 L 252 480 L 240 496 L 70 496 Z', fill: '#fff', class: 'o'});
+
+// the package box, with the thief hiding inside
+const boxG = g({});
+const thief = g({}, boxG);
+el('circle', {cx: 470, cy: 470, r: 42, fill: C.navy, transform: 'translate(8 6)'}, thief);
+el('circle', {cx: 470, cy: 470, r: 42, fill: '#4a4a63', class: 'o'}, thief);
+el('rect', {x: 436, y: 456, width: 68, height: 22, rx: 11, fill: '#fff', class: 'o', 'stroke-width': 3}, thief);
+el('circle', {cx: 456, cy: 467, r: 5, fill: INK}, thief); el('circle', {cx: 484, cy: 467, r: 5, fill: INK}, thief);
+el('path', {d: 'M 454 492 q 16 10 32 0', fill: 'none', stroke: '#fff', 'stroke-width': 4, 'stroke-linecap': 'round'}, thief);
+const thiefArm = limb('M 500 500 L 540 440', '#4a4a63', thief);
+const lid = el('path', {d: 'M 360 500 h 220 v 26 h -220 z', fill: '#d9a55a', class: 'o'}, boxG);
+offsetShape('rect', {x: 370, y: 526, width: 200, height: 114, rx: 6}, '#d9a55a', boxG);
+el('rect', {x: 370, y: 526, width: 200, height: 114, rx: 6, fill: '#f1c98a', class: 'o'}, boxG);
+el('text', {x: 470, y: 572, 'text-anchor': 'middle', 'font-weight': 700, 'font-size': 30, fill: INK}, boxG).textContent = 'litellm';
+el('text', {...mono, x: 470, y: 610, 'text-anchor': 'middle', 'font-size': 24}, boxG).textContent = 'v1.107.0';
+
+// attacker's server
+const cloud = 'M 660 190 q -50 0 -46 -44 q 4 -40 50 -36 q 14 -50 70 -40 q 46 -36 90 4 q 56 -6 60 46 q 40 14 22 50 q -10 20 -40 20 z';
+offsetShape('path', {d: cloud}, C.coral);
+el('path', {d: cloud, fill: '#fff', class: 'o'});
+el('text', {x: 760, y: 140, 'text-anchor': 'middle', 'font-weight': 700, 'font-size': 24, fill: INK}).textContent = "hacker's server";
+const loot = [0, 1, 2].map(i => drawKey(706 + i * 52, 172, 0.7));
+
+// flying keys
+const fly = [0, 1, 2].map(() => drawKey(0, 0, 1));
+function drawKey(x, y, s) {
+  const k = g({transform: `translate(${x} ${y}) scale(${s})`});
+  el('circle', {cx: -18, cy: 0, r: 13, fill: C.mustard, class: 'o', 'stroke-width': 3.5}, k);
+  el('circle', {cx: -18, cy: 0, r: 4, fill: '#fff'}, k);
+  el('path', {d: 'M -5 -4 h 30 v 8 h -4 v 7 h -6 v -7 h -5 v 6 h -6 v -6 h -9 z', fill: C.mustard, class: 'o', 'stroke-width': 3}, k);
+  return k;
+}
+
+// lesson card on the floor
+offsetShape('rect', {x: 140, y: 690, width: 680, height: 130, rx: 16}, C.teal);
+el('rect', {x: 140, y: 690, width: 680, height: 130, rx: 16, fill: '#fff', class: 'o'});
+el('text', {x: 480, y: 740, 'text-anchor': 'middle', 'font-weight': 700, 'font-size': 28, fill: INK}).textContent = 'Safer: pin a version you checked';
+el('text', {...mono, x: 480, y: 788, 'text-anchor': 'middle', 'font-size': 28, fill: '#2f8f6a'}).textContent = 'pip install litellm==1.106.2';
+
+const ease = x => x <= 0 ? 0 : x >= 1 ? 1 : x < 0.5 ? 2 * x * x : 1 - (-2 * x + 2) ** 2 / 2;
+const seg = (t, a, b) => ease((t - a) / (b - a));
+function render(t) {
+  const typed = 'pip install litellm', n = Math.round(typed.length * seg(t, 0, 0.18));
+  cmd.textContent = '$ ' + typed.slice(0, n);
+  done.textContent = t > 0.22 ? 'installed 1.107.0' : '';
+  const drop = seg(t, 0.12, 0.3);
+  boxG.setAttribute('transform', `translate(0 ${-520 * (1 - drop)})`);
+  const pop = seg(t, 0.32, 0.45);
+  lid.setAttribute('transform', `rotate(${-38 * pop} 360 500) translate(0 ${-30 * pop})`);
+  thief.setAttribute('transform', `translate(0 ${80 - 80 * pop})`);
+  thiefArm.forEach(p => p.setAttribute('d', `M 500 500 L ${540 + 6 * Math.sin(t * 40)} ${440 - 4 * Math.cos(t * 40)}`));
+  dev.happy(t < 0.6);
+  scr.setAttribute('fill', t > 0.45 && ((t * 6) % 1) < 0.5 ? C.coral : C.teal);
+  fly.forEach((k, i) => {
+    const u = seg(t, 0.45 + i * 0.12, 0.66 + i * 0.12);
+    const x0 = 160, y0 = 420, cx = 470, cy = 230, x1 = 706 + i * 52, y1 = 172;
+    const x = (1 - u) ** 2 * x0 + 2 * (1 - u) * u * cx + u * u * x1, y = (1 - u) ** 2 * y0 + 2 * (1 - u) * u * cy + u * u * y1;
+    k.setAttribute('transform', `translate(${x} ${y}) rotate(${-30 + 360 * u}) scale(${1 - 0.3 * u})`);
+    k.setAttribute('opacity', u > 0 && u < 1 ? 1 : 0);
+    loot[i].setAttribute('opacity', u >= 1 ? 1 : 0);
+  });
+}
+render(1);
+</script>
+</body></html>

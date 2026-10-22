@@ -1,0 +1,12 @@
+{
+  "slot": "2026-10-22T17:30:00+05:30",
+  "category": "Security",
+  "title": "LiteLLM 1.107.0 on PyPI was backdoored with a credential stealer",
+  "url": "https://docs.litellm.ai/blog/security-incident-oct-21-2026",
+  "source": "LiteLLM",
+  "hnPoints": null,
+  "hnUrl": null,
+  "engagement": null,
+  "beginner": null,
+  "altText": "Animated illustration with the headline 'Can one pip install steal your API keys?' and the line 'A poisoned LiteLLM update did it this week.' A developer types 'pip install litellm' and the terminal says 'installed 1.107.0'. A box labelled 'litellm v1.107.0' drops in, its lid pops open and a masked thief climbs out. Gold keys fly from the developer's laptop to a cloud labelled 'hacker's server' while the developer frowns. A card on the floor reads 'Safer: pin a version you checked: pip install litellm==1.106.2'."
+}

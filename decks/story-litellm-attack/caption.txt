@@ -1,0 +1,9 @@
+Can one pip install steal your API keys?
+
+LiteLLM is a popular Python package (a ready-made bundle of code you add with one command) that lets apps talk to many AI models. On 21 October, version 1.107.0 showed up on PyPI with hidden malware inside. The code on GitHub was clean. The attacker used stolen developer tokens to build the release from a lookalike repo, Berri-AI/litellm, instead of the real BerriAI/litellm.
+
+The bad version was on PyPI for under two hours, and the official Docker images were affected too. But anyone who ran a plain "pip install litellm" in that window got it. The malware ran every time Python started, even if you never imported LiteLLM. It collected SSH keys, cloud logins, saved browser passwords and AI API keys, sent them to a fake domain, and checked every hour for new commands. LiteLLM says to treat any machine that installed it as compromised.
+
+The lesson: pin your versions (litellm==1.106.2 is the safe one here), read the changelog before you upgrade, and if you installed 1.107.0, rebuild the environment and rotate every key it could reach.
+
+Full story: https://docs.litellm.ai/blog/security-incident-oct-21-2026

@@ -1,5 +1,5 @@
 window.ROSTER = {
- "generatedAt": "2026-10-22T06:55:43.571Z",
+ "generatedAt": "2026-10-22T06:56:13.949Z",
  "slots": [
   "2026-10-21T14:00:00+05:30",
   "2026-10-21T15:00:00+05:30",
@@ -177,6 +177,22 @@ window.ROSTER = {
      "title": "Node.js October 2026 security releases fix 10 vulnerabilities",
      "url": "https://nodejs.org/en/blog/vulnerability/october-2026-security-releases",
      "source": "nodejs.org",
+     "hnPoints": null,
+     "hnUrl": null,
+     "beginner": null
+    }
+   ],
+   "linkedin": null
+  },
+  {
+   "slot": "2026-10-22T17:30:00+05:30",
+   "slug": "story-litellm-attack",
+   "items": [
+    {
+     "category": "Security",
+     "title": "LiteLLM 1.107.0 on PyPI was backdoored with a credential stealer",
+     "url": "https://docs.litellm.ai/blog/security-incident-oct-21-2026",
+     "source": "LiteLLM",
      "hnPoints": null,
      "hnUrl": null,
      "beginner": null

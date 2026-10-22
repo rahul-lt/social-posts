@@ -150,6 +150,21 @@
           "beginner": null
         }
       ]
+    },
+    {
+      "slot": "2026-10-22T17:30:00+05:30",
+      "slug": "story-litellm-attack",
+      "items": [
+        {
+          "category": "Security",
+          "title": "LiteLLM 1.107.0 on PyPI was backdoored with a credential stealer",
+          "url": "https://docs.litellm.ai/blog/security-incident-oct-21-2026",
+          "source": "LiteLLM",
+          "hnPoints": null,
+          "hnUrl": null,
+          "beginner": null
+        }
+      ]
     }
   ],
   "pick": {
