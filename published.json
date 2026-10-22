@@ -211,5 +211,12 @@
       "url": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7519005001462075392/",
       "at": "2026-10-22T12:01:29.384Z"
     }
+  },
+  "story-claude-duet": {
+    "linkedin": {
+      "id": "urn:li:share:7519012539897389057",
+      "url": "https://www.linkedin.com/feed/update/urn:li:share:7519012539897389057/",
+      "at": "2026-10-22T12:31:26.730Z"
+    }
   }
 }
