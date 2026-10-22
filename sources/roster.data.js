@@ -1,5 +1,5 @@
 window.ROSTER = {
- "generatedAt": "2026-10-22T06:53:53.569Z",
+ "generatedAt": "2026-10-22T06:55:43.571Z",
  "slots": [
   "2026-10-21T14:00:00+05:30",
   "2026-10-21T15:00:00+05:30",
@@ -164,6 +164,22 @@ window.ROSTER = {
      "hnPoints": 94,
      "hnUrl": "https://news.ycombinator.com/item?id=50163625",
      "beginner": 2.47
+    }
+   ],
+   "linkedin": null
+  },
+  {
+   "slot": "2026-10-22T17:00:00+05:30",
+   "slug": "story-node-security",
+   "items": [
+    {
+     "category": "Security",
+     "title": "Node.js October 2026 security releases fix 10 vulnerabilities",
+     "url": "https://nodejs.org/en/blog/vulnerability/october-2026-security-releases",
+     "source": "nodejs.org",
+     "hnPoints": null,
+     "hnUrl": null,
+     "beginner": null
     }
    ],
    "linkedin": null

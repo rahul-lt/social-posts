@@ -135,6 +135,21 @@
           "beginner": 2.47
         }
       ]
+    },
+    {
+      "slot": "2026-10-22T17:00:00+05:30",
+      "slug": "story-node-security",
+      "items": [
+        {
+          "category": "Security",
+          "title": "Node.js October 2026 security releases fix 10 vulnerabilities",
+          "url": "https://nodejs.org/en/blog/vulnerability/october-2026-security-releases",
+          "source": "nodejs.org",
+          "hnPoints": null,
+          "hnUrl": null,
+          "beginner": null
+        }
+      ]
     }
   ],
   "pick": {

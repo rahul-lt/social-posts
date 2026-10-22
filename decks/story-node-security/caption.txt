@@ -1,0 +1,9 @@
+Did you update Node.js this week?
+
+On 21 October, Node.js shipped security releases for its 26.x, 24.x and 22.x lines. They fix 10 security bugs, 4 of them rated high. One made dns.resolve cut off names that contain a hidden NUL character. Others let a TLS certificate check be fooled by oddly written IP addresses, and one bug in the Brotli decoder (the code that unzips compressed data) could let an attacker run their own code.
+
+A security release is a small update, often called a patch, that closes holes like these without changing how your code works. The fixed versions are v22.23.4, v24.22.1 and v26.12.1. Older versions that have reached end of life get no fixes at all.
+
+The lesson: run node -v in your terminal. If your number is lower than the fixed version for your line, update Node.js today, and update the Node version your project uses in CI and Docker too.
+
+Full story: https://nodejs.org/en/blog/vulnerability/october-2026-security-releases

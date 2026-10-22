@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<link rel="stylesheet" href="../../scripts/news/story.css">
+</head><body>
+<h1>Did you update Node.js this week?</h1>
+<p>On 21 October, Node.js fixed 10 security bugs.</p>
+<svg id="s" width="960" height="870" viewBox="0 0 960 870"></svg>
+<script src="../../scripts/news/story.js"></script>
+<script>
+backdrop();
+const MONO = {'font-family': 'IBM Plex Mono', 'font-weight': 600, 'font-size': 30};
+const txt = (x, y, s, fill = '#fff', extra = {}, parent = S) => { const e = el('text', {x, y, ...MONO, fill, ...extra}, parent); e.textContent = s; return e; };
+
+// terminal window
+offsetShape('rect', {x: 270, y: 60, width: 640, height: 400, rx: 16}, C.blue);
+el('rect', {x: 270, y: 60, width: 640, height: 400, rx: 16, fill: INK, class: 'o'});
+el('rect', {x: 270, y: 60, width: 640, height: 50, rx: 16, fill: '#fff', class: 'o'});
+el('rect', {x: 272, y: 96, width: 636, height: 14, fill: '#fff'});
+el('line', {x1: 270, y1: 110, x2: 910, y2: 110, class: 'o'});
+[0, 1, 2].forEach(i => el('circle', {cx: 300 + i * 26, cy: 85, r: 7, fill: [C.coral, C.mustard, C.teal][i], class: 'o', 'stroke-width': 3}));
+el('text', {x: 590, y: 94, 'text-anchor': 'middle', 'font-weight': 700, 'font-size': 22, fill: INK}).textContent = 'Terminal';
+
+const l1 = txt(300, 165, '');
+const out1 = txt(300, 212, 'v24.22.0', C.coral);
+const oldTag = g({});
+el('rect', {x: 488, y: 186, width: 150, height: 36, rx: 18, fill: C.coral, class: 'o', 'stroke-width': 3}, oldTag);
+el('text', {x: 563, y: 212, 'text-anchor': 'middle', 'font-weight': 700, 'font-size': 22, fill: '#fff'}, oldTag).textContent = 'not patched';
+const l2 = txt(300, 280, '', C.mustard);
+el('rect', {x: 300, y: 298, width: 580, height: 26, rx: 13, fill: 'none', stroke: '#fff', 'stroke-width': 3});
+const bar = el('rect', {x: 304, y: 302, width: 0, height: 18, rx: 9, fill: C.mustard});
+const l3 = txt(300, 375, '');
+const out3 = txt(300, 422, 'v24.22.1', C.teal);
+const okTag = g({});
+el('rect', {x: 488, y: 396, width: 150, height: 36, rx: 18, fill: C.teal, class: 'o', 'stroke-width': 3}, okTag);
+el('text', {x: 563, y: 422, 'text-anchor': 'middle', 'font-weight': 700, 'font-size': 22, fill: INK}, okTag).textContent = 'patched ✓';
+const cursor = el('rect', {x: 300, y: 142, width: 16, height: 28, fill: '#fff'});
+
+// shield on the floor, cracked until the patch lands
+const shield = g({});
+const shieldD = 'M 640 486 L 720 506 L 720 566 Q 720 616 640 640 Q 560 616 560 566 L 560 506 Z';
+const shieldFill = el('path', {d: shieldD, fill: C.coral, transform: 'translate(10 8)'}, shield);
+el('path', {d: shieldD, fill: '#fff', class: 'o'}, shield);
+const crack = el('path', {d: 'M 630 510 l 18 30 l -16 22 l 20 34', fill: 'none', class: 'o', 'stroke-width': 5}, shield);
+const patch = g({});
+el('rect', {x: -62, y: -24, width: 124, height: 48, rx: 14, fill: C.mustard, class: 'o', 'stroke-width': 3}, patch);
+el('text', {x: 0, y: 9, 'text-anchor': 'middle', 'font-weight': 700, 'font-size': 24, fill: INK}, patch).textContent = 'patch';
+
+// developer, pointing at the terminal
+const dev = person(20, {shirt: C.teal, hair: C.navy, pants: C.navy});
+limb('M 64 352 Q 34 420 70 452', C.teal, dev.p);
+limb('M 190 352 Q 230 330 262 300', C.teal);
+
+const ease = x => x < 0.5 ? 2 * x * x : 1 - (-2 * x + 2) ** 2 / 2;
+const clamp = x => Math.max(0, Math.min(1, x));
+const typed = (s, k) => s.slice(0, Math.round(s.length * clamp(k)));
+function render(t) {
+  const c1 = '$ node -v', c2 = 'updating Node.js...', c3 = '$ node -v';
+  l1.textContent = typed(c1, t / 0.12);
+  const show1 = t >= 0.14 ? 1 : 0;
+  out1.setAttribute('opacity', show1); oldTag.setAttribute('opacity', show1);
+  l2.textContent = t < 0.28 ? '' : (t >= 0.62 ? 'updated!' : typed(c2, (t - 0.28) / 0.1));
+  bar.setAttribute('width', 572 * ease(clamp((t - 0.34) / 0.28)));
+  l3.textContent = typed(c3, (t - 0.66) / 0.1);
+  const show3 = t >= 0.8 ? 1 : 0;
+  out3.setAttribute('opacity', show3); okTag.setAttribute('opacity', show3);
+  const line = t < 0.14 ? [l1, 142] : t < 0.28 ? null : t < 0.66 ? [l2, 257] : t < 0.8 ? [l3, 352] : null;
+  if (line && ((t * 6) % 1 < 0.6 || line[0].textContent.length < 3)) {
+    const w = line[0].getComputedTextLength();
+    cursor.setAttribute('x', 306 + w); cursor.setAttribute('y', line[1]); cursor.setAttribute('opacity', 1);
+  } else cursor.setAttribute('opacity', 0);
+  const p = ease(clamp((t - 0.62) / 0.2));
+  patch.setAttribute('transform', `translate(${820 - 180 * p} ${560 - 10 * p - 80 * Math.sin(Math.PI * p)}) rotate(${-30 * (1 - p) - 20})`);
+  shieldFill.setAttribute('fill', p >= 1 ? C.teal : C.coral);
+  dev.happy(t >= 0.8);
+  shield.setAttribute('transform', t < 0.62 ? `translate(${3 * Math.sin(2 * Math.PI * t * 8)} 0)` : '');
+}
+render(1);
+</script>
+</body></html>

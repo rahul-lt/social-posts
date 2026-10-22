@@ -1,0 +1,12 @@
+{
+  "slot": "2026-10-22T17:00:00+05:30",
+  "category": "Security",
+  "title": "Node.js October 2026 security releases fix 10 vulnerabilities",
+  "url": "https://nodejs.org/en/blog/vulnerability/october-2026-security-releases",
+  "source": "nodejs.org",
+  "hnPoints": null,
+  "hnUrl": null,
+  "engagement": null,
+  "beginner": null,
+  "altText": "Animated illustration with the headline \"Did you update Node.js this week?\" and the line \"On 21 October, Node.js fixed 10 security bugs.\" A developer points at a terminal. Typing node -v shows v24.22.0 marked not patched, next to a cracked shield. A progress bar fills while Node.js updates, a bandage labelled patch lands on the shield, and node -v now shows v24.22.1 marked patched as the developer smiles."
+}
