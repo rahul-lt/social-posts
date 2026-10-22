@@ -1,0 +1,9 @@
+What if a website's padlock key was just 4?
+
+That padlock in your browser works because a certificate authority (CA) vouches for the site. It signs the site's certificate, a kind of ID card, with a secret key. That key should be a random 384-bit number. On 17 October a researcher reported on Mozilla's bug tracker that 8 keys from eMudhra, an Indian CA, were tiny numbers under 256. One of them was literally 4. With a key like that, anyone could sign a fake certificate for any website.
+
+Firefox and Chrome blocked the 8 keys within hours, Apple followed on 19 October and Microsoft on 20 October, and eMudhra revoked them. eMudhra says a faulty script in its April 2025 key ceremony made the weak keys, only one was ever put into production, and none was used to issue customer certificates.
+
+The lesson: keys are only as strong as the randomness behind them. Generate them with a proper crypto library, never roll your own, and keep your browser, OS and Node or Python runtime updated so revoked certificates actually get rejected.
+
+Full story: https://bugzilla.mozilla.org/show_bug.cgi?id=2083449

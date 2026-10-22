@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<link rel="stylesheet" href="../../scripts/news/story.css">
+</head><body>
+<h1>What if a website's padlock key was just 4?</h1>
+<p>An Indian certificate authority made 8 keys anyone could guess.</p>
+<svg id="s" width="960" height="870" viewBox="0 0 960 870"></svg>
+<script src="../../scripts/news/story.js"></script>
+<script>
+backdrop();
+const txt = (x, y, s, a = {}, parent = S) => { const e = el('text', {x, y, fill: INK, 'font-weight': 700, 'font-size': 26, ...a}, parent); e.textContent = s; return e; };
+const mono = {'font-family': 'IBM Plex Mono', 'font-weight': 600, 'font-size': 28};
+
+// the secret keys: a real one is a huge random number, eMudhra's was almost all zeroes
+offsetShape('rect', {x: 50, y: 24, width: 850, height: 186, rx: 16}, C.soft);
+el('rect', {x: 50, y: 24, width: 850, height: 186, rx: 16, fill: '#fff', class: 'o'});
+txt(76, 80, 'Normal key');
+txt(300, 80, '7f3a 9c41 e2b8 0d6f 51c3 a9e7 ...', mono);
+txt(76, 160, "eMudhra's key");
+txt(300, 160, '0000 0000 0000 0000 00', mono);
+const digit = el('rect', {x: 680, y: 126, width: 46, height: 48, rx: 8, fill: C.mustard, class: 'o', 'stroke-width': 3});
+const dTxt = txt(703, 161, '1', {...mono, 'text-anchor': 'middle'});
+const found = txt(742, 161, '', {'font-size': 24, fill: C.coral});
+
+// browser window with the padlock
+offsetShape('rect', {x: 40, y: 250, width: 380, height: 340, rx: 16}, C.blue);
+el('rect', {x: 40, y: 250, width: 380, height: 340, rx: 16, fill: '#fff', class: 'o'});
+el('line', {x1: 40, y1: 296, x2: 420, y2: 296, class: 'o'});
+[0, 1, 2].forEach(i => el('circle', {cx: 68 + i * 24, cy: 273, r: 6, fill: 'none', class: 'o', 'stroke-width': 3}));
+el('rect', {x: 60, y: 312, width: 340, height: 46, rx: 23, fill: '#eef2f9', class: 'o', 'stroke-width': 3});
+el('path', {d: 'M 82 330 v -6 a 9 9 0 0 1 18 0 v 6', fill: 'none', class: 'o', 'stroke-width': 3});
+const lock = el('rect', {x: 78, y: 330, width: 26, height: 20, rx: 4, fill: C.teal, class: 'o', 'stroke-width': 3});
+txt(116, 344, 'yourbank.com', {'font-size': 22});
+[392, 424, 456].forEach((y, i) => el('rect', {x: 66, y, width: [300, 250, 280][i], height: 14, rx: 7, fill: '#dfe5f1'}));
+const shield = g({});
+el('path', {d: 'M 0 -46 L 40 -30 Q 40 20 0 46 Q -40 20 -40 -30 Z', fill: C.teal, class: 'o'}, shield);
+el('path', {d: 'M -16 0 L -4 14 L 18 -12', fill: 'none', class: 'o', 'stroke-width': 6}, shield);
+
+// someone holding a fake certificate signed with the guessed key
+const att = person(640, {shirt: C.navy, hair: INK, pants: C.blue});
+limb('M 704 352 Q 660 420 640 440', C.navy);
+const card = g({});
+offsetShape('rect', {x: 0, y: 0, width: 210, height: 136, rx: 12}, C.mustard, card, 8, 8);
+el('rect', {x: 0, y: 0, width: 210, height: 136, rx: 12, fill: '#fff', class: 'o'}, card);
+txt(18, 38, 'Certificate', {'font-size': 22}, card);
+txt(18, 72, 'yourbank.com', {'font-size': 19, fill: '#5b6275'}, card);
+el('circle', {cx: 168, cy: 98, r: 22, fill: C.coral, class: 'o', 'stroke-width': 3}, card);
+txt(168, 106, '4', {...mono, 'font-size': 22, 'text-anchor': 'middle', fill: '#fff'}, card);
+txt(18, 112, 'FAKE', {'font-size': 20, fill: C.coral}, card);
+const stamp = g({});
+el('rect', {x: -118, y: -34, width: 236, height: 68, rx: 10, fill: '#fff', stroke: C.coral, 'stroke-width': 7}, stamp);
+txt(0, 15, 'BLOCKED', {'font-size': 40, fill: C.coral, 'text-anchor': 'middle'}, stamp);
+limb('M 806 352 Q 836 410 812 450', C.navy);
+
+// what it means, on the floor
+txt(480, 700, "A certificate is a website's ID card.", {'font-size': 30, 'text-anchor': 'middle'});
+txt(480, 742, "A CA signs it with a secret key. Guess the key,", {'font-size': 26, 'text-anchor': 'middle', fill: '#5b6275'});
+txt(480, 776, 'and you can sign fake ones.', {'font-size': 26, 'text-anchor': 'middle', fill: '#5b6275'});
+const fix = txt(480, 822, 'Chrome, Firefox, Apple and Microsoft blocked all 8.', {'font-size': 26, 'text-anchor': 'middle', fill: C.navy});
+
+const ease = x => x < 0.5 ? 2 * x * x : 1 - (-2 * x + 2) ** 2 / 2;
+const clamp = x => Math.max(0, Math.min(1, x));
+function render(t) {
+  const n = Math.min(4, 1 + Math.floor(t / 0.1));
+  dTxt.textContent = n;
+  digit.setAttribute('fill', n === 4 ? C.coral : C.mustard);
+  found.textContent = n === 4 ? 'Guessed!' : '';
+  const m = ease(clamp((t - 0.4) / 0.3));
+  card.setAttribute('transform', `translate(${560 - 300 * m} ${404 - 10 * m})`);
+  card.setAttribute('opacity', t < 0.4 ? 0 : 1);
+  const b = ease(clamp((t - 0.75) / 0.15));
+  stamp.setAttribute('transform', `translate(365 462) rotate(-12) scale(${1.6 - 0.6 * b})`);
+  stamp.setAttribute('opacity', b);
+  shield.setAttribute('transform', `translate(372 ${250 + 0 * b}) scale(${0.6 + 0.4 * b})`);
+  shield.setAttribute('opacity', b);
+  fix.setAttribute('opacity', b);
+  att.happy(t < 0.75);
+}
+render(1);
+</script>
+</body></html>

@@ -137,6 +137,21 @@
       ]
     },
     {
+      "slot": "2026-10-22T16:00:00+05:30",
+      "slug": "story-emudhra-key-leak",
+      "items": [
+        {
+          "category": "Security",
+          "title": "eMudhra: 8 certificate authority keys were tiny numbers anyone could guess",
+          "url": "https://bugzilla.mozilla.org/show_bug.cgi?id=2083449",
+          "source": "Mozilla Bugzilla",
+          "hnPoints": null,
+          "hnUrl": null,
+          "beginner": null
+        }
+      ]
+    },
+    {
       "slot": "2026-10-22T17:00:00+05:30",
       "slug": "story-node-security",
       "items": [

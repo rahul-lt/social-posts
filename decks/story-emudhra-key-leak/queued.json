@@ -1,0 +1,12 @@
+{
+  "slot": "2026-10-22T16:00:00+05:30",
+  "category": "Security",
+  "title": "eMudhra: 8 certificate authority keys were tiny numbers anyone could guess",
+  "url": "https://bugzilla.mozilla.org/show_bug.cgi?id=2083449",
+  "source": "Mozilla Bugzilla",
+  "hnPoints": null,
+  "hnUrl": null,
+  "engagement": null,
+  "beginner": null,
+  "altText": "Animated illustration with the headline 'What if a website's padlock key was just 4?' and the line 'An Indian certificate authority made 8 keys anyone could guess.' A panel compares a normal key, a long random string, with eMudhra's key, all zeroes, while a counter ticks 1, 2, 3, 4 and shows 'Guessed!'. A person slides a fake certificate for yourbank.com, marked with a 4, toward a browser window with a padlock. A red BLOCKED stamp lands on it and a green shield appears over the browser. Text at the bottom: 'A certificate is a website's ID card. A CA signs it with a secret key. Guess the key, and you can sign fake ones. Chrome, Firefox, Apple and Microsoft blocked all 8.'"
+}

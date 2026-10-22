@@ -1,5 +1,5 @@
 window.ROSTER = {
- "generatedAt": "2026-10-22T06:56:13.949Z",
+ "generatedAt": "2026-10-22T06:56:59.087Z",
  "slots": [
   "2026-10-21T14:00:00+05:30",
   "2026-10-21T15:00:00+05:30",
@@ -164,6 +164,22 @@ window.ROSTER = {
      "hnPoints": 94,
      "hnUrl": "https://news.ycombinator.com/item?id=50163625",
      "beginner": 2.47
+    }
+   ],
+   "linkedin": null
+  },
+  {
+   "slot": "2026-10-22T16:00:00+05:30",
+   "slug": "story-emudhra-key-leak",
+   "items": [
+    {
+     "category": "Security",
+     "title": "eMudhra: 8 certificate authority keys were tiny numbers anyone could guess",
+     "url": "https://bugzilla.mozilla.org/show_bug.cgi?id=2083449",
+     "source": "Mozilla Bugzilla",
+     "hnPoints": null,
+     "hnUrl": null,
+     "beginner": null
     }
    ],
    "linkedin": null
