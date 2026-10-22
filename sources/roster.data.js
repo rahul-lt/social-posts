@@ -1,5 +1,5 @@
 window.ROSTER = {
- "generatedAt": "2026-10-22T07:08:41.855Z",
+ "generatedAt": "2026-10-22T07:09:22.237Z",
  "slots": [
   "2026-10-21T14:00:00+05:30",
   "2026-10-21T15:00:00+05:30",
@@ -170,7 +170,7 @@ window.ROSTER = {
   },
   {
    "slot": "2026-10-22T16:00:00+05:30",
-   "slug": "story-emudhra-key-leak",
+   "slug": "explainer-emudhra-keys",
    "items": [
     {
      "category": "Security",

@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-10-22T10:30:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "What if the secret key behind a website's padlock was just the number 4?\nAn Indian certificate authority, eMudhra, made 8 CA keys so small that anyone could guess them and sign a fake HTTPS certificate for any site. Here is how the padlock works, what went wrong and how browsers fixed it.\nFull story: https://bugzilla.mozilla.org/show_bug.cgi?id=2083449\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "explainer emudhra keys",
+  "title": "Explainer Emudhra Keys"
+}

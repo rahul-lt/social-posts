@@ -1,0 +1,3 @@
+What if the secret key behind a website's padlock was just the number 4?
+An Indian certificate authority, eMudhra, made 8 CA keys so small that anyone could guess them and sign a fake HTTPS certificate for any site. Here is how the padlock works, what went wrong and how browsers fixed it.
+Full story: https://bugzilla.mozilla.org/show_bug.cgi?id=2083449
