@@ -204,5 +204,12 @@
       "url": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7518997491552309248/",
       "at": "2026-10-22T11:31:38.782Z"
     }
+  },
+  "explainer-litellm-attack": {
+    "linkedin": {
+      "id": "urn:li:ugcPost:7519005001462075392",
+      "url": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7519005001462075392/",
+      "at": "2026-10-22T12:01:29.384Z"
+    }
   }
 }
