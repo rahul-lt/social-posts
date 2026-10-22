@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-10-22T11:00:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "How could one request, with no login, run someone else's code on a PHP server?\n\nOn 21 October PHP shipped 8.5.12, 8.4.27, 8.3.36 and 8.2.35 to fix two critical bugs rated 9.2, and this carousel explains how they work and what to check on your server.\n\nFull story: https://www.php.net/archive/2026.php#2026-10-21-5\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "explainer php rce",
+  "title": "Explainer Php Rce"
+}

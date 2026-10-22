@@ -1,5 +1,5 @@
 window.ROSTER = {
- "generatedAt": "2026-10-22T06:57:27.409Z",
+ "generatedAt": "2026-10-22T07:08:41.855Z",
  "slots": [
   "2026-10-21T14:00:00+05:30",
   "2026-10-21T15:00:00+05:30",
@@ -186,7 +186,7 @@ window.ROSTER = {
   },
   {
    "slot": "2026-10-22T16:30:00+05:30",
-   "slug": "story-php-patch",
+   "slug": "explainer-php-rce",
    "items": [
     {
      "category": "Security",
