@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-10-22T11:30:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "Which Node.js version are your laptop, your CI and your Docker image running right now?\nNode.js fixed 10 security bugs in versions 22, 24 and 26, including a TLS certificate check bypass and a Brotli bug that could allow remote code execution.\nFull story: https://nodejs.org/en/blog/vulnerability/october-2026-security-releases\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "explainer node security",
+  "title": "Explainer Node Security"
+}

@@ -1,5 +1,5 @@
 window.ROSTER = {
- "generatedAt": "2026-10-22T07:09:31.695Z",
+ "generatedAt": "2026-10-22T07:09:50.110Z",
  "slots": [
   "2026-10-21T14:00:00+05:30",
   "2026-10-21T15:00:00+05:30",
@@ -202,7 +202,7 @@ window.ROSTER = {
   },
   {
    "slot": "2026-10-22T17:00:00+05:30",
-   "slug": "story-node-security",
+   "slug": "explainer-node-security",
    "items": [
     {
      "category": "Security",
