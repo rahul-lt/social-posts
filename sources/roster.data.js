@@ -1,5 +1,5 @@
 window.ROSTER = {
- "generatedAt": "2026-10-22T07:09:50.110Z",
+ "generatedAt": "2026-10-22T08:12:38.701Z",
  "slots": [
   "2026-10-21T14:00:00+05:30",
   "2026-10-21T15:00:00+05:30",
@@ -89,7 +89,7 @@ window.ROSTER = {
    "linkedin": null
   },
   {
-   "slot": "2026-10-22T13:30:00+05:30",
+   "slot": "2026-10-22T18:00:00+05:30",
    "slug": "story-claude-duet",
    "items": [
     {
