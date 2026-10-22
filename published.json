@@ -183,5 +183,12 @@
       "url": "https://www.linkedin.com/feed/update/urn:li:share:7518974796051763200/",
       "at": "2026-10-22T10:01:27.791Z"
     }
+  },
+  "explainer-emudhra-keys": {
+    "linkedin": {
+      "id": "urn:li:ugcPost:7518982397258829824",
+      "url": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7518982397258829824/",
+      "at": "2026-10-22T10:31:40.073Z"
+    }
   }
 }
