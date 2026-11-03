@@ -2,6 +2,7 @@
 
 What we know about short LinkedIn nugget posts for Frontend Master (linkedin.com/in/frontendmaster, 2.5K followers).
 The `tech-nugget` skill reads this file before writing anything. Update it after every review round.
+**Read `nuggets/CONTENT-PLAYBOOK.md` too** (2026-11-04: performance data, hook/card/caption rules, banned patterns).
 
 **Audience:** B.Tech CS students and developers with 0-2 years of experience, mostly India.
 **Pillars:** frontend (core, ~50%), AI for developers (~25%), backend basics (~15%), career (~10%).

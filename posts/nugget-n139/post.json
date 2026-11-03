@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-11-08T13:30:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "Your laptop has a fast CPU and fast Wi-Fi. A lot of your users have neither.\n\nThrottling in DevTools isn't a perfect copy of a real phone, but it shows the problems quickly: a blank screen while JavaScript downloads, buttons that don't respond, a spinner that never ends.\n\nFix the biggest one you notice. Then test on a real low-end phone if you can borrow one.\n\nSource: Chrome DevTools docs, Network and CPU throttling.\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "Your users aren't on your laptop.\n\nDevTools → Network → [[Slow 4G]]\nPerformance → CPU: [[4x slowdown]]\n\nNow load your app. That's closer to a budget Android phone.",
+  "title": "Nugget N139"
+}

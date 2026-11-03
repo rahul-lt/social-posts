@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-11-13T01:30:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "Interviewers love this one because it looks like it can't possibly fail.\n\nLook at the card. map calls your function with three arguments: the value, the index and the array. parseInt takes two: the string and a radix (the number base).\n\nSo the calls are parseInt('1', 0), parseInt('2', 1) and parseInt('3', 2). A radix of 0 means \"work it out\", so '1' gives 1. Base 1 doesn't exist, so NaN. In base 2 only 0 and 1 are digits, so '3' gives NaN.\n\nFix: map(Number), or wrap it so you control the arguments, with a radix of 10.\n\nSource: MDN, parseInt() and Array.prototype.map().\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "",
+  "title": "Nugget N157"
+}

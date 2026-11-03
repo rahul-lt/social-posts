@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-11-14T01:30:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "Senior frontend rounds now include accessibility questions, and this is the first one.\n\nLook at the card. The div looks right and works with a mouse. But a div can't take keyboard focus, so Tab skips it. Enter and Space don't trigger it. A screen reader announces it as plain text, not as a button.\n\nA real button gives you all of that for free: focus, keyboard activation and the right role.\n\nPatching the div needs tabIndex, role=\"button\" and a keydown handler for Enter and Space. That's three things to get right instead of one tag.\n\nQuick test for your own project: unplug the mouse and try to buy something.\n\nSource: MDN, ARIA button role (prefer the button element).\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "",
+  "title": "Nugget N161"
+}

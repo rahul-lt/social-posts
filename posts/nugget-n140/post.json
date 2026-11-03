@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-11-08T18:00:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "The AI wrote correct code that does a lot of work for nothing. Would you catch it in review?\n\nLook at the card. buildIndex(products) is an ordinary function call. JavaScript runs it every time the component renders, before useState even sees it. React uses the value on the first render and ignores it after that. So the index gets rebuilt on every keystroke and thrown away.\n\nPass a function instead: useState(() => buildIndex(products)). React calls it only on the first render.\n\nThis only matters when the initial value is expensive to create: parsing, sorting, building a lookup. For useState(0) there's nothing to save.\n\nSource: react.dev, useState (avoiding recreating the initial state).\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "",
+  "title": "Nugget N140"
+}

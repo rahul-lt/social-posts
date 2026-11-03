@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-11-15T18:00:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "An AI built a seat map for a booking page. Book one seat and every row shows it.\n\nLook at the card. fill([]) creates one empty array and puts that same array in all three slots. rows[0], rows[1] and rows[2] all point to it, so a push through any of them shows up in all of them.\n\nArray.from({ length: 3 }, () => []) calls the function once per slot, so each row gets its own array.\n\nThe same trap applies to fill({}) with objects. fill(0) or fill('') is fine, because numbers and strings aren't shared references.\n\nSource: MDN, Array.prototype.fill() (filling with an object).\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "",
+  "title": "Nugget N168"
+}

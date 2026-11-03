@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-11-17T13:30:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "When someone shares a link, WhatsApp, LinkedIn and most chat apps read Open Graph meta tags to build the preview card: og:title, og:description and og:image.\n\nWithout them, your portfolio or project shows up as a plain link that nobody taps.\n\nAdd the three tags to your page's <head>, with an image around 1200x630. If your app renders on the client only, make sure those tags are in the HTML the server sends, because link preview bots usually don't run JavaScript.\n\nRecruiters open links from chats too.\n\nSource: ogp.me (The Open Graph protocol).\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "Paste your project's link into a WhatsApp chat.\n\nNo title, no image, just a bare URL?\n\nYou're missing [[Open Graph tags]].",
+  "title": "Nugget N175"
+}

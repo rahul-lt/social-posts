@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-11-08T01:30:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "Use await inside forEach in an interview and the follow-up question is always \"so when does the toast show?\"\n\nLook at the card. The await works inside each callback, but forEach doesn't wait for any of them. It starts every callback, ignores the promises they return, and moves on. The toast shows while the uploads are still running.\n\nTwo fixes:\nfor...of with await uploads one file at a time, in order.\nawait Promise.all(files.map(upload)) uploads them in parallel and waits for all of them.\n\nPick in order when the server cares about order, parallel when it doesn't.\n\nSource: MDN, Array.prototype.forEach() (it expects a synchronous function).\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "",
+  "title": "Nugget N137"
+}

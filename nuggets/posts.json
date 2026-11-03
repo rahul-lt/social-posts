@@ -740,5 +740,1396 @@
     },
     "caption": "Interviewers hear about the same todo apps and Netflix clones all day.\n\nA project with real users gives you real problems: people using it wrong, slow phones, feature requests, bugs you didn't predict. Those are the stories that stand out in interviews.\n\nIt doesn't need to be big. Ten students using it every day is enough.\n\nWhat would you fix in your college first?",
     "publishAt": "2026-11-12T20:00:00+05:30"
+  },
+  {
+    "id": "n121",
+    "day": 1,
+    "slot": "07:00",
+    "style": "piyush",
+    "theme": "navy",
+    "pillar": "frontend",
+    "format": "code-review",
+    "card": {
+      "title": "Delete the first todo.\nWhy does its text stay behind?",
+      "panels": [
+        {
+          "tone": "bad",
+          "label": "Common answer",
+          "file": "TodoList.jsx",
+          "hl": [
+            2
+          ],
+          "code": "{todos.map((t, i) => (\n  <li key={i}>\n    <input defaultValue={t.text} />\n  </li>\n))}"
+        },
+        {
+          "tone": "good",
+          "label": "What gets you selected",
+          "file": "TodoList.jsx",
+          "hl": [
+            2
+          ],
+          "code": "{todos.map((t) => (\n  <li key={t.id}>\n    <input defaultValue={t.text} />\n  </li>\n))}"
+        }
+      ],
+      "note": "A key says which item is which. An [[index]] changes when the list does."
+    },
+    "caption": "Use the array index as a key in a machine coding round and your todo list breaks the first time someone deletes an item.\n\nLook at the card. Three todos, each with an input. Delete the first one.\n\nReact matches list items by key, not by content. Before the delete the keys were 0, 1, 2. After it they are 0, 1. So React decides the item with key 2 was removed and keeps the inputs for keys 0 and 1 as they were. The first input on screen still shows the text you just deleted.\n\nWith key={t.id}, the key stays with the todo, and React removes the right input.\n\nAn index is only safe when the list never reorders, filters or deletes.\n\nSource: react.dev, Rendering Lists.",
+    "publishAt": "2026-11-04T07:00:00+05:30"
+  },
+  {
+    "id": "n122",
+    "day": 1,
+    "slot": "12:00",
+    "style": "nishchal",
+    "theme": "dark",
+    "pillar": "career",
+    "format": "one-liner",
+    "card": {
+      "text": "In 2026, writing code is the easy part.\n\n[[Reading code]] is the job."
+    },
+    "caption": "AI can now write the first draft of most features.\n\nWhat it can't do is tell you whether that draft is right for your codebase, your users and your edge cases.\n\nThat's reading: someone else's code, the AI's code, your own code from six months ago.\n\nStart this week: pick one open source repo you use and read one file a day. Just read it.",
+    "publishAt": "2026-11-04T12:00:00+05:30"
+  },
+  {
+    "id": "n123",
+    "day": 1,
+    "slot": "19:00",
+    "style": "ours",
+    "theme": "light",
+    "pillar": "frontend",
+    "format": "self-check",
+    "card": {
+      "text": "Your production site might be shipping its [[source code]].\n\nOpen DevTools → Sources on your live site.\nSee your src/ folder with readable code? That's source maps."
+    },
+    "caption": "Source maps link your minified bundle back to the original files. Great for debugging, but if they're public, anyone can read your original code, comments included.\n\nSome setups have shipped them to production by default. Create React App did.\n\nCheck your own site. If you see your src folder:\n- turn them off for production, or\n- upload them only to your error tracker (like Sentry) instead of serving them.\n\nThen search the bundle for anything that looks like a key. Frontend code is never a place for secrets.\n\nSource: MDN, Use a source map (Firefox DevTools) and your bundler's build.sourcemap docs.",
+    "publishAt": "2026-11-04T19:00:00+05:30"
+  },
+  {
+    "id": "n124",
+    "day": 1,
+    "slot": "23:30",
+    "style": "piyush",
+    "theme": "navy",
+    "pillar": "frontend",
+    "format": "code-review",
+    "card": {
+      "title": "AI wrote this timer.\nWhy does it stop at 1?",
+      "panels": [
+        {
+          "tone": "bad",
+          "label": "AI-generated",
+          "file": "Timer.jsx",
+          "hl": [
+            3
+          ],
+          "code": "useEffect(() => {\n  const id = setInterval(() => {\n    setSec(sec + 1);\n  }, 1000);\n  return () => clearInterval(id);\n}, []);"
+        },
+        {
+          "tone": "good",
+          "label": "What I'd merge",
+          "file": "Timer.jsx",
+          "hl": [
+            3
+          ],
+          "code": "useEffect(() => {\n  const id = setInterval(() => {\n    setSec((s) => s + 1);\n  }, 1000);\n  return () => clearInterval(id);\n}, []);"
+        }
+      ],
+      "note": "The callback saw [[sec = 0]] forever. The updater reads the latest value."
+    },
+    "caption": "Your AI assistant wrote a seconds counter. It has cleanup, it compiles, and it shows 1 forever. Would you approve it?\n\nLook at the card. The effect runs once because of the empty dependency array. The interval callback was created during that first render, when sec was 0. So every second it calls setSec(0 + 1), and React gets 1 again and again.\n\nThe fix is to pass a function: setSec((s) => s + 1). React gives it the latest value each time, so the callback never needs to read sec.\n\nNo error, no warning, and the code looks clean. That's why it slips through review.\n\nSource: react.dev, useState (updating state based on the previous state).",
+    "publishAt": "2026-11-04T23:30:00+05:30"
+  },
+  {
+    "id": "n125",
+    "day": 2,
+    "slot": "07:00",
+    "style": "piyush",
+    "theme": "navy",
+    "pillar": "frontend",
+    "format": "code-review",
+    "card": {
+      "title": "Open and close this modal 10 times.\nHow many resize listeners are left?",
+      "panels": [
+        {
+          "tone": "bad",
+          "label": "Common answer",
+          "file": "Modal.jsx",
+          "hl": [
+            3
+          ],
+          "code": "useEffect(() => {\n  const f = () => setW(innerWidth);\n  addEventListener('resize', f);\n}, []);"
+        },
+        {
+          "tone": "good",
+          "label": "What gets you selected",
+          "file": "Modal.jsx",
+          "hl": [
+            4,
+            5
+          ],
+          "code": "useEffect(() => {\n  const f = () => setW(innerWidth);\n  addEventListener('resize', f);\n  return () =>\n    removeEventListener('resize', f);\n}, []);"
+        }
+      ],
+      "note": "An effect that subscribes to something must [[unsubscribe]] in its cleanup."
+    },
+    "caption": "Interviewers like this one because the code works perfectly in a demo.\n\nLook at the card. Every time the modal opens, the effect adds a resize listener to window. When the modal closes, nothing removes it. Ten opens later, ten listeners are still attached, each one holding on to an old copy of the component.\n\nThe fix is the function you return from the effect. React calls it when the component unmounts, so the listener goes away with the modal.\n\nThis is also why React's StrictMode runs effects twice in development: a missing cleanup shows up right away instead of months later.\n\nSource: react.dev, Synchronizing with Effects (adding cleanup).",
+    "publishAt": "2026-11-05T07:00:00+05:30"
+  },
+  {
+    "id": "n126",
+    "day": 2,
+    "slot": "12:00",
+    "style": "nishchal",
+    "theme": "dark",
+    "pillar": "career",
+    "format": "one-liner",
+    "card": {
+      "text": "Your first job won't define your career.\n\nWhat you learn in your [[first 2 years]] will."
+    },
+    "caption": "Freshers stress for months over which company to join.\n\nA few years later, nobody asks where your first job was. They ask what you can build, debug and own.\n\nA smaller company where you ship every week can teach more than a big brand where you wait months for your first real task.\n\nPick the place where you'll learn the most. The salary catches up.",
+    "publishAt": "2026-11-05T12:00:00+05:30"
+  },
+  {
+    "id": "n127",
+    "day": 2,
+    "slot": "19:00",
+    "style": "ours",
+    "theme": "light",
+    "pillar": "career",
+    "format": "take",
+    "card": {
+      "text": "Two developers. Same AI tool.\n\nOne ships fast.\nOne ships fast [[and can explain every line in review]].\n\nGuess who gets promoted."
+    },
+    "caption": "AI raised the floor. Everyone can produce working code quickly now.\n\nWhat separates people is what happens after: reviewing the output, catching the edge case, explaining a decision to a teammate, owning the bug when it shows up in production.\n\nSpeed gets noticed. Understanding gets trusted.\n\nWhat's one thing you always check before you commit AI-written code?",
+    "publishAt": "2026-11-05T19:00:00+05:30"
+  },
+  {
+    "id": "n128",
+    "day": 2,
+    "slot": "23:30",
+    "style": "piyush",
+    "theme": "navy",
+    "pillar": "frontend",
+    "format": "code-review",
+    "card": {
+      "title": "AI made the effect async.\nWould you merge it?",
+      "panels": [
+        {
+          "tone": "bad",
+          "label": "AI-generated",
+          "file": "User.jsx",
+          "hl": [
+            1
+          ],
+          "code": "useEffect(async () => {\n  const res = await fetch(url);\n  setData(await res.json());\n}, [url]);"
+        },
+        {
+          "tone": "good",
+          "label": "What I'd merge",
+          "file": "User.jsx",
+          "hl": [
+            2,
+            6
+          ],
+          "code": "useEffect(() => {\n  async function load() {\n    const res = await fetch(url);\n    setData(await res.json());\n  }\n  load();\n}, [url]);"
+        }
+      ],
+      "note": "An effect must return nothing or a [[cleanup function]]. An async function returns a promise."
+    },
+    "caption": "AI tools write this all the time because it reads naturally.\n\nLook at the card. An async function always returns a promise. React expects an effect to return either nothing or a cleanup function, so it warns in development. Worse, you've lost the one place where cleanup could go.\n\nThe fix: keep the effect synchronous and define an async function inside it, then call it.\n\nThen add what the AI usually skips. If url changes quickly, an older response can arrive last and overwrite the newer one. The React docs fix that with a flag: set let ignore = false in the effect, set it to true in the cleanup, and skip setData when it's true.\n\nSource: react.dev, Synchronizing with Effects (fetching data).",
+    "publishAt": "2026-11-05T23:30:00+05:30"
+  },
+  {
+    "id": "n129",
+    "day": 3,
+    "slot": "07:00",
+    "style": "piyush",
+    "theme": "navy",
+    "pillar": "frontend",
+    "format": "code-review",
+    "card": {
+      "title": "Why does this API get called\non every single render?",
+      "panels": [
+        {
+          "tone": "bad",
+          "label": "Common answer",
+          "file": "Products.jsx",
+          "hl": [
+            1,
+            5
+          ],
+          "code": "const filters = { page, size: 20 };\n\nuseEffect(() => {\n  fetchList(filters);\n}, [filters]);"
+        },
+        {
+          "tone": "good",
+          "label": "What gets you selected",
+          "file": "Products.jsx",
+          "hl": [
+            3
+          ],
+          "code": "useEffect(() => {\n  fetchList({ page, size: 20 });\n}, [page]);"
+        }
+      ],
+      "note": "Dependencies are compared by reference. A new object is a [[new dependency]]."
+    },
+    "caption": "Write this in a machine coding round and the Network tab fills up while the interviewer watches.\n\nLook at the card. filters is created again on every render. It has the same values, but it's a new object, and React compares dependencies with Object.is, which checks the reference.\n\nNew object, so the effect runs. If fetchList sets state, that causes a render, which creates a new object, which runs the effect again.\n\nThe fix: depend on the primitive values the effect actually uses. Build the object inside the effect.\n\nIf you need the object outside too, useMemo can keep the same reference between renders.\n\nSource: react.dev, Removing Effect Dependencies.",
+    "publishAt": "2026-11-06T07:00:00+05:30"
+  },
+  {
+    "id": "n130",
+    "day": 3,
+    "slot": "12:00",
+    "style": "nishchal",
+    "theme": "dark",
+    "pillar": "career",
+    "format": "one-liner",
+    "card": {
+      "text": "Service company to product company is not a jump.\n\nIt's [[6 months of boring consistency]]."
+    },
+    "caption": "No single course or trick makes the switch.\n\nWhat works is dull: one or two DSA problems a day, one real project you can explain end to end, and mock interviews before the real ones.\n\nMost people quit in week three, when progress feels invisible.\n\nThe ones who switch are usually the ones who kept going through the boring middle.",
+    "publishAt": "2026-11-06T12:00:00+05:30"
+  },
+  {
+    "id": "n131",
+    "day": 3,
+    "slot": "19:00",
+    "style": "ours",
+    "theme": "light",
+    "pillar": "career",
+    "format": "question",
+    "card": {
+      "text": "First offer. Pick one:\n\nA) ₹5 LPA, remote, 15-person startup\nB) ₹7 LPA, in-office, large MNC in Pune\n\n[[Which one, and why?]]"
+    },
+    "caption": "There's no single right answer. It depends on what matters most to you right now: learning speed, mentorship in person, stability, or money for your family.\n\nRemote at your first job is a real trade-off. You get flexibility, but learning from seniors is harder when you can't sit next to them.\n\nIf you've made a choice like this, how did it turn out?",
+    "publishAt": "2026-11-06T19:00:00+05:30"
+  },
+  {
+    "id": "n132",
+    "day": 3,
+    "slot": "23:30",
+    "style": "piyush",
+    "theme": "navy",
+    "pillar": "frontend",
+    "format": "code-review",
+    "card": {
+      "title": "Payment failed.\nWhy did the user see \"Order placed\"?",
+      "panels": [
+        {
+          "tone": "bad",
+          "label": "AI-generated",
+          "file": "checkout.js",
+          "hl": [
+            2,
+            3
+          ],
+          "code": "pay(cart)\n  .catch(() => toast('Failed'))\n  .then(() => toast('Order placed'));"
+        },
+        {
+          "tone": "good",
+          "label": "What I'd merge",
+          "file": "checkout.js",
+          "hl": [
+            2,
+            3
+          ],
+          "code": "pay(cart)\n  .then(() => toast('Order placed'))\n  .catch(() => toast('Failed'));"
+        }
+      ],
+      "note": "A [[catch]] handles the error and returns a fresh, successful promise."
+    },
+    "caption": "The AI put catch first \"to handle errors early\". It reads fine. Would you merge it?\n\nLook at the card. When pay rejects, catch runs and shows \"Failed\". But catch also returns a new promise, and because the handler didn't throw, that promise resolves successfully. So the next then runs too. The user sees \"Failed\" and then \"Order placed\".\n\nOrder matters in a promise chain. Put the success step first and catch last, so a failure skips the success step.\n\nWith async/await it's harder to get wrong: put the success toast inside the try block, right after await pay(cart).\n\nSource: MDN, Promise.prototype.catch().",
+    "publishAt": "2026-11-06T23:30:00+05:30"
+  },
+  {
+    "id": "n133",
+    "day": 4,
+    "slot": "07:00",
+    "style": "piyush",
+    "theme": "navy",
+    "pillar": "frontend",
+    "format": "code-review",
+    "card": {
+      "title": "Click Cancel.\nWhy did the form get submitted?",
+      "panels": [
+        {
+          "tone": "bad",
+          "label": "Common answer",
+          "file": "EditTask.jsx",
+          "hl": [
+            2
+          ],
+          "code": "<form onSubmit={save}>\n  <button onClick={close}>\n    Cancel\n  </button>\n  <button>Save</button>\n</form>"
+        },
+        {
+          "tone": "good",
+          "label": "What gets you selected",
+          "file": "EditTask.jsx",
+          "hl": [
+            2,
+            4
+          ],
+          "code": "<form onSubmit={save}>\n  <button type=\"button\"\n    onClick={close}>Cancel</button>\n  <button type=\"submit\">Save</button>\n</form>"
+        }
+      ],
+      "note": "Inside a form, every button is [[type=\"submit\"]] unless you say otherwise."
+    },
+    "caption": "This bug shows up in almost every machine coding round that has a form.\n\nLook at the card. The Cancel button has an onClick that closes the modal. But it's a button inside a form with no type, and the default type of a button in a form is submit.\n\nSo one click runs close and then submits the form. The task gets saved even though the user pressed Cancel.\n\nThe fix is one attribute: type=\"button\" on every button that shouldn't submit. Writing type=\"submit\" on the real submit button makes your intent obvious to the next reader.\n\nSource: MDN, The Button element (type attribute).",
+    "publishAt": "2026-11-07T07:00:00+05:30"
+  },
+  {
+    "id": "n134",
+    "day": 4,
+    "slot": "12:00",
+    "style": "nishchal",
+    "theme": "dark",
+    "pillar": "career",
+    "format": "one-liner",
+    "card": {
+      "text": "Tutorial: 12 minutes.\nSame feature in your own project: 2 days.\n\nThat gap is [[where you actually learn]]."
+    },
+    "caption": "A tutorial hides every hard decision: folder structure, error states, the API that returns something unexpected, the bug that only happens on refresh.\n\nYour own project makes you face all of them.\n\nSo when your \"simple\" feature takes two days, don't feel slow. That's the part the tutorial skipped, and it's the part interviews ask about.",
+    "publishAt": "2026-11-07T12:00:00+05:30"
+  },
+  {
+    "id": "n135",
+    "day": 4,
+    "slot": "19:00",
+    "style": "ours",
+    "theme": "light",
+    "pillar": "frontend",
+    "format": "self-check",
+    "card": {
+      "text": "Open your live app.\nOpen the Console.\nLog in.\n\nSee user objects, tokens or API responses printed there?\n\nSo can [[everyone else]]."
+    },
+    "caption": "console.log calls written during development often ship to production. Anyone who opens DevTools can read them: user emails, auth tokens, full API responses.\n\nTwo fixes:\n- remove them before merging (ESLint's no-console rule catches them)\n- strip them at build time with your bundler's minifier settings\n\nAnd never log a token, even while debugging. Logs get copied, screenshotted and pasted into AI chats.\n\nTry it on your project tonight. It takes two minutes.\n\nSource: ESLint docs, no-console rule.",
+    "publishAt": "2026-11-07T19:00:00+05:30"
+  },
+  {
+    "id": "n136",
+    "day": 4,
+    "slot": "23:30",
+    "style": "piyush",
+    "theme": "navy",
+    "pillar": "frontend",
+    "format": "code-review",
+    "card": {
+      "title": "Two users, two carts.\nWhy do they share one?",
+      "panels": [
+        {
+          "tone": "bad",
+          "label": "AI-generated",
+          "file": "carts.js",
+          "hl": [
+            4
+          ],
+          "code": "const carts = {};\ncarts[userA] = ['shoes'];\ncarts[userB] = ['phone'];\ncarts[userA]; // ['phone']"
+        },
+        {
+          "tone": "good",
+          "label": "What I'd merge",
+          "file": "carts.js",
+          "hl": [
+            1,
+            4
+          ],
+          "code": "const carts = new Map();\ncarts.set(userA, ['shoes']);\ncarts.set(userB, ['phone']);\ncarts.get(userA); // ['shoes']"
+        }
+      ],
+      "note": "Plain object keys become strings. Every object becomes [[\"[object Object]\"]]."
+    },
+    "caption": "An AI assistant used a plain object as a lookup table, keyed by user objects. The tests used one user, so they passed.\n\nLook at the card. Plain object keys are always strings (or symbols). userA and userB are objects, so JavaScript turns both into the same string: \"[object Object]\". The second assignment overwrites the first. Both users now share one cart.\n\nA Map accepts any value as a key, including objects, and compares them by identity. userA and userB stay separate.\n\nThe other fix is to key the object by something that's already a string, like user.id.\n\nSource: MDN, Map (objects vs maps).",
+    "publishAt": "2026-11-07T23:30:00+05:30"
+  },
+  {
+    "id": "n137",
+    "day": 5,
+    "slot": "07:00",
+    "style": "piyush",
+    "theme": "navy",
+    "pillar": "frontend",
+    "format": "code-review",
+    "card": {
+      "title": "\"All saved!\" shows up\nbefore anything is saved. Why?",
+      "panels": [
+        {
+          "tone": "bad",
+          "label": "Common answer",
+          "file": "upload.js",
+          "hl": [
+            1
+          ],
+          "code": "files.forEach(async (f) => {\n  await upload(f);\n});\ntoast('All saved!');"
+        },
+        {
+          "tone": "good",
+          "label": "What gets you selected",
+          "file": "upload.js",
+          "hl": [
+            1
+          ],
+          "code": "for (const f of files) {\n  await upload(f);\n}\ntoast('All saved!');"
+        }
+      ],
+      "note": "[[forEach]] ignores the promises your callback returns."
+    },
+    "caption": "Use await inside forEach in an interview and the follow-up question is always \"so when does the toast show?\"\n\nLook at the card. The await works inside each callback, but forEach doesn't wait for any of them. It starts every callback, ignores the promises they return, and moves on. The toast shows while the uploads are still running.\n\nTwo fixes:\nfor...of with await uploads one file at a time, in order.\nawait Promise.all(files.map(upload)) uploads them in parallel and waits for all of them.\n\nPick in order when the server cares about order, parallel when it doesn't.\n\nSource: MDN, Array.prototype.forEach() (it expects a synchronous function).",
+    "publishAt": "2026-11-08T07:00:00+05:30"
+  },
+  {
+    "id": "n138",
+    "day": 5,
+    "slot": "12:00",
+    "style": "nishchal",
+    "theme": "dark",
+    "pillar": "career",
+    "format": "one-liner",
+    "card": {
+      "text": "AI isn't replacing junior developers.\n\nIt's replacing juniors who [[can't explain their own code]]."
+    },
+    "caption": "Using AI to write code is normal now. Teams expect it.\n\nWhat gets noticed in a code review or an interview is whether you understand what got written. Why this hook, why this query, what happens when the API fails.\n\nOne habit fixes most of it: before you commit AI-written code, explain each line to yourself out loud.\n\nIf you can't, you're not done yet.",
+    "publishAt": "2026-11-08T12:00:00+05:30"
+  },
+  {
+    "id": "n139",
+    "day": 5,
+    "slot": "19:00",
+    "style": "ours",
+    "theme": "light",
+    "pillar": "frontend",
+    "format": "self-check",
+    "card": {
+      "text": "Your users aren't on your laptop.\n\nDevTools → Network → [[Slow 4G]]\nPerformance → CPU: [[4x slowdown]]\n\nNow load your app. That's closer to a budget Android phone."
+    },
+    "caption": "Your laptop has a fast CPU and fast Wi-Fi. A lot of your users have neither.\n\nThrottling in DevTools isn't a perfect copy of a real phone, but it shows the problems quickly: a blank screen while JavaScript downloads, buttons that don't respond, a spinner that never ends.\n\nFix the biggest one you notice. Then test on a real low-end phone if you can borrow one.\n\nSource: Chrome DevTools docs, Network and CPU throttling.",
+    "publishAt": "2026-11-08T19:00:00+05:30"
+  },
+  {
+    "id": "n140",
+    "day": 5,
+    "slot": "23:30",
+    "style": "piyush",
+    "theme": "navy",
+    "pillar": "frontend",
+    "format": "code-review",
+    "card": {
+      "title": "buildIndex runs on every keystroke.\nThe result is thrown away. Why?",
+      "panels": [
+        {
+          "tone": "bad",
+          "label": "AI-generated",
+          "file": "Search.jsx",
+          "hl": [
+            2
+          ],
+          "code": "const [index] = useState(\n  buildIndex(products)\n);"
+        },
+        {
+          "tone": "good",
+          "label": "What I'd merge",
+          "file": "Search.jsx",
+          "hl": [
+            2
+          ],
+          "code": "const [index] = useState(\n  () => buildIndex(products)\n);"
+        }
+      ],
+      "note": "Pass the [[function]], not its result, and React calls it only once."
+    },
+    "caption": "The AI wrote correct code that does a lot of work for nothing. Would you catch it in review?\n\nLook at the card. buildIndex(products) is an ordinary function call. JavaScript runs it every time the component renders, before useState even sees it. React uses the value on the first render and ignores it after that. So the index gets rebuilt on every keystroke and thrown away.\n\nPass a function instead: useState(() => buildIndex(products)). React calls it only on the first render.\n\nThis only matters when the initial value is expensive to create: parsing, sorting, building a lookup. For useState(0) there's nothing to save.\n\nSource: react.dev, useState (avoiding recreating the initial state).",
+    "publishAt": "2026-11-08T23:30:00+05:30"
+  },
+  {
+    "id": "n141",
+    "day": 6,
+    "slot": "07:00",
+    "style": "piyush",
+    "theme": "navy",
+    "pillar": "frontend",
+    "format": "code-review",
+    "card": {
+      "title": "Switch from Asha's profile to Ravi's.\nWhy does the form still say Asha?",
+      "panels": [
+        {
+          "tone": "bad",
+          "label": "Common answer",
+          "file": "Profile.jsx",
+          "hl": [
+            3
+          ],
+          "code": "function EditProfile({ user }) {\n  const [name, setName] =\n    useState(user.name);\n  // ...\n}"
+        },
+        {
+          "tone": "good",
+          "label": "What gets you selected",
+          "file": "Page.jsx",
+          "hl": [
+            2
+          ],
+          "code": "<EditProfile\n  key={user.id}\n  user={user} />"
+        }
+      ],
+      "note": "useState reads its argument [[once]]. A new key gives a fresh component."
+    },
+    "caption": "This one catches people who know hooks well.\n\nLook at the card. EditProfile copies user.name into state. When the parent passes a different user, the component stays in the same place in the tree, so React keeps its state. The initial value is only read on the first render. The input keeps showing Asha.\n\nThe cleanest fix is on the parent: key={user.id}. A different key tells React it's a different component, so it throws the old state away and starts fresh with Ravi.\n\nYou don't need a useEffect that syncs the prop into state. That version renders the wrong name first and then corrects it.\n\nSource: react.dev, Preserving and Resetting State.",
+    "publishAt": "2026-11-09T07:00:00+05:30"
+  },
+  {
+    "id": "n142",
+    "day": 6,
+    "slot": "12:00",
+    "style": "nishchal",
+    "theme": "dark",
+    "pillar": "career",
+    "format": "one-liner",
+    "card": {
+      "text": "Interviewers forget the 10 projects you listed.\n\nThey remember [[the one you could defend]]."
+    },
+    "caption": "A resume with ten tutorial projects reads like a list.\n\nOne project you built properly gives you everything an interview needs: decisions you made, trade-offs you chose, a bug you hunted down, a number that improved.\n\nGo deep on one. Be ready to answer \"why did you build it this way?\" for every part of it.",
+    "publishAt": "2026-11-09T12:00:00+05:30"
+  },
+  {
+    "id": "n143",
+    "day": 6,
+    "slot": "19:00",
+    "style": "ours",
+    "theme": "light",
+    "pillar": "career",
+    "format": "take",
+    "card": {
+      "text": "AI writes the first draft.\n\n[[You own the last one.]]"
+    },
+    "caption": "When AI-written code breaks in production, nobody blames the AI. The name on the commit is yours.\n\nSo treat its output like a pull request from a fast, confident intern: useful, often right, and always worth reading before it ships.\n\nTest the edge cases, read the diff, and make sure you could debug it at 2 AM without help.",
+    "publishAt": "2026-11-09T19:00:00+05:30"
+  },
+  {
+    "id": "n144",
+    "day": 6,
+    "slot": "23:30",
+    "style": "piyush",
+    "theme": "navy",
+    "pillar": "frontend",
+    "format": "code-review",
+    "card": {
+      "title": "AI renders the comment as HTML.\nWould you merge this?",
+      "panels": [
+        {
+          "tone": "bad",
+          "label": "AI-generated",
+          "file": "Comment.jsx",
+          "hl": [
+            1,
+            2
+          ],
+          "code": "<p dangerouslySetInnerHTML={{\n  __html: comment.text,\n}} />"
+        },
+        {
+          "tone": "good",
+          "label": "What I'd merge",
+          "file": "Comment.jsx",
+          "hl": [
+            1
+          ],
+          "code": "<p>{comment.text}</p>"
+        }
+      ],
+      "note": "React escapes text for you. That one prop [[turns it off]]."
+    },
+    "caption": "The AI wanted line breaks and bold text in comments, so it rendered them as HTML. It works, and it's a security hole.\n\nLook at the card. When you write {comment.text}, React escapes it, so any HTML tags show up as plain text. dangerouslySetInnerHTML skips that. If someone posts a comment like <img src=x onerror=...>, the browser runs that code for every person who views the page. That's XSS (cross-site scripting).\n\nIf you really need formatted comments, convert them on purpose (a markdown library) and sanitize the HTML with a library like DOMPurify before rendering.\n\nThe prop is named \"dangerously\" for a reason. Treat it as a review flag.\n\nSource: react.dev, Common components (dangerouslySetInnerHTML).",
+    "publishAt": "2026-11-09T23:30:00+05:30"
+  },
+  {
+    "id": "n145",
+    "day": 7,
+    "slot": "07:00",
+    "style": "piyush",
+    "theme": "navy",
+    "pillar": "frontend",
+    "format": "code-review",
+    "card": {
+      "title": "Deep copy with JSON.\nWhy is the date now a string?",
+      "panels": [
+        {
+          "tone": "bad",
+          "label": "Common answer",
+          "file": "order.js",
+          "hl": [
+            1,
+            2
+          ],
+          "code": "const copy = JSON.parse(\n  JSON.stringify(order));\n\ncopy.placedAt.getTime();\n// TypeError"
+        },
+        {
+          "tone": "good",
+          "label": "What gets you selected",
+          "file": "order.js",
+          "hl": [
+            1
+          ],
+          "code": "const copy = structuredClone(order);\n\ncopy.placedAt.getTime(); // works"
+        }
+      ],
+      "note": "JSON keeps text and numbers. [[structuredClone]] keeps real types."
+    },
+    "caption": "\"How do you deep copy an object?\" If your answer is JSON.parse(JSON.stringify()), expect a follow-up.\n\nLook at the card. JSON.stringify turns a Date into a string, and JSON.parse doesn't turn it back. So copy.placedAt is a string and getTime() throws. The same trip silently drops undefined values and functions, and turns a Map or Set into an empty object.\n\nstructuredClone is built into modern browsers and Node 17+. It copies Dates, Maps, Sets and nested objects properly. It throws on functions instead of dropping them quietly.\n\nJSON is still fine for plain data that came from an API.\n\nSource: MDN, structuredClone().",
+    "publishAt": "2026-11-10T07:00:00+05:30"
+  },
+  {
+    "id": "n146",
+    "day": 7,
+    "slot": "12:00",
+    "style": "nishchal",
+    "theme": "dark",
+    "pillar": "career",
+    "format": "one-liner",
+    "card": {
+      "text": "Stop asking \"which framework should I learn?\"\n\nStart asking \"[[which problem do I want to solve?]]\""
+    },
+    "caption": "The framework question has no right answer, so it keeps you stuck.\n\nA problem has a clear next step. Want to build a tool for your college fest? You'll learn forms, auth and a database because you need them.\n\nFrameworks change every few years. Knowing how to pick a tool for a problem doesn't go out of date.",
+    "publishAt": "2026-11-10T12:00:00+05:30"
+  },
+  {
+    "id": "n147",
+    "day": 7,
+    "slot": "19:00",
+    "style": "ours",
+    "theme": "light",
+    "pillar": "career",
+    "format": "question",
+    "card": {
+      "text": "You have one year. Pick one:\n\nA) Go deep in React and frontend\nB) Become full-stack: React + Node + Postgres\n\n[[Which one, and why?]]"
+    },
+    "caption": "Both paths get people hired. They lead to different kinds of roles.\n\nDeep frontend leads to specialist roles: performance, design systems, complex UIs.\nFull-stack opens more doors at startups, where one person often owns a feature end to end.\n\nWhat would you pick, and what are you basing it on: job listings, your college, or what you enjoy building?",
+    "publishAt": "2026-11-10T19:00:00+05:30"
+  },
+  {
+    "id": "n148",
+    "day": 7,
+    "slot": "23:30",
+    "style": "piyush",
+    "theme": "navy",
+    "pillar": "frontend",
+    "format": "code-review",
+    "card": {
+      "title": "Quantity 2, add 1.\nWhy does the cart say 21?",
+      "panels": [
+        {
+          "tone": "bad",
+          "label": "AI-generated",
+          "file": "Qty.jsx",
+          "hl": [
+            2,
+            3
+          ],
+          "code": "// <input type=\"number\" />\nconst qty = e.target.value;\nqty + 1; // \"21\""
+        },
+        {
+          "tone": "good",
+          "label": "What I'd merge",
+          "file": "Qty.jsx",
+          "hl": [
+            1,
+            2
+          ],
+          "code": "const qty = e.target.valueAsNumber;\nqty + 1; // 3"
+        }
+      ],
+      "note": "An input's value is [[always a string]], even with type=\"number\"."
+    },
+    "caption": "The AI built a quantity picker with type=\"number\" and assumed it gives you a number. It doesn't.\n\nLook at the card. input.value is always a string. type=\"number\" only changes the keyboard and the validation. So qty is \"2\", and \"2\" + 1 is string concatenation: \"21\".\n\nNumber inputs have valueAsNumber, which returns a real number. It returns NaN when the field is empty, so handle that case before you do math with it. Number(e.target.value) works too.\n\nThe same is true for every form field: values come in as strings. Convert at the edge, as soon as you read them.\n\nSource: MDN, input type=\"number\" (value and valueAsNumber).",
+    "publishAt": "2026-11-10T23:30:00+05:30"
+  },
+  {
+    "id": "n149",
+    "day": 8,
+    "slot": "07:00",
+    "style": "piyush",
+    "theme": "navy",
+    "pillar": "frontend",
+    "format": "code-review",
+    "card": {
+      "title": "₹0.10 + ₹0.20.\nWhy isn't the total ₹0.30?",
+      "panels": [
+        {
+          "tone": "bad",
+          "label": "Common answer",
+          "file": "cart.js",
+          "hl": [
+            1
+          ],
+          "code": "const total = 0.1 + 0.2;\n// 0.30000000000000004\ntotal === 0.3; // false"
+        },
+        {
+          "tone": "good",
+          "label": "What gets you selected",
+          "file": "cart.js",
+          "hl": [
+            2
+          ],
+          "code": "// store paise, not rupees\nconst total = 10 + 20; // 30\n(total / 100).toFixed(2); // \"0.30\""
+        }
+      ],
+      "note": "Keep money in [[whole paise]]. Convert to rupees only to display it."
+    },
+    "caption": "Build a cart in a machine coding round, add prices as decimals, and a total like 0.30000000000000004 appears on screen.\n\nLook at the card. JavaScript numbers are binary floating point. 0.1 and 0.2 can't be stored exactly in binary, so their sum is a tiny bit off. That's true in most languages, not just JavaScript.\n\nThe fix most payment systems use: store amounts as integers in the smallest unit. ₹499.50 becomes 49950 paise. Integer addition is exact.\n\nConvert only when you show the amount. Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR' }) formats it with the ₹ sign and Indian digit grouping.\n\nSource: MDN, Number (number encoding).",
+    "publishAt": "2026-11-11T07:00:00+05:30"
+  },
+  {
+    "id": "n150",
+    "day": 8,
+    "slot": "12:00",
+    "style": "nishchal",
+    "theme": "dark",
+    "pillar": "career",
+    "format": "one-liner",
+    "card": {
+      "text": "Learning 5 frameworks a little\n< learning [[how the browser works]] properly."
+    },
+    "caption": "Every frontend framework runs on the same browser: the DOM, events, the network, rendering, the JavaScript event loop.\n\nOnce you understand those, a new framework is just a new way of writing things you already know.\n\nIf you only know one framework's syntax, every new one feels like starting over.",
+    "publishAt": "2026-11-11T12:00:00+05:30"
+  },
+  {
+    "id": "n151",
+    "day": 8,
+    "slot": "19:00",
+    "style": "ours",
+    "theme": "light",
+    "pillar": "frontend",
+    "format": "self-check",
+    "card": {
+      "text": "Submit your login form with JavaScript turned off.\n\nDoes the [[password]] show up in the URL?"
+    },
+    "caption": "A <form> with no method attribute sends its data with GET. GET puts every field in the URL, password included. URLs end up in browser history, server logs and analytics tools.\n\nUsually JavaScript intercepts the submit, so you never notice. But if your script fails to load or throws before preventDefault runs, the browser does the default.\n\nThe fix is one attribute: method=\"post\" on the form. Add it even when JavaScript handles the submit.\n\nSource: MDN, The Form element (method attribute).",
+    "publishAt": "2026-11-11T19:00:00+05:30"
+  },
+  {
+    "id": "n152",
+    "day": 8,
+    "slot": "23:30",
+    "style": "piyush",
+    "theme": "navy",
+    "pillar": "frontend",
+    "format": "code-review",
+    "card": {
+      "title": "AI wrote this fetch.\nWhy is the Network tab on fire?",
+      "panels": [
+        {
+          "tone": "bad",
+          "label": "AI-generated",
+          "file": "Me.jsx",
+          "hl": [
+            5
+          ],
+          "code": "useEffect(() => {\n  fetch('/api/me')\n    .then((r) => r.json())\n    .then(setUser);\n});"
+        },
+        {
+          "tone": "good",
+          "label": "What I'd merge",
+          "file": "Me.jsx",
+          "hl": [
+            5
+          ],
+          "code": "useEffect(() => {\n  fetch('/api/me')\n    .then((r) => r.json())\n    .then(setUser);\n}, []);"
+        }
+      ],
+      "note": "No dependency array means [[after every render]]. Including the one it caused."
+    },
+    "caption": "The AI wrote this, it works, and your backend team is about to message you.\n\nLook at the card. With no dependency array, the effect runs after every render. It fetches the user and calls setUser with a new object. A new object means a re-render. The re-render runs the effect again. That's an endless loop of requests.\n\nThe fix is one argument: an empty array, so the effect runs once on mount. If the request depends on a value, like an id, put that value in the array.\n\nReact won't warn you about this one. The Network tab will.\n\nSource: react.dev, useEffect (dependencies).",
+    "publishAt": "2026-11-11T23:30:00+05:30"
+  },
+  {
+    "id": "n153",
+    "day": 9,
+    "slot": "07:00",
+    "style": "piyush",
+    "theme": "navy",
+    "pillar": "frontend",
+    "format": "code-review",
+    "card": {
+      "title": "Works while logged in.\nCrashes the moment you log out. Why?",
+      "panels": [
+        {
+          "tone": "bad",
+          "label": "Common answer",
+          "file": "Cart.jsx",
+          "hl": [
+            2
+          ],
+          "code": "function Cart({ user }) {\n  if (!user) return <Login />;\n  const [items, setItems] =\n    useState([]);\n}"
+        },
+        {
+          "tone": "good",
+          "label": "What gets you selected",
+          "file": "Cart.jsx",
+          "hl": [
+            4
+          ],
+          "code": "function Cart({ user }) {\n  const [items, setItems] =\n    useState([]);\n  if (!user) return <Login />;\n}"
+        }
+      ],
+      "note": "Hooks must run in the [[same order]] on every render. No early return before them."
+    },
+    "caption": "An early return before a hook is a classic machine coding mistake. It works until the condition flips.\n\nLook at the card. While user exists, Cart calls useState. When the user logs out, the function returns before reaching useState. React tracks hooks by their call order, so it sees fewer hooks than last time and throws \"Rendered fewer hooks than expected\".\n\nThe rule: call every hook at the top level, before any return. Put conditions after the hooks, or move the logged-out branch into the parent.\n\nThe eslint-plugin-react-hooks rules-of-hooks check flags this as you type.\n\nSource: react.dev, Rules of Hooks.",
+    "publishAt": "2026-11-12T07:00:00+05:30"
+  },
+  {
+    "id": "n154",
+    "day": 9,
+    "slot": "12:00",
+    "style": "nishchal",
+    "theme": "dark",
+    "pillar": "career",
+    "format": "one-liner",
+    "card": {
+      "text": "AI made writing code faster.\n\nIt made [[debugging]] the skill that gets you hired."
+    },
+    "caption": "If everyone can generate code in minutes, writing it stops being what sets you apart.\n\nFinding out why it breaks in production still takes a person who can read logs, reproduce bugs and reason about state.\n\nPractise it on purpose. Next time something breaks, don't paste the error into AI straight away. Spend 15 minutes on it yourself first.",
+    "publishAt": "2026-11-12T12:00:00+05:30"
+  },
+  {
+    "id": "n155",
+    "day": 9,
+    "slot": "19:00",
+    "style": "ours",
+    "theme": "light",
+    "pillar": "career",
+    "format": "take",
+    "card": {
+      "text": "Prompting isn't the skill.\n\n[[Context]] is."
+    },
+    "caption": "The same AI tool gives a junior and a senior very different results. Usually it's not the wording of the prompt.\n\nThe senior gives it the right files, the constraints, the existing patterns, the edge cases to handle and how to check the result.\n\nThat context comes from understanding the codebase. Which is why learning the codebase still matters more than learning prompt tricks.",
+    "publishAt": "2026-11-12T19:00:00+05:30"
+  },
+  {
+    "id": "n156",
+    "day": 9,
+    "slot": "23:30",
+    "style": "piyush",
+    "theme": "navy",
+    "pillar": "frontend",
+    "format": "code-review",
+    "card": {
+      "title": "The first tag in the list\nis never found. Why?",
+      "panels": [
+        {
+          "tone": "bad",
+          "label": "AI-generated",
+          "file": "badge.js",
+          "hl": [
+            1
+          ],
+          "code": "if (tags.indexOf('sale')) {\n  showBadge();\n}"
+        },
+        {
+          "tone": "good",
+          "label": "What I'd merge",
+          "file": "badge.js",
+          "hl": [
+            1
+          ],
+          "code": "if (tags.includes('sale')) {\n  showBadge();\n}"
+        }
+      ],
+      "note": "indexOf returns [[0]] for the first item. 0 is falsy, and -1 is truthy."
+    },
+    "caption": "An AI wrote this check, and it's wrong in both directions.\n\nLook at the card. indexOf returns a position. If 'sale' is the first tag, it returns 0, and 0 is falsy, so no badge. If 'sale' isn't there at all, it returns -1, and -1 is truthy, so the badge shows.\n\nincludes returns true or false, which is what an if statement needs.\n\nIf you really need indexOf, compare explicitly: indexOf('sale') !== -1.\n\nBugs like this pass a quick test because the first test case usually puts the value somewhere in the middle.\n\nSource: MDN, Array.prototype.indexOf() and includes().",
+    "publishAt": "2026-11-12T23:30:00+05:30"
+  },
+  {
+    "id": "n157",
+    "day": 10,
+    "slot": "07:00",
+    "style": "piyush",
+    "theme": "navy",
+    "pillar": "frontend",
+    "format": "code-review",
+    "card": {
+      "title": "['1', '2', '3'].map(parseInt)\nWhy [1, NaN, NaN]?",
+      "panels": [
+        {
+          "tone": "bad",
+          "label": "Common answer",
+          "file": "parse.js",
+          "hl": [
+            1
+          ],
+          "code": "['1', '2', '3'].map(parseInt);\n// [1, NaN, NaN]"
+        },
+        {
+          "tone": "good",
+          "label": "What gets you selected",
+          "file": "parse.js",
+          "hl": [
+            1,
+            3,
+            4
+          ],
+          "code": "['1', '2', '3'].map(Number);\n// [1, 2, 3]\n['1', '2', '3'].map((s) =>\n  parseInt(s, 10));"
+        }
+      ],
+      "note": "map passes [[(value, index)]]. parseInt reads the index as a radix."
+    },
+    "caption": "Interviewers love this one because it looks like it can't possibly fail.\n\nLook at the card. map calls your function with three arguments: the value, the index and the array. parseInt takes two: the string and a radix (the number base).\n\nSo the calls are parseInt('1', 0), parseInt('2', 1) and parseInt('3', 2). A radix of 0 means \"work it out\", so '1' gives 1. Base 1 doesn't exist, so NaN. In base 2 only 0 and 1 are digits, so '3' gives NaN.\n\nFix: map(Number), or wrap it so you control the arguments, with a radix of 10.\n\nSource: MDN, parseInt() and Array.prototype.map().",
+    "publishAt": "2026-11-13T07:00:00+05:30"
+  },
+  {
+    "id": "n158",
+    "day": 10,
+    "slot": "12:00",
+    "style": "nishchal",
+    "theme": "dark",
+    "pillar": "career",
+    "format": "one-liner",
+    "card": {
+      "text": "Your degree gets you the interview.\n\n[[What you built]] gets you the offer."
+    },
+    "caption": "College name and CGPA help you clear the resume filter. That's their job.\n\nOnce you're in the room, the questions are about what you've done. Something you built, a problem you solved, a decision you can defend.\n\nIf your projects section is empty, that's the place to spend this semester.",
+    "publishAt": "2026-11-13T12:00:00+05:30"
+  },
+  {
+    "id": "n159",
+    "day": 10,
+    "slot": "19:00",
+    "style": "ours",
+    "theme": "light",
+    "pillar": "career",
+    "format": "question",
+    "card": {
+      "text": "One year into your first job. Pick one:\n\nA) Switch now for a 40% hike\nB) Stay one more year under a senior who teaches you a lot\n\n[[What would you do?]]"
+    },
+    "caption": "Both are reasonable. The hike is real money. The senior is rare, and a good one can change how you work for years.\n\nSome things worth weighing: will the new role teach you as much? Does your current team still have things to teach you? Do you need the money now?\n\nIf you've faced this choice, which way did you go, and would you do it again?",
+    "publishAt": "2026-11-13T19:00:00+05:30"
+  },
+  {
+    "id": "n160",
+    "day": 10,
+    "slot": "23:30",
+    "style": "piyush",
+    "theme": "navy",
+    "pillar": "frontend",
+    "format": "code-review",
+    "card": {
+      "title": "z-index: 9999.\nStill behind the header. Why?",
+      "panels": [
+        {
+          "tone": "bad",
+          "label": "AI-generated",
+          "file": "styles.css",
+          "hl": [
+            1,
+            3
+          ],
+          "code": ".card { transform: scale(1); }\n.card .menu { position: absolute;\n  z-index: 9999; }\n.header { position: sticky;\n  z-index: 10; }"
+        },
+        {
+          "tone": "good",
+          "label": "What I'd merge",
+          "file": "Card.jsx",
+          "hl": [
+            1
+          ],
+          "code": "{open && createPortal(\n  <Menu />,\n  document.body,\n)}"
+        }
+      ],
+      "note": "transform starts a new [[stacking context]]. 9999 only counts inside it."
+    },
+    "caption": "The AI kept raising the z-index. The dropdown stayed behind the sticky header.\n\nLook at the card. transform on .card creates a new stacking context. Inside it, the menu's z-index of 9999 is compared only with other things inside .card. The card as a whole sits below the header, which has z-index 10 at the page level, so the menu goes under it.\n\nopacity below 1, filter and will-change can do the same thing.\n\nThe robust fix: render the menu outside the card. createPortal mounts it under document.body, so its z-index competes at the page level. Or remove the transform if you don't need it.\n\nSource: MDN, Stacking context.",
+    "publishAt": "2026-11-13T23:30:00+05:30"
+  },
+  {
+    "id": "n161",
+    "day": 11,
+    "slot": "07:00",
+    "style": "piyush",
+    "theme": "navy",
+    "pillar": "frontend",
+    "format": "code-review",
+    "card": {
+      "title": "Tab through the page.\nWhy can't you reach Add to cart?",
+      "panels": [
+        {
+          "tone": "bad",
+          "label": "Common answer",
+          "file": "Product.jsx",
+          "hl": [
+            1
+          ],
+          "code": "<div className=\"btn\"\n  onClick={addToCart}>\n  Add to cart\n</div>"
+        },
+        {
+          "tone": "good",
+          "label": "What gets you selected",
+          "file": "Product.jsx",
+          "hl": [
+            1
+          ],
+          "code": "<button type=\"button\"\n  onClick={addToCart}>\n  Add to cart\n</button>"
+        }
+      ],
+      "note": "A div with onClick looks like a button. Only a [[button]] behaves like one."
+    },
+    "caption": "Senior frontend rounds now include accessibility questions, and this is the first one.\n\nLook at the card. The div looks right and works with a mouse. But a div can't take keyboard focus, so Tab skips it. Enter and Space don't trigger it. A screen reader announces it as plain text, not as a button.\n\nA real button gives you all of that for free: focus, keyboard activation and the right role.\n\nPatching the div needs tabIndex, role=\"button\" and a keydown handler for Enter and Space. That's three things to get right instead of one tag.\n\nQuick test for your own project: unplug the mouse and try to buy something.\n\nSource: MDN, ARIA button role (prefer the button element).",
+    "publishAt": "2026-11-14T07:00:00+05:30"
+  },
+  {
+    "id": "n162",
+    "day": 11,
+    "slot": "12:00",
+    "style": "nishchal",
+    "theme": "dark",
+    "pillar": "career",
+    "format": "one-liner",
+    "card": {
+      "text": "Before you \"learn AI\",\nlearn to [[read an error message]] all the way to the end."
+    },
+    "caption": "Most error messages tell you what went wrong and where. The file, the line, often the fix.\n\nA lot of beginners read the first line, panic and paste it somewhere.\n\nRead the whole stack trace once. Find the first line that points at your own code. That habit alone will make you faster than half your batch.",
+    "publishAt": "2026-11-14T12:00:00+05:30"
+  },
+  {
+    "id": "n163",
+    "day": 11,
+    "slot": "19:00",
+    "style": "ours",
+    "theme": "light",
+    "pillar": "frontend",
+    "format": "self-check",
+    "card": {
+      "text": "Run a bundle analyzer on your app once.\n\nMost apps find [[one library]] taking a big slice of the bundle for one small feature."
+    },
+    "caption": "A bundle analyzer draws your JavaScript bundle as a map of boxes, sized by how much each library adds.\n\nCommon finds: a whole date library to format one date, a full icon pack for five icons, a charting library loaded on pages without charts.\n\nTry rollup-plugin-visualizer for Vite or @next/bundle-analyzer for Next.js. Then replace, trim or lazy-load the biggest box you don't really need.\n\nFewer kilobytes means a faster first load, especially on mobile data.\n\nSource: the rollup-plugin-visualizer and @next/bundle-analyzer READMEs.",
+    "publishAt": "2026-11-14T19:00:00+05:30"
+  },
+  {
+    "id": "n164",
+    "day": 11,
+    "slot": "23:30",
+    "style": "piyush",
+    "theme": "navy",
+    "pillar": "frontend",
+    "format": "code-review",
+    "card": {
+      "title": "The API sent a 500 with a JSON error.\nWhy didn't catch run?",
+      "panels": [
+        {
+          "tone": "bad",
+          "label": "AI-generated",
+          "file": "load.js",
+          "hl": [
+            2,
+            4
+          ],
+          "code": "try {\n  const res = await fetch(url);\n  const data = await res.json();\n  render(data);\n} catch (e) { showError(); }"
+        },
+        {
+          "tone": "good",
+          "label": "What I'd merge",
+          "file": "load.js",
+          "hl": [
+            2
+          ],
+          "code": "const res = await fetch(url);\nif (!res.ok) {\n  throw new Error(res.status);\n}\nrender(await res.json());"
+        }
+      ],
+      "note": "fetch only rejects when the [[network]] fails. A 404 or 500 still resolves."
+    },
+    "caption": "The AI wrapped fetch in try/catch and called it error handling. Would you merge it?\n\nLook at the card. fetch rejects only when the request can't complete at all: no network, DNS failure, CORS block. A 404 or 500 is a complete response, so fetch resolves normally with res.ok set to false.\n\nHere the server sends a 500 with a JSON body like { message: \"...\" }. res.json() parses it fine, and render() tries to draw an error object as if it were real data. catch never runs.\n\nCheck res.ok (true for status 200-299) and throw yourself when it's false. Libraries like axios reject on non-2xx statuses by default, which is why people coming from axios miss this.\n\nSource: MDN, Using the Fetch API (checking that the fetch was successful).",
+    "publishAt": "2026-11-14T23:30:00+05:30"
+  },
+  {
+    "id": "n165",
+    "day": 12,
+    "slot": "07:00",
+    "style": "piyush",
+    "theme": "navy",
+    "pillar": "frontend",
+    "format": "code-review",
+    "card": {
+      "title": "Why does this print 3 3 3\ninstead of 0 1 2?",
+      "panels": [
+        {
+          "tone": "bad",
+          "label": "Common answer",
+          "file": "loop.js",
+          "hl": [
+            1
+          ],
+          "code": "for (var i = 0; i < 3; i++) {\n  setTimeout(() => log(i), 0);\n}\n// 3 3 3"
+        },
+        {
+          "tone": "good",
+          "label": "What gets you selected",
+          "file": "loop.js",
+          "hl": [
+            1
+          ],
+          "code": "for (let i = 0; i < 3; i++) {\n  setTimeout(() => log(i), 0);\n}\n// 0 1 2"
+        }
+      ],
+      "note": "[[let]] gives every loop iteration its own i. var shares one."
+    },
+    "caption": "Still one of the most asked JavaScript output questions in frontend interviews.\n\nLook at the card. With var there is one i for the whole loop. The timeouts run after the loop has finished, and by then i is 3. All three callbacks read the same variable, so they all print 3.\n\nWith let, each iteration gets a new binding of i. Each callback closes over its own copy: 0, 1 and 2.\n\nInterviewers usually follow up with \"how would you fix it without let?\" Before ES6 the answer was an IIFE (a function you call immediately) that passes i in as a parameter.\n\nSource: MDN, let (scoping rules) and Closures.",
+    "publishAt": "2026-11-15T07:00:00+05:30"
+  },
+  {
+    "id": "n166",
+    "day": 12,
+    "slot": "12:00",
+    "style": "nishchal",
+    "theme": "dark",
+    "pillar": "career",
+    "format": "one-liner",
+    "card": {
+      "text": "Every senior developer you admire\nhas [[broken production]] at least once."
+    },
+    "caption": "Seniors aren't people who never make mistakes. They've made more of them, and learned how to recover calmly.\n\nThey roll back, communicate, find the cause and write it down so it doesn't happen again.\n\nIf you broke something at your first job, you're not bad at this. You've just started collecting the stories seniors tell.",
+    "publishAt": "2026-11-15T12:00:00+05:30"
+  },
+  {
+    "id": "n167",
+    "day": 12,
+    "slot": "19:00",
+    "style": "ours",
+    "theme": "light",
+    "pillar": "career",
+    "format": "take",
+    "card": {
+      "text": "Practise [[reviewing code]] as seriously as you practise writing it.\n\nThat's most of the job now."
+    },
+    "caption": "More code is generated every month. Someone still has to decide what gets merged.\n\nReviewing is a skill: spotting the missing edge case, the unnecessary re-render, the security hole that \"works fine\".\n\nEasy way to practise: open a merged pull request in a popular open source repo, read the diff, write down what you'd ask, then read the real review comments.",
+    "publishAt": "2026-11-15T19:00:00+05:30"
+  },
+  {
+    "id": "n168",
+    "day": 12,
+    "slot": "23:30",
+    "style": "piyush",
+    "theme": "navy",
+    "pillar": "frontend",
+    "format": "code-review",
+    "card": {
+      "title": "Add a seat to row 1.\nWhy did every row get it?",
+      "panels": [
+        {
+          "tone": "bad",
+          "label": "AI-generated",
+          "file": "seats.js",
+          "hl": [
+            1
+          ],
+          "code": "const rows = Array(3).fill([]);\nrows[0].push('A1');\n// [['A1'], ['A1'], ['A1']]"
+        },
+        {
+          "tone": "good",
+          "label": "What I'd merge",
+          "file": "seats.js",
+          "hl": [
+            1,
+            2
+          ],
+          "code": "const rows = Array.from(\n  { length: 3 }, () => []);\nrows[0].push('A1');\n// [['A1'], [], []]"
+        }
+      ],
+      "note": "fill puts the [[same array]] in every slot. Array.from builds a new one each time."
+    },
+    "caption": "An AI built a seat map for a booking page. Book one seat and every row shows it.\n\nLook at the card. fill([]) creates one empty array and puts that same array in all three slots. rows[0], rows[1] and rows[2] all point to it, so a push through any of them shows up in all of them.\n\nArray.from({ length: 3 }, () => []) calls the function once per slot, so each row gets its own array.\n\nThe same trap applies to fill({}) with objects. fill(0) or fill('') is fine, because numbers and strings aren't shared references.\n\nSource: MDN, Array.prototype.fill() (filling with an object).",
+    "publishAt": "2026-11-15T23:30:00+05:30"
+  },
+  {
+    "id": "n169",
+    "day": 13,
+    "slot": "07:00",
+    "style": "piyush",
+    "theme": "navy",
+    "pillar": "frontend",
+    "format": "code-review",
+    "card": {
+      "title": "Three API calls take 3 seconds.\nThey could take 1. How?",
+      "panels": [
+        {
+          "tone": "bad",
+          "label": "Common answer",
+          "file": "dashboard.js",
+          "hl": [
+            1,
+            2,
+            3
+          ],
+          "code": "const user = await getUser();\nconst orders = await getOrders();\nconst offers = await getOffers();"
+        },
+        {
+          "tone": "good",
+          "label": "What gets you selected",
+          "file": "dashboard.js",
+          "hl": [
+            2
+          ],
+          "code": "const [user, orders, offers] =\n  await Promise.all([\n    getUser(), getOrders(),\n    getOffers(),\n  ]);"
+        }
+      ],
+      "note": "Independent requests shouldn't [[wait in line]]."
+    },
+    "caption": "If a dashboard takes 3 seconds to load in your machine coding round, check for this first.\n\nLook at the card. Each await waits for the previous request to finish before the next one starts. If each call takes about a second, the page waits about three. That's a request waterfall.\n\nNone of the three needs data from the others, so start them together. Promise.all waits for all of them, and the total is roughly the slowest one.\n\nIf one request is allowed to fail without breaking the page, use Promise.allSettled instead.\n\nOnly keep them in sequence when one really needs the result of another.\n\nSource: MDN, Promise.all().",
+    "publishAt": "2026-11-16T07:00:00+05:30"
+  },
+  {
+    "id": "n170",
+    "day": 13,
+    "slot": "12:00",
+    "style": "nishchal",
+    "theme": "dark",
+    "pillar": "career",
+    "format": "one-liner",
+    "card": {
+      "text": "A ₹2 LPA hike to learn something new\nbeats a ₹4 LPA hike to [[do the same work for 3 more years]]."
+    },
+    "caption": "Early in your career, what you learn compounds faster than salary does.\n\nA role that stretches you raises what you're worth on every job change after it. A role that only pays more can leave you with three years of the same experience, repeated.\n\nNot always true. If your family needs the money now, that matters more than any rule. But ask the question before you sign.",
+    "publishAt": "2026-11-16T12:00:00+05:30"
+  },
+  {
+    "id": "n171",
+    "day": 13,
+    "slot": "19:00",
+    "style": "ours",
+    "theme": "light",
+    "pillar": "career",
+    "format": "question",
+    "card": {
+      "text": "Placements start in 4 months.\nThis weekend, pick one:\n\nA) Solve 20 DSA problems\nB) Finish the project you started\n\n[[Which one, and why?]]"
+    },
+    "caption": "Students ask this every placement season, and the honest answer depends on the companies you're targeting.\n\nSome rounds are mostly DSA. Others care more about projects and how you explain them.\n\nIf you've been through placements recently: what actually helped more in your interviews?",
+    "publishAt": "2026-11-16T19:00:00+05:30"
+  },
+  {
+    "id": "n172",
+    "day": 13,
+    "slot": "23:30",
+    "style": "piyush",
+    "theme": "navy",
+    "pillar": "frontend",
+    "format": "code-review",
+    "card": {
+      "title": "The Pay button is hidden on phones.\nOnly on phones. Why?",
+      "panels": [
+        {
+          "tone": "bad",
+          "label": "AI-generated",
+          "file": "checkout.css",
+          "hl": [
+            2
+          ],
+          "code": ".checkout {\n  height: 100vh;\n}\n.pay { position: absolute;\n  bottom: 0; }"
+        },
+        {
+          "tone": "good",
+          "label": "What I'd merge",
+          "file": "checkout.css",
+          "hl": [
+            2
+          ],
+          "code": ".checkout {\n  height: 100dvh;\n}"
+        }
+      ],
+      "note": "On phones, 100vh is the height [[with the toolbars hidden]]. dvh tracks the real height."
+    },
+    "caption": "The AI built a full-height checkout. On a laptop it's perfect. On a phone the Pay button sits under the browser's address bar.\n\nLook at the card. On mobile browsers, 100vh is the viewport height when the browser toolbars are hidden. While they're showing, the page is taller than the visible area, and anything pinned to the bottom ends up under the toolbar.\n\ndvh (dynamic viewport height) follows the visible area as the toolbars appear and disappear. svh is the smallest size, if you'd rather it never change.\n\nAll major browsers support these units. Test on a real phone, not just in DevTools device mode.\n\nSource: MDN, CSS length units (viewport units: lvh, svh, dvh).",
+    "publishAt": "2026-11-16T23:30:00+05:30"
+  },
+  {
+    "id": "n173",
+    "day": 14,
+    "slot": "07:00",
+    "style": "piyush",
+    "theme": "navy",
+    "pillar": "frontend",
+    "format": "code-review",
+    "card": {
+      "title": "The page jumps while it loads.\nWhich line causes it?",
+      "panels": [
+        {
+          "tone": "bad",
+          "label": "Common answer",
+          "file": "Banner.html",
+          "hl": [
+            1,
+            2
+          ],
+          "code": "<img src=\"/sale.webp\"\n  alt=\"Diwali sale banner\" />"
+        },
+        {
+          "tone": "good",
+          "label": "What gets you selected",
+          "file": "Banner.html",
+          "hl": [
+            3
+          ],
+          "code": "<img src=\"/sale.webp\"\n  alt=\"Diwali sale banner\"\n  width=\"1200\" height=\"600\" />"
+        }
+      ],
+      "note": "[[width and height]] let the browser save space before the image arrives."
+    },
+    "caption": "You tap a button, the banner finishes loading, everything shifts down, and you tap the wrong thing. That's layout shift, and Google measures it as CLS.\n\nLook at the card. Without width and height, the browser doesn't know how tall the image will be. It gives it zero height, then pushes the content down when the image arrives.\n\nWith width and height, the browser works out the aspect ratio before downloading anything and reserves the right space. CSS can still make it responsive with width: 100% and height: auto.\n\nCheck yours: DevTools, Performance panel, record a reload and look for layout shifts.\n\nSource: web.dev, Optimize Cumulative Layout Shift.",
+    "publishAt": "2026-11-17T07:00:00+05:30"
+  },
+  {
+    "id": "n174",
+    "day": 14,
+    "slot": "12:00",
+    "style": "nishchal",
+    "theme": "dark",
+    "pillar": "career",
+    "format": "one-liner",
+    "card": {
+      "text": "The fastest way to grow at your first job:\n\n[[sit near the person who fixes production]]."
+    },
+    "caption": "Watch how they debug. Which dashboards they open, which logs they read, what they check first.\n\nOffer to help with the boring parts of an incident. Read the write-up afterwards.\n\nYou'll learn more about how real systems fail in one week of that than in a month of tutorials.",
+    "publishAt": "2026-11-17T12:00:00+05:30"
+  },
+  {
+    "id": "n175",
+    "day": 14,
+    "slot": "19:00",
+    "style": "ours",
+    "theme": "light",
+    "pillar": "frontend",
+    "format": "self-check",
+    "card": {
+      "text": "Paste your project's link into a WhatsApp chat.\n\nNo title, no image, just a bare URL?\n\nYou're missing [[Open Graph tags]]."
+    },
+    "caption": "When someone shares a link, WhatsApp, LinkedIn and most chat apps read Open Graph meta tags to build the preview card: og:title, og:description and og:image.\n\nWithout them, your portfolio or project shows up as a plain link that nobody taps.\n\nAdd the three tags to your page's <head>, with an image around 1200x630. If your app renders on the client only, make sure those tags are in the HTML the server sends, because link preview bots usually don't run JavaScript.\n\nRecruiters open links from chats too.\n\nSource: ogp.me (The Open Graph protocol).",
+    "publishAt": "2026-11-17T19:00:00+05:30"
+  },
+  {
+    "id": "n176",
+    "day": 14,
+    "slot": "23:30",
+    "style": "piyush",
+    "theme": "navy",
+    "pillar": "frontend",
+    "format": "code-review",
+    "card": {
+      "title": "AI lazy-loaded every image.\nWhy did the page get slower?",
+      "panels": [
+        {
+          "tone": "bad",
+          "label": "AI-generated",
+          "file": "Home.html",
+          "hl": [
+            2
+          ],
+          "code": "<img src=\"hero.webp\" alt=\"...\"\n  loading=\"lazy\" />"
+        },
+        {
+          "tone": "good",
+          "label": "What I'd merge",
+          "file": "Home.html",
+          "hl": [
+            2
+          ],
+          "code": "<img src=\"hero.webp\" alt=\"...\"\n  fetchpriority=\"high\" />"
+        }
+      ],
+      "note": "Lazy-load what's [[below the fold]]. The hero image is your LCP."
+    },
+    "caption": "An AI was asked to \"optimize images\" and put loading=\"lazy\" on all of them, including the big banner at the top.\n\nLook at the card. Lazy loading tells the browser to wait until it knows the image is near the viewport. For the hero image, which is usually the Largest Contentful Paint (when the biggest thing on screen appears), that delay is exactly what you don't want. LCP gets worse.\n\nLoad the hero eagerly, which is the default, and add fetchpriority=\"high\" so the browser fetches it before less important resources. In React the prop is fetchPriority.\n\nKeep loading=\"lazy\" for images further down the page.\n\nSource: web.dev, Browser-level image lazy loading (avoid lazy-loading images in the first visible viewport).",
+    "publishAt": "2026-11-17T23:30:00+05:30"
   }
 ]

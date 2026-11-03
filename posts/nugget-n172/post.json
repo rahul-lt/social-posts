@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-11-16T18:00:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "The AI built a full-height checkout. On a laptop it's perfect. On a phone the Pay button sits under the browser's address bar.\n\nLook at the card. On mobile browsers, 100vh is the viewport height when the browser toolbars are hidden. While they're showing, the page is taller than the visible area, and anything pinned to the bottom ends up under the toolbar.\n\ndvh (dynamic viewport height) follows the visible area as the toolbars appear and disappear. svh is the smallest size, if you'd rather it never change.\n\nAll major browsers support these units. Test on a real phone, not just in DevTools device mode.\n\nSource: MDN, CSS length units (viewport units: lvh, svh, dvh).\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "",
+  "title": "Nugget N172"
+}

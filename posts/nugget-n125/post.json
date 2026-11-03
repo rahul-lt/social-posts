@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-11-05T01:30:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "Interviewers like this one because the code works perfectly in a demo.\n\nLook at the card. Every time the modal opens, the effect adds a resize listener to window. When the modal closes, nothing removes it. Ten opens later, ten listeners are still attached, each one holding on to an old copy of the component.\n\nThe fix is the function you return from the effect. React calls it when the component unmounts, so the listener goes away with the modal.\n\nThis is also why React's StrictMode runs effects twice in development: a missing cleanup shows up right away instead of months later.\n\nSource: react.dev, Synchronizing with Effects (adding cleanup).\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "",
+  "title": "Nugget N125"
+}

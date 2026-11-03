@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-11-10T01:30:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "\"How do you deep copy an object?\" If your answer is JSON.parse(JSON.stringify()), expect a follow-up.\n\nLook at the card. JSON.stringify turns a Date into a string, and JSON.parse doesn't turn it back. So copy.placedAt is a string and getTime() throws. The same trip silently drops undefined values and functions, and turns a Map or Set into an empty object.\n\nstructuredClone is built into modern browsers and Node 17+. It copies Dates, Maps, Sets and nested objects properly. It throws on functions instead of dropping them quietly.\n\nJSON is still fine for plain data that came from an API.\n\nSource: MDN, structuredClone().\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "",
+  "title": "Nugget N145"
+}

@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-11-17T01:30:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "You tap a button, the banner finishes loading, everything shifts down, and you tap the wrong thing. That's layout shift, and Google measures it as CLS.\n\nLook at the card. Without width and height, the browser doesn't know how tall the image will be. It gives it zero height, then pushes the content down when the image arrives.\n\nWith width and height, the browser works out the aspect ratio before downloading anything and reserves the right space. CSS can still make it responsive with width: 100% and height: auto.\n\nCheck yours: DevTools, Performance panel, record a reload and look for layout shifts.\n\nSource: web.dev, Optimize Cumulative Layout Shift.\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "",
+  "title": "Nugget N173"
+}

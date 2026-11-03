@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-11-14T13:30:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "A bundle analyzer draws your JavaScript bundle as a map of boxes, sized by how much each library adds.\n\nCommon finds: a whole date library to format one date, a full icon pack for five icons, a charting library loaded on pages without charts.\n\nTry rollup-plugin-visualizer for Vite or @next/bundle-analyzer for Next.js. Then replace, trim or lazy-load the biggest box you don't really need.\n\nFewer kilobytes means a faster first load, especially on mobile data.\n\nSource: the rollup-plugin-visualizer and @next/bundle-analyzer READMEs.\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "Run a bundle analyzer on your app once.\n\nMost apps find [[one library]] taking a big slice of the bundle for one small feature.",
+  "title": "Nugget N163"
+}

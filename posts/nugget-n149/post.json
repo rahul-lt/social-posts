@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-11-11T01:30:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "Build a cart in a machine coding round, add prices as decimals, and a total like 0.30000000000000004 appears on screen.\n\nLook at the card. JavaScript numbers are binary floating point. 0.1 and 0.2 can't be stored exactly in binary, so their sum is a tiny bit off. That's true in most languages, not just JavaScript.\n\nThe fix most payment systems use: store amounts as integers in the smallest unit. ₹499.50 becomes 49950 paise. Integer addition is exact.\n\nConvert only when you show the amount. Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR' }) formats it with the ₹ sign and Indian digit grouping.\n\nSource: MDN, Number (number encoding).\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "",
+  "title": "Nugget N149"
+}

@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-11-15T13:30:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "More code is generated every month. Someone still has to decide what gets merged.\n\nReviewing is a skill: spotting the missing edge case, the unnecessary re-render, the security hole that \"works fine\".\n\nEasy way to practise: open a merged pull request in a popular open source repo, read the diff, write down what you'd ask, then read the real review comments.\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "Practise [[reviewing code]] as seriously as you practise writing it.\n\nThat's most of the job now.",
+  "title": "Nugget N167"
+}

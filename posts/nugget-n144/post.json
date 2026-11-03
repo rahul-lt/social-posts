@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-11-09T18:00:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "The AI wanted line breaks and bold text in comments, so it rendered them as HTML. It works, and it's a security hole.\n\nLook at the card. When you write {comment.text}, React escapes it, so any HTML tags show up as plain text. dangerouslySetInnerHTML skips that. If someone posts a comment like <img src=x onerror=...>, the browser runs that code for every person who views the page. That's XSS (cross-site scripting).\n\nIf you really need formatted comments, convert them on purpose (a markdown library) and sanitize the HTML with a library like DOMPurify before rendering.\n\nThe prop is named \"dangerously\" for a reason. Treat it as a review flag.\n\nSource: react.dev, Common components (dangerouslySetInnerHTML).\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "",
+  "title": "Nugget N144"
+}

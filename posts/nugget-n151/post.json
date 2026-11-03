@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-11-11T13:30:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "A <form> with no method attribute sends its data with GET. GET puts every field in the URL, password included. URLs end up in browser history, server logs and analytics tools.\n\nUsually JavaScript intercepts the submit, so you never notice. But if your script fails to load or throws before preventDefault runs, the browser does the default.\n\nThe fix is one attribute: method=\"post\" on the form. Add it even when JavaScript handles the submit.\n\nSource: MDN, The Form element (method attribute).\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "Submit your login form with JavaScript turned off.\n\nDoes the [[password]] show up in the URL?",
+  "title": "Nugget N151"
+}

@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-11-14T18:00:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "The AI wrapped fetch in try/catch and called it error handling. Would you merge it?\n\nLook at the card. fetch rejects only when the request can't complete at all: no network, DNS failure, CORS block. A 404 or 500 is a complete response, so fetch resolves normally with res.ok set to false.\n\nHere the server sends a 500 with a JSON body like { message: \"...\" }. res.json() parses it fine, and render() tries to draw an error object as if it were real data. catch never runs.\n\nCheck res.ok (true for status 200-299) and throw yourself when it's false. Libraries like axios reject on non-2xx statuses by default, which is why people coming from axios miss this.\n\nSource: MDN, Using the Fetch API (checking that the fetch was successful).\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "",
+  "title": "Nugget N164"
+}

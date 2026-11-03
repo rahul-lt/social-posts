@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-11-07T13:30:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "console.log calls written during development often ship to production. Anyone who opens DevTools can read them: user emails, auth tokens, full API responses.\n\nTwo fixes:\n- remove them before merging (ESLint's no-console rule catches them)\n- strip them at build time with your bundler's minifier settings\n\nAnd never log a token, even while debugging. Logs get copied, screenshotted and pasted into AI chats.\n\nTry it on your project tonight. It takes two minutes.\n\nSource: ESLint docs, no-console rule.\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "Open your live app.\nOpen the Console.\nLog in.\n\nSee user objects, tokens or API responses printed there?\n\nSo can [[everyone else]].",
+  "title": "Nugget N135"
+}

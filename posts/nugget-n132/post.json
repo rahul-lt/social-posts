@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-11-06T18:00:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "The AI put catch first \"to handle errors early\". It reads fine. Would you merge it?\n\nLook at the card. When pay rejects, catch runs and shows \"Failed\". But catch also returns a new promise, and because the handler didn't throw, that promise resolves successfully. So the next then runs too. The user sees \"Failed\" and then \"Order placed\".\n\nOrder matters in a promise chain. Put the success step first and catch last, so a failure skips the success step.\n\nWith async/await it's harder to get wrong: put the success toast inside the try block, right after await pay(cart).\n\nSource: MDN, Promise.prototype.catch().\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "",
+  "title": "Nugget N132"
+}

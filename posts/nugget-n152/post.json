@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-11-11T18:00:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "The AI wrote this, it works, and your backend team is about to message you.\n\nLook at the card. With no dependency array, the effect runs after every render. It fetches the user and calls setUser with a new object. A new object means a re-render. The re-render runs the effect again. That's an endless loop of requests.\n\nThe fix is one argument: an empty array, so the effect runs once on mount. If the request depends on a value, like an id, put that value in the array.\n\nReact won't warn you about this one. The Network tab will.\n\nSource: react.dev, useEffect (dependencies).\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "",
+  "title": "Nugget N152"
+}

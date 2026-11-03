@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-11-05T18:00:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "AI tools write this all the time because it reads naturally.\n\nLook at the card. An async function always returns a promise. React expects an effect to return either nothing or a cleanup function, so it warns in development. Worse, you've lost the one place where cleanup could go.\n\nThe fix: keep the effect synchronous and define an async function inside it, then call it.\n\nThen add what the AI usually skips. If url changes quickly, an older response can arrive last and overwrite the newer one. The React docs fix that with a flag: set let ignore = false in the effect, set it to true in the cleanup, and skip setData when it's true.\n\nSource: react.dev, Synchronizing with Effects (fetching data).\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "",
+  "title": "Nugget N128"
+}

@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-11-07T18:00:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "An AI assistant used a plain object as a lookup table, keyed by user objects. The tests used one user, so they passed.\n\nLook at the card. Plain object keys are always strings (or symbols). userA and userB are objects, so JavaScript turns both into the same string: \"[object Object]\". The second assignment overwrites the first. Both users now share one cart.\n\nA Map accepts any value as a key, including objects, and compares them by identity. userA and userB stay separate.\n\nThe other fix is to key the object by something that's already a string, like user.id.\n\nSource: MDN, Map (objects vs maps).\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "",
+  "title": "Nugget N136"
+}

@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-11-12T18:00:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "An AI wrote this check, and it's wrong in both directions.\n\nLook at the card. indexOf returns a position. If 'sale' is the first tag, it returns 0, and 0 is falsy, so no badge. If 'sale' isn't there at all, it returns -1, and -1 is truthy, so the badge shows.\n\nincludes returns true or false, which is what an if statement needs.\n\nIf you really need indexOf, compare explicitly: indexOf('sale') !== -1.\n\nBugs like this pass a quick test because the first test case usually puts the value somewhere in the middle.\n\nSource: MDN, Array.prototype.indexOf() and includes().\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "",
+  "title": "Nugget N156"
+}

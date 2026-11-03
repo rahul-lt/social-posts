@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-11-07T01:30:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "This bug shows up in almost every machine coding round that has a form.\n\nLook at the card. The Cancel button has an onClick that closes the modal. But it's a button inside a form with no type, and the default type of a button in a form is submit.\n\nSo one click runs close and then submits the form. The task gets saved even though the user pressed Cancel.\n\nThe fix is one attribute: type=\"button\" on every button that shouldn't submit. Writing type=\"submit\" on the real submit button makes your intent obvious to the next reader.\n\nSource: MDN, The Button element (type attribute).\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "",
+  "title": "Nugget N133"
+}

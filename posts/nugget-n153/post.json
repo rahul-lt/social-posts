@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-11-12T01:30:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "An early return before a hook is a classic machine coding mistake. It works until the condition flips.\n\nLook at the card. While user exists, Cart calls useState. When the user logs out, the function returns before reaching useState. React tracks hooks by their call order, so it sees fewer hooks than last time and throws \"Rendered fewer hooks than expected\".\n\nThe rule: call every hook at the top level, before any return. Put conditions after the hooks, or move the logged-out branch into the parent.\n\nThe eslint-plugin-react-hooks rules-of-hooks check flags this as you type.\n\nSource: react.dev, Rules of Hooks.\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "",
+  "title": "Nugget N153"
+}

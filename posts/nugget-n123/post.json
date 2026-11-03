@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-11-04T13:30:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "Source maps link your minified bundle back to the original files. Great for debugging, but if they're public, anyone can read your original code, comments included.\n\nSome setups have shipped them to production by default. Create React App did.\n\nCheck your own site. If you see your src folder:\n- turn them off for production, or\n- upload them only to your error tracker (like Sentry) instead of serving them.\n\nThen search the bundle for anything that looks like a key. Frontend code is never a place for secrets.\n\nSource: MDN, Use a source map (Firefox DevTools) and your bundler's build.sourcemap docs.\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "Your production site might be shipping its [[source code]].\n\nOpen DevTools → Sources on your live site.\nSee your src/ folder with readable code? That's source maps.",
+  "title": "Nugget N123"
+}

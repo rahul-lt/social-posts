@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-11-06T01:30:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "Write this in a machine coding round and the Network tab fills up while the interviewer watches.\n\nLook at the card. filters is created again on every render. It has the same values, but it's a new object, and React compares dependencies with Object.is, which checks the reference.\n\nNew object, so the effect runs. If fetchList sets state, that causes a render, which creates a new object, which runs the effect again.\n\nThe fix: depend on the primitive values the effect actually uses. Build the object inside the effect.\n\nIf you need the object outside too, useMemo can keep the same reference between renders.\n\nSource: react.dev, Removing Effect Dependencies.\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "",
+  "title": "Nugget N129"
+}

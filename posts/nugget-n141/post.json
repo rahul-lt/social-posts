@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-11-09T01:30:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "This one catches people who know hooks well.\n\nLook at the card. EditProfile copies user.name into state. When the parent passes a different user, the component stays in the same place in the tree, so React keeps its state. The initial value is only read on the first render. The input keeps showing Asha.\n\nThe cleanest fix is on the parent: key={user.id}. A different key tells React it's a different component, so it throws the old state away and starts fresh with Ravi.\n\nYou don't need a useEffect that syncs the prop into state. That version renders the wrong name first and then corrects it.\n\nSource: react.dev, Preserving and Resetting State.\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "",
+  "title": "Nugget N141"
+}

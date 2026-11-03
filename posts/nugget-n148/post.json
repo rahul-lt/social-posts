@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-11-10T18:00:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "The AI built a quantity picker with type=\"number\" and assumed it gives you a number. It doesn't.\n\nLook at the card. input.value is always a string. type=\"number\" only changes the keyboard and the validation. So qty is \"2\", and \"2\" + 1 is string concatenation: \"21\".\n\nNumber inputs have valueAsNumber, which returns a real number. It returns NaN when the field is empty, so handle that case before you do math with it. Number(e.target.value) works too.\n\nThe same is true for every form field: values come in as strings. Convert at the edge, as soon as you read them.\n\nSource: MDN, input type=\"number\" (value and valueAsNumber).\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "",
+  "title": "Nugget N148"
+}

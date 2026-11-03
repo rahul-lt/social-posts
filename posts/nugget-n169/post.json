@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-11-16T01:30:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "If a dashboard takes 3 seconds to load in your machine coding round, check for this first.\n\nLook at the card. Each await waits for the previous request to finish before the next one starts. If each call takes about a second, the page waits about three. That's a request waterfall.\n\nNone of the three needs data from the others, so start them together. Promise.all waits for all of them, and the total is roughly the slowest one.\n\nIf one request is allowed to fail without breaking the page, use Promise.allSettled instead.\n\nOnly keep them in sequence when one really needs the result of another.\n\nSource: MDN, Promise.all().\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "",
+  "title": "Nugget N169"
+}

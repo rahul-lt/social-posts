@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-11-09T13:30:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "When AI-written code breaks in production, nobody blames the AI. The name on the commit is yours.\n\nSo treat its output like a pull request from a fast, confident intern: useful, often right, and always worth reading before it ships.\n\nTest the edge cases, read the diff, and make sure you could debug it at 2 AM without help.\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "AI writes the first draft.\n\n[[You own the last one.]]",
+  "title": "Nugget N143"
+}

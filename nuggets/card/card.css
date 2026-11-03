@@ -26,3 +26,31 @@
   background: var(--code-bg); color: var(--code-ink); white-space: pre-wrap; overflow-wrap: anywhere;
   font: min(max(calc(var(--fs, 5.6cqw) * 0.85), 3.2cqw), var(--code-max, 99cqw)) / 1.4 ui-monospace, "SF Mono", Menlo, Consolas, monospace;
 }
+
+.card .accent { color: var(--accent); font-weight: 700; }
+.card { --accent: #1d9bf0; }
+.card.dark { --accent: #00ba7c; }
+
+/* Code-review card: question title, red "before" / green "after" editor panels, one-line note. */
+.card.navy {
+  --bg: #0b1220; --ink: #f1f5f9; --muted: #8a94a6; --accent: #4ade80;
+  --panel: #131c2e; --bar: #1b2539; --bad: #f87171; --good: #4ade80; --bad-bg: rgba(248, 113, 113, .16); --good-bg: rgba(74, 222, 128, .14);
+  gap: 3.2cqw; padding: 6cqw 5.5cqw 4.5cqw;
+}
+.card .title { font-size: var(--fs, 5.6cqw); font-weight: 800; line-height: 1.22; text-align: center; white-space: pre-line; }
+.card .panel { border-radius: 2cqw; overflow: hidden; background: var(--panel); border: 0.2cqw solid #24304a; }
+.card .bar { display: flex; align-items: center; gap: 2cqw; padding: 1.6cqw 2.6cqw; background: var(--bar); font-size: 2.9cqw; }
+.card .dots { width: 1.5cqw; height: 1.5cqw; border-radius: 50%; background: #ff5f57; box-shadow: 2.3cqw 0 #febc2e, 4.6cqw 0 #28c840; margin-right: 4.8cqw; flex: none; }
+.card .label { font-weight: 700; }
+.card .bad .label { color: var(--bad); }
+.card .good .label { color: var(--good); }
+.card .file { margin-left: auto; color: var(--muted); }
+.card .panel pre {
+  margin: 0; padding: 2.2cqw 0; border: 0; border-radius: 0; background: none; color: var(--ink); white-space: pre;
+  font: min(max(calc(var(--fs, 5.6cqw) * 0.62), 3.2cqw), var(--code-max, 99cqw)) / 1.45 ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}
+.card .panel .ln { display: block; padding: 0 2.6cqw; }
+.card .bad .ln.hl { background: var(--bad-bg); box-shadow: inset 0.6cqw 0 var(--bad); }
+.card .good .ln.hl { background: var(--good-bg); box-shadow: inset 0.6cqw 0 var(--good); }
+.card .note { font-size: max(calc(var(--fs, 5.6cqw) * 0.62), 3.3cqw); color: var(--muted); text-align: center; line-height: 1.35; }
+.card .mark { font-size: 2.8cqw; color: var(--muted); text-align: center; opacity: .8; }

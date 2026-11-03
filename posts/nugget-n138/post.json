@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-11-08T06:30:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "Using AI to write code is normal now. Teams expect it.\n\nWhat gets noticed in a code review or an interview is whether you understand what got written. Why this hook, why this query, what happens when the API fails.\n\nOne habit fixes most of it: before you commit AI-written code, explain each line to yourself out loud.\n\nIf you can't, you're not done yet.\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "AI isn't replacing junior developers.\n\nIt's replacing juniors who [[can't explain their own code]].",
+  "title": "Nugget N138"
+}

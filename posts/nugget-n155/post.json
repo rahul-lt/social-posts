@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-11-12T13:30:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "The same AI tool gives a junior and a senior very different results. Usually it's not the wording of the prompt.\n\nThe senior gives it the right files, the constraints, the existing patterns, the edge cases to handle and how to check the result.\n\nThat context comes from understanding the codebase. Which is why learning the codebase still matters more than learning prompt tricks.\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "Prompting isn't the skill.\n\n[[Context]] is.",
+  "title": "Nugget N155"
+}

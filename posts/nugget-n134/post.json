@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-11-07T06:30:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "A tutorial hides every hard decision: folder structure, error states, the API that returns something unexpected, the bug that only happens on refresh.\n\nYour own project makes you face all of them.\n\nSo when your \"simple\" feature takes two days, don't feel slow. That's the part the tutorial skipped, and it's the part interviews ask about.\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "Tutorial: 12 minutes.\nSame feature in your own project: 2 days.\n\nThat gap is [[where you actually learn]].",
+  "title": "Nugget N134"
+}

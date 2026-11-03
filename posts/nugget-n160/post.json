@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-11-13T18:00:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "The AI kept raising the z-index. The dropdown stayed behind the sticky header.\n\nLook at the card. transform on .card creates a new stacking context. Inside it, the menu's z-index of 9999 is compared only with other things inside .card. The card as a whole sits below the header, which has z-index 10 at the page level, so the menu goes under it.\n\nopacity below 1, filter and will-change can do the same thing.\n\nThe robust fix: render the menu outside the card. createPortal mounts it under document.body, so its z-index competes at the page level. Or remove the transform if you don't need it.\n\nSource: MDN, Stacking context.\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "",
+  "title": "Nugget N160"
+}

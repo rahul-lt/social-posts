@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-11-14T06:30:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "Most error messages tell you what went wrong and where. The file, the line, often the fix.\n\nA lot of beginners read the first line, panic and paste it somewhere.\n\nRead the whole stack trace once. Find the first line that points at your own code. That habit alone will make you faster than half your batch.\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "Before you \"learn AI\",\nlearn to [[read an error message]] all the way to the end.",
+  "title": "Nugget N162"
+}

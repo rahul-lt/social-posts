@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-11-04T01:30:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "Use the array index as a key in a machine coding round and your todo list breaks the first time someone deletes an item.\n\nLook at the card. Three todos, each with an input. Delete the first one.\n\nReact matches list items by key, not by content. Before the delete the keys were 0, 1, 2. After it they are 0, 1. So React decides the item with key 2 was removed and keeps the inputs for keys 0 and 1 as they were. The first input on screen still shows the text you just deleted.\n\nWith key={t.id}, the key stays with the todo, and React removes the right input.\n\nAn index is only safe when the list never reorders, filters or deletes.\n\nSource: react.dev, Rendering Lists.\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "",
+  "title": "Nugget N121"
+}

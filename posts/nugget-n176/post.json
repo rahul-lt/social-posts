@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-11-17T18:00:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "An AI was asked to \"optimize images\" and put loading=\"lazy\" on all of them, including the big banner at the top.\n\nLook at the card. Lazy loading tells the browser to wait until it knows the image is near the viewport. For the hero image, which is usually the Largest Contentful Paint (when the biggest thing on screen appears), that delay is exactly what you don't want. LCP gets worse.\n\nLoad the hero eagerly, which is the default, and add fetchpriority=\"high\" so the browser fetches it before less important resources. In React the prop is fetchPriority.\n\nKeep loading=\"lazy\" for images further down the page.\n\nSource: web.dev, Browser-level image lazy loading (avoid lazy-loading images in the first visible viewport).\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "",
+  "title": "Nugget N176"
+}

@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-11-15T01:30:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "Still one of the most asked JavaScript output questions in frontend interviews.\n\nLook at the card. With var there is one i for the whole loop. The timeouts run after the loop has finished, and by then i is 3. All three callbacks read the same variable, so they all print 3.\n\nWith let, each iteration gets a new binding of i. Each callback closes over its own copy: 0, 1 and 2.\n\nInterviewers usually follow up with \"how would you fix it without let?\" Before ES6 the answer was an IIFE (a function you call immediately) that passes i in as a parameter.\n\nSource: MDN, let (scoping rules) and Closures.\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "",
+  "title": "Nugget N165"
+}

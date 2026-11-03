@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-11-04T18:00:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "Your AI assistant wrote a seconds counter. It has cleanup, it compiles, and it shows 1 forever. Would you approve it?\n\nLook at the card. The effect runs once because of the empty dependency array. The interval callback was created during that first render, when sec was 0. So every second it calls setSec(0 + 1), and React gets 1 again and again.\n\nThe fix is to pass a function: setSec((s) => s + 1). React gives it the latest value each time, so the callback never needs to read sec.\n\nNo error, no warning, and the code looks clean. That's why it slips through review.\n\nSource: react.dev, useState (updating state based on the previous state).\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "",
+  "title": "Nugget N124"
+}
