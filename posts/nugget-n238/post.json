@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-12-14T18:00:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "The AI built a dark mode toggle. It remembers your choice, and it also flashes a white screen on every reload. At night that flash is the first thing users notice.\n\nLook at the card. The browser paints the page before your JavaScript bundle runs, and useEffect runs after React has painted too. So the first frame always uses the light default, then the theme switches.\n\nRead the saved theme in a tiny inline script inside <head>. It runs before the body is drawn, so the very first frame already has the right theme.\n\nNext.js and other server-rendered apps hit the same flash. Libraries like next-themes inject this kind of script for you.\n\nSource: react.dev, useEffect (runs after the browser paints).\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "",
+  "title": "Nugget N238"
+}

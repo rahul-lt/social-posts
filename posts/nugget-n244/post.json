@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-12-16T18:00:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "The AI added a \"Download invoice\" button. Now every visitor downloads a PDF library on first load, including everyone who never presses it.\n\nLook at the card. A static import at the top puts jsPDF in the same bundle as the page. It's a large library, and it has to download and parse before the page is ready.\n\nawait import('jspdf') inside the click handler lets the bundler split it into its own chunk. It downloads only when someone clicks. Vite and webpack both do this automatically for dynamic imports.\n\nCheck yours in a bundle analyzer: charts, rich text editors, PDF and Excel export are the usual suspects.\n\nSource: MDN, import() and Vite docs (code splitting).\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "",
+  "title": "Nugget N244"
+}

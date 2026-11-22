@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-12-04T01:30:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "Log a fetch response the quick way in your machine coding round and the page breaks the moment you add the log.\n\nLook at the card. A response body is a stream. res.json() reads it to the end, and once it's read, it's gone. The second res.json() throws a TypeError (Chrome says \"body stream already read\"), so data is never set and nothing renders.\n\nFix: read the body once into a variable, then log the variable. If you really need two reads, call res.clone() before the first one.\n\nThe same rule applies to res.text() and res.blob(). Any two reads of one body fail.\n\nSource: MDN, Response.bodyUsed and Response.clone().\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "",
+  "title": "Nugget N206"
+}

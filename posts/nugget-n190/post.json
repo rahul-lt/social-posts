@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-11-28T14:00:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "That message lets anyone check, one email at a time, who uses your app. Attackers run lists of leaked emails through forms like this, then target the matches with phishing or password guessing.\n\nThe fix is one sentence: \"If an account exists for this email, we've sent a reset link.\" Show it for every email, send the mail only when the account exists, and keep the response time similar either way.\n\nCheck your login form too. \"Wrong password\" and \"No such user\" leak the same thing. Use one message: \"Email or password is incorrect.\"\n\nSource: OWASP Forgot Password Cheat Sheet and Authentication Cheat Sheet.\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "Type an email with no account into your Forgot password form.\n\nDoes it say \"No account found\"?\n\nYou're telling anyone [[which emails have accounts]].",
+  "title": "Nugget N190"
+}

@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-11-24T18:00:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "The AI built a reusable form field. On a page with one field it's perfect. Add a second one and tapping the Phone label puts the cursor in Email.\n\nLook at the card. Every Field renders id=\"field\". An id must be unique in the page. When two elements share one, htmlFor connects the label to the first element with that id. Both labels point at the Email input, and a screen reader finds no label for Phone.\n\nuseId gives each Field its own id, and the id matches between server and client rendering.\n\nNo id at all also works: put the input inside the label.\n\nSource: react.dev, useId; MDN, The Label element.\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "",
+  "title": "Nugget N179"
+}

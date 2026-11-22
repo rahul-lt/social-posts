@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-11-27T14:00:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "If await inside forEach ever caught you out, this is its sibling: an async callback inside filter. The in-stock filter keeps every phone.\n\nLook at the card. filter keeps an item when the callback returns something truthy. An async function always returns a promise, and a promise object is truthy, even one that will resolve to false. So filter keeps everything, before a single stock check has finished.\n\nThe fix runs the checks first. Promise.all with map gives you an array of true and false, in the same order as phones. Then filter by index.\n\nThe same trap works with some, every and find.\n\nSource: MDN, Array.prototype.filter() and async function.\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "",
+  "title": "Nugget N187"
+}

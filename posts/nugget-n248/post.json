@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-12-18T01:30:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "Declare React.lazy inside a component in your machine coding round and the chart flashes a spinner on every keystroke.\n\nLook at the card. Every render of Report calls lazy() again and gets a brand new component. React sees a different component type in the same spot, throws the old Chart away, suspends, and shows the fallback while it mounts the new one. Any state inside Chart is lost too.\n\nMove lazy() to the top level of the module. It runs once, and Chart stays the same component across renders.\n\nThe import itself is cached, so the Network tab shows no second request. Only the flash.\n\nSource: react.dev, lazy (declare lazy components at the top level).\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "",
+  "title": "Nugget N248"
+}

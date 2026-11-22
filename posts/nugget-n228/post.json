@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-12-11T14:00:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "Promise.all got the dashboard from 3 seconds down to 1. Then the offers API went down, and the whole page went blank.\n\nLook at the card. Promise.all rejects as soon as any one promise rejects. You lose the user and the orders too, even though they loaded fine.\n\nPromise.allSettled waits for all of them and gives you one result per promise: { status: 'fulfilled', value } or { status: 'rejected', reason }. Render what worked, and hide or show an error for what didn't.\n\nUse Promise.all when the page is useless without every piece, like a checkout that needs both cart and address. Use allSettled when parts can fail on their own.\n\nSource: MDN, Promise.allSettled().\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "",
+  "title": "Nugget N228"
+}

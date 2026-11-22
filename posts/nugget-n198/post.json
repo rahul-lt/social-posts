@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-12-01T14:00:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "Some apps block paste on password fields with onPaste={(e) => e.preventDefault()}, usually \"for security\".\n\nIt doesn't add security. It punishes people who use long, random passwords from a password manager, so they switch to something short they can type.\n\nNIST's digital identity guidelines say services should let users paste into password fields, for exactly this reason.\n\nThe same goes for \"Confirm email\" fields that block paste. Users retype, make a typo, and never get your emails.\n\nRemove the handler and let the password manager do its job.\n\nSource: NIST SP 800-63B, Digital Identity Guidelines (password verifiers).\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "Copy a password and paste it into your own login form.\n\nDid it work?\n\nIf you blocked paste, you also blocked [[password managers]].",
+  "title": "Nugget N198"
+}

@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-12-08T18:00:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "The AI built the order tracking page. When the server gets slow, the loader spins forever and there's no way to retry.\n\nLook at the card. fetch has no timeout option of its own. If the server accepts the connection and never answers, the promise stays pending, sometimes for minutes. setLoading(false) is on the line after the await, so it never runs.\n\nFix: AbortSignal.timeout(8000) aborts the request after 8 seconds with a TimeoutError. Put setLoading(false) in finally so it runs on success and on failure, and show a Retry button in catch.\n\nPick the number from your real response times, not 8 because a card said so.\n\nSource: MDN, AbortSignal.timeout().\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "",
+  "title": "Nugget N220"
+}

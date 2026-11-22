@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-11-28T18:00:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "The AI wrote the orders fetch with an empty dependency array. Click Delivered and the tab highlights, but the list still shows pending orders.\n\nLook at the card. The dependency array lists the values from your component that the effect reads. This effect reads status, but the array is empty, so React runs it once on mount and never again. Changing status re-renders the tabs, not the fetch.\n\nAdd status to the array, and every tab change fetches again.\n\nThe exhaustive-deps rule in eslint-plugin-react-hooks flags this as you type. Don't silence it.\n\nSwitching fast? An ignore flag in the cleanup stops an old response overwriting a newer one.\n\nSource: react.dev, Synchronizing with Effects.\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "",
+  "title": "Nugget N191"
+}

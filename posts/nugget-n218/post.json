@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-12-08T01:30:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "Use includes() on a list of objects in your machine coding round and your filter checkboxes never tick.\n\nLook at the card. includes() checks for the same value, and for objects that means the same object in memory, not one that looks the same. The size from the API and the one in selected have the same id, but they're two different objects. So includes() says false, every time.\n\nFix: compare by something stable, like the id, with some(). Or keep only ids in selected, and then includes() works fine.\n\nindexOf, Set and === between objects all behave the same way.\n\nSource: MDN, Array.prototype.includes() and Equality comparisons and sameness.\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "",
+  "title": "Nugget N218"
+}

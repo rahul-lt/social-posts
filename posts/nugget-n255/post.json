@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-12-21T01:30:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "Use width: 100vw in your machine coding round, demo it on a Windows laptop, and the whole page scrolls sideways.\n\nLook at the card. 100vw is the full viewport width, including the vertical scrollbar. On a MacBook the scrollbar usually floats over the page, so you never notice. On Windows it takes up real space, so 100vw is wider than the page by the scrollbar's width. That extra strip gives you a horizontal scrollbar.\n\nFor a block that fills its parent, width: 100% (or the default auto) already does the job.\n\nTest on your Mac too: System Settings → Appearance → Show scroll bars: Always.\n\nSource: MDN, CSS values and units (viewport-percentage lengths).\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "",
+  "title": "Nugget N255"
+}

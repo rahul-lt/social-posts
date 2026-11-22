@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-12-13T18:00:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "The AI built live order tracking. On a slow network the status says Delivered, then jumps back to Out for delivery.\n\nLook at the card. setInterval fires every 2 seconds whether or not the last request has finished. On a slow connection, requests overlap and come back out of order. An older request that answers late overwrites the newer status.\n\nFix: start the next request only after the previous one finishes. A setTimeout at the end of poll() does that: one request in flight at a time, always in order.\n\nIn React, also clear the timer in the effect's cleanup, or polling keeps running after the user leaves the page.\n\nSource: MDN, setInterval() (execution duration vs interval).\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "",
+  "title": "Nugget N235"
+}

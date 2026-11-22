@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-12-23T01:30:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "Build a product page with a sticky tab bar in your machine coding round. Click \"Reviews\" and the Reviews heading lands right under the bar.\n\nLook at the card. An anchor link scrolls its target to the very top of the viewport. The sticky bar is also at the very top, 64px tall, so it covers the heading.\n\nscroll-margin-top on the target adds space above it whenever the browser scrolls it into view. scroll-padding-top on html does the same for every target at once.\n\nIt works for anchor links and scrollIntoView(), with no JavaScript offset maths.\n\nSource: MDN, scroll-margin-top.\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "",
+  "title": "Nugget N261"
+}

@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-12-04T18:00:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "The AI fixed the CORS error in one line. The error is gone, and so is your data.\n\nLook at the card. mode: 'no-cors' doesn't turn CORS off. It tells the browser: send the request, I won't read the answer. You get an opaque response: status 0, no readable body, no headers. res.json() then fails on the empty body.\n\nCORS is enforced by the browser, and only the server can relax it. The server has to send Access-Control-Allow-Origin with your site's origin. In development, a dev-server proxy (Vite's server.proxy) works too.\n\nThat's why the same API works in Postman and fails in your React app.\n\nSource: MDN, Request.mode and Cross-Origin Resource Sharing (CORS).\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "",
+  "title": "Nugget N208"
+}

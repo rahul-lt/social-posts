@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-12-03T14:00:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "AI-written React usually compiles and passes the happy path. The bugs sit in a few predictable places, so I search the diff for them instead of reading it top to bottom.\n\nuseEffect: the array should list every value the effect reads, and the effect shouldn't run more often than the feature needs.\nset: state must get a new object or array. A push or obj.x = 1 followed by a set call is a bug.\n.map(: key={i} breaks the moment the list is reordered or an item is deleted.\nonClick: a div with onClick should be a button, and a click that sends form data usually belongs in onSubmit.\n\nWhat would your fifth search be?\n\nSource: react.dev, Rules of Hooks and Updating Arrays in State.\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "My 4 searches before I merge AI-written React:\n\n1. useEffect → what's in [ ], and why?\n2. set → a new object or array?\n3. .map( → is the key from the data?\n4. onClick → should this be a <button> or a <form>?\n\n[[Search the diff. Don't just read it.]]",
+  "title": "Nugget N204"
+}

@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-12-20T18:00:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "The AI connected the help-chat widget to your page. Any website can now run JavaScript on it.\n\nLook at the card. A message listener receives messages from any window that has a reference to yours, not just your widget. An attacker's site can open your page with window.open and post { type: 'OPEN', url: 'javascript:...' }. Your code assigns that to location.href, and the browser runs it on your origin, with your user's session.\n\nCheck e.origin against the exact origin you expect before you read e.data. Even then, treat the data as untrusted input.\n\nSource: MDN, Window: postMessage() (security concerns).\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "",
+  "title": "Nugget N254"
+}

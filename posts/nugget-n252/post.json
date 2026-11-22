@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-12-20T01:30:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "Build a product row in your machine coding round, add one long product name, and the price disappears off the right edge.\n\nLook at the card. Flex items have min-width: auto by default. For .info that means \"never narrower than my content\", and with white-space: nowrap the content is the whole name on one line. So .info refuses to shrink, the ellipsis never appears, and the price gets pushed out.\n\nmin-width: 0 lets .info shrink. Now overflow: hidden and text-overflow on .name finally have something to cut.\n\nSame fix for chat previews, file names and table cells in flex rows.\n\nSource: MDN, min-width (auto for flex items) and text-overflow.\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "",
+  "title": "Nugget N252"
+}

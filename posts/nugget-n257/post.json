@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-12-21T18:00:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "The AI built a chat screen. Someone pastes a long courier tracking link, and their bubble pushes past the edge of the phone screen.\n\nLook at the card. Browsers break lines at spaces and a few other break points. A URL has none, so it's treated as one long word and overflows max-width.\n\noverflow-wrap: anywhere allows a break inside the word when nothing else fits. Use anywhere rather than break-word: anywhere also lets the bubble shrink inside a flex row, break-word doesn't.\n\nSame bug in comments, usernames, file names and order IDs.\n\nSource: MDN, overflow-wrap.\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "",
+  "title": "Nugget N257"
+}

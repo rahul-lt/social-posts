@@ -1,0 +1,51 @@
+rank	age	impressions	reactions	comments	attachment	hook (first ~60 chars of caption)
+1	1w	34650	65	20	card	Both paths get people hired. They lead to different kinds of roles (deep frontend vs full-stack, question)
+2	3w	21582	84	5	card	Build tools replace those env variables with their actual values (API key leaks in frontend bundle)
+3	1w	19215	51	6	card	Use await inside forEach in an interview and the follow-up question is always...
+4	1mo	14029	54	5	card	The real competition isn't you vs the AI. It's you vs other developers who learned to use it properly
+5	1w	13582	35	1	card	Still one of the most asked JavaScript output questions in frontend interviews (var/let setTimeout)
+6	1w	13157	23	12	card	Senior frontend rounds now include accessibility questions (div vs button)
+7	5d	13003	21	3	card	The AI built a full-height checkout... Pay button under address bar (100vh vs dvh)
+8	6d	12964	16	4	card	An AI built a seat map for a booking page (fill([]) shared reference)
+9	1w	11526	13	8	card	The AI wrote this, it works, and your backend team is about to message you (useEffect no deps loop)
+10	6d	10580	30	1	card	If a dashboard takes 3 seconds to load in your machine coding round (await waterfall, Promise.all)
+11	1w	10557	20	3	card	The AI kept raising the z-index. The dropdown stayed behind the sticky header (stacking context)
+12	1w	6940	17	2	card	The AI built a quantity picker with type="number" ("2"+1="21")
+13	1w	4744	8	1	card	An AI wrote this check, and it's wrong in both directions (indexOf truthiness)
+14	1mo	3563	3	5	card	There's no single right answer... first two years: learning, stability, brand, money (career question)
+15	1w	1603	8	0	card	A <form> with no method attribute sends its data with GET (password in URL)
+16	1w	1165	2	0	card	Build a cart in a machine coding round... 0.30000000000000004
+17	1w	1160	2	0	card	An early return before a hook is a classic machine coding mistake
+18	1w	1143	4	0	card	Interviewers love this one ... ['1','2','3'].map(parseInt)
+19	1w	840	0	0	card	This one catches people who know hooks well (key resets state)
+20	2mo	785	4	3	link	Weekly Digest Week 5 is out. Five picks (emoji list, link to allahabadi.dev)
+21	3w	784	4	3	link	You can build any page with plain JavaScript. So why do React, Vue and Angular exist? (blog link)
+22	1w	642	3	0	card	The AI wrapped fetch in try/catch and called it error handling (res.ok)
+23	2mo	628	11	0	link	React 19.3 shipped on 9 September ... series with live demos (blog link)
+24	4d	617	1	1	text	Opened my Stack Overflow account ... set your unique username
+25	1mo	509	7	1	link	Give better context about UI to your agents (own Chrome extension promo)
+26	1w	404	3	0	card	Both are reasonable. The hike is real money. The senior is rare (career question)
+27	1mo	393	3	1	text	My React app was downloading dialogs ... lazy loading cut JS 40% (blog link in comments)
+28	2mo	377	1	0	link	Just published JSKing V2 (own quiz app promo)
+29	5d	360	1	0	card	Early in your career, what you learn compounds faster than salary does
+30	3w	332	3	0	card	Every fresher's resume has the same skills section (resume bullet format)
+31	2w	316	2	1	card	Each one answers a different question. Picking the right first tool (perf tools question)
+32	1mo	306	6	1	link	Every time you press Enter, your browser runs a small construction site (How Browsers Work guide)
+33	1mo	301	3	0	card	180 problems spread over 3 months is enough to see most common patterns (DSA plan)
+34	2mo	298	1	2	link	How to prevent cheating in online quiz? (JSKing)
+35	1mo	297	1	0	pdf	How could one request, with no login, run someone else's code on a PHP server? (news explainer carousel)
+36	2w	296	2	1	card	AI raised the floor. Everyone can produce working code quickly now
+37	1mo	285	2	3	link	AI can review your code. But how do you review its judgment? (YouTube video)
+38	3w	280	6	0	card	These are the Core Web Vitals. LCP ...
+39	2mo	268	3	0	text	This is so true. #reactjs
+40	2mo	266	4	1	link	Episode 7 of Kaun Banega Frontend Master
+41	1mo	264	9	2	text	Better UI Context for your agents. Save tokens... (own tool promo)
+42	2mo	261	10	2	text	Linkooo just crossed 1,000 links saved! (own product milestone)
+43	1w	260	2	0	card	College name and CGPA help you clear the resume filter
+44	1mo	259	0	1	card	Both are fast. They train very different muscles (learning approach question)
+45	1w	253	4	0	card	If everyone can generate code in minutes, writing it stops being what sets you apart
+46	1mo	252	4	1	card	Most JavaScript developers never think about memory until a...
+47	2mo	249	3	0	link	This week's Frontend Master digest — 5 picks
+48	1mo	246	3	0	pdf	Which Node.js version are your laptop, your CI and your Docker...
+49	1w	238	3	1	card	Reading Long Tech Blogs is a Pain (own tool?)
+50	4d	238	2	0	card	An AI was asked to "optimize images" and put loading="lazy" ...

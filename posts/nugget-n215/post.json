@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-12-07T01:30:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "Build a date picker in your machine coding round with this line and every booking lands a month late.\n\nLook at the card. The string \"2026-12-05\" gives you 12 for December. But the Date constructor counts months from 0: January is 0, December is 11. So month 12 means \"one past December\", and JavaScript quietly rolls it over to January of the next year. No error.\n\nFix: subtract 1 when you build the date, and add 1 when you show getMonth() to a person.\n\nThe year and the day of the month start where you'd expect. Only the month index starts at 0.\n\nSource: MDN, Date() constructor (monthIndex).\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "",
+  "title": "Nugget N215"
+}

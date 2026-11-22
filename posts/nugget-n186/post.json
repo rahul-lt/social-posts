@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-11-27T01:30:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "Define a component inside another component in your machine coding round, and the input loses focus after every letter the interviewer types.\n\nLook at the card. Field is created again each time Checkout renders. To React, a new function is a new component type. Same spot, different type, so React removes the old input and mounts a brand new one. The text survives because it lives in Checkout's state, but the focus and cursor don't.\n\nMove Field outside Checkout. Now it's the same type on every render, and React keeps the same input.\n\nThe React docs call this out directly: don't nest component definitions.\n\nSource: react.dev, Preserving and Resetting State.\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "",
+  "title": "Nugget N186"
+}

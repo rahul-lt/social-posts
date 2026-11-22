@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-12-03T18:00:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "The AI built a clean header with icon-only buttons. Sighted users see a cart. A screen reader user hears \"button\" and has to guess what it does.\n\nLook at the card. A button's accessible name (what screen readers read out) comes from its text. An SVG icon has no text, so the button has no name.\n\naria-label=\"Open cart\" gives it one. aria-hidden=\"true\" on the icon (passed through to the svg) stops the screen reader from trying to read the drawing itself.\n\nIf you can, show visible text next to the icon. It helps everyone, and the text becomes the name without any ARIA.\n\nQuick check: turn on VoiceOver or TalkBack and swipe through your header.\n\nSource: MDN, aria-label.\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "",
+  "title": "Nugget N205"
+}

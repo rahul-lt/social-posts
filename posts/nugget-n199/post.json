@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-12-01T18:00:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "The AI built a signup form with one state object. Type your email, then your name, and the request goes out with no email.\n\nLook at the card. The setter from useState replaces the whole object. It doesn't merge. setForm({ name }) leaves a form with only name in it, so email is gone from state.\n\nThe input still shows the email because form.email is now undefined, so React stops controlling that field. The console says so: \"A component is changing a controlled input to be uncontrolled.\"\n\nThe fix: copy the old fields first, setForm((f) => ({ ...f, name: value })).\n\nClass components merged this.setState for you. Hooks don't.\n\nSource: react.dev, Updating Objects in State.\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "",
+  "title": "Nugget N199"
+}

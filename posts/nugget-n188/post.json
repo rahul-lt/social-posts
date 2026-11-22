@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-11-27T18:00:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "The AI built the OTP screen with type=\"number\". It looks right, and users still have to open Messages and copy the code by hand.\n\nLook at the card. autocomplete=\"one-time-code\" tells the browser this field wants a code from an SMS. Safari on iPhone uses it to show the code above the keyboard, one tap to fill. Without it, the browser has to guess.\n\ntype=\"number\" is the wrong type anyway. It adds spinner arrows, accepts e and minus signs, and ignores maxLength. An OTP is a string of digits, not a number.\n\ninputMode=\"numeric\" still gives phones the digit keypad.\n\nSource: MDN, HTML autocomplete attribute; MDN, input type=\"number\".\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "",
+  "title": "Nugget N188"
+}

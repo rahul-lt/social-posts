@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-12-02T01:30:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "Remove the focus outline in your machine coding round and the accessibility follow-up comes next: \"now use it with only the keyboard.\"\n\nLook at the card. *:focus { outline: none } hides the focus ring everywhere. Mouse users don't notice. Keyboard users press Tab and can't tell which field or button they're on.\n\n:focus-visible lets the browser decide when the ring is useful. It shows when you Tab, and usually not when you click a button with a mouse. Text fields still show it on click, because you need to see where you're typing.\n\nWCAG 2.4.7 (Focus Visible) requires a visible focus indicator for keyboard users.\n\nSource: MDN, :focus-visible.\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "",
+  "title": "Nugget N200"
+}

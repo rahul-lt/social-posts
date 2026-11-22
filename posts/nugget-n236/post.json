@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-12-14T01:30:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "Build a blog layout in your machine coding round, add one long code sample, and the sidebar slides off the screen.\n\nLook at the card. 1fr is short for minmax(auto, 1fr). That auto minimum means the column can't get narrower than its content. A <pre> doesn't wrap, so its longest line sets the column width, and the 280px sidebar gets pushed out.\n\nminmax(0, 1fr) lets the column shrink. Then overflow-x: auto on the pre gives the code its own scrollbar instead of stretching the page.\n\nSame trap with long URLs, wide tables and big images inside 1fr columns.\n\nSource: CSS Grid spec (flexible lengths) and MDN, minmax().\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "",
+  "title": "Nugget N236"
+}

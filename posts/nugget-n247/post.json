@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-12-17T18:00:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "The AI built \"send users back where they were after login\". Anyone can now use your real login page to send your users to their fake one.\n\nLook at the card. next comes straight from the URL. A link like /login?next=https://evil.example logs the user in on your site, then redirects to the attacker's copy, which asks for the password \"again\". That's an open redirect.\n\nA startsWith('/') check isn't enough: //evil.example starts with a slash and still leaves your site.\n\nParse it with new URL() against your own origin and only follow it when the origin matches. Everything else goes to the home page.\n\nSource: OWASP, Unvalidated Redirects and Forwards Cheat Sheet.\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "",
+  "title": "Nugget N247"
+}

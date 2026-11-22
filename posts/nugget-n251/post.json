@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-12-19T18:00:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "The AI added dark mode. The page is dark, but the scrollbar, checkboxes and date picker are still bright white.\n\nLook at the card. Your CSS changed your colours. It didn't tell the browser anything. Form controls, scrollbars and the default page background are drawn by the browser, and it draws them light unless you say otherwise.\n\ncolor-scheme: dark tells it to use its dark versions too. Put color-scheme: light dark on :root if you follow the system setting, or add <meta name=\"color-scheme\" content=\"light dark\"> so it applies before your CSS loads.\n\nSource: MDN, color-scheme.\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "",
+  "title": "Nugget N251"
+}

@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-12-06T01:30:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "Sort a list this way in your machine coding round and the button does nothing. No error, no warning.\n\nLook at the card. sort() doesn't return a new array. It reorders the same array in place and returns it. So setItems gets the exact array React already has. React compares old and new state with Object.is, sees the same array, and skips the re-render.\n\nFix: give React a new array. toSorted() returns a sorted copy and leaves the original alone. [...items].sort(...) does the same in older browsers.\n\nreverse() and splice() set the same trap. Their copy versions are toReversed() and toSpliced().\n\nSource: react.dev, Updating Arrays in State, and MDN, Array.prototype.toSorted().\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "",
+  "title": "Nugget N212"
+}

@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-12-03T01:30:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "Build a modal from a div in your machine coding round and the interviewer will press Tab. Focus walks straight out of it into the page behind.\n\nLook at the card. A div modal is only a box drawn on top. Focus stays on the button that opened it, Tab moves through the page underneath, Esc does nothing, and a screen reader can still read everything behind it.\n\n<dialog> with showModal() fixes all of that. The rest of the page becomes inert (not clickable or focusable), focus moves into the dialog, Esc closes it, and focus goes back to the button when it closes.\n\nonClose keeps your open state in sync when Esc closes it.\n\nSource: MDN, The Dialog element.\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "",
+  "title": "Nugget N203"
+}

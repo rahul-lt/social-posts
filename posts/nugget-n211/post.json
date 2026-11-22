@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-12-05T18:00:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "The AI built an order history page. Orders placed between midnight and 5:30 AM show up under yesterday.\n\nLook at the card. toISOString() always returns the time in UTC. IST is 5 hours 30 minutes ahead, so at 00:30 IST on 5 December, UTC is still 7:00 PM on 4 December. slice(0, 10) cuts out that UTC date.\n\nFix: format the date in the user's time zone. toLocaleDateString with the en-CA locale gives YYYY-MM-DD, and the timeZone option picks the zone.\n\nYour tests pass all day and fail only at night, which is why this one ships.\n\nSource: MDN, Date.prototype.toISOString() and Intl.DateTimeFormat (timeZone).\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "",
+  "title": "Nugget N211"
+}

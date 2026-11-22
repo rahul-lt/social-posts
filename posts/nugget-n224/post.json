@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-12-10T01:30:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "Store a sorted list in a plain object in your machine coding round and the order you just built disappears.\n\nLook at the card. Object keys that look like whole numbers (\"7\", \"42\", \"105\") are always listed first, in ascending number order. Insertion order only holds for the other string keys. So Object.values gives you players sorted by id, not by score.\n\nFix: keep the sorted array for anything that has an order. If you also need lookup by id, use a Map. A Map keeps keys in insertion order, whatever they look like.\n\nThis rule is in the spec, so every modern browser does it.\n\nSource: MDN, Object.keys() and Map (key order).\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "",
+  "title": "Nugget N224"
+}

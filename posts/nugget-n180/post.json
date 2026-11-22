@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-11-25T01:30:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "Give an input a value without an onChange in your machine coding round, and the search box ignores every key the interviewer presses.\n\nLook at the card. value={q} tells React that state owns this text. After every keystroke React puts the input back to q. Nothing ever changes q, so it stays empty.\n\nReact even warns in the console: a value prop without an onChange handler renders a read-only field.\n\nTwo ways out:\nvalue plus onChange, when you need the text in state (filtering as you type).\ndefaultValue, when you only read it on submit.\n\nPick one per input. Don't mix them.\n\nSource: react.dev, <input> (controlling an input with a state variable).\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "",
+  "title": "Nugget N180"
+}

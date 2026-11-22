@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-11-29T01:30:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "Write items.length && in your machine coding round and the interviewer will point at the lonely 0 on the empty cart.\n\nLook at the card. && returns its left side when the left side is falsy. With no items, items.length is 0, so the whole expression is 0, not false.\n\nReact renders nothing for true, false, null and undefined. It does render numbers. So 0 shows up on the page.\n\nMake the left side a real boolean: items.length > 0 &&. Or use a ternary when there's an else branch.\n\nThe React docs list this exact case as a pitfall: don't put numbers on the left side of &&.\n\nSource: react.dev, Conditional Rendering.\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "",
+  "title": "Nugget N192"
+}

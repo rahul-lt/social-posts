@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-12-17T01:30:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "Toggle a modal with display: none in your machine coding round and the fade you wrote never plays. It just pops in.\n\nLook at the card. While the modal is display: none, there is no box on the page, so the browser has no starting frame to animate from. It switches to block and opacity 1 in the same step, and the transition is skipped.\n\nFix: keep the box and hide it with opacity: 0 plus visibility: hidden. Opacity fades. visibility: hidden stops clicks, Tab focus and screen readers from reaching the invisible modal, which opacity alone doesn't.\n\nNewer CSS can keep display: none and still fade, using @starting-style with transition-behavior: allow-discrete.\n\nSource: MDN, @starting-style and visibility.\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "",
+  "title": "Nugget N245"
+}

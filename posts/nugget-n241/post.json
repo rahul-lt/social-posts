@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-12-15T18:00:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "The AI embedded a product demo video on the landing page. It shows up full width and about 150px tall, a thin strip nobody can watch.\n\nLook at the card. An iframe has a default size of 300 by 150 pixels. width: 100% changes the width, but nothing tells the height to follow, so it stays at 150.\n\naspect-ratio: 16 / 9 with height: auto lets the browser work out the height from the width, at any screen size.\n\nBefore aspect-ratio we used a wrapper with padding-top: 56.25%. You can delete that hack now; every major browser supports the property.\n\nSame fix for maps, Figma embeds and chart placeholders.\n\nSource: MDN, aspect-ratio and <iframe> (width/height defaults).\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "",
+  "title": "Nugget N241"
+}

@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-12-09T18:00:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "The AI built the cart total from the price text on the page. A ₹1,29,999 laptop adds ₹1.\n\nLook at the card. parseInt reads digits from the start of the string and stops at the first character that isn't one. Here that's the comma after the 1, so it returns 1. No error, no NaN. Number('1,29,999') would at least give you NaN.\n\nFix: remove the commas before converting. Better: have the API send the price as a number (in paise) and format it only for display with Intl.NumberFormat('en-IN').\n\nWestern grouping breaks too: parseInt('129,999') is 129.\n\nSource: MDN, parseInt().\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "",
+  "title": "Nugget N223"
+}

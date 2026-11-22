@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-12-15T01:30:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "Write this \"Expand all\" in your machine coding round and the follow-up is \"open the Performance tab and explain the purple blocks\".\n\nLook at the card. Reading scrollHeight needs an up-to-date layout. Writing style.height makes that layout stale again. Do both inside one loop and the browser recalculates layout once per item: 300 FAQs, 300 layouts in a single click. That's layout thrashing (forced synchronous layout).\n\nRead every height first, then write them all. The browser now does one layout at the end.\n\nIn the Performance panel it shows as a stack of Layout events with a \"Forced reflow\" warning.\n\nSource: web.dev, Avoid large, complex layouts and layout thrashing.\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "",
+  "title": "Nugget N239"
+}

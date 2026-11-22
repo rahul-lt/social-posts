@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-12-02T18:00:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "The AI built a delivery-slot picker with two radio buttons. Click Morning, click Evening, and both stay selected. Nothing can unselect them.\n\nLook at the card. Radio buttons become one group only when they share a name. Without one, each radio is its own group of one. Checking Evening doesn't uncheck Morning, and a checked radio can't be unchecked by clicking it again.\n\nAdd name=\"slot\" to both. Now picking one clears the other, arrow keys move between them, and the form sends slot=am or slot=pm.\n\nKeep each input inside its label, so tapping the word selects it. That matters on a phone.\n\nSource: MDN, input type=\"radio\".\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "",
+  "title": "Nugget N202"
+}

@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-12-12T18:00:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "The AI built the edit profile form. Clear the phone field, save, refresh, and the old number is still there.\n\nLook at the card. '' || undefined turns the empty field into undefined. JSON.stringify skips any property whose value is undefined, so the request body is {} and phone is never sent. A PATCH endpoint usually leaves fields it didn't receive alone, so the server keeps the old number.\n\nFix: send null when the user clears a field. null survives JSON.stringify, and the server can treat it as \"remove\".\n\nCheck the request payload in the Network tab, not just the form.\n\nSource: MDN, JSON.stringify() (undefined values).\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "",
+  "title": "Nugget N232"
+}

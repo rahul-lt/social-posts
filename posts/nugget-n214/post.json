@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-12-06T18:00:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "The AI added a cache to stop duplicate API calls. One failed request, and the profile stays broken until the user reloads.\n\nLook at the card. Caching the promise is a good idea: two components asking for the same user share one request. But the cache keeps whatever promise it got, including a rejected one. Every later getUser(id) returns that same failure, even after the network is back.\n\nFix: when the request fails, delete it from the cache and rethrow. The next call starts a fresh request.\n\nLibraries like TanStack Query handle this for you, along with retries and expiry. Know what they're fixing before you hand it off.\n\nSource: MDN, Promise.prototype.catch().\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "",
+  "title": "Nugget N214"
+}

@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-12-06T14:00:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "Most of this week's async bugs came down to one question: when does this line actually run?\n\nI put 18 Promise output puzzles on allahabadi.dev, the kind that come up in JavaScript interviews. Each one has the answer and the reason, from a promise that stays pending forever to a catch that turns a failure back into success.\n\nTry them before your next interview round, not during it.\n\nhttps://allahabadi.dev/blogs/javascript/promise-output-interview-challenges/\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "18 Promise puzzles.\nPredict the output, then read why.\n\nMicrotask order, timers vs promises, errors that skip a then, and [[a catch that resets the chain]].",
+  "title": "Nugget N213"
+}

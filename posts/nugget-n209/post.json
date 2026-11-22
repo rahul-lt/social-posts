@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-12-05T01:30:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "Build a search box in your machine coding round without this and the interviewer will type fast, on purpose.\n\nLook at the card. Every keystroke starts a request, and they don't come back in order. If the request for \"re\" is slower than the one for \"react\", it arrives last and overwrites the right results.\n\nThe fix is the cleanup function. When q changes, React runs the previous effect's cleanup, which sets ignore = true for the old request. Its late answer is thrown away.\n\nAbortController goes one step further: call abort() in the cleanup and the old request is cancelled.\n\nSource: react.dev, useEffect (Fetching data with Effects).\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "",
+  "title": "Nugget N209"
+}

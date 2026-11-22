@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-12-22T18:00:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "The AI added a font preload to speed up the first paint. The Network tab now shows inter.woff2 downloaded twice, and the console warns the preload wasn't used.\n\nLook at the card. Fonts are always fetched in CORS mode, even from your own domain. A preload without crossorigin is fetched in a different mode, so the browser can't reuse it when the font is actually needed, and it downloads it again.\n\nAdd the crossorigin attribute with no value. Now the preload matches and the font downloads once, early.\n\nOnly preload the one or two fonts used above the fold. Preloading everything competes with your hero image.\n\nSource: MDN, rel=preload (CORS-enabled fetches).\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "",
+  "title": "Nugget N260"
+}

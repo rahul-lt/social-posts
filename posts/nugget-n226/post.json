@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-12-10T18:00:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "The AI built the price sort for a product list. The button works, nothing errors, and the list comes back in the same order.\n\nLook at the card. sort() wants a number from the compare function: negative means a goes first, positive means b goes first, 0 means keep them as they are. a.price > b.price returns true or false, which count as 1 or 0. It never returns a negative number, so the engine is never told to move anything. In Chrome and Node the list stays as it was. Other engines may give a different, still wrong, order.\n\nFix: return a.price - b.price for low to high, b.price - a.price for high to low.\n\nSource: MDN, Array.prototype.sort() (compareFn).\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "",
+  "title": "Nugget N226"
+}

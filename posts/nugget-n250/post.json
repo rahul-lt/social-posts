@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-12-18T18:00:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "The AI gave the sticky header a frosted-glass blur. Now the mobile menu opens inside a 64px strip instead of covering the screen.\n\nLook at the card. position: fixed usually means \"relative to the viewport\". But when an ancestor has backdrop-filter, filter or transform, that ancestor becomes the containing block. inset: 0 now means \"fill the header\", and the header is 64px tall.\n\nMove the drawer out of the header so it's a sibling, and fixed is relative to the viewport again. In React, a portal to document.body does the same.\n\nModals inside animated cards break the same way.\n\nSource: MDN, Containing block (identifying the containing block).\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "",
+  "title": "Nugget N250"
+}

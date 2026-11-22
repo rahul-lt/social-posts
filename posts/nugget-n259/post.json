@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-12-22T14:00:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "By impressions, from the last 90 days of this page:\n\n1. await inside forEach: the toast fires before the uploads finish. Use for...of or Promise.all. (19,215)\n2. var in a setTimeout loop prints 3 3 3. let gives each loop its own i. (13,582)\n3. A div with onClick can't be reached with Tab. Use a <button>. (13,157)\n4. 100vh hides the Pay button behind phone toolbars. Use 100dvh. (13,003)\n5. Array(3).fill([]) shares one array across every row. Use Array.from. (12,964)\n\nNone is exotic. All five pass a quick test on a laptop and break for a real user.\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "The 5 code-review bugs that reached the most people here this year:\n\n1. await inside forEach\n2. var in a setTimeout loop\n3. A div used as a button\n4. 100vh on phones\n5. Array(3).fill([])\n\n[[How many have you shipped?]]",
+  "title": "Nugget N259"
+}

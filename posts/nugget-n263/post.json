@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-12-23T18:00:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "The AI made the filters sidebar sticky. It scrolls away with the page as if the line weren't there.\n\nLook at the card. Grid and flex items stretch to the height of their row by default, so .filters is as tall as the whole product list. A sticky element can only move inside its container, and this one already fills it. No room left, so it never sticks.\n\nalign-self: start makes the sidebar only as tall as its content. Now it has space to stay at top: 0 while the list scrolls past.\n\nIf it still won't stick, check the parents for overflow: hidden.\n\nSource: MDN, position (sticky) and align-self.\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "",
+  "title": "Nugget N263"
+}

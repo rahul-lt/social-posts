@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-11-26T18:00:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "The AI used useRef for a like counter \"to avoid extra re-renders\". That's exactly the problem.\n\nLook at the card. likes.current++ really does change the number. Log it and you'll see 3. But changing a ref doesn't tell React anything, so the button never renders again and still shows 0. The next time something else re-renders the component, it jumps to 3.\n\nIf the value shows on screen, it belongs in state. Setting state is what triggers the render.\n\nRefs are for values the screen doesn't show: a timer id, a DOM node, the previous value of a prop.\n\nSource: react.dev, Referencing Values with Refs.\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "",
+  "title": "Nugget N185"
+}

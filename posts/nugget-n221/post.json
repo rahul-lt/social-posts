@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-12-09T01:30:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "Write user?.address.city in your machine coding round and the interviewer's first test user, one with no address, crashes the page.\n\nLook at the card. ?. only guards the property right before it. user?.address means \"if user is missing, stop here\". user exists, so JavaScript moves on, gets undefined for address, and then reading .city on undefined throws a TypeError.\n\nFix: put ?. before every part that can be missing, and give the screen a fallback with ??.\n\nDon't sprinkle ?. everywhere to be safe, though. If a value must exist, a loud error finds the bug sooner than a silent undefined.\n\nSource: MDN, Optional chaining (?.).\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "",
+  "title": "Nugget N221"
+}

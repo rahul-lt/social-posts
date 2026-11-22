@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-12-16T01:30:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "Ship a custom font in your machine coding round, test it on slow 4G, and the headings stay blank while everything else has loaded.\n\nLook at the card. Without font-display, most browsers hide text that uses a web font for up to about 3 seconds while the font downloads. That's FOIT (flash of invisible text).\n\nfont-display: swap shows the text in a fallback font right away, then swaps when the font arrives. If you'd rather avoid the swap jump, optional uses the web font only if it arrives almost immediately.\n\nGoogle Fonts adds &display=swap to its CSS links for exactly this reason.\n\nSource: MDN, @font-face font-display.\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "",
+  "title": "Nugget N242"
+}

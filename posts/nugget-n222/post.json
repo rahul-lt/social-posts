@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-12-09T14:00:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "That bug has a name: IDOR (insecure direct object reference). It falls under Broken Access Control, number 1 on the OWASP Top 10.\n\nThe frontend only links to your own orders, so it feels safe. But the API answers anyone who asks for an id, unless the server checks that the logged-in user owns that order.\n\nCheck the API too: copy a request from the Network tab, change the id, send it again. A page that hides something doesn't count as protection.\n\nFix it on the server, on every route that takes an id. Test only your own app, with your own test accounts.\n\nSource: OWASP Top 10, A01 Broken Access Control.\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "Log in to your app. Open one of your orders:\n\n/orders/1042\n\nChange it to [[1041]].\n\nSee someone else's order?",
+  "title": "Nugget N222"
+}

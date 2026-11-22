@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-12-18T14:00:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "If the name shows in bold anywhere, that screen is rendering user input as HTML. Swap <b> for <img src=x onerror=...> and the same spot runs an attacker's code for everyone who views it. That's stored XSS.\n\nReact escapes text in JSX for you, so the usual culprits are elsewhere: the admin panel someone built with innerHTML, a toast library that accepts HTML, HTML emails, dangerouslySetInnerHTML for \"rich\" bios.\n\nCheck the navbar, comments, notifications, the admin dashboard and the welcome email.\n\nFix: render it as text. If you truly need HTML, sanitize it with a library like DOMPurify first.\n\nSource: OWASP Cross Site Scripting Prevention Cheat Sheet.\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "Set your profile name to:\n<b>test</b>\n\nNow check every place it shows up.\nIs it [[bold]] anywhere?",
+  "title": "Nugget N249"
+}

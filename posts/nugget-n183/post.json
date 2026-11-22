@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-11-26T01:30:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "Forget one line in your machine coding round login form, and the page reloads every time the interviewer clicks Log in.\n\nLook at the card. Submitting a form is a browser action, not a React one. With no preventDefault, the browser does what it always did: it navigates to the form's action URL, which is the current page when there isn't one. The page reloads, React state is wiped, and your login response has nowhere to go.\n\ne.preventDefault() as the first line of the handler stops that navigation.\n\nIn React 19 you can also pass a function to the form's action prop, and React handles the submit without a reload.\n\nSource: MDN, Event.preventDefault(); react.dev, <form>.\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "",
+  "title": "Nugget N183"
+}

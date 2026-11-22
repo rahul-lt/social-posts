@@ -1,0 +1,1 @@
+Followers: 2,790. Source: LinkedIn creator analytics, Top posts, past 90 days, by impressions, scraped 2026-11-22. ~220+ posts were published in the window (4/day from Nov 4); everything not listed got <238 impressions. News GIF stories (Oct 21-27) do not appear in the top 50.

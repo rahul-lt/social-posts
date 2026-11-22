@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-12-12T14:00:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "On a shared laptop or a college lab computer, the next person can press Back and read the previous user's orders.\n\nLogging out usually clears the cookie and sends you to /login. But the browser may still hold the orders page in its back/forward cache, or the page and its API response in the HTTP cache. Press Back and it shows that copy without asking the server, so your logged-in check never runs.\n\nFix it on the server. Send Cache-Control: no-store on pages and API responses with personal data, so the browser doesn't keep a copy. On the logout response, Clear-Site-Data: \"cache\" also clears what's already stored.\n\nSource: MDN, Cache-Control (no-store) and Clear-Site-Data.\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "Log in to your app and open your orders.\nLog out.\n\nNow press [[Back]].\n\nCan you still see the orders?",
+  "title": "Nugget N231"
+}

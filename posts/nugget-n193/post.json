@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-11-29T18:00:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "The AI built a change-password form with two plain password inputs. The browser sees two password fields, has to guess which is which, and can drop the saved password into the New field too.\n\nLook at the card. autoComplete tells the password manager what each field is for. current-password means \"fill the saved one here\". new-password means \"don't fill this one, offer to generate a strong password instead\".\n\nUse them on every auth form: current-password on login, new-password on signup and reset, and username or email on the email field.\n\nOne attribute per input decides whether password managers help your users or get in their way.\n\nSource: MDN, HTML autocomplete attribute.\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "",
+  "title": "Nugget N193"
+}

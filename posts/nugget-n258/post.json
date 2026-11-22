@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-12-22T01:30:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "Build a filter drawer in your machine coding round, scroll to the bottom of it, keep scrolling, and the product list behind it starts moving.\n\nLook at the card. When a scroll box reaches its end, the browser hands the extra scrolling to the next scrollable thing, usually the page. That's scroll chaining. Users lose their place in the list while they're only picking filters.\n\noverscroll-behavior: contain stops the chain at the drawer. It's supported in all major browsers.\n\nFor a full-screen modal, also stop the page itself from scrolling while it's open.\n\nSource: MDN, overscroll-behavior.\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "",
+  "title": "Nugget N258"
+}

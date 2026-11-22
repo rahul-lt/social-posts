@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-12-01T01:30:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "Build a login screen out of divs in your machine coding round, and the interviewer's first Enter key does nothing.\n\nLook at the card. Pressing Enter in a text field submits the form that field belongs to. The HTML spec calls this implicit submission. With no <form>, there's nothing to submit, so Enter does nothing. The Go key on a phone keyboard does the same thing as Enter, so it does nothing too.\n\nWrap the fields in a form, handle onSubmit, and call e.preventDefault() first. A button inside a form submits by default, so clicking still works.\n\nOne handler now covers the click, Enter and the phone's Go key.\n\nSource: MDN, The Form element; HTML Standard, implicit submission.\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "",
+  "title": "Nugget N197"
+}

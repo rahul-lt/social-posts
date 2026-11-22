@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-11-24T01:30:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "Call setState and use the value on the next line in your machine coding round, and the interviewer will click Next twice to show you why.\n\nLook at the card. page is a constant inside this render. setPage(page + 1) doesn't change it. It asks React to render again with the new value. So the line below still reads 1, and page 1 loads a second time while the pager says 2.\n\nThe fix: work out the next value once and use it for both calls.\n\nEven better, fetch in an effect that lists page as a dependency, so the request always follows the state.\n\nReact calls this \"state as a snapshot\". It trips up people who know hooks well.\n\nSource: react.dev, State as a Snapshot.\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "",
+  "title": "Nugget N177"
+}

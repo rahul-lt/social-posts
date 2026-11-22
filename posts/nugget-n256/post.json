@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-12-21T14:00:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "Reset links usually carry a token in the query string: /reset?token=8f3a... Analytics tools record the full page URL, query string included, unless you tell them not to.\n\nSo everyone with dashboard access, and the analytics provider, can see working reset links until they expire. Same for invite links and magic login links.\n\nFixes:\nMake tokens single-use and short-lived on the backend.\nDon't load third-party scripts on reset and magic-link pages, or redact the parameter (GA4 has a setting for query parameters).\nSwap the token for a session right away and remove it from the URL with history.replaceState.\n\nSource: OWASP Forgot Password Cheat Sheet.\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "Open a password reset link from your app.\nThen open your analytics page report.\n\nIs the [[reset token]] in the list of URLs?",
+  "title": "Nugget N256"
+}

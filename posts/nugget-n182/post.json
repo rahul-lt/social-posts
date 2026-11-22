@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-11-25T18:00:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "The AI wrapped every row in memo to make the list fast. Type one letter in the search box and all 500 rows render again anyway.\n\nLook at the card. memo skips a render only when every prop is the same as last time. onSelect={() => select(r.id)} creates a new function on every render, and a new function is never equal to the old one. So memo compares, sees a change, and renders every row.\n\nThe fix: one stable function from useCallback, and let Row pass its own id.\n\nTo see it, turn on \"Highlight updates when components render\" in React DevTools.\n\nIf your project uses React Compiler, it does this memoization for you.\n\nSource: react.dev, memo (minimizing props changes).\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "",
+  "title": "Nugget N182"
+}

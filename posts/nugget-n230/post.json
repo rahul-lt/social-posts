@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-12-12T01:30:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "Debounce a search box inside the component body in your machine coding round and the Network tab still shows one request per letter.\n\nLook at the card. setQ re-renders the component on every keystroke. Every render calls debounce() again and creates a brand new function with its own timer. The old timer is never cleared, so each keystroke's call still fires 300 ms later.\n\nFix: create the debounced function once. useMemo with an empty dependency array keeps the same function, and its timer, across renders. useRef works too, and React promises never to throw a ref away.\n\nWriting debounce is a common machine coding question. Using it correctly inside React is the follow-up.\n\nSource: react.dev, useMemo and useRef.\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "",
+  "title": "Nugget N230"
+}

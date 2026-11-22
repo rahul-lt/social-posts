@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-12-15T14:00:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "If your app loads inside someone else's iframe, that site can lay its own page over yours. It sets your frame to opacity 0 and puts a \"Claim your prize\" button where your \"Delete account\" or \"Pay\" button is. The user thinks they clicked the prize. That's clickjacking.\n\nIt hurts most when the user is still logged in inside the frame, for example when your session cookie is SameSite=None, which some embeds and single sign-on setups need.\n\nFix it with one response header:\nContent-Security-Policy: frame-ancestors 'self'\n\nUse 'none' if your app never frames itself. X-Frame-Options: DENY is the older header that does the same.\n\nSource: OWASP Clickjacking Defense Cheat Sheet and MDN, frame-ancestors.\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "Save this as test.html and open it:\n<iframe src=\"https://your-app.com\"></iframe>\n\nDoes your app [[load inside the frame]]?\n\nThen any site can do the same.",
+  "title": "Nugget N240"
+}

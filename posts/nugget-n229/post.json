@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-12-11T18:00:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "The AI added retries so a failed request tries again. When the API went down, every open tab started hitting it nonstop.\n\nLook at the card. The catch calls get(url) again straight away, with no limit and no wait. One failure turns into a tight loop of requests from every user. A server trying to restart gets buried by its own clients.\n\nFix: cap the attempts, wait longer each time (about 0.5 s, 1 s, 2 s), and add random jitter so clients don't all retry at the same moment.\n\nRetry only what can succeed later: network errors, 503, 429 (respect Retry-After). A 400 or 401 fails the same way every time.\n\nSource: AWS Architecture Blog, Exponential Backoff And Jitter.\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "",
+  "title": "Nugget N229"
+}

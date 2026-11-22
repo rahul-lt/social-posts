@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-11-30T18:00:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "The AI built the Pay button with a clean async handler. On a slow network, one impatient double tap places two orders.\n\nLook at the card. Each tap calls pay() again. Nothing stops the second call while the first request is still running, so placeOrder runs twice.\n\nThe fix on the client is a busy flag. Set it before the request, disable the button while it's true, and reset it in finally so a failed payment can be tried again.\n\nThat's only half. A disabled button won't stop a network retry or a second tab. The server also needs an idempotency key, so the same order is processed only once.\n\nSource: MDN, HTML attribute: disabled.\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "",
+  "title": "Nugget N196"
+}

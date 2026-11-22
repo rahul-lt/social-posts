@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-12-13T01:30:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "Forget one await in your machine coding round and the login check lets everyone in.\n\nLook at the card. isLoggedIn is async, so calling it returns a Promise straight away, not true or false. A Promise is an object, and every object is truthy. if (isLoggedIn()) passes for every visitor, logged in or not.\n\nFix: await the result before you check it.\n\nTwo more things. typescript-eslint's no-misused-promises rule catches this before it ships. And a frontend check only decides what to show: the dashboard's API must check the session on the server too.\n\nSource: MDN, async function (return value) and Truthy.\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "",
+  "title": "Nugget N233"
+}

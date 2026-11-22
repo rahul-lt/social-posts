@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-12-11T01:30:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "Check for NaN with === in your machine coding round and the error state you wrote never shows up.\n\nLook at the card. A product with no price field gives 2 * undefined, which is NaN. Then total === NaN is false, always. NaN is the only value in JavaScript that isn't equal to itself, so that check can never pass.\n\nFix: Number.isNaN(total). Avoid the global isNaN() for this, because it converts first: isNaN('abc') is true even though 'abc' isn't NaN.\n\nCheck the inputs too, not just the total. An empty quantity field gives '' * 499, which is 0, not NaN.\n\nSource: MDN, NaN and Number.isNaN().\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "",
+  "title": "Nugget N227"
+}

@@ -1,0 +1,929 @@
+[
+  {
+    "id": "p001",
+    "day": 1,
+    "slot": "07:00",
+    "style": "piyush",
+    "theme": "navy",
+    "pillar": "frontend",
+    "format": "code-review",
+    "card": {
+      "title": "Click Next on the product list.\nWhy does page 1 load again?",
+      "panels": [
+        {
+          "tone": "bad",
+          "label": "Common answer",
+          "file": "Products.jsx",
+          "hl": [
+            3
+          ],
+          "code": "function next() {\n  setPage(page + 1);\n  loadProducts(page);\n}\n// page was 1: loads page 1 again"
+        },
+        {
+          "tone": "good",
+          "label": "What gets you selected",
+          "file": "Products.jsx",
+          "hl": [
+            2,
+            4
+          ],
+          "code": "function next() {\n  const nextPage = page + 1;\n  setPage(nextPage);\n  loadProducts(nextPage);\n}"
+        }
+      ],
+      "note": "setPage doesn't change page now. It asks for the [[next render]]."
+    },
+    "caption": "Call setState and use the value on the next line in your machine coding round, and the interviewer will click Next twice to show you why.\n\nLook at the card. page is a constant inside this render. setPage(page + 1) doesn't change it. It asks React to render again with the new value. So the line below still reads 1, and page 1 loads a second time while the pager says 2.\n\nThe fix: work out the next value once and use it for both calls.\n\nEven better, fetch in an effect that lists page as a dependency, so the request always follows the state.\n\nReact calls this \"state as a snapshot\". It trips up people who know hooks well.\n\nSource: react.dev, State as a Snapshot.",
+    "publishAt": "2026-11-24T07:00:00+05:30",
+    "hookFamily": "interview-round",
+    "why": "Rule 6 interview hook + rule 2 product scenario with visible symptom; hooks topic from rule 22."
+  },
+  {
+    "id": "p002",
+    "day": 1,
+    "slot": "19:30",
+    "style": "ours",
+    "theme": "light",
+    "pillar": "career",
+    "format": "question",
+    "card": {
+      "text": "No developer offer yet. Pick one:\n\nA) Join a product company now in QA or support, and try to move into dev\nB) Keep applying for developer roles for 6 more months\n\n[[Which one, and why?]]"
+    },
+    "caption": "Both paths get people into developer jobs. They cost different things.\n\nA gets you inside: a real codebase, real users, a salary, and teammates who can refer you. The catch: an internal move isn't guaranteed, and many companies set a minimum time in your current role before you can apply internally.\n\nB keeps your title and your time focused on development: projects, DSA and interviews. The catch: six months with no income and no work experience, and interviewers will ask about the gap.\n\nIf you made either move, how long did it take, and would you do it again?",
+    "publishAt": "2026-11-24T19:30:00+05:30",
+    "hookFamily": "pick-one",
+    "why": "Rules 13-15: two named paths a 0-2 yr dev faces now, not run before; n147/n64 shape."
+  },
+  {
+    "id": "p003",
+    "day": 1,
+    "slot": "23:30",
+    "style": "piyush",
+    "theme": "navy",
+    "pillar": "frontend",
+    "format": "code-review",
+    "card": {
+      "title": "Tap the Phone label.\nWhy does the Email field get focus?",
+      "panels": [
+        {
+          "tone": "bad",
+          "label": "AI-generated",
+          "file": "Field.jsx",
+          "hl": [
+            3,
+            6
+          ],
+          "code": "function Field({ label }) {\n  return <>\n    <label htmlFor=\"field\">\n      {label}\n    </label>\n    <input id=\"field\" />\n  </>;\n}"
+        },
+        {
+          "tone": "good",
+          "label": "What I'd merge",
+          "file": "Field.jsx",
+          "hl": [
+            2,
+            4,
+            7
+          ],
+          "code": "function Field({ label }) {\n  const id = useId();\n  return <>\n    <label htmlFor={id}>\n      {label}\n    </label>\n    <input id={id} />\n  </>;\n}"
+        }
+      ],
+      "note": "A hard-coded id repeats every time the component does. [[useId]] makes one per instance."
+    },
+    "caption": "The AI built a reusable form field. On a page with one field it's perfect. Add a second one and tapping the Phone label puts the cursor in Email.\n\nLook at the card. Every Field renders id=\"field\". An id must be unique in the page. When two elements share one, htmlFor connects the label to the first element with that id. Both labels point at the Email input, and a screen reader finds no label for Phone.\n\nuseId gives each Field its own id, and the id matches between server and client rendering.\n\nNo id at all also works: put the input inside the label.\n\nSource: react.dev, useId; MDN, The Label element.",
+    "publishAt": "2026-11-24T23:30:00+05:30",
+    "hookFamily": "ai-built",
+    "why": "Rule 6 \"The AI built...\" hook; forms/a11y pool (rule 22) with a tap-visible symptom (rule 4)."
+  },
+  {
+    "id": "p004",
+    "day": 2,
+    "slot": "07:00",
+    "style": "piyush",
+    "theme": "navy",
+    "pillar": "frontend",
+    "format": "code-review",
+    "card": {
+      "title": "The search box won't let you type.\nWhy?",
+      "panels": [
+        {
+          "tone": "bad",
+          "label": "Common answer",
+          "file": "Search.jsx",
+          "hl": [
+            4
+          ],
+          "code": "const [q, setQ] = useState('');\n\n<input\n  value={q}\n  placeholder=\"Search\" />"
+        },
+        {
+          "tone": "good",
+          "label": "What gets you selected",
+          "file": "Search.jsx",
+          "hl": [
+            5,
+            6
+          ],
+          "code": "const [q, setQ] = useState('');\n\n<input\n  value={q}\n  onChange={(e) =>\n    setQ(e.target.value)}\n  placeholder=\"Search\" />"
+        }
+      ],
+      "note": "value makes React the owner of the text. Without onChange, [[nothing can change it]]."
+    },
+    "caption": "Give an input a value without an onChange in your machine coding round, and the search box ignores every key the interviewer presses.\n\nLook at the card. value={q} tells React that state owns this text. After every keystroke React puts the input back to q. Nothing ever changes q, so it stays empty.\n\nReact even warns in the console: a value prop without an onChange handler renders a read-only field.\n\nTwo ways out:\nvalue plus onChange, when you need the text in state (filtering as you type).\ndefaultValue, when you only read it on submit.\n\nPick one per input. Don't mix them.\n\nSource: react.dev, <input> (controlling an input with a state variable).",
+    "publishAt": "2026-11-25T07:00:00+05:30",
+    "hookFamily": "interview-round",
+    "why": "Rule 6 interview hook; controlled-input topic from the brief lane, symptom visible on first keypress (rule 4)."
+  },
+  {
+    "id": "p005",
+    "day": 2,
+    "slot": "19:30",
+    "style": "ours",
+    "theme": "light",
+    "pillar": "frontend",
+    "format": "self-check",
+    "card": {
+      "text": "Open your live app.\nDevTools → Application → Local Storage.\n\nIs your login token sitting there?\n\n[[Every script on your page]] can read it."
+    },
+    "caption": "Anything in localStorage can be read by any JavaScript running on your page. That includes a third-party script, a compromised npm package, or code injected through an XSS bug (a hole that lets an attacker run their script on your site).\n\nOne injected line can send your users' tokens to someone else's server.\n\nAn httpOnly cookie is the common alternative: the browser sends it with requests, but JavaScript can't read it at all. Pair it with the Secure and SameSite flags.\n\nIt doesn't fix XSS. It stops XSS from walking away with the token.\n\nSource: OWASP HTML5 Security Cheat Sheet (Local Storage).",
+    "publishAt": "2026-11-25T19:30:00+05:30",
+    "hookFamily": "self-check-leak",
+    "why": "Rule 17: self-check only for leaks; n90 (bundle leak, 21.6k) shows \"your app can't keep a secret\" lands."
+  },
+  {
+    "id": "p006",
+    "day": 2,
+    "slot": "23:30",
+    "style": "piyush",
+    "theme": "navy",
+    "pillar": "frontend",
+    "format": "code-review",
+    "card": {
+      "title": "Every row is wrapped in memo.\nWhy do all 500 still re-render?",
+      "panels": [
+        {
+          "tone": "bad",
+          "label": "AI-generated",
+          "file": "Orders.jsx",
+          "hl": [
+            7
+          ],
+          "code": "const Row = memo(function Row(p) {\n  /* ... */\n});\n\n{rows.map((r) => (\n  <Row key={r.id} row={r}\n    onSelect={() => select(r.id)} />\n))}"
+        },
+        {
+          "tone": "good",
+          "label": "What I'd merge",
+          "file": "Orders.jsx",
+          "hl": [
+            1,
+            6
+          ],
+          "code": "const select = useCallback(\n  (id) => setSelected(id), []);\n\n{rows.map((r) => (\n  <Row key={r.id} row={r}\n    onSelect={select} />\n))}\n// Row calls onSelect(row.id)"
+        }
+      ],
+      "note": "memo compares props by reference. A new arrow is a [[new prop]] on every render."
+    },
+    "caption": "The AI wrapped every row in memo to make the list fast. Type one letter in the search box and all 500 rows render again anyway.\n\nLook at the card. memo skips a render only when every prop is the same as last time. onSelect={() => select(r.id)} creates a new function on every render, and a new function is never equal to the old one. So memo compares, sees a change, and renders every row.\n\nThe fix: one stable function from useCallback, and let Row pass its own id.\n\nTo see it, turn on \"Highlight updates when components render\" in React DevTools.\n\nIf your project uses React Compiler, it does this memoization for you.\n\nSource: react.dev, memo (minimizing props changes).",
+    "publishAt": "2026-11-25T23:30:00+05:30",
+    "hookFamily": "ai-built",
+    "why": "Rule 22 perf with a visible symptom; rule 6 AI hook; memo is in the brief lane and unposted."
+  },
+  {
+    "id": "p007",
+    "day": 3,
+    "slot": "07:00",
+    "style": "piyush",
+    "theme": "navy",
+    "pillar": "frontend",
+    "format": "code-review",
+    "card": {
+      "title": "Click Log in. The page reloads\nand the form goes blank. Why?",
+      "panels": [
+        {
+          "tone": "bad",
+          "label": "Common answer",
+          "file": "Login.jsx",
+          "hl": [
+            1
+          ],
+          "code": "function onSubmit(e) {\n  login(email, password);\n}\n\n<form onSubmit={onSubmit}>"
+        },
+        {
+          "tone": "good",
+          "label": "What gets you selected",
+          "file": "Login.jsx",
+          "hl": [
+            2
+          ],
+          "code": "function onSubmit(e) {\n  e.preventDefault();\n  login(email, password);\n}\n\n<form onSubmit={onSubmit}>"
+        }
+      ],
+      "note": "Submitting a form is a [[browser navigation]] unless you stop it."
+    },
+    "caption": "Forget one line in your machine coding round login form, and the page reloads every time the interviewer clicks Log in.\n\nLook at the card. Submitting a form is a browser action, not a React one. With no preventDefault, the browser does what it always did: it navigates to the form's action URL, which is the current page when there isn't one. The page reloads, React state is wiped, and your login response has nowhere to go.\n\ne.preventDefault() as the first line of the handler stops that navigation.\n\nIn React 19 you can also pass a function to the form's action prop, and React handles the submit without a reload.\n\nSource: MDN, Event.preventDefault(); react.dev, <form>.",
+    "publishAt": "2026-11-26T07:00:00+05:30",
+    "hookFamily": "interview-round",
+    "why": "Rule 3: line 1 states the consequence (page reloads); login form is a rule 3 product; sibling of n151 form defaults (1.6k)."
+  },
+  {
+    "id": "p008",
+    "day": 3,
+    "slot": "19:30",
+    "style": "ours",
+    "theme": "light",
+    "pillar": "career",
+    "format": "question",
+    "card": {
+      "text": "Your internship ends with a PPO (pre-placement offer): ₹6 LPA.\nPlacements start next month. Pick one:\n\nA) Accept the PPO\nB) Decline it and sit for placements\n\n[[What would you do?]]"
+    },
+    "caption": "Both are reasonable, and your college's rules decide a lot of it. At many colleges, accepting a PPO takes you out of placements, so check your placement cell's policy first.\n\nA is a sure offer from a team that has already seen your work. You skip months of tests and interviews and can spend final year learning what that team uses.\n\nB can mean a higher package or a role you want more. It also means trading a sure offer for a chance.\n\nThings to weigh: how much you learned in the internship, the people on the team, and how many companies actually visit your campus.\n\nIf you faced this, which way did you go?",
+    "publishAt": "2026-11-26T19:30:00+05:30",
+    "hookFamily": "pick-one",
+    "why": "Rule 13: concrete money + timing dilemma (n64 ₹6 vs ₹9 LPA got 3.5k); PPO not run before."
+  },
+  {
+    "id": "p009",
+    "day": 3,
+    "slot": "23:30",
+    "style": "piyush",
+    "theme": "navy",
+    "pillar": "frontend",
+    "format": "code-review",
+    "card": {
+      "title": "Tap Like three times.\nWhy does it still say 0?",
+      "panels": [
+        {
+          "tone": "bad",
+          "label": "AI-generated",
+          "file": "Like.jsx",
+          "hl": [
+            4
+          ],
+          "code": "const likes = useRef(0);\n\n<button onClick={() =>\n  likes.current++}>\n  Like {likes.current}\n</button>\n// screen: Like 0"
+        },
+        {
+          "tone": "good",
+          "label": "What I'd merge",
+          "file": "Like.jsx",
+          "hl": [
+            1,
+            5
+          ],
+          "code": "const [likes, setLikes] =\n  useState(0);\n\n<button onClick={() =>\n  setLikes((n) => n + 1)}>\n  Like {likes}\n</button>"
+        }
+      ],
+      "note": "Changing a ref [[doesn't re-render]]. Changing state does."
+    },
+    "caption": "The AI used useRef for a like counter \"to avoid extra re-renders\". That's exactly the problem.\n\nLook at the card. likes.current++ really does change the number. Log it and you'll see 3. But changing a ref doesn't tell React anything, so the button never renders again and still shows 0. The next time something else re-renders the component, it jumps to 3.\n\nIf the value shows on screen, it belongs in state. Setting state is what triggers the render.\n\nRefs are for values the screen doesn't show: a timer id, a DOM node, the previous value of a prop.\n\nSource: react.dev, Referencing Values with Refs.",
+    "publishAt": "2026-11-26T23:30:00+05:30",
+    "hookFamily": "ai-built",
+    "why": "Rule 6 AI hook; refs are in the brief lane; symptom visible on screen (rule 4)."
+  },
+  {
+    "id": "p010",
+    "day": 4,
+    "slot": "07:00",
+    "style": "piyush",
+    "theme": "navy",
+    "pillar": "frontend",
+    "format": "code-review",
+    "card": {
+      "title": "Type one letter of your address.\nWhy does the field lose focus?",
+      "panels": [
+        {
+          "tone": "bad",
+          "label": "Common answer",
+          "file": "Checkout.jsx",
+          "hl": [
+            4
+          ],
+          "code": "function Checkout() {\n  const [addr, setAddr] =\n    useState('');\n  const Field = () => <input\n    value={addr} onChange={(e) =>\n      setAddr(e.target.value)} />;\n  return <Field />;\n}"
+        },
+        {
+          "tone": "good",
+          "label": "What gets you selected",
+          "file": "Checkout.jsx",
+          "hl": [
+            1,
+            2
+          ],
+          "code": "const Field = (props) =>\n  <input {...props} />;\nfunction Checkout() {\n  const [addr, setAddr] =\n    useState('');\n  return <Field value={addr}\n    onChange={(e) =>\n      setAddr(e.target.value)} />;\n}"
+        }
+      ],
+      "note": "A component defined inside another is a [[new component]] on every render."
+    },
+    "caption": "Define a component inside another component in your machine coding round, and the input loses focus after every letter the interviewer types.\n\nLook at the card. Field is created again each time Checkout renders. To React, a new function is a new component type. Same spot, different type, so React removes the old input and mounts a brand new one. The text survives because it lives in Checkout's state, but the focus and cursor don't.\n\nMove Field outside Checkout. Now it's the same type on every render, and React keeps the same input.\n\nThe React docs call this out directly: don't nest component definitions.\n\nSource: react.dev, Preserving and Resetting State.",
+    "publishAt": "2026-11-27T07:00:00+05:30",
+    "hookFamily": "interview-round",
+    "why": "Rule 4 bug visible on screen; checkout scenario (rule 3); rule 6 interview hook."
+  },
+  {
+    "id": "p011",
+    "day": 4,
+    "slot": "19:30",
+    "style": "piyush",
+    "theme": "navy",
+    "pillar": "frontend",
+    "format": "code-review",
+    "card": {
+      "title": "Show only in-stock phones.\nWhy does every phone still show?",
+      "panels": [
+        {
+          "tone": "bad",
+          "label": "Common answer",
+          "file": "Shop.js",
+          "hl": [
+            2
+          ],
+          "code": "const inStock = phones.filter(\n  async (p) => await hasStock(p.id)\n);\n// every phone is still here"
+        },
+        {
+          "tone": "good",
+          "label": "What gets you selected",
+          "file": "Shop.js",
+          "hl": [
+            1,
+            5
+          ],
+          "code": "const ok = await Promise.all(\n  phones.map((p) => hasStock(p.id))\n);\nconst inStock = phones.filter(\n  (_, i) => ok[i]);"
+        }
+      ],
+      "note": "An async callback returns a promise. A promise is [[always truthy]]."
+    },
+    "caption": "If await inside forEach ever caught you out, this is its sibling: an async callback inside filter. The in-stock filter keeps every phone.\n\nLook at the card. filter keeps an item when the callback returns something truthy. An async function always returns a promise, and a promise object is truthy, even one that will resolve to false. So filter keeps everything, before a single stock check has finished.\n\nThe fix runs the checks first. Promise.all with map gives you an array of true and false, in the same order as phones. Then filter by index.\n\nThe same trap works with some, every and find.\n\nSource: MDN, Array.prototype.filter() and async function.",
+    "publishAt": "2026-11-27T19:30:00+05:30",
+    "hookFamily": "sibling-breakout",
+    "why": "Experiment: rule 23 sibling of the n137 await-in-forEach breakout (19.2k), same async-callback trap in filter."
+  },
+  {
+    "id": "p012",
+    "day": 4,
+    "slot": "23:30",
+    "style": "piyush",
+    "theme": "navy",
+    "pillar": "frontend",
+    "format": "code-review",
+    "card": {
+      "title": "The OTP arrives by SMS.\nWhy can't the phone autofill it?",
+      "panels": [
+        {
+          "tone": "bad",
+          "label": "AI-generated",
+          "file": "Otp.jsx",
+          "hl": [
+            2
+          ],
+          "code": "<input\n  type=\"number\"\n  name=\"otp\"\n/>"
+        },
+        {
+          "tone": "good",
+          "label": "What I'd merge",
+          "file": "Otp.jsx",
+          "hl": [
+            3,
+            4
+          ],
+          "code": "<input\n  type=\"text\"\n  inputMode=\"numeric\"\n  autoComplete=\"one-time-code\"\n  maxLength={6}\n  name=\"otp\"\n/>"
+        }
+      ],
+      "note": "[[one-time-code]] tells the browser this field wants the code from your SMS."
+    },
+    "caption": "The AI built the OTP screen with type=\"number\". It looks right, and users still have to open Messages and copy the code by hand.\n\nLook at the card. autocomplete=\"one-time-code\" tells the browser this field wants a code from an SMS. Safari on iPhone uses it to show the code above the keyboard, one tap to fill. Without it, the browser has to guess.\n\ntype=\"number\" is the wrong type anyway. It adds spinner arrows, accepts e and minus signs, and ignores maxLength. An OTP is a string of digits, not a number.\n\ninputMode=\"numeric\" still gives phones the digit keypad.\n\nSource: MDN, HTML autocomplete attribute; MDN, input type=\"number\".",
+    "publishAt": "2026-11-27T23:30:00+05:30",
+    "hookFamily": "ai-built",
+    "why": "Rule 22 forms pool (inputmode/autocomplete from the brief); rule 7 stake: users copy the OTP by hand; India-heavy OTP flows."
+  },
+  {
+    "id": "p013",
+    "day": 5,
+    "slot": "07:00",
+    "style": "piyush",
+    "theme": "navy",
+    "pillar": "frontend",
+    "format": "code-review",
+    "card": {
+      "title": "Click Add to cart.\nWhy doesn't the cart update?",
+      "panels": [
+        {
+          "tone": "bad",
+          "label": "Common answer",
+          "file": "Cart.jsx",
+          "hl": [
+            2,
+            3
+          ],
+          "code": "function add(item) {\n  cart.push(item);\n  setCart(cart);\n}\n// screen: still 0 items"
+        },
+        {
+          "tone": "good",
+          "label": "What gets you selected",
+          "file": "Cart.jsx",
+          "hl": [
+            2
+          ],
+          "code": "function add(item) {\n  setCart([...cart, item]);\n}"
+        }
+      ],
+      "note": "Same array, same reference. React sees [[no change]] and skips the render."
+    },
+    "caption": "Push into a state array in your machine coding round and the cart stays empty while the interviewer keeps clicking Add.\n\nLook at the card. push changes the array in place. Then setCart(cart) hands React the same array it already has. React compares old and new state with Object.is, sees the same reference, and skips the render. The data changed. The screen didn't.\n\nIt gets more confusing later: the next unrelated re-render suddenly shows every item at once.\n\nThe fix is a new array: setCart([...cart, item]). Removing is filter, updating one item is map. Both return new arrays.\n\nObjects work the same way: { ...user, name }.\n\nSource: react.dev, Updating Arrays in State.",
+    "publishAt": "2026-11-28T07:00:00+05:30",
+    "hookFamily": "interview-round",
+    "why": "Rules 11-12: classic interview question and one of the 2 strongest topics, on Saturday 07:00 (weekend mornings 3/4 broke out)."
+  },
+  {
+    "id": "p014",
+    "day": 5,
+    "slot": "19:30",
+    "style": "ours",
+    "theme": "light",
+    "pillar": "frontend",
+    "format": "self-check",
+    "card": {
+      "text": "Type an email with no account into your Forgot password form.\n\nDoes it say \"No account found\"?\n\nYou're telling anyone [[which emails have accounts]]."
+    },
+    "caption": "That message lets anyone check, one email at a time, who uses your app. Attackers run lists of leaked emails through forms like this, then target the matches with phishing or password guessing.\n\nThe fix is one sentence: \"If an account exists for this email, we've sent a reset link.\" Show it for every email, send the mail only when the account exists, and keep the response time similar either way.\n\nCheck your login form too. \"Wrong password\" and \"No such user\" leak the same thing. Use one message: \"Email or password is incorrect.\"\n\nSource: OWASP Forgot Password Cheat Sheet and Authentication Cheat Sheet.",
+    "publishAt": "2026-11-28T19:30:00+05:30",
+    "hookFamily": "self-check-leak",
+    "why": "Rule 17 leak-only self-check; auth-form leak like n151 (the only self-check above 238, 1.6k)."
+  },
+  {
+    "id": "p015",
+    "day": 5,
+    "slot": "23:30",
+    "style": "piyush",
+    "theme": "navy",
+    "pillar": "frontend",
+    "format": "code-review",
+    "card": {
+      "title": "Switch to the Delivered tab.\nWhy does it still show Pending?",
+      "panels": [
+        {
+          "tone": "bad",
+          "label": "AI-generated",
+          "file": "Orders.jsx",
+          "hl": [
+            5
+          ],
+          "code": "useEffect(() => {\n  fetch(`/api/orders?s=${status}`)\n    .then((r) => r.json())\n    .then(setOrders);\n}, []);"
+        },
+        {
+          "tone": "good",
+          "label": "What I'd merge",
+          "file": "Orders.jsx",
+          "hl": [
+            5
+          ],
+          "code": "useEffect(() => {\n  fetch(`/api/orders?s=${status}`)\n    .then((r) => r.json())\n    .then(setOrders);\n}, [status]);"
+        }
+      ],
+      "note": "The array lists every value the effect reads. [[status]] is missing."
+    },
+    "caption": "The AI wrote the orders fetch with an empty dependency array. Click Delivered and the tab highlights, but the list still shows pending orders.\n\nLook at the card. The dependency array lists the values from your component that the effect reads. This effect reads status, but the array is empty, so React runs it once on mount and never again. Changing status re-renders the tabs, not the fetch.\n\nAdd status to the array, and every tab change fetches again.\n\nThe exhaustive-deps rule in eslint-plugin-react-hooks flags this as you type. Don't silence it.\n\nSwitching fast? An ignore flag in the cleanup stops an old response overwriting a newer one.\n\nSource: react.dev, Synchronizing with Effects.",
+    "publishAt": "2026-11-28T23:30:00+05:30",
+    "hookFamily": "ai-built",
+    "why": "Sibling of n152 useEffect fetch loop (11.5k) with the opposite mistake; rule 6 AI hook; tab symptom visible."
+  },
+  {
+    "id": "p016",
+    "day": 6,
+    "slot": "07:00",
+    "style": "piyush",
+    "theme": "navy",
+    "pillar": "frontend",
+    "format": "code-review",
+    "card": {
+      "title": "The cart is empty.\nWhy is there a 0 on the page?",
+      "panels": [
+        {
+          "tone": "bad",
+          "label": "Common answer",
+          "file": "Cart.jsx",
+          "hl": [
+            1
+          ],
+          "code": "{items.length && (\n  <CartList items={items} />\n)}\n// empty cart renders: 0"
+        },
+        {
+          "tone": "good",
+          "label": "What gets you selected",
+          "file": "Cart.jsx",
+          "hl": [
+            1
+          ],
+          "code": "{items.length > 0 && (\n  <CartList items={items} />\n)}\n// empty cart renders nothing"
+        }
+      ],
+      "note": "React skips false, null and undefined. It [[renders 0]]."
+    },
+    "caption": "Write items.length && in your machine coding round and the interviewer will point at the lonely 0 on the empty cart.\n\nLook at the card. && returns its left side when the left side is falsy. With no items, items.length is 0, so the whole expression is 0, not false.\n\nReact renders nothing for true, false, null and undefined. It does render numbers. So 0 shows up on the page.\n\nMake the left side a real boolean: items.length > 0 &&. Or use a ternary when there's an else branch.\n\nThe React docs list this exact case as a pitfall: don't put numbers on the left side of &&.\n\nSource: react.dev, Conditional Rendering.",
+    "publishAt": "2026-11-29T07:00:00+05:30",
+    "hookFamily": "interview-round",
+    "why": "Rules 11-12: classic interview trap and second-strongest topic, on Sunday 07:00; visible on screen (rule 4)."
+  },
+  {
+    "id": "p018",
+    "day": 6,
+    "slot": "23:30",
+    "style": "piyush",
+    "theme": "navy",
+    "pillar": "frontend",
+    "format": "code-review",
+    "card": {
+      "title": "Open Change password.\nWhy is the New field already filled?",
+      "panels": [
+        {
+          "tone": "bad",
+          "label": "AI-generated",
+          "file": "ChangePassword.jsx",
+          "hl": [
+            1,
+            3
+          ],
+          "code": "<input type=\"password\"\n  name=\"current\" />\n<input type=\"password\"\n  name=\"new\" />"
+        },
+        {
+          "tone": "good",
+          "label": "What I'd merge",
+          "file": "ChangePassword.jsx",
+          "hl": [
+            3,
+            6
+          ],
+          "code": "<input type=\"password\"\n  name=\"current\"\n  autoComplete=\"current-password\" />\n<input type=\"password\"\n  name=\"new\"\n  autoComplete=\"new-password\" />"
+        }
+      ],
+      "note": "[[autoComplete]] tells the password manager which field is which."
+    },
+    "caption": "The AI built a change-password form with two plain password inputs. The browser sees two password fields, has to guess which is which, and can drop the saved password into the New field too.\n\nLook at the card. autoComplete tells the password manager what each field is for. current-password means \"fill the saved one here\". new-password means \"don't fill this one, offer to generate a strong password instead\".\n\nUse them on every auth form: current-password on login, new-password on signup and reset, and username or email on the email field.\n\nOne attribute per input decides whether password managers help your users or get in their way.\n\nSource: MDN, HTML autocomplete attribute.",
+    "publishAt": "2026-11-29T23:30:00+05:30",
+    "hookFamily": "ai-built",
+    "why": "Forms pool (autocomplete from the brief), rule 7 stake on a login/account form; rule 6 AI hook."
+  },
+  {
+    "id": "p019",
+    "day": 7,
+    "slot": "07:00",
+    "style": "piyush",
+    "theme": "navy",
+    "pillar": "frontend",
+    "format": "code-review",
+    "card": {
+      "title": "Add a Filters button.\nWhy does the whole page go blank?",
+      "panels": [
+        {
+          "tone": "bad",
+          "label": "Common answer",
+          "file": "Filters.jsx",
+          "hl": [
+            2
+          ],
+          "code": "<button\n  onClick={setOpen(true)}>\n  Open filters\n</button>\n// Too many re-renders."
+        },
+        {
+          "tone": "good",
+          "label": "What gets you selected",
+          "file": "Filters.jsx",
+          "hl": [
+            2
+          ],
+          "code": "<button\n  onClick={() => setOpen(true)}>\n  Open filters\n</button>"
+        }
+      ],
+      "note": "onClick needs a function. setOpen(true) [[runs during render]]."
+    },
+    "caption": "Write onClick={setOpen(true)} in your machine coding round and the page goes blank before the interviewer can click anything.\n\nLook at the card. The parentheses call setOpen right now, while React is rendering the button, not when someone clicks it. Setting state during render asks for another render. That render calls setOpen again. React stops the loop with \"Too many re-renders\", and without an error boundary the whole app disappears.\n\nonClick needs a function to call later: onClick={() => setOpen(true)}.\n\nSame rule for every handler with an argument: onClick={() => remove(item.id)}, not onClick={remove(item.id)}.\n\nSource: react.dev, Responding to Events (pass the function, don't call it).",
+    "publishAt": "2026-11-30T07:00:00+05:30",
+    "hookFamily": "interview-round",
+    "why": "Rule 3: hook ends on the consequence (blank page); beginner-classic React event bug, not posted before."
+  },
+  {
+    "id": "p020",
+    "day": 7,
+    "slot": "19:30",
+    "style": "ours",
+    "theme": "light",
+    "pillar": "career",
+    "format": "question",
+    "card": {
+      "text": "6 months before placements. Pick one:\n\nA) Contribute to a real open-source project\nB) Build your own project end to end\n\n[[Which one, and why?]]"
+    },
+    "caption": "Both show up well in interviews. They prove different things.\n\nOpen source proves you can read a big codebase you didn't write, take review comments, and get a change merged by strangers. That's most of the first year of a job. The catch: your first merged PRs are usually small, and finding a good first issue takes time.\n\nYour own project proves you can design something, ship it, and explain every decision. The catch: nobody reviews it, so bad habits survive.\n\nIf you've done either, what did interviewers actually ask you about it?",
+    "publishAt": "2026-11-30T19:30:00+05:30",
+    "hookFamily": "pick-one",
+    "why": "Rules 13-15: new dilemma (not startup/service, deep/full-stack, hike/senior, DSA/projects); max 3 career posts this week."
+  },
+  {
+    "id": "p021",
+    "day": 7,
+    "slot": "23:30",
+    "style": "piyush",
+    "theme": "navy",
+    "pillar": "frontend",
+    "format": "code-review",
+    "card": {
+      "title": "Double-tap Pay ₹499.\nWhy did two orders go through?",
+      "panels": [
+        {
+          "tone": "bad",
+          "label": "AI-generated",
+          "file": "Pay.jsx",
+          "hl": [
+            5
+          ],
+          "code": "async function pay() {\n  await placeOrder(cart);\n}\n\n<button onClick={pay}>\n  Pay ₹499\n</button>"
+        },
+        {
+          "tone": "good",
+          "label": "What I'd merge",
+          "file": "Pay.jsx",
+          "hl": [
+            4,
+            8
+          ],
+          "code": "const [busy, setBusy] =\n  useState(false);\nasync function pay() {\n  setBusy(true);\n  try { await placeOrder(cart); }\n  finally { setBusy(false); }\n}\n<button disabled={busy}\n  onClick={pay}>Pay ₹499</button>"
+        }
+      ],
+      "note": "Disable the button [[while the request runs]]. Then make the server safe too."
+    },
+    "caption": "The AI built the Pay button with a clean async handler. On a slow network, one impatient double tap places two orders.\n\nLook at the card. Each tap calls pay() again. Nothing stops the second call while the first request is still running, so placeOrder runs twice.\n\nThe fix on the client is a busy flag. Set it before the request, disable the button while it's true, and reset it in finally so a failed payment can be tried again.\n\nThat's only half. A disabled button won't stop a network retry or a second tab. The server also needs an idempotency key, so the same order is processed only once.\n\nSource: MDN, HTML attribute: disabled.",
+    "publishAt": "2026-11-30T23:30:00+05:30",
+    "hookFamily": "ai-built",
+    "why": "Rule 7 money stake on a checkout (rule 3); state + form-submit lane; client-side sibling of the n95 idempotency post."
+  },
+  {
+    "id": "p022",
+    "day": 8,
+    "slot": "07:00",
+    "style": "piyush",
+    "theme": "navy",
+    "pillar": "frontend",
+    "format": "code-review",
+    "card": {
+      "title": "Type the password, press Enter.\nWhy does nothing happen?",
+      "panels": [
+        {
+          "tone": "bad",
+          "label": "Common answer",
+          "file": "Login.jsx",
+          "hl": [
+            1,
+            5
+          ],
+          "code": "<div>\n  <input name=\"email\" />\n  <input name=\"pass\"\n    type=\"password\" />\n  <button onClick={login}>\n    Log in\n  </button>\n</div>"
+        },
+        {
+          "tone": "good",
+          "label": "What gets you selected",
+          "file": "Login.jsx",
+          "hl": [
+            1,
+            5
+          ],
+          "code": "<form onSubmit={login}>\n  <input name=\"email\" />\n  <input name=\"pass\"\n    type=\"password\" />\n  <button>Log in</button>\n</form>\n// login calls e.preventDefault()"
+        }
+      ],
+      "note": "Enter submits a [[form]]. A div is just a box."
+    },
+    "caption": "Build a login screen out of divs in your machine coding round, and the interviewer's first Enter key does nothing.\n\nLook at the card. Pressing Enter in a text field submits the form that field belongs to. The HTML spec calls this implicit submission. With no <form>, there's nothing to submit, so Enter does nothing. The Go key on a phone keyboard does the same thing as Enter, so it does nothing too.\n\nWrap the fields in a form, handle onSubmit, and call e.preventDefault() first. A button inside a form submits by default, so clicking still works.\n\nOne handler now covers the click, Enter and the phone's Go key.\n\nSource: MDN, The Form element; HTML Standard, implicit submission.",
+    "publishAt": "2026-12-01T07:00:00+05:30",
+    "hookFamily": "interview-round",
+    "why": "Forms pool (form submit from the brief); login scenario (rule 3) with a keyboard-visible symptom, like n161 (13.2k)."
+  },
+  {
+    "id": "p023",
+    "day": 8,
+    "slot": "19:30",
+    "style": "ours",
+    "theme": "light",
+    "pillar": "frontend",
+    "format": "self-check",
+    "card": {
+      "text": "Copy a password and paste it into your own login form.\n\nDid it work?\n\nIf you blocked paste, you also blocked [[password managers]]."
+    },
+    "caption": "Some apps block paste on password fields with onPaste={(e) => e.preventDefault()}, usually \"for security\".\n\nIt doesn't add security. It punishes people who use long, random passwords from a password manager, so they switch to something short they can type.\n\nNIST's digital identity guidelines say services should let users paste into password fields, for exactly this reason.\n\nThe same goes for \"Confirm email\" fields that block paste. Users retype, make a typo, and never get your emails.\n\nRemove the handler and let the password manager do its job.\n\nSource: NIST SP 800-63B, Digital Identity Guidelines (password verifiers).",
+    "publishAt": "2026-12-01T19:30:00+05:30",
+    "hookFamily": "self-check-user-facing",
+    "why": "Rule 17: user-facing failure on a login form; auth-form self-check like n151, the best self-check so far."
+  },
+  {
+    "id": "p024",
+    "day": 8,
+    "slot": "23:30",
+    "style": "piyush",
+    "theme": "navy",
+    "pillar": "frontend",
+    "format": "code-review",
+    "card": {
+      "title": "The email is right there on screen.\nWhy is it missing from the request?",
+      "panels": [
+        {
+          "tone": "bad",
+          "label": "AI-generated",
+          "file": "Signup.jsx",
+          "hl": [
+            6,
+            7
+          ],
+          "code": "const [form, setForm] = useState({\n  name: '', email: '',\n});\n\n<input value={form.name}\n  onChange={(e) => setForm({\n    name: e.target.value })} />"
+        },
+        {
+          "tone": "good",
+          "label": "What I'd merge",
+          "file": "Signup.jsx",
+          "hl": [
+            2,
+            3
+          ],
+          "code": "<input value={form.name}\n  onChange={(e) => setForm((f) => ({\n    ...f,\n    name: e.target.value,\n  }))} />"
+        }
+      ],
+      "note": "useState's setter [[replaces]] the object. It doesn't merge."
+    },
+    "caption": "The AI built a signup form with one state object. Type your email, then your name, and the request goes out with no email.\n\nLook at the card. The setter from useState replaces the whole object. It doesn't merge. setForm({ name }) leaves a form with only name in it, so email is gone from state.\n\nThe input still shows the email because form.email is now undefined, so React stops controlling that field. The console says so: \"A component is changing a controlled input to be uncontrolled.\"\n\nThe fix: copy the old fields first, setForm((f) => ({ ...f, name: value })).\n\nClass components merged this.setState for you. Hooks don't.\n\nSource: react.dev, Updating Objects in State.",
+    "publishAt": "2026-12-01T23:30:00+05:30",
+    "hookFamily": "ai-built",
+    "why": "Rule 7 stake (backend gets a signup with no email); state + controlled-input lane; rule 6 AI hook."
+  },
+  {
+    "id": "p025",
+    "day": 9,
+    "slot": "07:00",
+    "style": "piyush",
+    "theme": "navy",
+    "pillar": "frontend",
+    "format": "code-review",
+    "card": {
+      "title": "Tab through your login form.\nWhere did the focus go?",
+      "panels": [
+        {
+          "tone": "bad",
+          "label": "Common answer",
+          "file": "styles.css",
+          "hl": [
+            2
+          ],
+          "code": "*:focus {\n  outline: none;\n}"
+        },
+        {
+          "tone": "good",
+          "label": "What gets you selected",
+          "file": "styles.css",
+          "hl": [
+            1
+          ],
+          "code": ":focus-visible {\n  outline: 2px solid #2563eb;\n  outline-offset: 2px;\n}"
+        }
+      ],
+      "note": ":focus-visible shows the ring for [[keyboard users]], not for every mouse click."
+    },
+    "caption": "Remove the focus outline in your machine coding round and the accessibility follow-up comes next: \"now use it with only the keyboard.\"\n\nLook at the card. *:focus { outline: none } hides the focus ring everywhere. Mouse users don't notice. Keyboard users press Tab and can't tell which field or button they're on.\n\n:focus-visible lets the browser decide when the ring is useful. It shows when you Tab, and usually not when you click a button with a mouse. Text fields still show it on click, because you need to see where you're typing.\n\nWCAG 2.4.7 (Focus Visible) requires a visible focus indicator for keyboard users.\n\nSource: MDN, :focus-visible.",
+    "publishAt": "2026-12-02T07:00:00+05:30",
+    "hookFamily": "interview-round",
+    "why": "Accessibility follow-up after the n161 div-as-button breakout (13.2k); rule 7 stake = senior/a11y round."
+  },
+  {
+    "id": "p026",
+    "day": 9,
+    "slot": "19:30",
+    "style": "ours",
+    "theme": "light",
+    "pillar": "career",
+    "format": "question",
+    "card": {
+      "text": "You have an offer from a big IT company. Joining date: \"to be confirmed\".\n\nPick one:\nA) Wait for the joining letter\nB) Join a smaller company now, for less money\n\n[[What would you do?]]"
+    },
+    "caption": "Both are common choices, and neither is wrong.\n\nWaiting keeps the bigger brand and the offer you already worked hard for. The catch: joining dates can slip by months, and those months show up as a gap on your resume.\n\nJoining now means you start learning on real work immediately and earn while you wait. The catch: if the big company's letter arrives later, you have to choose again, and leaving a job after a few months has its own cost.\n\nWhatever you pick, keep building and interviewing during the wait.\n\nIf your joining was delayed, what did you do?",
+    "publishAt": "2026-12-02T19:30:00+05:30",
+    "hookFamily": "pick-one",
+    "why": "Rules 13-14: first-offer timing dilemma many freshers face now; second career post of the Nov 30 week (rule 14: max 3/week)."
+  },
+  {
+    "id": "p027",
+    "day": 9,
+    "slot": "23:30",
+    "style": "piyush",
+    "theme": "navy",
+    "pillar": "frontend",
+    "format": "code-review",
+    "card": {
+      "title": "Pick a delivery slot.\nWhy can you select both?",
+      "panels": [
+        {
+          "tone": "bad",
+          "label": "AI-generated",
+          "file": "Slots.jsx",
+          "hl": [
+            2,
+            6
+          ],
+          "code": "<label>\n  <input type=\"radio\" value=\"am\" />\n  Morning\n</label>\n<label>\n  <input type=\"radio\" value=\"pm\" />\n  Evening\n</label>"
+        },
+        {
+          "tone": "good",
+          "label": "What I'd merge",
+          "file": "Slots.jsx",
+          "hl": [
+            2,
+            6
+          ],
+          "code": "<label>\n  <input type=\"radio\" name=\"slot\"\n    value=\"am\" /> Morning\n</label>\n<label>\n  <input type=\"radio\" name=\"slot\"\n    value=\"pm\" /> Evening\n</label>"
+        }
+      ],
+      "note": "Radios become one group only when they share a [[name]]."
+    },
+    "caption": "The AI built a delivery-slot picker with two radio buttons. Click Morning, click Evening, and both stay selected. Nothing can unselect them.\n\nLook at the card. Radio buttons become one group only when they share a name. Without one, each radio is its own group of one. Checking Evening doesn't uncheck Morning, and a checked radio can't be unchecked by clicking it again.\n\nAdd name=\"slot\" to both. Now picking one clears the other, arrow keys move between them, and the form sends slot=am or slot=pm.\n\nKeep each input inside its label, so tapping the word selects it. That matters on a phone.\n\nSource: MDN, input type=\"radio\".",
+    "publishAt": "2026-12-02T23:30:00+05:30",
+    "hookFamily": "ai-built",
+    "why": "Rule 3 booking/checkout scenario with an on-screen symptom (rule 4); forms pool; rule 6 AI hook."
+  },
+  {
+    "id": "p028",
+    "day": 10,
+    "slot": "07:00",
+    "style": "piyush",
+    "theme": "navy",
+    "pillar": "frontend",
+    "format": "code-review",
+    "card": {
+      "title": "Open the filters popup, press Tab.\nWhy is focus on the page behind?",
+      "panels": [
+        {
+          "tone": "bad",
+          "label": "Common answer",
+          "file": "Filters.jsx",
+          "hl": [
+            2
+          ],
+          "code": "{open && (\n  <div className=\"modal\">\n    <Filters />\n  </div>\n)}"
+        },
+        {
+          "tone": "good",
+          "label": "What gets you selected",
+          "file": "Filters.jsx",
+          "hl": [
+            3,
+            6
+          ],
+          "code": "const ref = useRef(null);\nuseEffect(() => {\n  if (open) ref.current.showModal();\n  else ref.current.close();\n}, [open]);\n<dialog ref={ref}\n  onClose={() => setOpen(false)}>\n  <Filters />\n</dialog>"
+        }
+      ],
+      "note": "A div modal is only a box on top. [[showModal()]] makes it a real modal."
+    },
+    "caption": "Build a modal from a div in your machine coding round and the interviewer will press Tab. Focus walks straight out of it into the page behind.\n\nLook at the card. A div modal is only a box drawn on top. Focus stays on the button that opened it, Tab moves through the page underneath, Esc does nothing, and a screen reader can still read everything behind it.\n\n<dialog> with showModal() fixes all of that. The rest of the page becomes inert (not clickable or focusable), focus moves into the dialog, Esc closes it, and focus goes back to the button when it closes.\n\nonClose keeps your open state in sync when Esc closes it.\n\nSource: MDN, The Dialog element.",
+    "publishAt": "2026-12-03T07:00:00+05:30",
+    "hookFamily": "interview-round",
+    "why": "Forms/a11y focus topic from the brief; machine-coding classic (modal) with a keyboard-visible symptom, rule 6 interview hook."
+  },
+  {
+    "id": "p029",
+    "day": 10,
+    "slot": "19:30",
+    "style": "ours",
+    "theme": "light",
+    "pillar": "ai",
+    "format": "take",
+    "card": {
+      "text": "My 4 searches before I merge AI-written React:\n\n1. useEffect → what's in [ ], and why?\n2. set → a new object or array?\n3. .map( → is the key from the data?\n4. onClick → should this be a <button> or a <form>?\n\n[[Search the diff. Don't just read it.]]"
+    },
+    "caption": "AI-written React usually compiles and passes the happy path. The bugs sit in a few predictable places, so I search the diff for them instead of reading it top to bottom.\n\nuseEffect: the array should list every value the effect reads, and the effect shouldn't run more often than the feature needs.\nset: state must get a new object or array. A push or obj.x = 1 followed by a set call is a bug.\n.map(: key={i} breaks the moment the list is reordered or an item is deleted.\nonClick: a div with onClick should be a button, and a click that sends form data usually belongs in onSubmit.\n\nWhat would your fifth search be?\n\nSource: react.dev, Rules of Hooks and Updating Arrays in State.",
+    "publishAt": "2026-12-03T19:30:00+05:30",
+    "hookFamily": "take-workflow",
+    "why": "Rule 16: AI take with a specific named workflow (4 diff searches), built from this lane's cards; n66 AI take got 14k."
+  },
+  {
+    "id": "p030",
+    "day": 10,
+    "slot": "23:30",
+    "style": "piyush",
+    "theme": "navy",
+    "pillar": "frontend",
+    "format": "code-review",
+    "card": {
+      "title": "Turn on VoiceOver, tap the cart.\nWhy does it only say \"button\"?",
+      "panels": [
+        {
+          "tone": "bad",
+          "label": "AI-generated",
+          "file": "Header.jsx",
+          "hl": [
+            2
+          ],
+          "code": "<button onClick={openCart}>\n  <CartIcon />\n</button>"
+        },
+        {
+          "tone": "good",
+          "label": "What I'd merge",
+          "file": "Header.jsx",
+          "hl": [
+            2,
+            3
+          ],
+          "code": "<button onClick={openCart}\n  aria-label=\"Open cart\">\n  <CartIcon aria-hidden=\"true\" />\n</button>"
+        }
+      ],
+      "note": "An icon has no text, so the button has [[no name]]. aria-label gives it one."
+    },
+    "caption": "The AI built a clean header with icon-only buttons. Sighted users see a cart. A screen reader user hears \"button\" and has to guess what it does.\n\nLook at the card. A button's accessible name (what screen readers read out) comes from its text. An SVG icon has no text, so the button has no name.\n\naria-label=\"Open cart\" gives it one. aria-hidden=\"true\" on the icon (passed through to the svg) stops the screen reader from trying to read the drawing itself.\n\nIf you can, show visible text next to the icon. It helps everyone, and the text becomes the name without any ARIA.\n\nQuick check: turn on VoiceOver or TalkBack and swipe through your header.\n\nSource: MDN, aria-label.",
+    "publishAt": "2026-12-03T23:30:00+05:30",
+    "hookFamily": "ai-built",
+    "why": "Accessibility sibling of n161 (13.2k); rule 6 AI hook; symptom audible in 30 seconds with a screen reader."
+  }
+]

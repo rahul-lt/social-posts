@@ -1,0 +1,942 @@
+[
+  {
+    "id": "p031",
+    "day": 11,
+    "slot": "07:00",
+    "style": "piyush",
+    "theme": "navy",
+    "pillar": "frontend",
+    "format": "code-review",
+    "card": {
+      "title": "Added one console.log.\nWhy did the product page break?",
+      "panels": [
+        {
+          "tone": "bad",
+          "label": "Common answer",
+          "file": "product.js",
+          "hl": [
+            2,
+            3
+          ],
+          "code": "const res = await fetch(url);\nconsole.log(await res.json());\nconst data = await res.json();\n// TypeError: body stream\n//   already read"
+        },
+        {
+          "tone": "good",
+          "label": "What gets you selected",
+          "file": "product.js",
+          "hl": [
+            2,
+            3
+          ],
+          "code": "const res = await fetch(url);\nconst data = await res.json();\nconsole.log(data);"
+        }
+      ],
+      "note": "A response body is a stream. You can [[read it once]]."
+    },
+    "caption": "Log a fetch response the quick way in your machine coding round and the page breaks the moment you add the log.\n\nLook at the card. A response body is a stream. res.json() reads it to the end, and once it's read, it's gone. The second res.json() throws a TypeError (Chrome says \"body stream already read\"), so data is never set and nothing renders.\n\nFix: read the body once into a variable, then log the variable. If you really need two reads, call res.clone() before the first one.\n\nThe same rule applies to res.text() and res.blob(). Any two reads of one body fail.\n\nSource: MDN, Response.bodyUsed and Response.clone().",
+    "publishAt": "2026-12-04T07:00:00+05:30",
+    "hookFamily": "machine-coding",
+    "why": "Rule 6/8: interview hook + product scenario (product page) with visible symptom; fetch topic sits next to n164 (642) but a new bug."
+  },
+  {
+    "id": "p032",
+    "day": 11,
+    "slot": "19:30",
+    "style": "ours",
+    "theme": "light",
+    "pillar": "career",
+    "format": "question",
+    "card": {
+      "text": "Final year. Pick one:\n\nA) Freelance full-time: ₹60K in a good month, ₹0 in a bad one\nB) A ₹5 LPA job with a team and a senior to learn from\n\n[[Which one, and why?]]"
+    },
+    "caption": "Both paths get people hired later. They teach very different things.\n\nFreelancing teaches you clients, deadlines, pricing and shipping on your own. The catch: no code review, no senior to learn from, and income that changes every month.\n\nA first job teaches you how a real codebase, a team and production work. The catch: slower money and less say in what you build.\n\nSome people do both: a job, plus one small client on weekends.\n\nWhat would you pick, and what decides it for you: money, learning or freedom?",
+    "publishAt": "2026-12-04T19:30:00+05:30",
+    "hookFamily": "career-dilemma",
+    "why": "Rules 13-15: two named paths with a real trade-off (n147 34,650 / n64 3,563 shape); freelancing not run before."
+  },
+  {
+    "id": "p033",
+    "day": 11,
+    "slot": "23:30",
+    "style": "piyush",
+    "theme": "navy",
+    "pillar": "frontend",
+    "format": "code-review",
+    "card": {
+      "title": "The CORS error is gone.\nWhy is the product list empty?",
+      "panels": [
+        {
+          "tone": "bad",
+          "label": "AI-generated",
+          "file": "api.js",
+          "hl": [
+            2
+          ],
+          "code": "const res = await fetch(API, {\n  mode: 'no-cors',\n});\nconst data = await res.json();\n// res.status is 0, body empty"
+        },
+        {
+          "tone": "good",
+          "label": "What I'd merge",
+          "file": "api.js",
+          "hl": [
+            2,
+            3,
+            4
+          ],
+          "code": "// server.js: allow your site\nres.setHeader(\n  'Access-Control-Allow-Origin',\n  'https://shop.example.in'\n);"
+        }
+      ],
+      "note": "no-cors doesn't skip CORS. It gives you an [[opaque]] response you can't read."
+    },
+    "caption": "The AI fixed the CORS error in one line. The error is gone, and so is your data.\n\nLook at the card. mode: 'no-cors' doesn't turn CORS off. It tells the browser: send the request, I won't read the answer. You get an opaque response: status 0, no readable body, no headers. res.json() then fails on the empty body.\n\nCORS is enforced by the browser, and only the server can relax it. The server has to send Access-Control-Allow-Origin with your site's origin. In development, a dev-server proxy (Vite's server.proxy) works too.\n\nThat's why the same API works in Postman and fails in your React app.\n\nSource: MDN, Request.mode and Cross-Origin Resource Sharing (CORS).",
+    "publishAt": "2026-12-04T23:30:00+05:30",
+    "hookFamily": "ai-built",
+    "why": "Rule 6: \"The AI built...\" 23:30 slot (n152 11,526, n172 13,003); CORS misunderstanding is a top beginner confusion with a visible empty-list symptom."
+  },
+  {
+    "id": "p034",
+    "day": 12,
+    "slot": "07:00",
+    "style": "piyush",
+    "theme": "navy",
+    "pillar": "frontend",
+    "format": "code-review",
+    "card": {
+      "title": "Type \"react\" fast.\nWhy do results for \"re\" show up?",
+      "panels": [
+        {
+          "tone": "bad",
+          "label": "Common answer",
+          "file": "Search.jsx",
+          "hl": [
+            4
+          ],
+          "code": "useEffect(() => {\n  fetch(`/api/search?q=${q}`)\n    .then((r) => r.json())\n    .then(setResults);\n}, [q]);"
+        },
+        {
+          "tone": "good",
+          "label": "What gets you selected",
+          "file": "Search.jsx",
+          "hl": [
+            2,
+            6,
+            8
+          ],
+          "code": "useEffect(() => {\n  let ignore = false;\n  fetch(`/api/search?q=${q}`)\n    .then((r) => r.json())\n    .then((d) => {\n      if (!ignore) setResults(d);\n    });\n  return () => { ignore = true; };\n}, [q]);"
+        }
+      ],
+      "note": "Responses don't arrive in order. The cleanup [[ignores the stale one]]."
+    },
+    "caption": "Build a search box in your machine coding round without this and the interviewer will type fast, on purpose.\n\nLook at the card. Every keystroke starts a request, and they don't come back in order. If the request for \"re\" is slower than the one for \"react\", it arrives last and overwrites the right results.\n\nThe fix is the cleanup function. When q changes, React runs the previous effect's cleanup, which sets ignore = true for the old request. Its late answer is thrown away.\n\nAbortController goes one step further: call abort() in the cleanup and the old request is cancelled.\n\nSource: react.dev, useEffect (Fetching data with Effects).",
+    "publishAt": "2026-12-05T07:00:00+05:30",
+    "hookFamily": "machine-coding",
+    "why": "Rules 11/12: weekend 07:00 gets a strongest topic (weekend mornings 3 of 4 broke out); search box race is a classic machine-coding round with an on-screen symptom."
+  },
+  {
+    "id": "p035",
+    "day": 12,
+    "slot": "19:30",
+    "style": "ours",
+    "theme": "light",
+    "pillar": "frontend",
+    "format": "self-check",
+    "card": {
+      "text": "Open DevTools → Network → [[Offline]].\n\nNow click Place order on your app.\n\nDo you see an error with a Retry button?\nOr a spinner that never stops?"
+    },
+    "caption": "Phones lose signal in lifts, metros and basements. Your users will hit this.\n\nWith the network off, fetch rejects with a TypeError. If your code has no catch, or turns the spinner off only on success, it spins forever. The user taps again, or leaves.\n\nCheck three things: the error is shown in plain words, there's a way to retry, and the button works again afterwards. Then switch to Slow 4G and see what a long wait looks like.\n\nSource: MDN, Window.fetch() (exceptions), and Chrome DevTools docs (Network panel, Offline).",
+    "publishAt": "2026-12-05T19:30:00+05:30",
+    "hookFamily": "self-check-failure",
+    "why": "Rule 17: self-check only for user-facing failures (n151 1,603 was the one self-check that cleared 238); 30-second check."
+  },
+  {
+    "id": "p036",
+    "day": 12,
+    "slot": "23:30",
+    "style": "piyush",
+    "theme": "navy",
+    "pillar": "frontend",
+    "format": "code-review",
+    "card": {
+      "title": "Orders placed after midnight\nshow yesterday's date. Why?",
+      "panels": [
+        {
+          "tone": "bad",
+          "label": "AI-generated",
+          "file": "orders.js",
+          "hl": [
+            2
+          ],
+          "code": "const today = new Date()\n  .toISOString().slice(0, 10);\n// 00:30 IST on 5 Dec:\n// \"2026-12-04\""
+        },
+        {
+          "tone": "good",
+          "label": "What I'd merge",
+          "file": "orders.js",
+          "hl": [
+            2,
+            3
+          ],
+          "code": "const today = new Date()\n  .toLocaleDateString('en-CA', {\n    timeZone: 'Asia/Kolkata',\n  });\n// \"2026-12-05\""
+        }
+      ],
+      "note": "toISOString is always [[UTC]]. Before 5:30 AM IST, UTC is still on yesterday."
+    },
+    "caption": "The AI built an order history page. Orders placed between midnight and 5:30 AM show up under yesterday.\n\nLook at the card. toISOString() always returns the time in UTC. IST is 5 hours 30 minutes ahead, so at 00:30 IST on 5 December, UTC is still 7:00 PM on 4 December. slice(0, 10) cuts out that UTC date.\n\nFix: format the date in the user's time zone. toLocaleDateString with the en-CA locale gives YYYY-MM-DD, and the timeZone option picks the zone.\n\nYour tests pass all day and fail only at night, which is why this one ships.\n\nSource: MDN, Date.prototype.toISOString() and Intl.DateTimeFormat (timeZone).",
+    "publishAt": "2026-12-05T23:30:00+05:30",
+    "hookFamily": "ai-built",
+    "why": "Rule 4/22: Date pitfall with a visible, India-specific symptom (IST is UTC+5:30); AI hook at 23:30."
+  },
+  {
+    "id": "p037",
+    "day": 13,
+    "slot": "07:00",
+    "style": "piyush",
+    "theme": "navy",
+    "pillar": "frontend",
+    "format": "code-review",
+    "card": {
+      "title": "Click \"Sort by price\".\nWhy does nothing happen?",
+      "panels": [
+        {
+          "tone": "bad",
+          "label": "Common answer",
+          "file": "Products.jsx",
+          "hl": [
+            2
+          ],
+          "code": "const sortByPrice = () => {\n  setItems(items.sort(\n    (a, b) => a.price - b.price));\n};"
+        },
+        {
+          "tone": "good",
+          "label": "What gets you selected",
+          "file": "Products.jsx",
+          "hl": [
+            2
+          ],
+          "code": "const sortByPrice = () => {\n  setItems(items.toSorted(\n    (a, b) => a.price - b.price));\n};"
+        }
+      ],
+      "note": "sort changes the array [[in place]]. Same array, so React skips the render."
+    },
+    "caption": "Sort a list this way in your machine coding round and the button does nothing. No error, no warning.\n\nLook at the card. sort() doesn't return a new array. It reorders the same array in place and returns it. So setItems gets the exact array React already has. React compares old and new state with Object.is, sees the same array, and skips the re-render.\n\nFix: give React a new array. toSorted() returns a sorted copy and leaves the original alone. [...items].sort(...) does the same in older browsers.\n\nreverse() and splice() set the same trap. Their copy versions are toReversed() and toSpliced().\n\nSource: react.dev, Updating Arrays in State, and MDN, Array.prototype.toSorted().",
+    "publishAt": "2026-12-06T07:00:00+05:30",
+    "hookFamily": "machine-coding",
+    "why": "Rules 11/12: weekend 07:00 strongest topic; button-does-nothing symptom in a product list, sort mutation trap (new angle vs n81 default sort)."
+  },
+  {
+    "id": "p038",
+    "day": 13,
+    "slot": "19:30",
+    "style": "ours",
+    "theme": "light",
+    "pillar": "frontend",
+    "format": "link",
+    "card": {
+      "text": "18 Promise puzzles.\nPredict the output, then read why.\n\nMicrotask order, timers vs promises, errors that skip a then, and [[a catch that resets the chain]]."
+    },
+    "caption": "Most of this week's async bugs came down to one question: when does this line actually run?\n\nI put 18 Promise output puzzles on allahabadi.dev, the kind that come up in JavaScript interviews. Each one has the answer and the reason, from a promise that stays pending forever to a catch that turns a failure back into success.\n\nTry them before your next interview round, not during it.\n\nhttps://allahabadi.dev/blogs/javascript/promise-output-interview-challenges/",
+    "publishAt": "2026-12-06T19:30:00+05:30",
+    "hookFamily": "link",
+    "why": "Rule 19: the one weekly link post (blog links land 300-800); points to a real allahabadi.dev guide on the week's async theme."
+  },
+  {
+    "id": "p039",
+    "day": 13,
+    "slot": "23:30",
+    "style": "piyush",
+    "theme": "navy",
+    "pillar": "frontend",
+    "format": "code-review",
+    "card": {
+      "title": "Wi-Fi came back.\nWhy is the profile still broken?",
+      "panels": [
+        {
+          "tone": "bad",
+          "label": "AI-generated",
+          "file": "cache.js",
+          "hl": [
+            4
+          ],
+          "code": "const cache = new Map();\nfunction getUser(id) {\n  if (!cache.has(id)) {\n    cache.set(id, fetchUser(id));\n  }\n  return cache.get(id);\n}"
+        },
+        {
+          "tone": "good",
+          "label": "What I'd merge",
+          "file": "cache.js",
+          "hl": [
+            4,
+            5
+          ],
+          "code": "function getUser(id) {\n  if (!cache.has(id)) {\n    cache.set(id, fetchUser(id)\n      .catch((e) => {\n        cache.delete(id); throw e;\n      }));\n  }\n  return cache.get(id);\n}"
+        }
+      ],
+      "note": "The cache keeps the [[failed promise]] too. Delete it on error."
+    },
+    "caption": "The AI added a cache to stop duplicate API calls. One failed request, and the profile stays broken until the user reloads.\n\nLook at the card. Caching the promise is a good idea: two components asking for the same user share one request. But the cache keeps whatever promise it got, including a rejected one. Every later getUser(id) returns that same failure, even after the network is back.\n\nFix: when the request fails, delete it from the cache and rethrow. The next call starts a fresh request.\n\nLibraries like TanStack Query handle this for you, along with retries and expiry. Know what they're fixing before you hand it off.\n\nSource: MDN, Promise.prototype.catch().",
+    "publishAt": "2026-12-06T23:30:00+05:30",
+    "hookFamily": "ai-built",
+    "why": "Rule 22 async/caching; visible symptom (profile stays broken after Wi-Fi returns) instead of language trivia (rule 4)."
+  },
+  {
+    "id": "p040",
+    "day": 14,
+    "slot": "07:00",
+    "style": "piyush",
+    "theme": "navy",
+    "pillar": "frontend",
+    "format": "code-review",
+    "card": {
+      "title": "Book a slot for 5 December.\nWhy does it say 5 January?",
+      "panels": [
+        {
+          "tone": "bad",
+          "label": "Common answer",
+          "file": "booking.js",
+          "hl": [
+            3
+          ],
+          "code": "const [y, m, d] = '2026-12-05'\n  .split('-').map(Number);\nconst date = new Date(y, m, d);\n// Tue Jan 05 2027"
+        },
+        {
+          "tone": "good",
+          "label": "What gets you selected",
+          "file": "booking.js",
+          "hl": [
+            3
+          ],
+          "code": "const [y, m, d] = '2026-12-05'\n  .split('-').map(Number);\nconst date = new Date(y, m - 1, d);\n// Sat Dec 05 2026"
+        }
+      ],
+      "note": "Months in a Date start at [[0]]. December is 11."
+    },
+    "caption": "Build a date picker in your machine coding round with this line and every booking lands a month late.\n\nLook at the card. The string \"2026-12-05\" gives you 12 for December. But the Date constructor counts months from 0: January is 0, December is 11. So month 12 means \"one past December\", and JavaScript quietly rolls it over to January of the next year. No error.\n\nFix: subtract 1 when you build the date, and add 1 when you show getMonth() to a person.\n\nThe year and the day of the month start where you'd expect. Only the month index starts at 0.\n\nSource: MDN, Date() constructor (monthIndex).",
+    "publishAt": "2026-12-07T07:00:00+05:30",
+    "hookFamily": "machine-coding",
+    "why": "Rule 2/3: booking-page scenario + visible wrong month; Date pitfall from the JS-traps lane."
+  },
+  {
+    "id": "p041",
+    "day": 14,
+    "slot": "19:30",
+    "style": "ours",
+    "theme": "light",
+    "pillar": "ai",
+    "format": "take",
+    "card": {
+      "text": "66% of developers say their biggest AI frustration is code that's [[almost right, but not quite]].\n\nFinding the \"not quite\" is the job now."
+    },
+    "caption": "That number is from the Stack Overflow Developer Survey 2025. The second biggest frustration, at 45%: debugging AI-generated code takes longer. And more developers distrust AI accuracy (46%) than trust it (33%).\n\nAlmost-right code is harder than wrong code. Wrong code fails your first test. Almost-right code passes the demo and breaks on the empty cart, the slow network or the second click.\n\nThe check I'd run before accepting any AI change:\n1. Try it with zero, one and many items.\n2. Throttle the network and click twice.\n3. Read every line you'd have to explain in review.\n\nSource: Stack Overflow Developer Survey 2025, AI section.",
+    "publishAt": "2026-12-07T19:30:00+05:30",
+    "hookFamily": "ai-stat-take",
+    "why": "Rule 16 experiment: AI take with hard numbers (Stack Overflow Survey 2025: 66% / 45% / 46% vs 33%) and a named 3-step workflow; generic AI takes flopped (7 posts <=296)."
+  },
+  {
+    "id": "p042",
+    "day": 14,
+    "slot": "23:30",
+    "style": "piyush",
+    "theme": "navy",
+    "pillar": "frontend",
+    "format": "code-review",
+    "card": {
+      "title": "Old users see their cart.\nNew users get a blank page. Why?",
+      "panels": [
+        {
+          "tone": "bad",
+          "label": "AI-generated",
+          "file": "cart.js",
+          "hl": [
+            2,
+            3
+          ],
+          "code": "const cart = JSON.parse(\n  localStorage.getItem('cart'));\nconst count = cart.items.length;\n// TypeError: Cannot read\n//   properties of null"
+        },
+        {
+          "tone": "good",
+          "label": "What I'd merge",
+          "file": "cart.js",
+          "hl": [
+            3
+          ],
+          "code": "const cart = JSON.parse(\n  localStorage.getItem('cart')\n) ?? { items: [] };\nconst count = cart.items.length;"
+        }
+      ],
+      "note": "getItem returns [[null]] for a missing key. JSON.parse(null) is null."
+    },
+    "caption": "The AI built a cart that remembers items across visits. It works for you. A first-time visitor gets a blank page.\n\nLook at the card. On a first visit there's no 'cart' key, so localStorage.getItem returns null. JSON.parse(null) doesn't throw. It returns null. Then cart.items throws a TypeError, and in React an error during render with no error boundary takes down the whole app.\n\nFix: fall back to an empty cart with ?? when nothing is saved.\n\nYou never see this yourself, because your browser has had a cart since day one. Test in a private window.\n\nSource: MDN, Storage.getItem() and JSON.parse().",
+    "publishAt": "2026-12-07T23:30:00+05:30",
+    "hookFamily": "ai-built",
+    "why": "Rule 4: blank page only for new users (visible, and the author never sees it); JSON + null trap from the lane."
+  },
+  {
+    "id": "p043",
+    "day": 15,
+    "slot": "07:00",
+    "style": "piyush",
+    "theme": "navy",
+    "pillar": "frontend",
+    "format": "code-review",
+    "card": {
+      "title": "Tick size M.\nWhy does the checkbox stay empty?",
+      "panels": [
+        {
+          "tone": "bad",
+          "label": "Common answer",
+          "file": "Filters.jsx",
+          "hl": [
+            4
+          ],
+          "code": "// selected: [{ id: 'M' }]\n// size (from API): { id: 'M' }\nconst checked =\n  selected.includes(size);\n// false"
+        },
+        {
+          "tone": "good",
+          "label": "What gets you selected",
+          "file": "Filters.jsx",
+          "hl": [
+            1,
+            2
+          ],
+          "code": "const checked = selected.some(\n  (s) => s.id === size.id);\n// true"
+        }
+      ],
+      "note": "includes compares objects by [[reference]], not by what's inside."
+    },
+    "caption": "Use includes() on a list of objects in your machine coding round and your filter checkboxes never tick.\n\nLook at the card. includes() checks for the same value, and for objects that means the same object in memory, not one that looks the same. The size from the API and the one in selected have the same id, but they're two different objects. So includes() says false, every time.\n\nFix: compare by something stable, like the id, with some(). Or keep only ids in selected, and then includes() works fine.\n\nindexOf, Set and === between objects all behave the same way.\n\nSource: MDN, Array.prototype.includes() and Equality comparisons and sameness.",
+    "publishAt": "2026-12-08T07:00:00+05:30",
+    "hookFamily": "machine-coding",
+    "why": "Rule 3: filter checkbox in a shop; reference equality trap with a visible symptom (n168 fill([]) reference bug got 12,964)."
+  },
+  {
+    "id": "p044",
+    "day": 15,
+    "slot": "19:30",
+    "style": "ours",
+    "theme": "light",
+    "pillar": "career",
+    "format": "question",
+    "card": {
+      "text": "Six months and ₹40,000. Pick one:\n\nA) A paid certification course with \"placement assistance\"\nB) Keep the money. Build and deploy 2 real projects.\n\n[[Which one, and why?]]"
+    },
+    "caption": "Both paths get people hired. They prove different things to a recruiter.\n\nA course gives you structure, deadlines and sometimes a mentor. The catch: thousands of people hold the same certificate, and \"placement assistance\" can mean very different things. Ask for the placement numbers in writing.\n\nTwo deployed projects show what you can build, and give you something real to talk about in every interview. The catch: nobody keeps you on track, and many people stop halfway.\n\nWhat would you pick? And if you did take a course, did it help in interviews?",
+    "publishAt": "2026-12-08T19:30:00+05:30",
+    "hookFamily": "career-dilemma",
+    "why": "Rules 13-15: new dilemma (paid certification vs portfolio), concrete money and time, balanced opener."
+  },
+  {
+    "id": "p045",
+    "day": 15,
+    "slot": "23:30",
+    "style": "piyush",
+    "theme": "navy",
+    "pillar": "frontend",
+    "format": "code-review",
+    "card": {
+      "title": "The server hangs.\nWhy does the loader spin forever?",
+      "panels": [
+        {
+          "tone": "bad",
+          "label": "AI-generated",
+          "file": "orders.js",
+          "hl": [
+            2,
+            4
+          ],
+          "code": "setLoading(true);\nconst res = await fetch(url);\nsetOrders(await res.json());\nsetLoading(false);"
+        },
+        {
+          "tone": "good",
+          "label": "What I'd merge",
+          "file": "orders.js",
+          "hl": [
+            1,
+            8
+          ],
+          "code": "const t = AbortSignal.timeout(8000);\ntry {\n  const res = await fetch(url,\n    { signal: t });\n  setOrders(await res.json());\n} catch {\n  showRetry();\n} finally { setLoading(false); }"
+        }
+      ],
+      "note": "fetch has [[no timeout]] of its own. Add one, and stop the loader in finally."
+    },
+    "caption": "The AI built the order tracking page. When the server gets slow, the loader spins forever and there's no way to retry.\n\nLook at the card. fetch has no timeout option of its own. If the server accepts the connection and never answers, the promise stays pending, sometimes for minutes. setLoading(false) is on the line after the await, so it never runs.\n\nFix: AbortSignal.timeout(8000) aborts the request after 8 seconds with a TimeoutError. Put setLoading(false) in finally so it runs on success and on failure, and show a Retry button in catch.\n\nPick the number from your real response times, not 8 because a card said so.\n\nSource: MDN, AbortSignal.timeout().",
+    "publishAt": "2026-12-08T23:30:00+05:30",
+    "hookFamily": "ai-built",
+    "why": "Rule 22 async/timeouts; visible symptom (loader spins forever) on a real product page (order tracking)."
+  },
+  {
+    "id": "p046",
+    "day": 16,
+    "slot": "07:00",
+    "style": "piyush",
+    "theme": "navy",
+    "pillar": "frontend",
+    "format": "code-review",
+    "card": {
+      "title": "Users without an address\nget a white screen. Why?",
+      "panels": [
+        {
+          "tone": "bad",
+          "label": "Common answer",
+          "file": "Profile.jsx",
+          "hl": [
+            2
+          ],
+          "code": "// user = { name: 'Asha' }\nconst city = user?.address.city;\n// TypeError: Cannot read\n//   properties of undefined"
+        },
+        {
+          "tone": "good",
+          "label": "What gets you selected",
+          "file": "Profile.jsx",
+          "hl": [
+            3
+          ],
+          "code": "// user = { name: 'Asha' }\nconst city =\n  user?.address?.city ?? 'Not set';"
+        }
+      ],
+      "note": "?. only protects [[the one property]] right before it."
+    },
+    "caption": "Write user?.address.city in your machine coding round and the interviewer's first test user, one with no address, crashes the page.\n\nLook at the card. ?. only guards the property right before it. user?.address means \"if user is missing, stop here\". user exists, so JavaScript moves on, gets undefined for address, and then reading .city on undefined throws a TypeError.\n\nFix: put ?. before every part that can be missing, and give the screen a fallback with ??.\n\nDon't sprinkle ?. everywhere to be safe, though. If a value must exist, a loud error finds the bug sooner than a silent undefined.\n\nSource: MDN, Optional chaining (?.).",
+    "publishAt": "2026-12-09T07:00:00+05:30",
+    "hookFamily": "machine-coding",
+    "why": "Rule 4: white screen for one kind of user (visible); optional-chaining trap from the lane, interview follow-up stakes (rule 7)."
+  },
+  {
+    "id": "p047",
+    "day": 16,
+    "slot": "19:30",
+    "style": "ours",
+    "theme": "light",
+    "pillar": "frontend",
+    "format": "self-check",
+    "card": {
+      "text": "Log in to your app. Open one of your orders:\n\n/orders/1042\n\nChange it to [[1041]].\n\nSee someone else's order?"
+    },
+    "caption": "That bug has a name: IDOR (insecure direct object reference). It falls under Broken Access Control, number 1 on the OWASP Top 10.\n\nThe frontend only links to your own orders, so it feels safe. But the API answers anyone who asks for an id, unless the server checks that the logged-in user owns that order.\n\nCheck the API too: copy a request from the Network tab, change the id, send it again. A page that hides something doesn't count as protection.\n\nFix it on the server, on every route that takes an id. Test only your own app, with your own test accounts.\n\nSource: OWASP Top 10, A01 Broken Access Control.",
+    "publishAt": "2026-12-09T19:30:00+05:30",
+    "hookFamily": "self-check-leak",
+    "why": "Rule 17: leak self-check with a hard consequence (someone else's order); n90 secret-leak framing was the 21,582 breakout."
+  },
+  {
+    "id": "p048",
+    "day": 16,
+    "slot": "23:30",
+    "style": "piyush",
+    "theme": "navy",
+    "pillar": "frontend",
+    "format": "code-review",
+    "card": {
+      "title": "The laptop costs ₹1,29,999.\nWhy does the cart say ₹1?",
+      "panels": [
+        {
+          "tone": "bad",
+          "label": "AI-generated",
+          "file": "cart.js",
+          "hl": [
+            2
+          ],
+          "code": "const price =\n  parseInt('1,29,999');\n// 1"
+        },
+        {
+          "tone": "good",
+          "label": "What I'd merge",
+          "file": "cart.js",
+          "hl": [
+            2
+          ],
+          "code": "const price = Number(\n  '1,29,999'.replaceAll(',', ''));\n// 129999"
+        }
+      ],
+      "note": "parseInt stops at the [[first comma]] and returns what it read so far."
+    },
+    "caption": "The AI built the cart total from the price text on the page. A ₹1,29,999 laptop adds ₹1.\n\nLook at the card. parseInt reads digits from the start of the string and stops at the first character that isn't one. Here that's the comma after the 1, so it returns 1. No error, no NaN. Number('1,29,999') would at least give you NaN.\n\nFix: remove the commas before converting. Better: have the API send the price as a number (in paise) and format it only for display with Intl.NumberFormat('en-IN').\n\nWestern grouping breaks too: parseInt('129,999') is 129.\n\nSource: MDN, parseInt().",
+    "publishAt": "2026-12-09T23:30:00+05:30",
+    "hookFamily": "ai-built",
+    "why": "Rule 3 + India context: ₹1,29,999 laptop shows as ₹1 (money symptom like n148 \"cart says 21\", 6,940); number-parsing trap."
+  },
+  {
+    "id": "p049",
+    "day": 17,
+    "slot": "07:00",
+    "style": "piyush",
+    "theme": "navy",
+    "pillar": "frontend",
+    "format": "code-review",
+    "card": {
+      "title": "Sorted the leaderboard by score.\nWhy is it back in ID order?",
+      "panels": [
+        {
+          "tone": "bad",
+          "label": "Common answer",
+          "file": "leaderboard.js",
+          "hl": [
+            3
+          ],
+          "code": "const board = {};\nfor (const p of byScore) {\n  board[p.id] = p;\n}\nObject.values(board);\n// ids 7, 42, 105: by id"
+        },
+        {
+          "tone": "good",
+          "label": "What gets you selected",
+          "file": "leaderboard.js",
+          "hl": [
+            1
+          ],
+          "code": "const board = new Map(\n  byScore.map((p) => [p.id, p]));\n[...board.values()];\n// ids 42, 7, 105: by score"
+        }
+      ],
+      "note": "Number-like object keys always come first, [[in number order]]."
+    },
+    "caption": "Store a sorted list in a plain object in your machine coding round and the order you just built disappears.\n\nLook at the card. Object keys that look like whole numbers (\"7\", \"42\", \"105\") are always listed first, in ascending number order. Insertion order only holds for the other string keys. So Object.values gives you players sorted by id, not by score.\n\nFix: keep the sorted array for anything that has an order. If you also need lookup by id, use a Map. A Map keeps keys in insertion order, whatever they look like.\n\nThis rule is in the spec, so every modern browser does it.\n\nSource: MDN, Object.keys() and Map (key order).",
+    "publishAt": "2026-12-10T07:00:00+05:30",
+    "hookFamily": "machine-coding",
+    "why": "Rule 2: leaderboard scenario + visible wrong order; object key-order trap (new; n136/n117 covered object keys as strings, not ordering)."
+  },
+  {
+    "id": "p050",
+    "day": 17,
+    "slot": "19:30",
+    "style": "ours",
+    "theme": "light",
+    "pillar": "career",
+    "format": "question",
+    "card": {
+      "text": "First offer. Pick one:\n\nA) ₹4.5 LPA at a big MNC, 2-year bond, ₹2 lakh to leave early\nB) ₹4 LPA at a 60-person company, no bond\n\n[[Which one, and why?]]"
+    },
+    "caption": "Both paths get people hired, and both are common first jobs.\n\nThe MNC gives you a known name on your resume, structured training and a stable first two years. The catch: if a better offer or a project you hate comes along, leaving costs you money. Read the bond before you sign: the amount, when it applies, and what happens if you sit on the bench.\n\nThe smaller company pays a little less but lets you move when you're ready. The catch: less formal training, and less of a safety net if things go wrong.\n\nWhich would you sign, and would the bond amount change your answer?",
+    "publishAt": "2026-12-10T19:30:00+05:30",
+    "hookFamily": "career-dilemma",
+    "why": "Rules 13-15: new dilemma (MNC with a 2-year bond vs smaller company without), Indian first-offer context like n64 (3,563)."
+  },
+  {
+    "id": "p051",
+    "day": 17,
+    "slot": "23:30",
+    "style": "piyush",
+    "theme": "navy",
+    "pillar": "frontend",
+    "format": "code-review",
+    "card": {
+      "title": "Sort by price: low to high.\nWhy did the order not change?",
+      "panels": [
+        {
+          "tone": "bad",
+          "label": "AI-generated",
+          "file": "products.js",
+          "hl": [
+            2
+          ],
+          "code": "products.sort(\n  (a, b) => a.price > b.price);\n// order unchanged in Chrome"
+        },
+        {
+          "tone": "good",
+          "label": "What I'd merge",
+          "file": "products.js",
+          "hl": [
+            2
+          ],
+          "code": "products.sort(\n  (a, b) => a.price - b.price);\n// 99, 199, 499 ..."
+        }
+      ],
+      "note": "sort needs a [[negative number]] to move anything. true/false never gives one."
+    },
+    "caption": "The AI built the price sort for a product list. The button works, nothing errors, and the list comes back in the same order.\n\nLook at the card. sort() wants a number from the compare function: negative means a goes first, positive means b goes first, 0 means keep them as they are. a.price > b.price returns true or false, which count as 1 or 0. It never returns a negative number, so the engine is never told to move anything. In Chrome and Node the list stays as it was. Other engines may give a different, still wrong, order.\n\nFix: return a.price - b.price for low to high, b.price - a.price for high to low.\n\nSource: MDN, Array.prototype.sort() (compareFn).",
+    "publishAt": "2026-12-10T23:30:00+05:30",
+    "hookFamily": "ai-built",
+    "why": "Rule 4: product list visibly unsorted, no error; sort compareFn trap (new angle vs n81 default sort and Dec 6 in-place sort)."
+  },
+  {
+    "id": "p052",
+    "day": 18,
+    "slot": "07:00",
+    "style": "piyush",
+    "theme": "navy",
+    "pillar": "frontend",
+    "format": "code-review",
+    "card": {
+      "title": "The cart total says ₹NaN.\nThe check was right there. Why?",
+      "panels": [
+        {
+          "tone": "bad",
+          "label": "Common answer",
+          "file": "cart.js",
+          "hl": [
+            2
+          ],
+          "code": "const total = qty * item.price;\nif (total === NaN) {\n  return showError();\n}\nrender(total); // ₹NaN"
+        },
+        {
+          "tone": "good",
+          "label": "What gets you selected",
+          "file": "cart.js",
+          "hl": [
+            2
+          ],
+          "code": "const total = qty * item.price;\nif (Number.isNaN(total)) {\n  return showError();\n}\nrender(total);"
+        }
+      ],
+      "note": "[[NaN]] is the only value that is not equal to itself."
+    },
+    "caption": "Check for NaN with === in your machine coding round and the error state you wrote never shows up.\n\nLook at the card. A product with no price field gives 2 * undefined, which is NaN. Then total === NaN is false, always. NaN is the only value in JavaScript that isn't equal to itself, so that check can never pass.\n\nFix: Number.isNaN(total). Avoid the global isNaN() for this, because it converts first: isNaN('abc') is true even though 'abc' isn't NaN.\n\nCheck the inputs too, not just the total. An empty quantity field gives '' * 499, which is 0, not NaN.\n\nSource: MDN, NaN and Number.isNaN().",
+    "publishAt": "2026-12-11T07:00:00+05:30",
+    "hookFamily": "machine-coding",
+    "why": "Rule 2/3: cart total shows ₹NaN despite a check (money symptom); NaN equality trap from the lane."
+  },
+  {
+    "id": "p053",
+    "day": 18,
+    "slot": "19:30",
+    "style": "piyush",
+    "theme": "navy",
+    "pillar": "frontend",
+    "format": "code-review",
+    "card": {
+      "title": "One widget failed.\nWhy is the whole dashboard blank?",
+      "panels": [
+        {
+          "tone": "bad",
+          "label": "Common answer",
+          "file": "dashboard.js",
+          "hl": [
+            2
+          ],
+          "code": "const [user, orders, offers] =\n  await Promise.all([\n    getUser(), getOrders(),\n    getOffers(),\n  ]);\n// offers fails: nothing renders"
+        },
+        {
+          "tone": "good",
+          "label": "What gets you selected",
+          "file": "dashboard.js",
+          "hl": [
+            2,
+            6
+          ],
+          "code": "const [user, orders, offers] =\n  await Promise.allSettled([\n    getUser(), getOrders(),\n    getOffers(),\n  ]);\nif (offers.status === 'rejected') {\n  hideOffersCard();\n}"
+        }
+      ],
+      "note": "Promise.all fails if [[any one]] fails. allSettled reports each one."
+    },
+    "caption": "Promise.all got the dashboard from 3 seconds down to 1. Then the offers API went down, and the whole page went blank.\n\nLook at the card. Promise.all rejects as soon as any one promise rejects. You lose the user and the orders too, even though they loaded fine.\n\nPromise.allSettled waits for all of them and gives you one result per promise: { status: 'fulfilled', value } or { status: 'rejected', reason }. Render what worked, and hide or show an error for what didn't.\n\nUse Promise.all when the page is useless without every piece, like a checkout that needs both cart and address. Use allSettled when parts can fail on their own.\n\nSource: MDN, Promise.allSettled().",
+    "publishAt": "2026-12-11T19:30:00+05:30",
+    "hookFamily": "breakout-sibling",
+    "why": "Rule 23 experiment: sibling to breakout n169 (Promise.all dashboard, 10,580) as an evening code-review card, same scenario, next failure mode."
+  },
+  {
+    "id": "p054",
+    "day": 18,
+    "slot": "23:30",
+    "style": "piyush",
+    "theme": "navy",
+    "pillar": "frontend",
+    "format": "code-review",
+    "card": {
+      "title": "The API was down for a minute.\nWhy couldn't it come back up?",
+      "panels": [
+        {
+          "tone": "bad",
+          "label": "AI-generated",
+          "file": "retry.js",
+          "hl": [
+            5
+          ],
+          "code": "async function get(url) {\n  try {\n    return await load(url);\n  } catch {\n    return get(url);\n  }\n}"
+        },
+        {
+          "tone": "good",
+          "label": "What I'd merge",
+          "file": "retry.js",
+          "hl": [
+            4,
+            5,
+            6
+          ],
+          "code": "async function get(url, n = 0) {\n  try { return await load(url); }\n  catch (e) {\n    if (n >= 3) throw e;\n    await sleep(2 ** n * 500\n      + Math.random() * 500);\n    return get(url, n + 1);\n  }\n}"
+        }
+      ],
+      "note": "Retry a few times, [[wait longer]] each time, and add jitter."
+    },
+    "caption": "The AI added retries so a failed request tries again. When the API went down, every open tab started hitting it nonstop.\n\nLook at the card. The catch calls get(url) again straight away, with no limit and no wait. One failure turns into a tight loop of requests from every user. A server trying to restart gets buried by its own clients.\n\nFix: cap the attempts, wait longer each time (about 0.5 s, 1 s, 2 s), and add random jitter so clients don't all retry at the same moment.\n\nRetry only what can succeed later: network errors, 503, 429 (respect Retry-After). A 400 or 401 fails the same way every time.\n\nSource: AWS Architecture Blog, Exponential Backoff And Jitter.",
+    "publishAt": "2026-12-11T23:30:00+05:30",
+    "hookFamily": "ai-built",
+    "why": "Rule 7: concrete stakes (your retries keep the API down); retries/backoff from the async lane."
+  },
+  {
+    "id": "p055",
+    "day": 19,
+    "slot": "07:00",
+    "style": "piyush",
+    "theme": "navy",
+    "pillar": "frontend",
+    "format": "code-review",
+    "card": {
+      "title": "You added debounce.\nWhy does every keystroke still call the API?",
+      "panels": [
+        {
+          "tone": "bad",
+          "label": "Common answer",
+          "file": "Search.jsx",
+          "hl": [
+            3,
+            4
+          ],
+          "code": "function Search() {\n  const [q, setQ] = useState('');\n  const search = debounce(\n    fetchResults, 300);\n  const onChange = (e) => {\n    setQ(e.target.value);\n    search(e.target.value);\n  };"
+        },
+        {
+          "tone": "good",
+          "label": "What gets you selected",
+          "file": "Search.jsx",
+          "hl": [
+            3,
+            4,
+            5
+          ],
+          "code": "function Search() {\n  const [q, setQ] = useState('');\n  const search = useMemo(() =>\n    debounce(fetchResults, 300),\n  []);\n  const onChange = (e) => {\n    setQ(e.target.value);\n    search(e.target.value);\n  };"
+        }
+      ],
+      "note": "Every render makes a [[new debounce]] with a new timer. The old timers still fire."
+    },
+    "caption": "Debounce a search box inside the component body in your machine coding round and the Network tab still shows one request per letter.\n\nLook at the card. setQ re-renders the component on every keystroke. Every render calls debounce() again and creates a brand new function with its own timer. The old timer is never cleared, so each keystroke's call still fires 300 ms later.\n\nFix: create the debounced function once. useMemo with an empty dependency array keeps the same function, and its timer, across renders. useRef works too, and React promises never to throw a ref away.\n\nWriting debounce is a common machine coding question. Using it correctly inside React is the follow-up.\n\nSource: react.dev, useMemo and useRef.",
+    "publishAt": "2026-12-12T07:00:00+05:30",
+    "hookFamily": "machine-coding",
+    "why": "Rules 11/12: weekend 07:00 strongest topic; debounce is a classic machine-coding question, symptom visible in the Network tab (n152 \"Network tab on fire\" 11,526)."
+  },
+  {
+    "id": "p056",
+    "day": 19,
+    "slot": "19:30",
+    "style": "ours",
+    "theme": "light",
+    "pillar": "frontend",
+    "format": "self-check",
+    "card": {
+      "text": "Log in to your app and open your orders.\nLog out.\n\nNow press [[Back]].\n\nCan you still see the orders?"
+    },
+    "caption": "On a shared laptop or a college lab computer, the next person can press Back and read the previous user's orders.\n\nLogging out usually clears the cookie and sends you to /login. But the browser may still hold the orders page in its back/forward cache, or the page and its API response in the HTTP cache. Press Back and it shows that copy without asking the server, so your logged-in check never runs.\n\nFix it on the server. Send Cache-Control: no-store on pages and API responses with personal data, so the browser doesn't keep a copy. On the logout response, Clear-Site-Data: \"cache\" also clears what's already stored.\n\nSource: MDN, Cache-Control (no-store) and Clear-Site-Data.",
+    "publishAt": "2026-12-12T19:30:00+05:30",
+    "hookFamily": "self-check-leak",
+    "why": "Rule 17: user-visible leak (previous user's data after logout on a shared computer); 30-second check with the Back button."
+  },
+  {
+    "id": "p057",
+    "day": 19,
+    "slot": "23:30",
+    "style": "piyush",
+    "theme": "navy",
+    "pillar": "frontend",
+    "format": "code-review",
+    "card": {
+      "title": "Clear your phone number, hit Save.\nWhy is it back after a refresh?",
+      "panels": [
+        {
+          "tone": "bad",
+          "label": "AI-generated",
+          "file": "profile.js",
+          "hl": [
+            2
+          ],
+          "code": "const body = JSON.stringify({\n  phone: form.phone || undefined,\n});\n// '{}': phone is never sent"
+        },
+        {
+          "tone": "good",
+          "label": "What I'd merge",
+          "file": "profile.js",
+          "hl": [
+            2
+          ],
+          "code": "const body = JSON.stringify({\n  phone: form.phone || null,\n});\n// '{\"phone\":null}'"
+        }
+      ],
+      "note": "JSON.stringify [[drops]] keys whose value is undefined."
+    },
+    "caption": "The AI built the edit profile form. Clear the phone field, save, refresh, and the old number is still there.\n\nLook at the card. '' || undefined turns the empty field into undefined. JSON.stringify skips any property whose value is undefined, so the request body is {} and phone is never sent. A PATCH endpoint usually leaves fields it didn't receive alone, so the server keeps the old number.\n\nFix: send null when the user clears a field. null survives JSON.stringify, and the server can treat it as \"remove\".\n\nCheck the request payload in the Network tab, not just the form.\n\nSource: MDN, JSON.stringify() (undefined values).",
+    "publishAt": "2026-12-12T23:30:00+05:30",
+    "hookFamily": "ai-built",
+    "why": "Rule 2: profile form, field visibly comes back after save; JSON.stringify trap (new; n145 covered JSON and Dates)."
+  },
+  {
+    "id": "p058",
+    "day": 20,
+    "slot": "07:00",
+    "style": "piyush",
+    "theme": "navy",
+    "pillar": "frontend",
+    "format": "code-review",
+    "card": {
+      "title": "Logged-out users can open\nthe dashboard. Why?",
+      "panels": [
+        {
+          "tone": "bad",
+          "label": "Common answer",
+          "file": "guard.js",
+          "hl": [
+            6
+          ],
+          "code": "async function isLoggedIn() {\n  const r = await fetch('/api/me');\n  return r.ok;\n}\n\nif (isLoggedIn()) {\n  showDashboard();\n}"
+        },
+        {
+          "tone": "good",
+          "label": "What gets you selected",
+          "file": "guard.js",
+          "hl": [
+            6
+          ],
+          "code": "async function isLoggedIn() {\n  const r = await fetch('/api/me');\n  return r.ok;\n}\n\nif (await isLoggedIn()) {\n  showDashboard();\n}"
+        }
+      ],
+      "note": "A Promise is an object, and every object is [[truthy]]."
+    },
+    "caption": "Forget one await in your machine coding round and the login check lets everyone in.\n\nLook at the card. isLoggedIn is async, so calling it returns a Promise straight away, not true or false. A Promise is an object, and every object is truthy. if (isLoggedIn()) passes for every visitor, logged in or not.\n\nFix: await the result before you check it.\n\nTwo more things. typescript-eslint's no-misused-promises rule catches this before it ships. And a frontend check only decides what to show: the dashboard's API must check the session on the server too.\n\nSource: MDN, async function (return value) and Truthy.",
+    "publishAt": "2026-12-13T07:00:00+05:30",
+    "hookFamily": "machine-coding",
+    "why": "Rules 11/12: weekend 07:00 strongest topic; security-flavoured stakes (logged-out users get in) like n90/n151, missing-await trap."
+  },
+  {
+    "id": "p059",
+    "day": 20,
+    "slot": "19:30",
+    "style": "ours",
+    "theme": "light",
+    "pillar": "career",
+    "format": "question",
+    "card": {
+      "text": "Final year. You have a ₹6 LPA offer.\nPick one:\n\nA) Join now and learn on the job\nB) Do an MTech or MS first, start 2 years later\n\n[[Which one, and why?]]"
+    },
+    "caption": "Both paths get people hired. They pay off at different times.\n\nJoining now gives you 2 years of real experience, a salary, and in most frontend hiring, experience is what gets asked about. The catch: going back to study is harder once you're earning.\n\nAn MTech or MS fits if you want research, ML, or roles where the degree is the filter. A good GATE score can also open PSU jobs. The catch: 2 years without a salary (an MS abroad often means a loan too), and a job market that has moved by the time you're back.\n\nWhat would you pick, and which role are you aiming for?",
+    "publishAt": "2026-12-13T19:30:00+05:30",
+    "hookFamily": "career-dilemma",
+    "why": "Rules 13-15: new dilemma (MTech/MS vs working now), timed for Sunday evening; 3rd and last career question of the Dec 7-13 week (max 3/week)."
+  },
+  {
+    "id": "p060",
+    "day": 20,
+    "slot": "23:30",
+    "style": "piyush",
+    "theme": "navy",
+    "pillar": "frontend",
+    "format": "code-review",
+    "card": {
+      "title": "Order says Delivered.\nWhy does it flip back?",
+      "panels": [
+        {
+          "tone": "bad",
+          "label": "AI-generated",
+          "file": "track.js",
+          "hl": [
+            1,
+            4
+          ],
+          "code": "setInterval(async () => {\n  const s = await getStatus(id);\n  setStatus(s);\n}, 2000);"
+        },
+        {
+          "tone": "good",
+          "label": "What I'd merge",
+          "file": "track.js",
+          "hl": [
+            4
+          ],
+          "code": "let timer;\nasync function poll() {\n  setStatus(await getStatus(id));\n  timer = setTimeout(poll, 2000);\n}\npoll();"
+        }
+      ],
+      "note": "setInterval [[doesn't wait]] for the last request. Late answers overwrite new ones."
+    },
+    "caption": "The AI built live order tracking. On a slow network the status says Delivered, then jumps back to Out for delivery.\n\nLook at the card. setInterval fires every 2 seconds whether or not the last request has finished. On a slow connection, requests overlap and come back out of order. An older request that answers late overwrites the newer status.\n\nFix: start the next request only after the previous one finishes. A setTimeout at the end of poll() does that: one request in flight at a time, always in order.\n\nIn React, also clear the timer in the effect's cleanup, or polling keeps running after the user leaves the page.\n\nSource: MDN, setInterval() (execution duration vs interval).",
+    "publishAt": "2026-12-13T23:30:00+05:30",
+    "hookFamily": "ai-built",
+    "why": "Rule 4: live order tracking visibly flips Delivered back to Out for delivery; polling race from the async lane."
+  }
+]

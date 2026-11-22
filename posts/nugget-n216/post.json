@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-12-07T14:00:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "That number is from the Stack Overflow Developer Survey 2025. The second biggest frustration, at 45%: debugging AI-generated code takes longer. And more developers distrust AI accuracy (46%) than trust it (33%).\n\nAlmost-right code is harder than wrong code. Wrong code fails your first test. Almost-right code passes the demo and breaks on the empty cart, the slow network or the second click.\n\nThe check I'd run before accepting any AI change:\n1. Try it with zero, one and many items.\n2. Throttle the network and click twice.\n3. Read every line you'd have to explain in review.\n\nSource: Stack Overflow Developer Survey 2025, AI section.\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "66% of developers say their biggest AI frustration is code that's [[almost right, but not quite]].\n\nFinding the \"not quite\" is the job now.",
+  "title": "Nugget N216"
+}

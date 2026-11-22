@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-11-25T14:00:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "Anything in localStorage can be read by any JavaScript running on your page. That includes a third-party script, a compromised npm package, or code injected through an XSS bug (a hole that lets an attacker run their script on your site).\n\nOne injected line can send your users' tokens to someone else's server.\n\nAn httpOnly cookie is the common alternative: the browser sends it with requests, but JavaScript can't read it at all. Pair it with the Secure and SameSite flags.\n\nIt doesn't fix XSS. It stops XSS from walking away with the token.\n\nSource: OWASP HTML5 Security Cheat Sheet (Local Storage).\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "Open your live app.\nDevTools → Application → Local Storage.\n\nIs your login token sitting there?\n\n[[Every script on your page]] can read it.",
+  "title": "Nugget N181"
+}

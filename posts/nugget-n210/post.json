@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-12-05T14:00:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "Phones lose signal in lifts, metros and basements. Your users will hit this.\n\nWith the network off, fetch rejects with a TypeError. If your code has no catch, or turns the spinner off only on success, it spins forever. The user taps again, or leaves.\n\nCheck three things: the error is shown in plain words, there's a way to retry, and the button works again afterwards. Then switch to Slow 4G and see what a long wait looks like.\n\nSource: MDN, Window.fetch() (exceptions), and Chrome DevTools docs (Network panel, Offline).\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "Open DevTools → Network → [[Offline]].\n\nNow click Place order on your app.\n\nDo you see an error with a Retry button?\nOr a spinner that never stops?",
+  "title": "Nugget N210"
+}

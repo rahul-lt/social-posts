@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-11-30T14:00:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "Both show up well in interviews. They prove different things.\n\nOpen source proves you can read a big codebase you didn't write, take review comments, and get a change merged by strangers. That's most of the first year of a job. The catch: your first merged PRs are usually small, and finding a good first issue takes time.\n\nYour own project proves you can design something, ship it, and explain every decision. The catch: nobody reviews it, so bad habits survive.\n\nIf you've done either, what did interviewers actually ask you about it?\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "6 months before placements. Pick one:\n\nA) Contribute to a real open-source project\nB) Build your own project end to end\n\n[[Which one, and why?]]",
+  "title": "Nugget N195"
+}

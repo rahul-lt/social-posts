@@ -1,0 +1,864 @@
+[
+  {
+    "id": "p061",
+    "day": 21,
+    "slot": "07:00",
+    "style": "piyush",
+    "theme": "navy",
+    "pillar": "frontend",
+    "format": "code-review",
+    "card": {
+      "title": "One long code block in a blog post.\nWhy did the sidebar get pushed off?",
+      "panels": [
+        {
+          "tone": "bad",
+          "label": "Common answer",
+          "file": "layout.css",
+          "hl": [
+            3
+          ],
+          "code": ".page {\n  display: grid;\n  grid-template-columns: 1fr 280px;\n}\n/* <pre> with a 900px line inside */"
+        },
+        {
+          "tone": "good",
+          "label": "What gets you selected",
+          "file": "layout.css",
+          "hl": [
+            3,
+            4
+          ],
+          "code": ".page {\n  display: grid;\n  grid-template-columns:\n    minmax(0, 1fr) 280px;\n}\npre { overflow-x: auto; }"
+        }
+      ],
+      "note": "1fr means minmax(auto, 1fr). [[auto]] never goes below the content width."
+    },
+    "caption": "Build a blog layout in your machine coding round, add one long code sample, and the sidebar slides off the screen.\n\nLook at the card. 1fr is short for minmax(auto, 1fr). That auto minimum means the column can't get narrower than its content. A <pre> doesn't wrap, so its longest line sets the column width, and the 280px sidebar gets pushed out.\n\nminmax(0, 1fr) lets the column shrink. Then overflow-x: auto on the pre gives the code its own scrollbar instead of stretching the page.\n\nSame trap with long URLs, wide tables and big images inside 1fr columns.\n\nSource: CSS Grid spec (flexible lengths) and MDN, minmax().",
+    "publishAt": "2026-12-14T07:00:00+05:30",
+    "hookFamily": "machine-coding-round",
+    "why": "Rule 2+4: product scenario (blog page) with an on-screen symptom; CSS layout is in the rule-22 topic pool."
+  },
+  {
+    "id": "p062",
+    "day": 21,
+    "slot": "19:30",
+    "style": "ours",
+    "theme": "light",
+    "pillar": "career",
+    "format": "question",
+    "card": {
+      "text": "First year at work. Weekends free. Pick one:\n\nA) Build a side project of your own\nB) Pick up backend or DevOps tickets at work\n\n[[Which one, and why?]]"
+    },
+    "caption": "Both paths get people hired. They build different kinds of proof.\n\nA side project is fully yours. You choose the stack, you can demo it in any interview, and no client deadline can kill it. But it rarely meets real traffic, real users or a strict code review.\n\nA second skill at work comes with a reviewer, production data and a senior to ask. It shows up in your appraisal. But it's tied to your company's stack, and you can't link it on your resume.\n\nWhat would you pick, and what's driving it: your next switch, or what you want to get good at?",
+    "publishAt": "2026-12-14T19:30:00+05:30",
+    "hookFamily": "career-dilemma",
+    "why": "Rules 13-15: n147/n64 shape (two named paths, balanced opener); new dilemma not run before."
+  },
+  {
+    "id": "p063",
+    "day": 21,
+    "slot": "23:30",
+    "style": "piyush",
+    "theme": "navy",
+    "pillar": "frontend",
+    "format": "code-review",
+    "card": {
+      "title": "Dark mode is saved.\nWhy does every reload flash white?",
+      "panels": [
+        {
+          "tone": "bad",
+          "label": "AI-generated",
+          "file": "App.jsx",
+          "hl": [
+            1
+          ],
+          "code": "useEffect(() => {\n  const t = localStorage\n    .getItem('theme');\n  document.documentElement\n    .dataset.theme = t;\n}, []);"
+        },
+        {
+          "tone": "good",
+          "label": "What I'd merge",
+          "file": "index.html",
+          "hl": [
+            1
+          ],
+          "code": "<!-- inside <head> -->\n<script>\n  document.documentElement\n    .dataset.theme = localStorage\n    .getItem('theme') || 'light';\n</script>"
+        }
+      ],
+      "note": "The first frame is painted [[before your bundle runs]]. Set the theme before it."
+    },
+    "caption": "The AI built a dark mode toggle. It remembers your choice, and it also flashes a white screen on every reload. At night that flash is the first thing users notice.\n\nLook at the card. The browser paints the page before your JavaScript bundle runs, and useEffect runs after React has painted too. So the first frame always uses the light default, then the theme switches.\n\nRead the saved theme in a tiny inline script inside <head>. It runs before the body is drawn, so the very first frame already has the right theme.\n\nNext.js and other server-rendered apps hit the same flash. Libraries like next-themes inject this kind of script for you.\n\nSource: react.dev, useEffect (runs after the browser paints).",
+    "publishAt": "2026-12-14T23:30:00+05:30",
+    "hookFamily": "the-ai-built",
+    "why": "Rule 6 AI-built hook + rule 4 visible bug; n172 (CSS, phone symptom, 13k) shows on-screen CSS bugs land at 23:30."
+  },
+  {
+    "id": "p064",
+    "day": 22,
+    "slot": "07:00",
+    "style": "piyush",
+    "theme": "navy",
+    "pillar": "frontend",
+    "format": "code-review",
+    "card": {
+      "title": "\"Expand all\" on 300 FAQs\nlags for a second. Why?",
+      "panels": [
+        {
+          "tone": "bad",
+          "label": "Common answer",
+          "file": "faq.js",
+          "hl": [
+            2,
+            3
+          ],
+          "code": "items.forEach((el) => {\n  const h = el.scrollHeight;\n  el.style.height = h + 'px';\n});"
+        },
+        {
+          "tone": "good",
+          "label": "What gets you selected",
+          "file": "faq.js",
+          "hl": [
+            1,
+            2
+          ],
+          "code": "const hs = items.map(\n  (el) => el.scrollHeight);\nitems.forEach((el, i) => {\n  el.style.height = hs[i] + 'px';\n});"
+        }
+      ],
+      "note": "Read, write, read, write: [[one layout per item]]. Read all, then write all."
+    },
+    "caption": "Write this \"Expand all\" in your machine coding round and the follow-up is \"open the Performance tab and explain the purple blocks\".\n\nLook at the card. Reading scrollHeight needs an up-to-date layout. Writing style.height makes that layout stale again. Do both inside one loop and the browser recalculates layout once per item: 300 FAQs, 300 layouts in a single click. That's layout thrashing (forced synchronous layout).\n\nRead every height first, then write them all. The browser now does one layout at the end.\n\nIn the Performance panel it shows as a stack of Layout events with a \"Forced reflow\" warning.\n\nSource: web.dev, Avoid large, complex layouts and layout thrashing.",
+    "publishAt": "2026-12-15T07:00:00+05:30",
+    "hookFamily": "machine-coding-round",
+    "why": "Rule 22 perf-with-visible-symptom; interview follow-up stakes (rule 7) mirror n137 \"follow-up question\" hook."
+  },
+  {
+    "id": "p065",
+    "day": 22,
+    "slot": "19:30",
+    "style": "ours",
+    "theme": "light",
+    "pillar": "frontend",
+    "format": "self-check",
+    "card": {
+      "text": "Save this as test.html and open it:\n<iframe src=\"https://your-app.com\"></iframe>\n\nDoes your app [[load inside the frame]]?\n\nThen any site can do the same."
+    },
+    "caption": "If your app loads inside someone else's iframe, that site can lay its own page over yours. It sets your frame to opacity 0 and puts a \"Claim your prize\" button where your \"Delete account\" or \"Pay\" button is. The user thinks they clicked the prize. That's clickjacking.\n\nIt hurts most when the user is still logged in inside the frame, for example when your session cookie is SameSite=None, which some embeds and single sign-on setups need.\n\nFix it with one response header:\nContent-Security-Policy: frame-ancestors 'self'\n\nUse 'none' if your app never frames itself. X-Frame-Options: DENY is the older header that does the same.\n\nSource: OWASP Clickjacking Defense Cheat Sheet and MDN, frame-ancestors.",
+    "publishAt": "2026-12-15T19:30:00+05:30",
+    "hookFamily": "self-check-leak",
+    "why": "Rule 17: security self-check with a visible result (your login page inside a stranger's iframe); clickjacking unused in plan and archive."
+  },
+  {
+    "id": "p066",
+    "day": 22,
+    "slot": "23:30",
+    "style": "piyush",
+    "theme": "navy",
+    "pillar": "frontend",
+    "format": "code-review",
+    "card": {
+      "title": "The AI embedded the demo video.\nWhy is it a thin strip?",
+      "panels": [
+        {
+          "tone": "bad",
+          "label": "AI-generated",
+          "file": "Demo.jsx",
+          "hl": [
+            2
+          ],
+          "code": "<iframe src={videoUrl}\n  style={{ width: '100%' }} />"
+        },
+        {
+          "tone": "good",
+          "label": "What I'd merge",
+          "file": "demo.css",
+          "hl": [
+            3,
+            4
+          ],
+          "code": "iframe {\n  width: 100%;\n  height: auto;\n  aspect-ratio: 16 / 9;\n}"
+        }
+      ],
+      "note": "An iframe is [[150px tall]] unless you tell it otherwise."
+    },
+    "caption": "The AI embedded a product demo video on the landing page. It shows up full width and about 150px tall, a thin strip nobody can watch.\n\nLook at the card. An iframe has a default size of 300 by 150 pixels. width: 100% changes the width, but nothing tells the height to follow, so it stays at 150.\n\naspect-ratio: 16 / 9 with height: auto lets the browser work out the height from the width, at any screen size.\n\nBefore aspect-ratio we used a wrapper with padding-top: 56.25%. You can delete that hack now; every major browser supports the property.\n\nSame fix for maps, Figma embeds and chart placeholders.\n\nSource: MDN, aspect-ratio and <iframe> (width/height defaults).",
+    "publishAt": "2026-12-15T23:30:00+05:30",
+    "hookFamily": "the-ai-built",
+    "why": "Rule 3+4: real product (landing page video) with a visible break; aspect-ratio is in the CSS lane."
+  },
+  {
+    "id": "p067",
+    "day": 23,
+    "slot": "07:00",
+    "style": "piyush",
+    "theme": "navy",
+    "pillar": "frontend",
+    "format": "code-review",
+    "card": {
+      "title": "On slow 4G the headings stay\nblank for 3 seconds. Why?",
+      "panels": [
+        {
+          "tone": "bad",
+          "label": "Common answer",
+          "file": "fonts.css",
+          "hl": [
+            1
+          ],
+          "code": "@font-face {\n  font-family: 'Poppins';\n  src: url('/poppins.woff2')\n    format('woff2');\n}"
+        },
+        {
+          "tone": "good",
+          "label": "What gets you selected",
+          "file": "fonts.css",
+          "hl": [
+            5
+          ],
+          "code": "@font-face {\n  font-family: 'Poppins';\n  src: url('/poppins.woff2')\n    format('woff2');\n  font-display: swap;\n}"
+        }
+      ],
+      "note": "Without font-display, text waits [[invisible]] for the font."
+    },
+    "caption": "Ship a custom font in your machine coding round, test it on slow 4G, and the headings stay blank while everything else has loaded.\n\nLook at the card. Without font-display, most browsers hide text that uses a web font for up to about 3 seconds while the font downloads. That's FOIT (flash of invisible text).\n\nfont-display: swap shows the text in a fallback font right away, then swaps when the font arrives. If you'd rather avoid the swap jump, optional uses the web font only if it arrives almost immediately.\n\nGoogle Fonts adds &display=swap to its CSS links for exactly this reason.\n\nSource: MDN, @font-face font-display.",
+    "publishAt": "2026-12-16T07:00:00+05:30",
+    "hookFamily": "machine-coding-round",
+    "why": "Rule 22 perf with a visible symptom (blank text); India slow-4G context from the playbook."
+  },
+  {
+    "id": "p068",
+    "day": 23,
+    "slot": "19:30",
+    "style": "ours",
+    "theme": "light",
+    "pillar": "ai",
+    "format": "take",
+    "card": {
+      "text": "AI-generated UI looks right on a 1440px laptop.\n\nBefore you merge it, 4 checks:\n[[360px wide]]. Tab key only. Dark mode. Slow 4G.\n\nEach one takes under a minute."
+    },
+    "caption": "AI tools build UI on whatever screen you prompt from. Your users are often on a 360px budget Android phone.\n\n360px: DevTools device toolbar, type 360 as the width. Long names overflowing flex rows, fixed widths and 100vh show up here first.\nTab only: put the mouse away. Missing focus rings and div \"buttons\" show up here.\nDark mode: flip your OS setting. Hard-coded white backgrounds and white inputs show up here.\nSlow 4G: DevTools Network throttling. Blank fonts, layout shift and endless spinners show up here.\n\nAI writes the first version. These four minutes decide if it ships.\n\nSource: Chrome DevTools docs (device mode, network throttling).",
+    "publishAt": "2026-12-16T19:30:00+05:30",
+    "hookFamily": "experiment-ai-workflow",
+    "why": "Experiment 1 of 2, rule 16: AI take with a named workflow and hard numbers (360px, 4 checks), not a generic AI-career take (those flopped 7/7)."
+  },
+  {
+    "id": "p069",
+    "day": 23,
+    "slot": "23:30",
+    "style": "piyush",
+    "theme": "navy",
+    "pillar": "frontend",
+    "format": "code-review",
+    "card": {
+      "title": "The AI added a PDF button.\nWhy is the first load slower?",
+      "panels": [
+        {
+          "tone": "bad",
+          "label": "AI-generated",
+          "file": "Invoice.jsx",
+          "hl": [
+            1
+          ],
+          "code": "import { jsPDF } from 'jspdf';\n\nfunction onDownload() {\n  const doc = new jsPDF();\n  doc.text('Invoice', 10, 10);\n  doc.save('invoice.pdf');\n}"
+        },
+        {
+          "tone": "good",
+          "label": "What I'd merge",
+          "file": "Invoice.jsx",
+          "hl": [
+            2,
+            3
+          ],
+          "code": "async function onDownload() {\n  const { jsPDF } =\n    await import('jspdf');\n  const doc = new jsPDF();\n  doc.text('Invoice', 10, 10);\n  doc.save('invoice.pdf');\n}"
+        }
+      ],
+      "note": "Load a library [[when the click happens]], not when the page does."
+    },
+    "caption": "The AI added a \"Download invoice\" button. Now every visitor downloads a PDF library on first load, including everyone who never presses it.\n\nLook at the card. A static import at the top puts jsPDF in the same bundle as the page. It's a large library, and it has to download and parse before the page is ready.\n\nawait import('jspdf') inside the click handler lets the bundler split it into its own chunk. It downloads only when someone clicks. Vite and webpack both do this automatically for dynamic imports.\n\nCheck yours in a bundle analyzer: charts, rich text editors, PDF and Excel export are the usual suspects.\n\nSource: MDN, import() and Vite docs (code splitting).",
+    "publishAt": "2026-12-16T23:30:00+05:30",
+    "hookFamily": "the-ai-built",
+    "why": "Rule 22 perf with a visible symptom (slower first load); n169-style \"could be faster\" framing that hit 10.5k."
+  },
+  {
+    "id": "p070",
+    "day": 24,
+    "slot": "07:00",
+    "style": "piyush",
+    "theme": "navy",
+    "pillar": "frontend",
+    "format": "code-review",
+    "card": {
+      "title": "The modal has a fade transition.\nWhy does it just pop in?",
+      "panels": [
+        {
+          "tone": "bad",
+          "label": "Common answer",
+          "file": "modal.css",
+          "hl": [
+            2,
+            7
+          ],
+          "code": ".modal {\n  display: none;\n  opacity: 0;\n  transition: opacity 0.2s;\n}\n.open {\n  display: block;\n  opacity: 1;\n}"
+        },
+        {
+          "tone": "good",
+          "label": "What gets you selected",
+          "file": "modal.css",
+          "hl": [
+            3,
+            4,
+            5
+          ],
+          "code": ".modal {\n  opacity: 0;\n  visibility: hidden;\n  transition: opacity 0.2s,\n    visibility 0.2s;\n}\n.open {\n  opacity: 1; visibility: visible;\n}"
+        }
+      ],
+      "note": "display: none has [[no box to fade from]]. Hide it with visibility instead."
+    },
+    "caption": "Toggle a modal with display: none in your machine coding round and the fade you wrote never plays. It just pops in.\n\nLook at the card. While the modal is display: none, there is no box on the page, so the browser has no starting frame to animate from. It switches to block and opacity 1 in the same step, and the transition is skipped.\n\nFix: keep the box and hide it with opacity: 0 plus visibility: hidden. Opacity fades. visibility: hidden stops clicks, Tab focus and screen readers from reaching the invisible modal, which opacity alone doesn't.\n\nNewer CSS can keep display: none and still fade, using @starting-style with transition-behavior: allow-discrete.\n\nSource: MDN, @starting-style and visibility.",
+    "publishAt": "2026-12-17T07:00:00+05:30",
+    "hookFamily": "machine-coding-round",
+    "why": "Rule 4: visible CSS symptom (the fade never plays) every fresher has hit; display/transition is unused in the plan and archive."
+  },
+  {
+    "id": "p071",
+    "day": 24,
+    "slot": "19:30",
+    "style": "ours",
+    "theme": "light",
+    "pillar": "career",
+    "format": "question",
+    "card": {
+      "text": "Your first switch. Pick one:\n\nA) ₹8 LPA at a product company: one codebase, you own features for years\nB) ₹12 LPA at a consultancy: a new client project every few months\n\n[[Which one, and why?]]"
+    },
+    "caption": "Both paths get people to senior roles. They teach different things.\n\nA product company makes you live with your own code. You see what breaks at scale, what users actually do, and why that shortcut from last year hurts now. The pay gap is real, and it compounds into your next hike.\n\nA consultancy puts you in many codebases and stacks fast, and you learn to talk to clients. But you often leave a project before the consequences of your decisions show up.\n\nWhat would you pick, and would your answer change if the gap were ₹2 LPA instead of ₹4?",
+    "publishAt": "2026-12-17T19:30:00+05:30",
+    "hookFamily": "career-dilemma",
+    "why": "Rule 13: salary-number dilemma like n64 (₹6 vs ₹9 LPA, 3.5k); theme assigned to this lane, not run before."
+  },
+  {
+    "id": "p072",
+    "day": 24,
+    "slot": "23:30",
+    "style": "piyush",
+    "theme": "navy",
+    "pillar": "frontend",
+    "format": "code-review",
+    "card": {
+      "title": "The AI built \"redirect after login\".\nWhy can it send users to a scam site?",
+      "panels": [
+        {
+          "tone": "bad",
+          "label": "AI-generated",
+          "file": "login.js",
+          "hl": [
+            4
+          ],
+          "code": "const next = new URLSearchParams(\n  location.search).get('next');\n// after login succeeds:\nlocation.href = next || '/';"
+        },
+        {
+          "tone": "good",
+          "label": "What I'd merge",
+          "file": "login.js",
+          "hl": [
+            3
+          ],
+          "code": "const url = new URL(\n  next || '/', location.origin);\nlocation.href =\n  url.origin === location.origin\n    ? url.pathname + url.search\n    : '/';"
+        }
+      ],
+      "note": "Only follow ?next= when it points to [[your own origin]]."
+    },
+    "caption": "The AI built \"send users back where they were after login\". Anyone can now use your real login page to send your users to their fake one.\n\nLook at the card. next comes straight from the URL. A link like /login?next=https://evil.example logs the user in on your site, then redirects to the attacker's copy, which asks for the password \"again\". That's an open redirect.\n\nA startsWith('/') check isn't enough: //evil.example starts with a slash and still leaves your site.\n\nParse it with new URL() against your own origin and only follow it when the origin matches. Everything else goes to the home page.\n\nSource: OWASP, Unvalidated Redirects and Forwards Cheat Sheet.",
+    "publishAt": "2026-12-17T23:30:00+05:30",
+    "hookFamily": "the-ai-built",
+    "why": "Security in the 23:30 AI-built slot; leaked-password stakes (rule 7). Fix tested in node: //evil, /\\\\evil and javascript: all fall back to \"/\"."
+  },
+  {
+    "id": "p073",
+    "day": 25,
+    "slot": "07:00",
+    "style": "piyush",
+    "theme": "navy",
+    "pillar": "frontend",
+    "format": "code-review",
+    "card": {
+      "title": "Type in the search box.\nWhy does the chart keep flashing?",
+      "panels": [
+        {
+          "tone": "bad",
+          "label": "Common answer",
+          "file": "Report.jsx",
+          "hl": [
+            2,
+            3
+          ],
+          "code": "function Report({ q }) {\n  const Chart = lazy(() =>\n    import('./Chart'));\n  return (\n    <Suspense fallback={<Spin />}>\n      <Chart q={q} />\n    </Suspense>\n  );\n}"
+        },
+        {
+          "tone": "good",
+          "label": "What gets you selected",
+          "file": "Report.jsx",
+          "hl": [
+            1,
+            2
+          ],
+          "code": "const Chart = lazy(() =>\n  import('./Chart'));\nfunction Report({ q }) {\n  return (\n    <Suspense fallback={<Spin />}>\n      <Chart q={q} />\n    </Suspense>\n  );\n}"
+        }
+      ],
+      "note": "lazy() inside a component makes a [[new component every render]]."
+    },
+    "caption": "Declare React.lazy inside a component in your machine coding round and the chart flashes a spinner on every keystroke.\n\nLook at the card. Every render of Report calls lazy() again and gets a brand new component. React sees a different component type in the same spot, throws the old Chart away, suspends, and shows the fallback while it mounts the new one. Any state inside Chart is lost too.\n\nMove lazy() to the top level of the module. It runs once, and Chart stays the same component across renders.\n\nThe import itself is cached, so the Network tab shows no second request. Only the flash.\n\nSource: react.dev, lazy (declare lazy components at the top level).",
+    "publishAt": "2026-12-18T07:00:00+05:30",
+    "hookFamily": "machine-coding-round",
+    "why": "Rule 22 React + visible re-render symptom; follows n152 (effect loop, 11.5k): a React pitfall the docs call out."
+  },
+  {
+    "id": "p074",
+    "day": 25,
+    "slot": "19:30",
+    "style": "ours",
+    "theme": "light",
+    "pillar": "frontend",
+    "format": "self-check",
+    "card": {
+      "text": "Set your profile name to:\n<b>test</b>\n\nNow check every place it shows up.\nIs it [[bold]] anywhere?"
+    },
+    "caption": "If the name shows in bold anywhere, that screen is rendering user input as HTML. Swap <b> for <img src=x onerror=...> and the same spot runs an attacker's code for everyone who views it. That's stored XSS.\n\nReact escapes text in JSX for you, so the usual culprits are elsewhere: the admin panel someone built with innerHTML, a toast library that accepts HTML, HTML emails, dangerouslySetInnerHTML for \"rich\" bios.\n\nCheck the navbar, comments, notifications, the admin dashboard and the welcome email.\n\nFix: render it as text. If you truly need HTML, sanitize it with a library like DOMPurify first.\n\nSource: OWASP Cross Site Scripting Prevention Cheat Sheet.",
+    "publishAt": "2026-12-18T19:30:00+05:30",
+    "hookFamily": "self-check-leak",
+    "why": "Rule 17 leak/user-visible consequence; a 30-second check (playbook \"make it saveable\"). Testing angle, not the n144 code bug."
+  },
+  {
+    "id": "p075",
+    "day": 25,
+    "slot": "23:30",
+    "style": "piyush",
+    "theme": "navy",
+    "pillar": "frontend",
+    "format": "code-review",
+    "card": {
+      "title": "The AI made the header glassy.\nWhy is the mobile menu 64px tall?",
+      "panels": [
+        {
+          "tone": "bad",
+          "label": "AI-generated",
+          "file": "header.css",
+          "hl": [
+            3,
+            6
+          ],
+          "code": ".header {\n  position: sticky; top: 0;\n  backdrop-filter: blur(8px);\n}\n.header .drawer {\n  position: fixed;\n  inset: 0;\n}"
+        },
+        {
+          "tone": "good",
+          "label": "What I'd merge",
+          "file": "Layout.html",
+          "hl": [
+            4,
+            5
+          ],
+          "code": "<header class=\"header\">\n  ...\n</header>\n<!-- sibling, not a child -->\n<nav class=\"drawer\">...</nav>"
+        }
+      ],
+      "note": "backdrop-filter makes the header the [[containing block]] for fixed children."
+    },
+    "caption": "The AI gave the sticky header a frosted-glass blur. Now the mobile menu opens inside a 64px strip instead of covering the screen.\n\nLook at the card. position: fixed usually means \"relative to the viewport\". But when an ancestor has backdrop-filter, filter or transform, that ancestor becomes the containing block. inset: 0 now means \"fill the header\", and the header is 64px tall.\n\nMove the drawer out of the header so it's a sibling, and fixed is relative to the viewport again. In React, a portal to document.body does the same.\n\nModals inside animated cards break the same way.\n\nSource: MDN, Containing block (identifying the containing block).",
+    "publishAt": "2026-12-18T23:30:00+05:30",
+    "hookFamily": "the-ai-built",
+    "why": "Containing-block sibling of n160 (stacking context, 10.5k), new trigger (backdrop-filter) and new symptom."
+  },
+  {
+    "id": "p078",
+    "day": 26,
+    "slot": "23:30",
+    "style": "piyush",
+    "theme": "navy",
+    "pillar": "frontend",
+    "format": "code-review",
+    "card": {
+      "title": "The AI added dark mode.\nWhy is the date picker still white?",
+      "panels": [
+        {
+          "tone": "bad",
+          "label": "AI-generated",
+          "file": "theme.css",
+          "hl": [
+            1
+          ],
+          "code": "[data-theme='dark'] {\n  background: #0f172a;\n  color: #e2e8f0;\n}"
+        },
+        {
+          "tone": "good",
+          "label": "What I'd merge",
+          "file": "theme.css",
+          "hl": [
+            2
+          ],
+          "code": "[data-theme='dark'] {\n  color-scheme: dark;\n  background: #0f172a;\n  color: #e2e8f0;\n}"
+        }
+      ],
+      "note": "color-scheme tells the browser to draw [[its own UI]] dark too."
+    },
+    "caption": "The AI added dark mode. The page is dark, but the scrollbar, checkboxes and date picker are still bright white.\n\nLook at the card. Your CSS changed your colours. It didn't tell the browser anything. Form controls, scrollbars and the default page background are drawn by the browser, and it draws them light unless you say otherwise.\n\ncolor-scheme: dark tells it to use its dark versions too. Put color-scheme: light dark on :root if you follow the system setting, or add <meta name=\"color-scheme\" content=\"light dark\"> so it applies before your CSS loads.\n\nSource: MDN, color-scheme.",
+    "publishAt": "2026-12-19T23:30:00+05:30",
+    "hookFamily": "the-ai-built",
+    "why": "Weekend 23:30 AI-built card with a visible symptom; dark mode in the assigned CSS lane, different bug from Monday's flash."
+  },
+  {
+    "id": "p079",
+    "day": 27,
+    "slot": "07:00",
+    "style": "piyush",
+    "theme": "navy",
+    "pillar": "frontend",
+    "format": "code-review",
+    "card": {
+      "title": "A long product name pushes\nthe price off the card. Why?",
+      "panels": [
+        {
+          "tone": "bad",
+          "label": "Common answer",
+          "file": "ProductRow.css",
+          "hl": [
+            2
+          ],
+          "code": ".row { display: flex; }\n.info { flex: 1; }\n.name {\n  white-space: nowrap;\n  overflow: hidden;\n  text-overflow: ellipsis;\n}"
+        },
+        {
+          "tone": "good",
+          "label": "What gets you selected",
+          "file": "ProductRow.css",
+          "hl": [
+            4
+          ],
+          "code": ".row { display: flex; }\n.info {\n  flex: 1;\n  min-width: 0;\n}"
+        }
+      ],
+      "note": "Flex items won't shrink below their content [[unless you let them]]."
+    },
+    "caption": "Build a product row in your machine coding round, add one long product name, and the price disappears off the right edge.\n\nLook at the card. Flex items have min-width: auto by default. For .info that means \"never narrower than my content\", and with white-space: nowrap the content is the whole name on one line. So .info refuses to shrink, the ellipsis never appears, and the price gets pushed out.\n\nmin-width: 0 lets .info shrink. Now overflow: hidden and text-overflow on .name finally have something to cut.\n\nSame fix for chat previews, file names and table cells in flex rows.\n\nSource: MDN, min-width (auto for flex items) and text-overflow.",
+    "publishAt": "2026-12-20T07:00:00+05:30",
+    "hookFamily": "machine-coding-round",
+    "why": "Rule 12: second-strongest topic on Sunday morning; cart/product scenario like n148/n168 (6.9k/13k)."
+  },
+  {
+    "id": "p080",
+    "day": 27,
+    "slot": "19:30",
+    "style": "ours",
+    "theme": "light",
+    "pillar": "career",
+    "format": "question",
+    "card": {
+      "text": "6 months before your first job. Pick one:\n\nA) Build with AI coding tools: 5 projects, AI writes most of the code\nB) Write it yourself: 2 projects, AI only to explain and review\n\n[[Which one, and why?]]"
+    },
+    "caption": "Both paths get people hired. They prepare you for different first months.\n\nBuilding with AI tools gets you more shipped work, and most teams now expect you to use Copilot, Cursor or Claude Code well. But in the interview you have to explain code you didn't write, and when the AI is wrong you need to know why.\n\nWriting it yourself is slower and you'll ship less. But you can defend every line, and debugging without a prompt box becomes normal.\n\nWhat would you pick, and how do you check you actually understand what the AI wrote?",
+    "publishAt": "2026-12-20T19:30:00+05:30",
+    "hookFamily": "career-dilemma",
+    "why": "Rules 13+16: dilemma names real tools; AI-and-learning question shape (n72) as a two-path pick, assigned theme."
+  },
+  {
+    "id": "p081",
+    "day": 27,
+    "slot": "23:30",
+    "style": "piyush",
+    "theme": "navy",
+    "pillar": "frontend",
+    "format": "code-review",
+    "card": {
+      "title": "The AI wired up the chat widget.\nWhy can any site run code here?",
+      "panels": [
+        {
+          "tone": "bad",
+          "label": "AI-generated",
+          "file": "bridge.js",
+          "hl": [
+            4
+          ],
+          "code": "window.addEventListener(\n  'message', (e) => {\n    if (e.data.type === 'OPEN')\n      location.href = e.data.url;\n  });"
+        },
+        {
+          "tone": "good",
+          "label": "What I'd merge",
+          "file": "bridge.js",
+          "hl": [
+            3,
+            4
+          ],
+          "code": "window.addEventListener(\n  'message', (e) => {\n    if (e.origin !== WIDGET_ORIGIN)\n      return;\n    if (e.data.type === 'OPEN')\n      location.href = e.data.url;\n  });"
+        }
+      ],
+      "note": "A message listener hears [[every window]], not just your widget."
+    },
+    "caption": "The AI connected the help-chat widget to your page. Any website can now run JavaScript on it.\n\nLook at the card. A message listener receives messages from any window that has a reference to yours, not just your widget. An attacker's site can open your page with window.open and post { type: 'OPEN', url: 'javascript:...' }. Your code assigns that to location.href, and the browser runs it on your origin, with your user's session.\n\nCheck e.origin against the exact origin you expect before you read e.data. Even then, treat the data as untrusted input.\n\nSource: MDN, Window: postMessage() (security concerns).",
+    "publishAt": "2026-12-20T23:30:00+05:30",
+    "hookFamily": "the-ai-built",
+    "why": "Security in the frontend lane at 23:30; concrete stakes (code runs as your user), rule 7."
+  },
+  {
+    "id": "p082",
+    "day": 28,
+    "slot": "07:00",
+    "style": "piyush",
+    "theme": "navy",
+    "pillar": "frontend",
+    "format": "code-review",
+    "card": {
+      "title": "Looks fine on your MacBook.\nScrolls sideways on Windows. Why?",
+      "panels": [
+        {
+          "tone": "bad",
+          "label": "Common answer",
+          "file": "hero.css",
+          "hl": [
+            2
+          ],
+          "code": ".hero {\n  width: 100vw;\n}"
+        },
+        {
+          "tone": "good",
+          "label": "What gets you selected",
+          "file": "hero.css",
+          "hl": [
+            2
+          ],
+          "code": ".hero {\n  width: 100%;\n}"
+        }
+      ],
+      "note": "100vw [[includes the scrollbar]]. 100% is the space you actually have."
+    },
+    "caption": "Use width: 100vw in your machine coding round, demo it on a Windows laptop, and the whole page scrolls sideways.\n\nLook at the card. 100vw is the full viewport width, including the vertical scrollbar. On a MacBook the scrollbar usually floats over the page, so you never notice. On Windows it takes up real space, so 100vw is wider than the page by the scrollbar's width. That extra strip gives you a horizontal scrollbar.\n\nFor a block that fills its parent, width: 100% (or the default auto) already does the job.\n\nTest on your Mac too: System Settings → Appearance → Show scroll bars: Always.\n\nSource: MDN, CSS values and units (viewport-percentage lengths).",
+    "publishAt": "2026-12-21T07:00:00+05:30",
+    "hookFamily": "machine-coding-round",
+    "why": "Sibling to n172 (100vh on phones, 13k): another viewport-unit trap with a device-specific symptom."
+  },
+  {
+    "id": "p083",
+    "day": 28,
+    "slot": "19:30",
+    "style": "ours",
+    "theme": "light",
+    "pillar": "frontend",
+    "format": "self-check",
+    "card": {
+      "text": "Open a password reset link from your app.\nThen open your analytics page report.\n\nIs the [[reset token]] in the list of URLs?"
+    },
+    "caption": "Reset links usually carry a token in the query string: /reset?token=8f3a... Analytics tools record the full page URL, query string included, unless you tell them not to.\n\nSo everyone with dashboard access, and the analytics provider, can see working reset links until they expire. Same for invite links and magic login links.\n\nFixes:\nMake tokens single-use and short-lived on the backend.\nDon't load third-party scripts on reset and magic-link pages, or redact the parameter (GA4 has a setting for query parameters).\nSwap the token for a session right away and remove it from the URL with history.replaceState.\n\nSource: OWASP Forgot Password Cheat Sheet.",
+    "publishAt": "2026-12-21T19:30:00+05:30",
+    "hookFamily": "self-check-leak",
+    "why": "Rule 17 leak self-check with a 30-second check; n151 (password in URL, 1.6k) was the only self-check above 238, same \"secret in a URL\" family."
+  },
+  {
+    "id": "p084",
+    "day": 28,
+    "slot": "23:30",
+    "style": "piyush",
+    "theme": "navy",
+    "pillar": "frontend",
+    "format": "code-review",
+    "card": {
+      "title": "A long link pasted in chat.\nWhy does the bubble break out?",
+      "panels": [
+        {
+          "tone": "bad",
+          "label": "AI-generated",
+          "file": "chat.css",
+          "hl": [
+            1
+          ],
+          "code": ".bubble {\n  max-width: 70%;\n  padding: 8px 12px;\n}"
+        },
+        {
+          "tone": "good",
+          "label": "What I'd merge",
+          "file": "chat.css",
+          "hl": [
+            4
+          ],
+          "code": ".bubble {\n  max-width: 70%;\n  padding: 8px 12px;\n  overflow-wrap: anywhere;\n}"
+        }
+      ],
+      "note": "A URL has no spaces, so the browser [[can't break it]] unless you allow it."
+    },
+    "caption": "The AI built a chat screen. Someone pastes a long courier tracking link, and their bubble pushes past the edge of the phone screen.\n\nLook at the card. Browsers break lines at spaces and a few other break points. A URL has none, so it's treated as one long word and overflows max-width.\n\noverflow-wrap: anywhere allows a break inside the word when nothing else fits. Use anywhere rather than break-word: anywhere also lets the bubble shrink inside a flex row, break-word doesn't.\n\nSame bug in comments, usernames, file names and order IDs.\n\nSource: MDN, overflow-wrap.",
+    "publishAt": "2026-12-21T23:30:00+05:30",
+    "hookFamily": "the-ai-built",
+    "why": "Rule 3: real product (chat) + on-screen break; text overflow in the assigned CSS lane."
+  },
+  {
+    "id": "p085",
+    "day": 29,
+    "slot": "07:00",
+    "style": "piyush",
+    "theme": "navy",
+    "pillar": "frontend",
+    "format": "code-review",
+    "card": {
+      "title": "Scroll to the end of the filters.\nWhy does the page behind move?",
+      "panels": [
+        {
+          "tone": "bad",
+          "label": "Common answer",
+          "file": "filters.css",
+          "hl": [
+            1
+          ],
+          "code": ".filters {\n  position: fixed;\n  inset: 0 0 0 30%;\n  overflow-y: auto;\n}"
+        },
+        {
+          "tone": "good",
+          "label": "What gets you selected",
+          "file": "filters.css",
+          "hl": [
+            5
+          ],
+          "code": ".filters {\n  position: fixed;\n  inset: 0 0 0 30%;\n  overflow-y: auto;\n  overscroll-behavior: contain;\n}"
+        }
+      ],
+      "note": "At the end of a scroll box, the scroll [[passes to the page]] behind it."
+    },
+    "caption": "Build a filter drawer in your machine coding round, scroll to the bottom of it, keep scrolling, and the product list behind it starts moving.\n\nLook at the card. When a scroll box reaches its end, the browser hands the extra scrolling to the next scrollable thing, usually the page. That's scroll chaining. Users lose their place in the list while they're only picking filters.\n\noverscroll-behavior: contain stops the chain at the drawer. It's supported in all major browsers.\n\nFor a full-screen modal, also stop the page itself from scrolling while it's open.\n\nSource: MDN, overscroll-behavior.",
+    "publishAt": "2026-12-22T07:00:00+05:30",
+    "hookFamily": "machine-coding-round",
+    "why": "Rule 2: shopping scenario + visible symptom; scroll behaviour in the assigned lane."
+  },
+  {
+    "id": "p086",
+    "day": 29,
+    "slot": "19:30",
+    "style": "ours",
+    "theme": "light",
+    "pillar": "frontend",
+    "format": "recap",
+    "card": {
+      "text": "The 5 code-review bugs that reached the most people here this year:\n\n1. await inside forEach\n2. var in a setTimeout loop\n3. A div used as a button\n4. 100vh on phones\n5. Array(3).fill([])\n\n[[How many have you shipped?]]"
+    },
+    "caption": "By impressions, from the last 90 days of this page:\n\n1. await inside forEach: the toast fires before the uploads finish. Use for...of or Promise.all. (19,215)\n2. var in a setTimeout loop prints 3 3 3. let gives each loop its own i. (13,582)\n3. A div with onClick can't be reached with Tab. Use a <button>. (13,157)\n4. 100vh hides the Pay button behind phone toolbars. Use 100dvh. (13,003)\n5. Array(3).fill([]) shares one array across every row. Use Array.from. (12,964)\n\nNone is exotic. All five pass a quick test on a laptop and break for a real user.",
+    "publishAt": "2026-12-22T19:30:00+05:30",
+    "hookFamily": "experiment-year-end-recap",
+    "why": "Experiment 2 of 2 (year-end recap, section 7 \"follow-up to breakout\"); numbers are real top-50 impressions as of 2026-11-22. REFRESH from analytics before publishing."
+  },
+  {
+    "id": "p087",
+    "day": 29,
+    "slot": "23:30",
+    "style": "piyush",
+    "theme": "navy",
+    "pillar": "frontend",
+    "format": "code-review",
+    "card": {
+      "title": "The AI preloaded the font.\nWhy does Network show it twice?",
+      "panels": [
+        {
+          "tone": "bad",
+          "label": "AI-generated",
+          "file": "index.html",
+          "hl": [
+            1,
+            3
+          ],
+          "code": "<link rel=\"preload\"\n  href=\"/fonts/inter.woff2\"\n  as=\"font\" type=\"font/woff2\" />"
+        },
+        {
+          "tone": "good",
+          "label": "What I'd merge",
+          "file": "index.html",
+          "hl": [
+            4
+          ],
+          "code": "<link rel=\"preload\"\n  href=\"/fonts/inter.woff2\"\n  as=\"font\" type=\"font/woff2\"\n  crossorigin />"
+        }
+      ],
+      "note": "Fonts are fetched with CORS. The preload [[has to match]]."
+    },
+    "caption": "The AI added a font preload to speed up the first paint. The Network tab now shows inter.woff2 downloaded twice, and the console warns the preload wasn't used.\n\nLook at the card. Fonts are always fetched in CORS mode, even from your own domain. A preload without crossorigin is fetched in a different mode, so the browser can't reuse it when the font is actually needed, and it downloads it again.\n\nAdd the crossorigin attribute with no value. Now the preload matches and the font downloads once, early.\n\nOnly preload the one or two fonts used above the fold. Preloading everything competes with your hero image.\n\nSource: MDN, rel=preload (CORS-enabled fetches).",
+    "publishAt": "2026-12-22T23:30:00+05:30",
+    "hookFamily": "the-ai-built",
+    "why": "Rule 22 perf with a visible symptom (double download in Network); pairs with n176 (lazy hero) as an \"AI optimised it and made it worse\" card."
+  },
+  {
+    "id": "p088",
+    "day": 30,
+    "slot": "07:00",
+    "style": "piyush",
+    "theme": "navy",
+    "pillar": "frontend",
+    "format": "code-review",
+    "card": {
+      "title": "Click \"Reviews\" in the tab bar.\nWhy is the heading hidden?",
+      "panels": [
+        {
+          "tone": "bad",
+          "label": "Common answer",
+          "file": "product.css",
+          "hl": [
+            2
+          ],
+          "code": ".tabs {\n  position: sticky;\n  top: 0;\n  height: 64px;\n}\n/* <a href=\"#reviews\"> */"
+        },
+        {
+          "tone": "good",
+          "label": "What gets you selected",
+          "file": "product.css",
+          "hl": [
+            2
+          ],
+          "code": "h2[id] {\n  scroll-margin-top: 72px;\n}"
+        }
+      ],
+      "note": "Anchor links scroll the target to the very top, [[under the sticky bar]]."
+    },
+    "caption": "Build a product page with a sticky tab bar in your machine coding round. Click \"Reviews\" and the Reviews heading lands right under the bar.\n\nLook at the card. An anchor link scrolls its target to the very top of the viewport. The sticky bar is also at the very top, 64px tall, so it covers the heading.\n\nscroll-margin-top on the target adds space above it whenever the browser scrolls it into view. scroll-padding-top on html does the same for every target at once.\n\nIt works for anchor links and scrollIntoView(), with no JavaScript offset maths.\n\nSource: MDN, scroll-margin-top.",
+    "publishAt": "2026-12-23T07:00:00+05:30",
+    "hookFamily": "machine-coding-round",
+    "why": "Rule 3: product page + visible symptom; sticky/scroll in the assigned lane, different bug from n91 (sticky + overflow)."
+  },
+  {
+    "id": "p089",
+    "day": 30,
+    "slot": "19:30",
+    "style": "ours",
+    "theme": "light",
+    "pillar": "career",
+    "format": "question",
+    "card": {
+      "text": "Year 2 as a frontend developer. Pick one:\n\nA) Stay frontend and become the team's go-to for React and performance\nB) Move to a backend or AI team and start near the bottom again\n\n[[Which one, and why?]]"
+    },
+    "caption": "Both paths get people promoted. The cost is paid at different times.\n\nStaying frontend compounds. Two more years of depth makes you the person people pull into the hardest UI problems, and that's hard to replace.\n\nSwitching costs you some speed and standing for a few months. But year 2 is the cheapest it will ever be: your salary and title haven't locked you in yet, and you bring a frontend view backend and AI teams often lack.\n\nThere's a middle road too: frontend for AI features, like streaming chat UIs.\n\nWhat would you pick, and what would make you switch?",
+    "publishAt": "2026-12-23T19:30:00+05:30",
+    "hookFamily": "career-dilemma",
+    "why": "Rule 13: two named paths a year-2 dev faces now; assigned theme, distinct from n147 (deep vs full-stack)."
+  },
+  {
+    "id": "p090",
+    "day": 30,
+    "slot": "23:30",
+    "style": "piyush",
+    "theme": "navy",
+    "pillar": "frontend",
+    "format": "code-review",
+    "card": {
+      "title": "The AI made the filters sticky.\nWhy do they scroll away?",
+      "panels": [
+        {
+          "tone": "bad",
+          "label": "AI-generated",
+          "file": "shop.css",
+          "hl": [
+            6,
+            7
+          ],
+          "code": ".layout {\n  display: grid;\n  grid-template-columns:\n    240px 1fr;\n}\n.filters {\n  position: sticky;\n  top: 0;\n}"
+        },
+        {
+          "tone": "good",
+          "label": "What I'd merge",
+          "file": "shop.css",
+          "hl": [
+            4
+          ],
+          "code": ".filters {\n  position: sticky;\n  top: 0;\n  align-self: start;\n}"
+        }
+      ],
+      "note": "A stretched grid item fills its row, so it has [[no room to stick]]."
+    },
+    "caption": "The AI made the filters sidebar sticky. It scrolls away with the page as if the line weren't there.\n\nLook at the card. Grid and flex items stretch to the height of their row by default, so .filters is as tall as the whole product list. A sticky element can only move inside its container, and this one already fills it. No room left, so it never sticks.\n\nalign-self: start makes the sidebar only as tall as its content. Now it has space to stay at top: 0 while the list scrolls past.\n\nIf it still won't stick, check the parents for overflow: hidden.\n\nSource: MDN, position (sticky) and align-self.",
+    "publishAt": "2026-12-23T23:30:00+05:30",
+    "hookFamily": "the-ai-built",
+    "why": "Rule 4 visible CSS bug at 23:30; sticky/stacking family did 10.5k (n160)."
+  }
+]

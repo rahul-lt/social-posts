@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-11-28T01:30:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "Push into a state array in your machine coding round and the cart stays empty while the interviewer keeps clicking Add.\n\nLook at the card. push changes the array in place. Then setCart(cart) hands React the same array it already has. React compares old and new state with Object.is, sees the same reference, and skips the render. The data changed. The screen didn't.\n\nIt gets more confusing later: the next unrelated re-render suddenly shows every item at once.\n\nThe fix is a new array: setCart([...cart, item]). Removing is filter, updating one item is map. Both return new arrays.\n\nObjects work the same way: { ...user, name }.\n\nSource: react.dev, Updating Arrays in State.\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "",
+  "title": "Nugget N189"
+}

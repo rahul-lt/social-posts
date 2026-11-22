@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-12-16T14:00:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "AI tools build UI on whatever screen you prompt from. Your users are often on a 360px budget Android phone.\n\n360px: DevTools device toolbar, type 360 as the width. Long names overflowing flex rows, fixed widths and 100vh show up here first.\nTab only: put the mouse away. Missing focus rings and div \"buttons\" show up here.\nDark mode: flip your OS setting. Hard-coded white backgrounds and white inputs show up here.\nSlow 4G: DevTools Network throttling. Blank fonts, layout shift and endless spinners show up here.\n\nAI writes the first version. These four minutes decide if it ships.\n\nSource: Chrome DevTools docs (device mode, network throttling).\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "AI-generated UI looks right on a 1440px laptop.\n\nBefore you merge it, 4 checks:\n[[360px wide]]. Tab key only. Dark mode. Slow 4G.\n\nEach one takes under a minute.",
+  "title": "Nugget N243"
+}

@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-12-20T14:00:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "Both paths get people hired. They prepare you for different first months.\n\nBuilding with AI tools gets you more shipped work, and most teams now expect you to use Copilot, Cursor or Claude Code well. But in the interview you have to explain code you didn't write, and when the AI is wrong you need to know why.\n\nWriting it yourself is slower and you'll ship less. But you can defend every line, and debugging without a prompt box becomes normal.\n\nWhat would you pick, and how do you check you actually understand what the AI wrote?\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "6 months before your first job. Pick one:\n\nA) Build with AI coding tools: 5 projects, AI writes most of the code\nB) Write it yourself: 2 projects, AI only to explain and review\n\n[[Which one, and why?]]",
+  "title": "Nugget N253"
+}

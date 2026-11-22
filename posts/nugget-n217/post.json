@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-12-07T18:00:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "The AI built a cart that remembers items across visits. It works for you. A first-time visitor gets a blank page.\n\nLook at the card. On a first visit there's no 'cart' key, so localStorage.getItem returns null. JSON.parse(null) doesn't throw. It returns null. Then cart.items throws a TypeError, and in React an error during render with no error boundary takes down the whole app.\n\nFix: fall back to an empty cart with ?? when nothing is saved.\n\nYou never see this yourself, because your browser has had a cart since day one. Test in a private window.\n\nSource: MDN, Storage.getItem() and JSON.parse().\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "",
+  "title": "Nugget N217"
+}
