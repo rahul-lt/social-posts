@@ -5,6 +5,7 @@
 cd "$HOME/Documents/GitHub/social-posts" || exit 1
 eval "$(/opt/homebrew/bin/fnm env)"
 git pull -q --rebase --autostash
+scripts/token-check.sh
 
 today=$(date +%Y-%m-%d)
 since=$(date -j -f "%Y-%m-%d %H:%M:%S" "$(date -v-1d +%Y-%m-%d) 00:00:00" +%s)
