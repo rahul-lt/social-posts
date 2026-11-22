@@ -5,3 +5,9 @@ decks/*/out/
 decks/*/sheet.png
 decks/*/deck.html
 nuggets/out/
+
+# Local Netlify folder
+.netlify
+
+# Supabase CLI link state
+scheduler/supabase/.temp/
