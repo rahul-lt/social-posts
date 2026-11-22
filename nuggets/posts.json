@@ -4946,5 +4946,24 @@
     "hookFamily": "the-ai-built",
     "why": "Rule 4 visible CSS bug at 23:30; sticky/stacking family did 10.5k (n160).",
     "planId": "p090"
+  },
+  {
+    "id": "x261122",
+    "day": 0,
+    "slot": "12:00",
+    "style": "ours",
+    "theme": "light",
+    "pillar": "news",
+    "format": "x-news",
+    "card": {
+      "text": "Software engineers are afraid to quit their jobs because they might never get hired again. 10,000+ people agreed yesterday.\n\nIf seniors feel it, a slow job search does not mean you are weak. Build [[proof a recruiter can check in 30 seconds]]."
+    },
+    "caption": "A one-line post about the job market was viewed 1.5 million times yesterday.\n\nWhat happened: On 21 Nov, Rony (@ronyfadel) posted about software engineer friends who are \"afraid to quit their jobs\" because they fear they will never get hired again. More than 10,000 people liked it and 128 replied.\n\nWhy it matters for you: If you are in college or in your first job, this is the market you are walking into. Engineers with years of experience feel it too, so a slow job search does not mean you are weak.\n\nTakeaway: Recruiters skim. Give them something they can check in 30 seconds: a live project link, a merged pull request in a real repo, or a referral from someone who has seen your work. Then be ready to walk an interviewer through it line by line.\n\nWould you quit a job before you had another offer?\n\nSource: https://x.com/ronyfadel/status/2124128955686871506",
+    "publishAt": "2026-11-22T15:32:00+05:30",
+    "source": {
+      "tweet": "https://x.com/ronyfadel/status/2124128955686871506",
+      "primary": "https://x.com/ronyfadel/status/2124128955686871506",
+      "author": "@ronyfadel"
+    }
   }
 ]

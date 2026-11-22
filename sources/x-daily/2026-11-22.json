@@ -1,0 +1,96 @@
+{
+  "date": "2026-11-22",
+  "window": {
+    "since_time": 1795199400,
+    "until_time": 1795285800,
+    "istDay": "2026-11-21"
+  },
+  "picked": {
+    "url": "https://x.com/ronyfadel/status/2124128955686871506",
+    "author": "@ronyfadel",
+    "category": "career",
+    "likes": 10474,
+    "reposts": 357,
+    "replies": 127,
+    "bookmarks": 642,
+    "views": 1547389,
+    "raw": 12980,
+    "R": 1,
+    "S": 1,
+    "score": 12980,
+    "note": "Job market: engineers afraid to quit. Verified on the author's own post (10,499 likes, 1.55M views at check).",
+    "postId": "x261122",
+    "publishAt": "2026-11-22T15:32:00+05:30"
+  },
+  "reserve": [
+    {
+      "url": "https://x.com/fchollet/status/2123898321647571442",
+      "author": "@fchollet",
+      "category": "ai",
+      "likes": 7521,
+      "reposts": 678,
+      "replies": 248,
+      "bookmarks": 1926,
+      "views": 804640,
+      "raw": 13721,
+      "R": 0.6,
+      "S": 1,
+      "score": 8233,
+      "note": "ARC flashback, AI progress since June 2024. Opinion, not news."
+    },
+    {
+      "url": "https://x.com/larsencc/status/2123891636694298977",
+      "author": "@larsencc",
+      "category": "ai",
+      "likes": 2561,
+      "reposts": 178,
+      "replies": 705,
+      "bookmarks": 2087,
+      "views": 223119,
+      "raw": 9911,
+      "R": 0.6,
+      "S": 1,
+      "score": 5947,
+      "note": "Grok bot usage burning too fast, fixes from 572 users."
+    },
+    {
+      "url": "https://x.com/soham_btw/status/2123859636113829890",
+      "author": "@soham_btw",
+      "category": "frontend",
+      "likes": 1620,
+      "reposts": 166,
+      "replies": 72,
+      "bookmarks": 1342,
+      "views": 57005,
+      "raw": 4924,
+      "R": 1,
+      "S": 1,
+      "score": 4924,
+      "note": "Winedroid: Android in Rust compiled to WASM, runs in browser. Top frontend pick."
+    },
+    {
+      "url": "https://x.com/dannypostma/status/2123924805938450940",
+      "author": "@dannypostma",
+      "category": "ai",
+      "likes": 1554,
+      "reposts": 208,
+      "replies": 323,
+      "bookmarks": 1996,
+      "views": 364383,
+      "raw": 7254,
+      "R": 0.6,
+      "S": 1,
+      "score": 4352,
+      "note": "Switching off hosted SaaS, rebuilding only the parts needed."
+    }
+  ],
+  "dropped": [
+    "HowToPrompt__ Colgate LLM purchase-intent paper (rewrite account, old paper, off-audience)",
+    "GTA 6 threads",
+    "OpenAI vibes rumour",
+    "politics/elections",
+    "Riemann hypothesis claims",
+    "Acurast reply farm",
+    "Eric Schmidt/MIT/Spotify rewrites (unverified)"
+  ]
+}
