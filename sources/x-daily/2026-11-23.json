@@ -1,0 +1,59 @@
+{
+  "date": "2026-11-23",
+  "window": {
+    "since_time": 1795285800,
+    "until_time": 1795372200,
+    "istDay": "2026-11-22"
+  },
+  "picked": {
+    "url": "https://x.com/addyosmani/status/2124229492248019362",
+    "author": "@addyosmani",
+    "category": "ai",
+    "likes": 2424,
+    "reposts": 181,
+    "replies": 273,
+    "bookmarks": 1735,
+    "views": 193792,
+    "raw": 7346,
+    "R": 1,
+    "S": 1,
+    "score": 7346,
+    "note": "Claude Code Code Mode: Claude writes JS that makes several tool calls in one step. Verified on code.claude.com/docs/en/code-mode (experimental, off by default). Supporting: @charliermarsh on Code Mode in Codex.",
+    "postId": "x261123",
+    "publishAt": "2026-11-23T12:00:00+05:30"
+  },
+  "reserve": [
+    {
+      "url": "https://x.com/xikhar/status/2124565795003105494",
+      "author": "@xikhar",
+      "category": "frontend",
+      "likes": 1450, "reposts": 122, "replies": 48, "bookmarks": 1177, "views": 44717,
+      "raw": 4240, "R": 1, "S": 1, "score": 4240,
+      "note": "Papercraft scrolling animation in the browser with three.js, built with Gemini 4 Neon; shared as an agent skill. Top frontend item."
+    },
+    {
+      "url": "https://x.com/LH/status/2124247270824812710",
+      "author": "@LH",
+      "category": "ai",
+      "likes": 2322, "reposts": 269, "replies": 134, "bookmarks": 1369, "views": 140214,
+      "raw": 6134, "R": 0.6, "S": 1, "score": 3680,
+      "note": "Claims world's fastest SAT solver built with Gemini Neon after 5 years of earlier work. Unverified claim, needs benchmark source."
+    },
+    {
+      "url": "https://x.com/Docker/status/2124505939281621100",
+      "author": "@Docker",
+      "category": "backend",
+      "likes": 1009, "reposts": 151, "replies": 201, "bookmarks": 142, "views": 60101,
+      "raw": 2399, "R": 1, "S": 1, "score": 2399,
+      "note": "Docker on its rebrand: from containerizing apps to containing agents. Follow-up to the 21 Nov microVM sandboxes story."
+    },
+    {
+      "url": "https://x.com/bilalgursen777/status/2124438320268910938",
+      "author": "@bilalgursen777",
+      "category": "frontend",
+      "likes": 717, "reposts": 39, "replies": 21, "bookmarks": 699, "views": 25364,
+      "raw": 2277, "R": 1, "S": 1, "score": 2277,
+      "note": "Open-source Liquid Glass for React with real refraction, not a blur filter."
+    }
+  ]
+}

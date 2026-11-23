@@ -4965,5 +4965,24 @@
       "primary": "https://x.com/ronyfadel/status/2124128955686871506",
       "author": "@ronyfadel"
     }
+  },
+  {
+    "id": "x261123",
+    "day": 0,
+    "slot": "12:00",
+    "style": "ours",
+    "theme": "light",
+    "pillar": "news",
+    "format": "x-news",
+    "card": {
+      "text": "Claude Code has an experimental Code Mode: instead of calling one tool at a time, Claude writes a small JavaScript script that runs several steps and returns only what it needs.\n\nThe lesson: [[less data in context means faster, cheaper agents]]."
+    },
+    "caption": "Claude Code has an experimental Code Mode, where the AI writes a small script instead of calling tools one by one.\n\nWhat happened: Addy Osmani (@addyosmani) shared Code Mode on 22 Nov. Normally Claude calls one tool (Bash, Read or Edit), waits for the result, then decides the next step. In Code Mode it writes JavaScript that runs several commands in parallel, passes results into the next call and filters the output before Claude reads it. The Claude Code docs say it is experimental and off by default. 2,400+ people liked it.\n\nWhy it matters for you: A model only works with what is in its context window. Less raw output in context means faster, cheaper runs and fewer chances to lose track. It is the same reason you don't console.log a whole API response when you need one field.\n\nTakeaway: The skill that lasts is knowing what data each step actually needs.\n\nHave you noticed your agent slowing down on long tasks?\n\nSource: https://x.com/addyosmani/status/2124229492248019362 and https://code.claude.com/docs/en/code-mode",
+    "publishAt": "2026-11-23T12:00:00+05:30",
+    "source": {
+      "tweet": "https://x.com/addyosmani/status/2124229492248019362",
+      "primary": "https://code.claude.com/docs/en/code-mode",
+      "author": "@addyosmani"
+    }
   }
 ]
