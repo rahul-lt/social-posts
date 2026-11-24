@@ -1,0 +1,88 @@
+{
+  "date": "2026-11-24",
+  "window": {
+    "since_time": 1795372200,
+    "until_time": 1795458600,
+    "istDay": "2026-11-23"
+  },
+  "picked": {
+    "url": "https://x.com/Zai_org/status/2124811995912286352",
+    "author": "@Zai_org",
+    "category": "ai",
+    "likes": 12328,
+    "reposts": 1849,
+    "replies": 564,
+    "bookmarks": 2494,
+    "views": 959759,
+    "raw": 23270,
+    "R": 0.6,
+    "S": 1,
+    "score": 13962,
+    "note": "GLM-5.4: first Z.ai flagship on a Loop Transformer (28 GLM-5 layers looped twice). Verified on docs.z.ai/guides/llm/glm-5.4; Coding Plan now, API after security assessment. Skipped unverified distillation claims (@Da7_Tech).",
+    "postId": "x261124",
+    "publishAt": "2026-11-24T12:00:00+05:30",
+    "primary": "https://docs.z.ai/guides/llm/glm-5.4"
+  },
+  "reserve": [
+    {
+      "url": "https://x.com/mattpocockuk/status/2124797717834543167",
+      "author": "@mattpocockuk",
+      "category": "ai",
+      "likes": 3395,
+      "reposts": 203,
+      "replies": 260,
+      "bookmarks": 5591,
+      "views": 324120,
+      "raw": 16023,
+      "R": 0.6,
+      "S": 1,
+      "score": 9614,
+      "note": "Vercel Board: shared Slack-like workspace for agents and developers; Matt suggests building your own. Needs vercel.com source."
+    },
+    {
+      "url": "https://x.com/suraj_sharma14/status/2124903306065559784",
+      "author": "@suraj_sharma14",
+      "category": "career",
+      "likes": 1727,
+      "reposts": 108,
+      "replies": 33,
+      "bookmarks": 4139,
+      "views": 167892,
+      "raw": 10353,
+      "R": 1,
+      "S": 0.6,
+      "score": 6212,
+      "note": "Anthropic training path for Forward Deployed Engineers (11 courses, ~9.5h). Rewrite; find Anthropic Academy page."
+    },
+    {
+      "url": "https://x.com/Nithin0dha/status/2124814648642093274",
+      "author": "@Nithin0dha",
+      "category": "backend",
+      "likes": 3296,
+      "reposts": 178,
+      "replies": 127,
+      "bookmarks": 798,
+      "views": 150938,
+      "raw": 5756,
+      "R": 1,
+      "S": 1,
+      "score": 5756,
+      "note": "Zerodha open-sourced a distributed blob storage engine for user UI/workspace prefs. Indian, system design angle; verify repo."
+    },
+    {
+      "url": "https://x.com/aridutilh/status/2124583048427798911",
+      "author": "@aridutilh",
+      "category": "frontend",
+      "likes": 1903,
+      "reposts": 212,
+      "replies": 158,
+      "bookmarks": 1144,
+      "views": 125668,
+      "raw": 5247,
+      "R": 1,
+      "S": 1,
+      "score": 5247,
+      "note": "Miniature San Francisco in the browser with real buses, planes, weather (smallsf.com). Top frontend item."
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "publishAt": "2026-11-24T06:30:00.000Z",
+  "platforms": [
+    "linkedin"
+  ],
+  "caption": "Z.ai released GLM-5.4, a coding model that runs some of its layers twice instead of adding new ones.\n\nWhat happened: On 23 Nov, Z.ai (@Zai_org) announced GLM-5.4, its first flagship model built on a Loop Transformer. Its docs say it reuses 28 layers of the GLM-5 base model across two passes, which gives a deeper network without adding parameters. It is live for GLM Coding Plan users now, and the public API comes after a security assessment.\n\nWhy it matters for you: In a normal Transformer each layer runs once. Here the same weights refine their own output a second time. It is the trade you make when you call one function in a loop instead of copy-pasting it: less to store, more compute per run.\n\nTakeaway: Z.ai names the cost too. The model can get caught in overly long \"marathon thinking\" loops. Every design has a price, and naming it is what interviewers listen for.\n\nWould you pick a model that thinks longer but is cheaper to host?\n\nSource: https://x.com/Zai_org/status/2124811995912286352 and https://docs.z.ai/guides/llm/glm-5.4\n\nFor Best Frontend Resources visit https://allahabadi.dev created by Frontend Master\n\n#javascript #frontend #reactjs #nodejs #webdevelopment",
+  "altText": "Z.ai released GLM-5.4, its first flagship model built on a Loop Transformer: it runs 28 of its layers twice instead of adding more.\n\nThe lesson: [[depth can come from reuse, not just size]]. Same idea as calling a function in a loop instead of copy-pasting it.",
+  "title": "Nugget X261124"
+}
