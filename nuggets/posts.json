@@ -5003,5 +5003,24 @@
       "primary": "https://docs.z.ai/guides/llm/glm-5.4",
       "author": "@Zai_org"
     }
+  },
+  {
+    "id": "x261128",
+    "day": 0,
+    "slot": "12:00",
+    "style": "ours",
+    "theme": "light",
+    "pillar": "news",
+    "format": "x-news",
+    "card": {
+      "text": "Google Play will ask every developer to declare if they are a \"trader\" by 1 Feb 2027.\n\nIf your app earns from ads or in-app purchases, you may count as one. On a personal account, your [[phone number and address]] then go public on Google Play.\n\nRead the policy before you publish."
+    },
+    "caption": "Google Play will soon ask every Android developer one question: are you a trader?\n\nWhat happened: International Cyber Digest (@IntCyberDigest) reported that Google Play will show some solo developers' phone numbers and addresses. Google's help page says every account must declare by 1 February 2027 whether it is a \"trader\" under EU and UK law. A trader on a personal account has a phone number and address shown publicly on Google Play. Missing the deadline can block updates or get apps removed. Developers who do not distribute in the EEA or UK can declare as non-traders.\n\nWhy it matters for you: Many students publish their first app from a personal account. Google lists ads and in-app purchases as signs of a profit motive, so a college app with ads may count. If you build from home, that address is your home.\n\nTakeaway: Read a platform's developer policy before you publish, and check what it shows publicly.\n\nWould you put your home address on a public app page?\n\nSource: https://x.com/IntCyberDigest/status/2126079551092748741 and https://support.google.com/googleplay/android-developer/answer/17594752",
+    "publishAt": "2026-11-28T12:00:00+05:30",
+    "source": {
+      "tweet": "https://x.com/IntCyberDigest/status/2126079551092748741",
+      "primary": "https://support.google.com/googleplay/android-developer/answer/17594752",
+      "author": "@IntCyberDigest"
+    }
   }
 ]

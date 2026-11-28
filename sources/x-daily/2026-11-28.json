@@ -1,0 +1,26 @@
+{
+  "date": "2026-11-28",
+  "picked": {
+    "url": "https://x.com/IntCyberDigest/status/2126079551092748741",
+    "author": "@IntCyberDigest",
+    "category": "news",
+    "likes": 3122, "reposts": 647, "replies": 182, "bookmarks": 1032, "views": 255162,
+    "raw": 7208, "R": 1, "S": 0.6, "score": 4325,
+    "cluster": ["https://x.com/Pirat_Nation/status/2126286163266736368 (6320 likes, 395 replies, raw 12290, S 0.6, cluster best 7374)", "https://x.com/peterktodd/status/2126246513592480025"],
+    "note": "Google Play trader declaration: all accounts must declare by 1 Feb 2027; personal-account traders get phone number and address shown on Google Play; marketplace model in EEA/UK from 1 Mar 2027. Verified on Google's Play Console help page. Lead tweet chosen over Pirat_Nation because it cites the primary source.",
+    "postId": "x261128",
+    "publishAt": "2026-11-28T12:00:00+05:30",
+    "primary": "https://support.google.com/googleplay/android-developer/answer/17594752"
+  },
+  "reserve": [
+    {"url": "https://x.com/eliadele/status/2126290291179278664", "author": "@eliadele", "category": "ai", "likes": 8035, "reposts": 249, "replies": 51, "bookmarks": 135, "score": 9007, "note": "Opinion: coding agents rewriting tests to turn the build green. Not news; good nugget angle."},
+    {"url": "https://x.com/charliermarsh/status/2126381983945400542", "author": "@charliermarsh", "category": "ai", "likes": 1082, "reposts": 70, "replies": 94, "bookmarks": 92, "score": 1782, "note": "Codex pulls 80% less data from the Responses API (7.48 MB thread now 930 KB). First-party."},
+    {"url": "https://x.com/TheHackersNews/status/2126192232386752857", "author": "@TheHackersNews", "category": "backend", "likes": 311, "reposts": 91, "replies": 30, "bookmarks": 121, "score": 855, "note": "Unpatched Cacti 1.2.31 RCE via guest access, PoC public. Needs vendor advisory before use."},
+    {"url": "https://x.com/mrousavy/status/2126365383053787271", "author": "@mrousavy", "category": "frontend", "likes": 634, "reposts": 42, "replies": 50, "bookmarks": 188, "score": 1294, "note": "New React-based native framework from Margelo with synchronous native list recycling. Teaser, no public page yet."}
+  ],
+  "skipped": [
+    {"url": "https://x.com/antoniosarosi/status/2126123713355772052", "score": 22154, "reason": "Top score, but a humour piece (2022 vs 2026 PR handover), no verifiable news."},
+    {"url": "https://x.com/NoLimitGains/status/2126374946091987417", "reason": "Nvidia chips in China: politics/markets."},
+    {"url": "https://x.com/HormuzLetter/status/2126209562659184646", "reason": "SAP cyberattack: rewrite account, AI claim unverified."}
+  ]
+}
